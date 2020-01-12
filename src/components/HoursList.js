@@ -47,10 +47,11 @@ export default class HoursList extends React.Component {
                             open: false,
                             timeSlot: undefined
                         }
-                        if (sameDay) {
+                        console.log(this.restaurantData.hours);
+                        if (sameDay && this.restaurantData.hours[weekDay]) {
 
-                            for (let timeIndex in this.restaurantData.hours[weekDay]) {
-                                let times = this.restaurantData.hours[weekDay][timeIndex];
+                            for (let timeIndex in this.restaurantData.hours[weekDay].hours) {
+                                let times = this.restaurantData.hours[weekDay].hours[timeIndex];
                                 let splitStartTime = times.start.split(":").map(x => parseInt(x));
                                 let startTime = new Date(new Date().setHours(splitStartTime[0], splitStartTime[1]));
                                 let splitEndTime = times.end.split(":").map(x => parseInt(x));
@@ -69,10 +70,10 @@ export default class HoursList extends React.Component {
                                 <div className="weekDay">{weekDay}</div>
                                 <div className="openTimeList">
                                     {(() => {
-                                        if (this.restaurantData.hours[weekDay].length === 0)
+                                        if (!this.restaurantData.hours[weekDay])
                                             return <div className="noTime">Closed</div>;
                                         
-                                        return this.restaurantData.hours[weekDay].map((value, index) => <div key={index} className={"openTimeItem" + (index === currentlyOpen.timeSlot ? " isOpen" : "")}>
+                                        return this.restaurantData.hours[weekDay].hours.map((value, index) => <div key={index} className={"openTimeItem" + (index === currentlyOpen.timeSlot ? " isOpen" : "")}>
                                             <div className="openTime">{this.formatTime(value.start)}</div>
                                             <div className="closingTime">{this.formatTime(value.end)}</div>
                                         </div>);

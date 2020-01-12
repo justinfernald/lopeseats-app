@@ -11,7 +11,9 @@ export default class RestaurantDetails extends React.Component {
 
         this.state = {
             selectedItem: null
-        };    
+        };
+
+        this.restaurantData.hours = this.props.restaurantData.hours;
     }
 
     restaurantData = {
