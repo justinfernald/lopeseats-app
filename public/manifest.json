@@ -1,0 +1,20 @@
+{
+  "short_name": "LopesEat",
+  "name": "LopesEat",
+  "icons": [{
+      "src": "/images/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "orientation": "portrait-primary",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#522398",
+  "background_color": "#ffffff"
+}

@@ -1,0 +1,99 @@
+import React from 'react';
+import RegisterStep from './RegisterStep';
+import ImageUploader from './ImageUploader';
+import Input from '../Input';
+import { showErrors } from '../../assets/scripts/Util';
+
+export default class PersonalInformation extends React.Component {
+
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            profileImage: null,
+        };
+        this.firstNameRef = React.createRef();
+        this.lastNameRef = React.createRef();
+        this.emailRef = React.createRef();
+        this.studentNumberRef = React.createRef();
+    }
+
+    componentDidMount() {
+
+    }
+
+    componentWillUnmount() {
+
+    }
+
+    onBackStep = () => {
+        this.props.onBackStep();
+    }
+
+    onNextStep = () => {
+        let errors = [];
+        let profileImage = this.state.profileImage;
+        let firstName = this.firstNameRef.current.value;
+        let lastName = this.lastNameRef.current.value;
+        let email = this.emailRef.current.value;
+        let studentNumber = this.studentNumberRef.current.value;
+        let checkEmail = mail => {
+            // eslint-disable-next-line
+            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+        }
+
+        if (!profileImage) {
+            errors.push("No profile picture added");
+        }
+        if (firstName.length === 0) {
+            errors.push("No first name added");
+        }
+        if (lastName.length === 0) {
+            errors.push("No last name added");
+        }
+        if (!checkEmail(email)) {
+            errors.push("Email invalid");
+        }
+        if (studentNumber.length !== 8) {
+            errors.push("Student number invalid");
+        }
+
+        if (errors.length === 0) {
+            this.props.onNextStep(firstName, lastName, email, studentNumber, profileImage);
+        } else {
+            showErrors(errors);
+        }
+    }
+
+    onUpload = data => {
+        this.setState({profileImage: data});
+    }
+
+    render() {
+        return (
+            <div className="flexDisplay fillHeight">
+                <RegisterStep step={{part: 1, total: 3}} onNextStep={this.onNextStep} onBackStep={this.onBackStep}/>
+                <div className="registerStepBanner">Personal Information</div>
+                <div className="registerFormContainer flex alignCenter">
+                    <div className="flex flexDisplay alignCenter uploaderContainer"><ImageUploader image={this.state.profileImage} onUpload={this.onUpload} /></div>
+                    <div className="labeledInput">
+                        <div className="label">First Name</div>
+                        <Input passedRef={this.firstNameRef} placeholder="Joshua"/>
+                    </div>
+                    <div className="labeledInput">
+                        <div className="label">Last Name</div>
+                        <Input passedRef={this.lastNameRef} placeholder="Thornburg"/>
+                    </div>
+                    <div className="labeledInput">
+                        <div className="label">Email</div>
+                        <Input passedRef={this.emailRef} placeholder="LopesEat@lopeseat.com"/>
+                    </div>
+                    <div className="labeledInput">
+                        <div className="label">Student Number</div>
+                        <Input passedRef={this.studentNumberRef} placeholder="20405673" type="number" passedProps={{maxLength: 8}}/>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}

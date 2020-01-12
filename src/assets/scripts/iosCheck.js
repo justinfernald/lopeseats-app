@@ -1,0 +1,1 @@
+export default !!navigator.userAgent.match(/iPhone|iPod|iPad/);;
