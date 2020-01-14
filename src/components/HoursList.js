@@ -47,7 +47,6 @@ export default class HoursList extends React.Component {
                             open: false,
                             timeSlot: undefined
                         }
-                        console.log(this.restaurantData.hours);
                         if (sameDay && this.restaurantData.hours[weekDay]) {
 
                             for (let timeIndex in this.restaurantData.hours[weekDay].hours) {

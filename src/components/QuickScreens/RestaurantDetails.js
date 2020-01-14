@@ -14,252 +14,10 @@ export default class RestaurantDetails extends React.Component {
         };
 
         this.restaurantData.hours = this.props.restaurantData.hours;
+        this.restaurantData.food = this.props.menuData;
     }
 
-    restaurantData = {
-        hours: {
-            "Sunday": [],
-            "Monday": [
-                {
-                    start: "8:00",
-                    end: "11:00"
-                },
-                {
-                    start: "12:00",
-                    end: "22:00"
-                },
-            ],
-            "Tuesday": [
-                {
-                    start: "8:00",
-                    end: "22:00"
-                },
-            ],
-            "Wednesday": [
-                {
-                    start: "8:00",
-                    end: "22:00"
-                },
-            ],
-            "Thursday": [
-                {
-                    start: "8:00",
-                    end: "22:00"
-                },
-            ],
-            "Friday": [
-                {
-                    start: "8:00",
-                    end: "22:00"
-                },
-            ],
-            "Saturday": [
-                {
-                    start: "12:10",
-                    end: "22:00"
-                },
-            ],
-        },
-        food: [{
-            name: "Big Mac - Entree",
-            relatedName: "Big Mac",
-            featured: true,
-            items: [{
-                name: "Big Mac",
-                tags: ["High Protein"],
-                nutrition: {
-                    calories: 350,
-                    sugar: 30,
-                    fat: 30,
-                },
-                specialInstructions: false,
-                options: [{
-                        name: "Pickles",
-                        default: "regular",
-                        choices: {
-                            "extra": {
-                                altName: "Extra Pickles",
-                                cost: 0
-                            },
-                            "none": {
-                                altName: "No Pickles",
-                                cost: 0
-                            },
-                            "regular": {
-                                altName: "Pickles",
-                                cost: 0
-                            }
-                        }
-                    },
-                    {
-                        name: "Sauce",
-                        default: "regular",
-                        choices: {
-                            "extra": {
-                                altName: "Extra Sauce",
-                                cost: 0
-                            },
-                            "none": {
-                                altName: "No Sauce",
-                                cost: 0
-                            },
-                            "regular": {
-                                altName: "Sauce",
-                                cost: 0
-                            }
-                        }
-                    },
-                    {
-                        name: "Bun",
-                        default: "yes",
-                        choices: {
-                            "yes": {
-                                altName: "Bun",
-                                cost: 0
-                            },
-                            "no": {
-                                altName: "No Bun",
-                                cost: 0
-                            }
-                        }
-                    }
-                ]
-            }],
-            price: 3.5,
-            categories: ["Burgers"]
-        }, {
-            name: "Big Mac - Meal",
-            relatedName: "Big Mac",
-            featured: true,
-            items: [{
-                name: "Big Mac",
-                tags: ["High Protein"],
-                nutrition: {
-                    calories: 350,
-                    sugar: 30,
-                    fat: 30,
-                },
-                specialInstructions: false,
-                options: [{
-                        name: "Pickles",
-                        default: "regular",
-                        choices: {
-                            "extra": {
-                                altName: "Extra Pickles",
-                                cost: 0
-                            },
-                            "none": {
-                                altName: "No Pickles",
-                                cost: 0
-                            },
-                            "regular": {
-                                altName: "Pickles",
-                                cost: 0
-                            }
-                        }
-                    },
-                    {
-                        name: "Sauce",
-                        default: "regular",
-                        choices: {
-                            "extra": {
-                                altName: "Extra Sauce",
-                                cost: 0
-                            },
-                            "none": {
-                                altName: "No Sauce",
-                                cost: 0
-                            },
-                            "regular": {
-                                altName: "Sauce",
-                                cost: 0
-                            }
-                        }
-                    },
-                    {
-                        name: "Bun",
-                        default: "yes",
-                        choices: {
-                            "yes": {
-                                altName: "Bun",
-                                cost: 0
-                            },
-                            "no": {
-                                altName: "No Bun",
-                                cost: 0
-                            }
-                        }
-                    }
-                ]
-            }, {
-                name: "French Fries",
-                tags: [],
-                nutrition: {},
-                specialInstructions: true, // could be like extra crispy or something idk
-                options: [{
-                    name: "Salt",
-                    default: "regular",
-                    choices: {
-                        "extra": {
-                            altName: "Extra Salt",
-                            cost: 0
-                        },
-                        "none": {
-                            altName: "No Salt",
-                            cost: 0
-                        },
-                        "regular": {
-                            altName: "Salt",
-                            cost: 0
-                        }
-                    }
-                }]
-            }, {
-                name: "Beverage",
-                tags: [],
-                nutrition: {},
-                options: [{
-                    name: "Drink Choice",
-                    default: "Water",
-                    choices: {
-                        "Coca-Cola": {
-                            altName: "Coca-Cola",
-                            cost: 0
-                        },
-                        "Water": {
-                            altName: "Water",
-                            cost: 0,
-                        },
-                        "Mtn-Dew": {
-                            altName: "Mountain Dew",
-                            cost: 0
-                        },
-                        "Dr. Pepper": {
-                            altName: "Dr. Pepper",
-                            cost: 0
-                        }
-                    }
-                }, {
-                    name: "Drink Size",
-                    default: "Medium",
-                    choices: {
-                        "Small": {
-                            altName: "Small Drink",
-                            cost: 0
-                        },
-                        "Medium": {
-                            altName: "Medium Drink",
-                            cost: 0
-                        },
-                        "Large": {
-                            altName: "Large Drink",
-                            cost: .50
-                        }
-                    }
-                }]
-            }]
-        }]
-    }
+    restaurantData = {};
 
     componentDidMount() {
 
@@ -292,17 +50,17 @@ export default class RestaurantDetails extends React.Component {
         return new Date(date.toLocaleString("en-US", {timeZone: "America/Phoenix"}));
     }
 
-    openItem(item) {
+    openItem = item => {
         console.log(item);
         this.setState({
             selectedItem: item
         });
     }
 
-    closeItem() {
+    closeItem = () => {
         this.setState({
             selectedItem: null
-        })
+        });
     }
 
     render() {
@@ -315,13 +73,16 @@ export default class RestaurantDetails extends React.Component {
                     }
                 }>
                     <div className="itemContainer">
-                        <div className="closeIcon"><i className="material-icons-round">close</i></div>
+                        <div className="closeIcon" onClick={this.closeItem}><i className="material-icons-round">close</i></div>
                         { this.state.selectedItem && <div className="itemContent">
                             <div className="itemImage img-fill">
                                 <img className="foodImage" alt={"Food"} src={this.state.selectedItem.image}/>
                             </div>
                             <div className="itemName">
                                 {this.state.selectedItem.name}
+                            </div>
+                            <div className="subItems">
+                                {JSON.parse(this.state.selectedItem.items).map(x => <div>{x.name}</div>)}
                             </div>
                         </div>}
                     </div>
