@@ -107,3 +107,11 @@ export const getMenu = async restaurantID => {
     console.error(e);
   }
 }
+
+export const getCart = async () => {
+  try {
+    return await postData("https://lopeseat.com/REST/cartItems.php");
+  } catch (e) {
+    console.error(e);
+  }
+}
