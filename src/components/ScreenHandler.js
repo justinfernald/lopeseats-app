@@ -11,6 +11,7 @@ import ForgotPassword from './ForgotPassword';
 import HomeScreen from './HomeScreen';
 import RestaurantsList from './QuickScreens/RestaurantsList';
 import RestaurantDetails from './QuickScreens/RestaurantDetails';
+import Cart from './Cart';
 
 
 export default class ScreenHandler extends React.Component {
@@ -30,7 +31,7 @@ export default class ScreenHandler extends React.Component {
             },
             currentRestaurant: null,
             currentMenu: null,
-            screen: "Login",
+            screen: "Cart",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -220,6 +221,7 @@ export default class ScreenHandler extends React.Component {
             onBack={()=> {
                 this.backScreen();
             }}/>,
+            Cart: <Cart/>,
         }
         console.log(this.state);
         return (
