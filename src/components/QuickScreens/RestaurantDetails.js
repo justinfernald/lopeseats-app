@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import LopesEatIcon from '../../assets/images/lopeseaticon.png';
-import PandaExpressBanner from '../../assets/images/pandabanner.png';
+// import LopesEatIcon from '../../assets/images/lopeseaticon.png';
+// import PandaExpressBanner from '../../assets/images/pandabanner.png';
 import HoursList from '../HoursList';
 
 export default class RestaurantDetails extends React.Component {
@@ -90,7 +90,16 @@ export default class RestaurantDetails extends React.Component {
                                         </div>
                                         <div className="subItemOptions">
                                             {x.options.map(option => {
-                                                return <div>{JSON.stringify(option)}</div>
+                                                return <div><div>
+                                                    {option.name}
+                                                    <div clasName="selector">
+                                                        <select>
+                                                            {x.options.map((choice, i) => {
+                                                                return <option value={i}></option>
+                                                            })}
+                                                        </select>
+                                                    </div>
+                                                </div><div>{JSON.stringify(option)}</div></div>
                                             })}
                                         </div>
                                         <div className="subItemCost">

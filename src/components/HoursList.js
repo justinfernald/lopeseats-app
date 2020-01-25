@@ -41,6 +41,7 @@ export default class HoursList extends React.Component {
                     //current time in relation to Phoenix time zone
                     let currentTime = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Phoenix"}));
                     let output = [];
+                    let pastDay = order[(currentTime.getDay() + 6) % 7];
                     for (let weekDay of order) {
                         let sameDay = weekDay === order[currentTime.getDay()];
                         let currentlyOpen = {
@@ -62,6 +63,19 @@ export default class HoursList extends React.Component {
                                     }
                                     break;
                                 }
+                            }
+
+                            if (!currentlyOpen.open) {
+                                let pastHours = this.restaurantData.hours[pastDay].hours;
+                                let lastHour = pastHours[pastHours.length - 1];
+                                if (lastHour.end.includes(".")) {
+                                    let splitEndTime = lastHour.end.split(":").map(x => parseInt(x));
+                                    let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
+                                    if (endTime.getTime() >= currentTime.getTime()) {
+                                        
+                                    }
+                                }
+                                console.log(lastHour);
                             }
                         }
                         output.push(
