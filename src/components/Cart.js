@@ -19,7 +19,7 @@ export default class Cart extends React.Component  {
                 </div>
 
                 <div className="cartList">
-                    <div class="cartItem">
+                    <div className="cartItem">
                         <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
                         <div className="cartItemInfo">
                             <div className="cartItemHeader">
@@ -32,7 +32,7 @@ export default class Cart extends React.Component  {
                             </div>
                         </div>
                     </div>
-                    <div class="cartItem">
+                    <div className="cartItem">
                         <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
                         <div className="cartItemInfo">
                             <div className="cartItemHeader">
@@ -45,7 +45,7 @@ export default class Cart extends React.Component  {
                             </div>
                         </div>
                     </div>
-                    <div class="cartItem">
+                    <div className="cartItem">
                         <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
                         <div className="cartItemInfo">
                             <div className="cartItemHeader">
@@ -58,7 +58,7 @@ export default class Cart extends React.Component  {
                             </div>
                         </div>
                     </div>
-                    <div class="cartItem">
+                    <div className="cartItem">
                         <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
                         <div className="cartItemInfo">
                             <div className="cartItemHeader">
@@ -71,7 +71,7 @@ export default class Cart extends React.Component  {
                             </div>
                         </div>
                     </div>
-                    <div class="cartItem">
+                    <div className="cartItem">
                         <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
                         <div className="cartItemInfo">
                             <div className="cartItemHeader">
@@ -91,7 +91,7 @@ export default class Cart extends React.Component  {
                     <div className="subtotal">Tax & fees<span className="price">$2.00</span></div>
                     <div className="subtotal">Delivery Fee<span className="price">Free</span></div>
                     <div className="total">Total<span className="price">$95.40</span></div>
-                    <div className="payButton">Pay Now</div>
+                    <button className="payButton">Pay Now</button>
                 </div>
             </div>
         )

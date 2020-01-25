@@ -31,7 +31,7 @@ export default class ScreenHandler extends React.Component {
             },
             currentRestaurant: null,
             currentMenu: null,
-            screen: "Cart",
+            screen: "Login",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -216,12 +216,13 @@ export default class ScreenHandler extends React.Component {
                     this.setScreen("RestaurantDetails");
                 }
             }
+            onCartClick={()=>{this.setScreen("Cart")}}
             />,
             RestaurantDetails: <RestaurantDetails restaurantData={this.state.currentRestaurant} menuData={this.state.currentMenu}
             onBack={()=> {
                 this.backScreen();
             }}/>,
-            Cart: <Cart/>,
+            Cart: <Cart onBack={this.backScreen}/>,
         }
         console.log(this.state);
         return (
