@@ -115,3 +115,11 @@ export const getCart = async () => {
     console.error(e);
   }
 }
+
+export const storeState = state => {
+  localStorage.setItem("lastAppState", JSON.stringify(state));
+}
+
+export const loadState = () => {
+  return JSON.parse(localStorage.getItem("lastAppState"));
+}

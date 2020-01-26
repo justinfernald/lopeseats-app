@@ -3,6 +3,7 @@ import LopesEatIcon from '../../assets/images/icon-72x72.png';
 import SearchIcon from '../../assets/images/search-grey.svg';
 import { getRestaurants, getMenu } from '../../assets/scripts/Util';
 import FloatingCartButton from '../FloatingCartButton';
+import {isOpen} from '../HoursList';
 
 export default class RestaurantsList extends React.Component {
     sortType = {
@@ -150,8 +151,8 @@ export default class RestaurantsList extends React.Component {
         let containingFilter = output.filter(x => x.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()));
 
         output = [...new Set([...startingFilter, ...containingFilter])];
-        if (this.state.onlyOpen && false) // !change later should remove the false
-            output = output.filter(x => x.open);
+        if (this.state.onlyOpen) // !change later should remove the false
+            output = output.filter(x => isOpen(x));
         
         if (this.state.sortBy === this.sortType.WAITTIME)
             output = output.sort((a,b) => a.wait - b.wait);

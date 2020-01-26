@@ -1,5 +1,46 @@
 import React from 'react';
 
+export const isOpen = (restaurantData) => {
+    let order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    //current time in relation to Phoenix time zone
+    let currentTime = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+    let pastDay = order[(currentTime.getDay() + 6) % 7];
+    let open = false;
+    let weekDay = order[currentTime.getDay()];
+    if (restaurantData.hours[order[currentTime.getDay()]]) {
+
+        for (let timeIndex in restaurantData.hours[weekDay].hours) {
+            let times = restaurantData.hours[weekDay].hours[timeIndex];
+            let splitStartTime = times.start.split(":").map(x => parseInt(x));
+            let startTime = new Date(new Date().setHours(splitStartTime[0], splitStartTime[1]));
+            let endTimeString = times.end;
+            if (endTimeString.includes(".")) 
+                endTimeString = endTimeString.split(".")[1];
+            let splitEndTime = endTimeString.split(":").map(x => parseInt(x));
+            let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
+            if (startTime > endTime) {
+                endTime.setDate(endTime.getDate() + 1);
+            }
+            if (currentTime.getTime() >= startTime.getTime() && currentTime.getTime() <= endTime.getTime()) {
+                return true;
+            }
+        }
+
+        if (!open) {
+            let pastHours = restaurantData.hours[pastDay].hours;
+            let lastHour = pastHours[pastHours.length - 1];
+            if (lastHour.end.includes(".")) {
+                let splitEndTime = lastHour.end.split(":").map(x => parseInt(x));
+                let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
+                if (endTime.getTime() >= currentTime.getTime()) {
+                    return true;
+                }
+            }
+        }   
+    }
+    return false;
+}
+
 export default class HoursList extends React.Component {
     constructor(props) {
         super(props);
@@ -87,7 +128,6 @@ export default class HoursList extends React.Component {
                                         currentlyOpen.open = true;
                                     }
                                 }
-                                console.log(lastHour);
                             }
                         }
                         output.push(
