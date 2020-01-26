@@ -1,11 +1,22 @@
 import React from 'react';
 import '../App.css';
+import { getCart } from '../assets/scripts/Util';
 
 export default class Cart extends React.Component  {
 
-    
+    items = [];
+
     constructor(props) {
         super(props);
+
+        this.fetchData();
+    }
+
+    async fetchData() {
+        this.items = await getCart();
+        console.log(this.items);
+
+        this.forceUpdate();
     }
 
     render () {
@@ -19,19 +30,25 @@ export default class Cart extends React.Component  {
                 </div>
 
                 <div className="cartList">
-                    <div className="cartItem">
-                        <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
-                        <div className="cartItemInfo">
-                            <div className="cartItemHeader">
-                                <span className="cartItemName">Burger</span>
-                                <span className="cartItemPrice">$4.99</span>
-                            </div>
-                            <div className="cartItemDescription">
-                                With cheese sauce<br/>
-                                x10
-                            </div>
-                        </div>
-                    </div>
+                    {
+                        this.items.map((value, index) => {
+                            return (
+                                <div className="cartItem">
+                                    <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
+                                    <div className="cartItemInfo">
+                                        <div className="cartItemHeader">
+                                        <span className="cartItemName">{value.name}</span>
+                                            <span className="cartItemPrice">$4.99</span>
+                                        </div>
+                                        <div className="cartItemDescription">
+                                            With cheese sauce<br/>
+                                            x10
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
                     <div className="cartItem">
                         <div className="imageHolder img-fill"><img alt="test" src={require("../assets/images/burger.png")}/></div>
                         <div className="cartItemInfo">
