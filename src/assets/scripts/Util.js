@@ -108,9 +108,11 @@ export const getMenu = async restaurantID => {
   }
 }
 
-export const getCart = async () => {
+export const getCart = async apiToken => {
   try {
-    return await postData("https://lopeseat.com/REST/cartItems.php");
+    return await postData("https://lopeseat.com/REST/cartItems.php", {
+      apiToken: apiToken
+    });
   } catch (e) {
     console.error(e);
   }
@@ -122,4 +124,11 @@ export const storeState = state => {
 
 export const loadState = () => {
   return JSON.parse(localStorage.getItem("lastAppState"));
+}
+
+export const updateFBToken = async (token, apiToken) => {
+  postData("https://lopeseat.com/REST/setFBToken.php", {
+    token: token,
+    apiToken: apiToken
+  });
 }

@@ -97,10 +97,13 @@ export default class ScreenHandler extends React.Component {
 
     render() {
         const Screens = {
-            Login: <LoginScreen formSwitch={() => this.setState({screen: "Register"})}
+            Login: <LoginScreen fbToken={this.props.fbToken} formSwitch={() => this.setState({screen: "Register"})}
             onLogin={
-                () => {
+                apiToken => {
                     this.newHistory("HomeScreen");
+                    this.setState({
+                        apiToken: apiToken
+                    });
                     // this.setState({
                     //     screen: "HomeScreen"
                     // })
@@ -222,7 +225,7 @@ export default class ScreenHandler extends React.Component {
             onBack={()=> {
                 this.backScreen();
             }}/>,
-            Cart: <Cart onBack={this.backScreen}/>,
+            Cart: <Cart onBack={this.backScreen} apiToken={this.state.apiToken}/>,
         }
         console.log(this.state);
         return (

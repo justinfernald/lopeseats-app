@@ -2,7 +2,7 @@ import React from 'react';
 import Input from './Input';
 import Phone from '../assets/images/phone-icon.png';
 import Lock from '../assets/images/lock.svg';
-import {loginAccount, showErrors, resendCode} from '../assets/scripts/Util'
+import {loginAccount, showErrors, resendCode, updateFBToken} from '../assets/scripts/Util'
 
 export default class LoginScreen extends React.Component {
 
@@ -74,7 +74,8 @@ export default class LoginScreen extends React.Component {
         console.log(errors);
 
         if (errors.length === 0) {
-            this.props.onLogin();
+            updateFBToken(this.props.fbToken, loginData.msg);
+            this.props.onLogin(loginData.msg);
         } else {
             showErrors(["Invalid login"]);
         }
