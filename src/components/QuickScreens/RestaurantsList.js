@@ -151,7 +151,7 @@ export default class RestaurantsList extends React.Component {
         let containingFilter = output.filter(x => x.name.toLowerCase().includes(this.state.searchFilter.toLowerCase()));
 
         output = [...new Set([...startingFilter, ...containingFilter])];
-        if (this.state.onlyOpen) // !change later should remove the false
+        if (this.state.onlyOpen)
             output = output.filter(x => isOpen(x));
         
         if (this.state.sortBy === this.sortType.WAITTIME)

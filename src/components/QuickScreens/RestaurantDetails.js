@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 // import LopesEatIcon from '../../assets/images/lopeseaticon.png';
 // import PandaExpressBanner from '../../assets/images/pandabanner.png';
 import HoursList from '../HoursList';
+import Selector from '../Selector';
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -83,24 +84,13 @@ export default class RestaurantDetails extends React.Component {
                             </div>
                             <div className="subItems">
                                 {
-                                    JSON.parse(this.state.selectedItem.items).map(x => <div>
+                                    JSON.parse(this.state.selectedItem.items).map((x, i) => <div key={i}>
                                         <div className="subItemName">{x.name}</div>
                                         <div className="subItemInfo">
                                             {JSON.stringify(x.tags.map(y => y))}
                                         </div>
                                         <div className="subItemOptions">
-                                            {x.options.map(option => {
-                                                return <div><div>
-                                                    {option.name}
-                                                    <div clasName="selector">
-                                                        <select>
-                                                            {x.options.map((choice, i) => {
-                                                                return <option value={i}></option>
-                                                            })}
-                                                        </select>
-                                                    </div>
-                                                </div><div>{JSON.stringify(option)}</div></div>
-                                            })}
+                                            <Selector options={x.options} />
                                         </div>
                                         <div className="subItemCost">
                                         </div>
