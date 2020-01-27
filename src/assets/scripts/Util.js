@@ -136,6 +136,7 @@ export const formatPrice = price => {
     if (priceS.length - priceS.indexOf(".") > 1) {
         return priceS + ("0").repeat(priceS.length - priceS.indexOf(".") - 1);
     }
+    return priceS;
 }
 
 export const storeState = state => {
