@@ -24,8 +24,11 @@ export default class CheckoutScreen extends React.Component {
     }
 
     async pay() {
-        const {nonce} = await this.instance.requestPaymentMethod();
-        await sendPayment(nonce, "testAddress", this.props.apiToken);
+        if (this.instance.isPaymentMethodRequestable()) {
+            const {nonce} = await this.instance.requestPaymentMethod();
+            await sendPayment(nonce, "testAddress", this.props.apiToken);
+            this.props.paymentComplete();
+        }
     }
 
     render() {
@@ -45,11 +48,12 @@ export default class CheckoutScreen extends React.Component {
                         </div>
                     </div>
                     <DropIn
-                        options = {{authorization: this.state.clientToken}}
+                        options = {{
+                            authorization: this.state.clientToken,
+                            paypal: true,
+                            venmo: true
+                        }}
                         onInstance={instance => (this.instance = instance)}
-                        card
-                        paypal
-                        venmo
                     />
                     <button className="payButton" onClick={this.pay.bind(this)}>Pay Now</button>
                 </div>

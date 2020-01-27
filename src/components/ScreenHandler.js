@@ -32,7 +32,7 @@ export default class ScreenHandler extends React.Component {
             },
             currentRestaurant: null,
             currentMenu: null,
-            screen: "HomeScreen",
+            screen: "Login",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -231,7 +231,11 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("CheckoutScreen");
             }}
             />,
-            CheckoutScreen: <CheckoutScreen apiToken={this.state.apiToken}></CheckoutScreen>
+            CheckoutScreen: <CheckoutScreen onBack={this.backScreen} apiToken={this.state.apiToken}
+            paymentComplete={() => {
+                this.setScreen("HomeScreen");
+            }}
+            />
         }
         console.log(this.state);
         return (
