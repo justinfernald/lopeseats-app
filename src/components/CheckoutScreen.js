@@ -44,7 +44,7 @@ export default class CheckoutScreen extends React.Component {
                     <div className="restaurantTop">
                         <div className="header">
                             <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
-                            <span className="screenTitle">Cart</span>
+                            <span className="screenTitle">Checkout</span>
                         </div>
                     </div>
                     <DropIn
@@ -55,7 +55,13 @@ export default class CheckoutScreen extends React.Component {
                         }}
                         onInstance={instance => (this.instance = instance)}
                     />
-                    <button className="payButton" onClick={this.pay.bind(this)}>Pay Now</button>
+                    <div className="cartFooter" style={{
+                        position: "fixed",
+                        bottom: 0
+                    }}>
+                        <div className="total">Delivery Fee<span className="price">$3.99</span></div>
+                        <button className="checkoutButton" onClick={this.pay.bind(this)}>Pay Now</button>
+                    </div>
                 </div>
             );
         }
