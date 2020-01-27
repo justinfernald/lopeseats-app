@@ -6,6 +6,9 @@ export default class Cart extends React.Component  {
 
     items = [];
     subtotal = 0;
+    tax = 0;
+    total = 0;
+    fee = 0;
 
     constructor(props) {
         super(props);
@@ -70,7 +73,7 @@ export default class Cart extends React.Component  {
                     <div className="subtotal">Subtotal<span className="price">${this.formatPrice(this.subtotal)}</span></div>
                     {/* Tax: 8.6% */}
                     <div className="subtotal">Tax & fees<span className="price">$2.00</span></div>
-                    <div className="subtotal">Delivery Fee<span className="price">Free</span></div>
+                    <div className="subtotal">Delivery Fee<span className="price">$4.00</span></div>
                     <div className="total">Total<span className="price">${this.formatPrice(this.subtotal + 2)}</span></div>
                     <button className="payButton">Pay Now</button>
                 </div>

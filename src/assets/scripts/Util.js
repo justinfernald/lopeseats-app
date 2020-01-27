@@ -118,6 +118,26 @@ export const getCart = async apiToken => {
   }
 }
 
+export const getCartPrices = async apiToken => {
+  try {
+    return await postData("https://lopeseat.com/REST/cartPrice.php", {
+      apiToken: apiToken
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const formatPrice = price => {
+    var priceS = price.toString();
+    if (!priceS.includes(".")) {
+        return priceS + ".00";
+    }
+    if (priceS.length - priceS.indexOf(".") > 1) {
+        return priceS + ("0").repeat(priceS.length - priceS.indexOf(".") - 1);
+    }
+}
+
 export const storeState = state => {
   localStorage.setItem("lastAppState", JSON.stringify(state));
 }
