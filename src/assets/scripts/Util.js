@@ -133,10 +133,10 @@ export const formatPrice = price => {
     if (!priceS.includes(".")) {
         return priceS + ".00";
     }
-    if (priceS.length - priceS.indexOf(".") > 1) {
+    if (priceS.length - priceS.indexOf(".") <= 2) {
         return priceS + ("0").repeat(priceS.length - priceS.indexOf(".") - 1);
     }
-    return priceS;
+    return priceS.substring(0,priceS.indexOf(".") + 3);
 }
 
 export const storeState = state => {
