@@ -114,7 +114,7 @@ export default class HoursList extends React.Component {
                                 }
                             }
 
-                            if (!currentlyOpen.open) {
+                            if (!currentlyOpen.open && this.restaurantData.hours[pastDay]) {
                                 let pastHours = this.restaurantData.hours[pastDay].hours;
                                 let lastHour = pastHours[pastHours.length - 1];
                                 if (lastHour.end.includes(".")) {
