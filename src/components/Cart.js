@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import { getCart } from '../assets/scripts/Util';
+import { getCart, getCartPrices, formatPrice } from '../assets/scripts/Util';
 
 export default class Cart extends React.Component  {
 
@@ -20,21 +20,13 @@ export default class Cart extends React.Component  {
         this.items = await getCart(this.props.apiToken);
         console.log(this.items);
 
-        for (var i = 0; i < this.items.length; i++) {
-            this.subtotal += this.items[i].price * this.items[i].amount;
-        }
+        var prices = await getCartPrices(this.props.apiToken);
+        this.subtotal = prices.subtotal;
+        this.total = prices.total;
+        this.tax = prices.tax;
+        this.fee = prices.delivery_fee;
 
         this.forceUpdate();
-    }
-
-    formatPrice(price) {
-        var priceS = price.toString();
-        if (!priceS.includes(".")) {
-            return priceS + ".00";
-        }
-        if (priceS.length - priceS.indexOf(".") > 1) {
-            return priceS + ("0").repeat(priceS.length - priceS.indexOf(".") - 1);
-        }
     }
 
     render () {
@@ -56,7 +48,7 @@ export default class Cart extends React.Component  {
                                     <div className="cartItemInfo">
                                         <div className="cartItemHeader">
                                         <span className="cartItemName">{value.name}</span>
-                                            <span className="cartItemPrice">${this.formatPrice(value.price * value.amount)}</span>
+                                            <span className="cartItemPrice">${formatPrice(value.price * value.amount)}</span>
                                         </div>
                                         <div className="cartItemDescription">
                                             {value.comment}<br/>
@@ -70,12 +62,13 @@ export default class Cart extends React.Component  {
                 </div>
 
                 <div className="cartFooter">
-                    <div className="subtotal">Subtotal<span className="price">${this.formatPrice(this.subtotal)}</span></div>
+                    
+                    <div className="subtotal">Subtotal<span className="price">${formatPrice(this.subtotal)}</span></div>
                     {/* Tax: 8.6% */}
-                    <div className="subtotal">Tax & fees<span className="price">$2.00</span></div>
-                    <div className="subtotal">Delivery Fee<span className="price">$4.00</span></div>
-                    <div className="total">Total<span className="price">${this.formatPrice(this.subtotal + 2)}</span></div>
-                    <button className="payButton">Pay Now</button>
+                    <div className="subtotal">Tax & fees<span className="price">${formatPrice(this.tax)}</span></div>
+                    <div className="total">Total (Dining Dollars)<span className="price">${formatPrice(this.total)}</span></div>
+                    <div className="total">Delivery Fee<span className="price">${formatPrice(this.fee)}</span></div>
+                    <button className="payButton" onClick={()=>this.props.openPayment()}>Pay Now</button>
                 </div>
             </div>
         )

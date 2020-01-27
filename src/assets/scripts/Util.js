@@ -153,3 +153,15 @@ export const updateFBToken = async (token, apiToken) => {
     apiToken: apiToken
   });
 }
+
+export const sendPayment = async (nonce, address, apiToken) => {
+  //try {
+    return await postData("https://lopeseat.com/REST/sendOrder.php", {
+      nonce: nonce,
+      address: address,
+      apiToken: apiToken
+    });
+  // } catch (e) {
+  //   console.error(e);
+  // }
+}
