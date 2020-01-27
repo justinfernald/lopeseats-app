@@ -26,7 +26,7 @@ export const isOpen = (restaurantData) => {
             }
         }
 
-        if (!open) {
+        if (!open && restaurantData.hours[pastDay]) {
             let pastHours = restaurantData.hours[pastDay].hours;
             let lastHour = pastHours[pastHours.length - 1];
             if (lastHour.end.includes(".")) {
@@ -101,14 +101,10 @@ export default class HoursList extends React.Component {
                                 let splitEndTime = endTimeString.split(":").map(x => parseInt(x));
                                 
                                 let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
-                                console.log(splitEndTime);
-                                console.log(endTime);
+
                                 if (startTime > endTime) {
                                     endTime.setDate(endTime.getDate() + 1);
                                 }
-                                console.log("start time: " + startTime);
-                                console.log("end time: " + endTime);
-                                console.log("end string: " + endTimeString);
                                 if (currentTime.getTime() >= startTime.getTime() && currentTime.getTime() <= endTime.getTime()) {
                                     currentlyOpen = {
                                         open: true,

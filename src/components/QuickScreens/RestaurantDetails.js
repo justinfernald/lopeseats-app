@@ -90,7 +90,7 @@ export default class RestaurantDetails extends React.Component {
                                             {JSON.stringify(x.tags.map(y => y))}
                                         </div>
                                         <div className="subItemOptions">
-                                            <Selector options={x.options} />
+                                            {x.options.map(option => <Selector option={option} />)}
                                         </div>
                                         <div className="subItemCost">
                                         </div>
