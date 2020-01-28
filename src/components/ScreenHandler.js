@@ -11,7 +11,8 @@ import ForgotPassword from './ForgotPassword';
 import HomeScreen from './HomeScreen';
 import RestaurantsList from './QuickScreens/RestaurantsList';
 import RestaurantDetails from './QuickScreens/RestaurantDetails';
-import CheckoutScreen from './CheckoutScreen';
+import CheckoutScreen from './OrderProcess/CheckoutScreen';
+import DeliveryDetails from './OrderProcess/DeliveryDetails';
 import Cart from './Cart';
 
 
@@ -30,6 +31,7 @@ export default class ScreenHandler extends React.Component {
                 studentNumber: "",
                 profileImage: "",
             },
+            address: "",
             currentRestaurant: null,
             currentMenu: null,
             screen: "Login",
@@ -227,15 +229,21 @@ export default class ScreenHandler extends React.Component {
                 this.backScreen();
             }}/>,
             Cart: <Cart onBack={this.backScreen} apiToken={this.state.apiToken}
-            openPayment={() => {
+            onNextStep={() => {
+                this.setScreen("DeliveryDetails");
+            }}
+            />,
+            DeliveryDetails: <DeliveryDetails address={this.state.address} onBack={this.backScreen}
+            onNextStep={(address) => {
+                this.setState({address});
                 this.setScreen("CheckoutScreen");
             }}
             />,
-            CheckoutScreen: <CheckoutScreen onBack={this.backScreen} apiToken={this.state.apiToken}
+            CheckoutScreen: <CheckoutScreen address={this.props.address} onBack={this.backScreen} apiToken={this.state.apiToken}
             paymentComplete={() => {
                 this.setScreen("HomeScreen");
             }}
-            />
+            />,
         }
         console.log(this.state);
         return (

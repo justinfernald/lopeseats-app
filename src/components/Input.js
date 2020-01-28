@@ -49,7 +49,7 @@ export default class LoginScreen extends React.Component {
                 }
 
                  />:
-                <input {...this.props.passedProps} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder}/>}
+                <input {...this.props.passedProps} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder} defaultValue={this.props.defaultValue}/>}
                 {this.props.showHidden &&
                 <div className="iconHolder password" onClick={this.props.onShow}><img alt="Show Password" src={this.props.showHidden === "off" ? GreyEye : PurpleEye}></img></div>
                 }

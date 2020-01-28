@@ -68,7 +68,7 @@ export default class Cart extends React.Component  {
                     <div className="subtotal">Tax & fees<span className="price">${formatPrice(this.tax)}</span></div>
                     <div className="total">Total (Dining Dollars)<span className="price">${formatPrice(this.total)}</span></div>
                     <div className="total">Delivery Fee<span className="price">${formatPrice(this.fee)}</span></div>
-                    <button className="checkoutButton" onClick={()=>this.props.openPayment()}>Checkout</button>
+                    <button className="checkoutButton" onClick={()=>this.props.onNextStep()}>Checkout</button>
                 </div>
             </div>
         )

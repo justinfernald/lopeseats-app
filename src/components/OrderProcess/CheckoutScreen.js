@@ -1,11 +1,12 @@
 import React from 'react';
-import '../App.css';
+import '../../App.css';
 import DropIn from "braintree-web-drop-in-react";
-import {sendPayment} from "../assets/scripts/Util";
+import {sendPayment, getCartPrices, formatPrice} from "../../assets/scripts/Util";
 
 export default class CheckoutScreen extends React.Component {
 
     instance;
+    fee = 0;
 
     state = {
         clientToken: null
@@ -17,6 +18,9 @@ export default class CheckoutScreen extends React.Component {
 
         console.log(clientToken);
 
+        var prices = await getCartPrices(this.props.apiToken);
+        this.fee = prices.delivery_fee;
+
         this.setState({
             clientToken
         });
@@ -26,7 +30,7 @@ export default class CheckoutScreen extends React.Component {
     async pay() {
         if (this.instance.isPaymentMethodRequestable()) {
             const {nonce} = await this.instance.requestPaymentMethod();
-            await sendPayment(nonce, "testAddress", this.props.apiToken);
+            await sendPayment(nonce, this.props.address, this.props.apiToken);
             this.props.paymentComplete();
         }
     }
@@ -59,7 +63,7 @@ export default class CheckoutScreen extends React.Component {
                         position: "fixed",
                         bottom: 0
                     }}>
-                        <div className="total">Delivery Fee<span className="price">$3.99</span></div>
+                        <div className="total">Delivery Fee<span className="price">${formatPrice(this.fee)}</span></div>
                         <button className="checkoutButton" onClick={this.pay.bind(this)}>Pay Now</button>
                     </div>
                 </div>
