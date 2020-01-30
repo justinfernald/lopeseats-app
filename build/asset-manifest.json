@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.69779bd2.chunk.css",
+    "main.js": "/static/js/main.42c2b5dd.chunk.js",
+    "main.js.map": "/static/js/main.42c2b5dd.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c4a6bc74.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c4a6bc74.js.map",
+    "static/js/2.d20814ae.chunk.js": "/static/js/2.d20814ae.chunk.js",
+    "static/js/2.d20814ae.chunk.js.map": "/static/js/2.d20814ae.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.7bd188fbe24c89fcf322c45d737c7d45.js": "/precache-manifest.7bd188fbe24c89fcf322c45d737c7d45.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.69779bd2.chunk.css.map": "/static/css/main.69779bd2.chunk.css.map",
+    "static/js/2.d20814ae.chunk.js.LICENSE": "/static/js/2.d20814ae.chunk.js.LICENSE",
+    "static/media/eye-grey.svg": "/static/media/eye-grey.64a6476e.svg",
+    "static/media/eye-purple.svg": "/static/media/eye-purple.b805f336.svg",
+    "static/media/gcu-lopesway.jpg": "/static/media/gcu-lopesway.d0f43698.jpg",
+    "static/media/lock.svg": "/static/media/lock.c106760d.svg",
+    "static/media/lopeseaticon.png": "/static/media/lopeseaticon.ef6f290e.png",
+    "static/media/search-grey.svg": "/static/media/search-grey.f0b37b8a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c4a6bc74.js",
+    "static/js/2.d20814ae.chunk.js",
+    "static/css/main.69779bd2.chunk.css",
+    "static/js/main.42c2b5dd.chunk.js"
+  ]
+}
