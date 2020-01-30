@@ -1,0 +1,37 @@
+.selector {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.selector .selectorChoice {
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid var(--primary);
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.selector .selectorChoice .information {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.selector .selectorOptions {
+    padding: 5px;
+    display: none;
+}
+
+.selector .selectorOptions .selectorOption {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selector .selectorOptions .selectorOption .name {
+    
+}
+
+.selector .selectorOptions .selectorOption .cost {
+    
+}

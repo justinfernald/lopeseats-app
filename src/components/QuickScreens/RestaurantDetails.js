@@ -87,7 +87,8 @@ export default class RestaurantDetails extends React.Component {
                                     JSON.parse(this.state.selectedItem.items).map((x, i) => <div key={i}>
                                         <div className="subItemName">{x.name}</div>
                                         <div className="subItemInfo">
-                                            {JSON.stringify(x.tags.map(y => y))}
+                                            Item Sub Info Here
+                                            {/*JSON.stringify(x.tags.map(y => y))*/}
                                         </div>
                                         <div className="subItemOptions">
                                             {x.options.map(option => <Selector option={option} />)}
