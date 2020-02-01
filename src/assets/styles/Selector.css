@@ -14,18 +14,39 @@
 
 .selector .selectorChoice .information {
     flex: 1;
+    padding-top: 2px;
     display: flex;
     justify-content: space-between;
 }
 
 .selector .selectorOptions {
+    margin-top: 3px;
     padding: 5px;
     display: none;
+    overflow: hidden;
+    height: 0;
+    border: 1px solid var(--secondary);
+    border-radius: 5px;
+
+}
+
+.selector.show .selectorOptions {
+    padding: 5px;
+    display: block;
+    height: auto;
 }
 
 .selector .selectorOptions .selectorOption {
     display: flex;
     justify-content: space-between;
+    padding: 7px;
+    background-color: transparent;
+    transition: ease-in-out .4s;
+    border-radius: 5px;
+}
+
+.selector .selectorOptions .selectorOption:hover {
+    background-color: white;;
 }
 
 .selector .selectorOptions .selectorOption .name {

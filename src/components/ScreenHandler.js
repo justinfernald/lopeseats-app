@@ -34,7 +34,7 @@ export default class ScreenHandler extends React.Component {
             address: "",
             currentRestaurant: null,
             currentMenu: null,
-            screen: "Login",
+            screen: "RestaurantsList",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
