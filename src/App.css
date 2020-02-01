@@ -270,6 +270,12 @@ input:-webkit-autofill:active {
   flex-direction: column;
 }
 
+.flexDisplayRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .fillHeight {
   height: 100%;
 }
@@ -1100,4 +1106,91 @@ input:-webkit-autofill:active {
   border-radius: 25px;
   background-color: #f66;
   color: white;
+}
+
+.trackerBarVert {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 1.5em;
+}
+
+.progressDot {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 1em;
+  background-color: #cdcdd7;
+}
+
+.progressLine {
+  background-color: #cdcdd7;
+  height: 21%;
+  width: 0.15em;
+  margin: 0 0.35em;
+}
+
+.progressDot.trackerActive {
+  background-color: #3B55F3;
+}
+
+.progressLine.trackerActive {
+  background-color: #3B55F3;
+}
+
+.trackerImage {
+  width: 5em;
+  height: 4em;
+  margin: 0.5em 0;
+}
+
+.trackerItems {
+  width: 5em;
+  justify-content: space-evenly;
+}
+
+.trackerText {
+  text-align: center;
+  font-weight: 500;
+  width: 5em;
+  height: 5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trackerSubText {
+  font-weight: 400;
+}
+
+.trackerConfirmed.trackerActive {
+  content: url(assets/images/confirmed-icon.svg);
+}
+
+.trackerConfirmed {
+  content: url(assets/images/confirmed-icon-gray.svg);
+}
+
+.trackerSentRequest.trackerActive {
+  content: url(assets/images/sent-request-icon.svg);
+}
+
+.trackerSentRequest {
+  content: url(assets/images/sent-request-icon-gray.svg);
+}
+
+.trackerEnroute.trackerActive {
+  content: url(assets/images/enroute-icon.svg);
+}
+
+.trackerEnroute {
+  content: url(assets/images/enroute-icon-gray.svg);
+}
+
+.trackerArrived.trackerActive {
+  content: url(assets/images/arrived-icon.svg);
+}
+
+.trackerArrived {
+  content: url(assets/images/arrived-icon-gray.svg);
 }
