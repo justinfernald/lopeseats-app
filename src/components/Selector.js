@@ -11,6 +11,8 @@ export default class Selector extends React.Component {
             choice: this.props.option.default,
             choices: this.props.option.choices
         };
+
+        this.optionsRef = React.createRef();
     }
 
     componentDidMount() {
@@ -21,14 +23,22 @@ export default class Selector extends React.Component {
 
     }
 
-    onSelection() {
+    onSelection = i => {
+        this.setState({
+            choice: i
+        })
+        this.toggleDropdown();
+        this.props.onSelection(i);
+    }
 
+    toggleDropdown = () => {
+        console.log(this.optionsRef.current.classList.toggle("show"));
     }
 
     render() {
         // console.log(this.state.choices)
-        return <div className="selector">
-            <div className="selectorChoice">
+        return <div className="selector" ref={this.optionsRef}>
+            <div className="selectorChoice" onClick={this.toggleDropdown}>
                 <div className="information">
                     <div className="name">{this.state.choice}</div>
                     <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>
@@ -40,7 +50,7 @@ export default class Selector extends React.Component {
             <div className="selectorOptions">
                 {makeMap(this.state.choices).filter((_x, i) => i !== this.state.choice).map((x, i) => {
                     console.log(x);
-                    return <div key={i} className="selectorOption">
+                    return <div key={i} className="selectorOption" onClick={() => this.onSelection(i)}>
                         <div className="name">{i}</div>
                         <div className="cost">${formatPrice(x.cost)}</div>
                     </div>
