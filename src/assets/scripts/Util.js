@@ -165,3 +165,9 @@ export const sendPayment = async (nonce, address, apiToken) => {
   //   console.error(e);
   // }
 }
+
+export const getOrder = async (apiToken) => {
+  return await postData("https://lopeseat.com/REST/getOrder.php", {
+    apiToken: apiToken
+  });
+}

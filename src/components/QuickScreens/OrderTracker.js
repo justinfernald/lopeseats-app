@@ -1,9 +1,65 @@
 import React from 'react';
 import '../../App.css';
+import { getOrder } from '../../assets/scripts/Util';
 
 export default class OrderTracker extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.orderStates = ["unclaimed", "claimed", "en route", "arrived", "completed"];
+
+        this.state = {
+            orderState: "claimed",
+            placed: null,
+            claimed: null,
+            enroute: null,
+            arrived: null
+        };
+
+        this.fetchData();
+    }
+
+    makePHXTime(date) {
+        return new Date(date.toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+    }
+
+    parseDate(dateString) {
+        var t = dateString.split(/[- :]/);
+        var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+        return this.formatTime(this.makePHXTime(d));
+    }
+
+    formatTime(date) {
+        var hours = date.getHours();
+        var suffix = hours > 12 ? "PM" : "AM";
+        hours = hours > 12 ? hours - 12 : hours;
+        return hours + ":" + date.getMinutes() + " " + suffix;
+    }
+
+    async fetchData() {
+        this.order = await getOrder(this.props.apiToken);
+        console.log(this.order);
+        
+        var orderState = this.order.state;
+        var placed = this.parseDate(this.order.placed);
+        var claimed = this.parseDate(this.order.claimed);
+        var enroute = this.parseDate(this.order.en_route);
+        var arrived = this.parseDate(this.order.arrived);
+
+        this.setState({
+            orderState,
+            placed,
+            claimed,
+            enroute,
+            arrived,
+        })
+
+        this.forceUpdate();
+    }
+
     render() {
+        var index = this.orderStates.indexOf(this.state.orderState);
         return (
             <div className="flexDisplay fillHeight">             
                 <div className="restaurantTop">
@@ -13,27 +69,40 @@ export default class OrderTracker extends React.Component {
                     </div>
                 </div>
 
-                <div className="flexDisplayRow">
+                <div className="flexDisplayRow" style={{height: "90%"}}>
                     <div className="flexDisplay trackerItems">
-                        <div className="trackerText">Sent Request<div className="trackerSubText">8:24 am</div></div>
-                        <div className="trackerImage trackerConfirmed"></div>
-                        <div className="trackerText">En Route<div className="trackerSubText">8:30 am</div></div>
-                        <div className="trackerImage trackerArrived"></div>
+                        <div className="trackerText">
+                            Sent Request
+                            <div className="trackerSubText">{this.state.placed}</div>
+                        </div>
+                        
+                        <div className={"trackerImage trackerConfirmed" + (index >= 1 ? " trackerActive" : "")}></div>
+                        <div className="trackerText">
+                            En Route
+                            <div className="trackerSubText" style={ index >= 2 ? {} : {display: "none"}}>{this.state.enroute}</div>
+                        </div>
+                        <div className={"trackerImage trackerArrived" + (index >= 3 ? " trackerActive" : "")}></div>
                     </div>
                     <div className="trackerBarVert">
-                        <div class="progressDot"></div> {/* Sent request */}
-                        <div class="progressLine"></div> {/* Claimed */}
-                        <div class="progressDot"></div>
-                        <div class="progressLine"></div> {/* En Route */}
-                        <div class="progressDot"></div>
-                        <div class="progressLine"></div> {/* Arrived */}
-                        <div class="progressDot"></div>
+                        <div className="progressDot trackerActive"></div> {/* Sent request */}
+                        <div className={"progressLine" + (index >= 1 ? " trackerActive" : "")}></div> {/* Claimed */}
+                        <div className={"progressDot" + (index >= 1 ? " trackerActive" : "")}></div>
+                        <div className={"progressLine" + (index >= 2 ? " trackerActive" : "")}></div> {/* En Route */}
+                        <div className={"progressDot" + (index >= 2 ? " trackerActive" : "")}></div>
+                        <div className={"progressLine" + (index >= 3 ? " trackerActive" : "")}></div> {/* Arrived */}
+                        <div className={"progressDot" + (index >= 3 ? " trackerActive" : "")}></div>
                     </div>
                     <div className="flexDisplay trackerItems">
-                        <div className="trackerImage trackerSentRequest"></div>
-                        <div className="trackerText">Order Claimed<div className="trackerSubText">8:26 am</div></div>
-                        <div className="trackerImage trackerEnroute"></div>
-                        <div className="trackerText">Arrived<div className="trackerSubText" style={{display: "none"}}>8:26 am</div></div>
+                        <div className="trackerImage trackerSentRequest trackerActive"></div>
+                        <div className="trackerText">
+                            Order Claimed
+                            <div className="trackerSubText" style={ index >= 1 ? {} : {display: "none"}}>{this.state.claimed}</div>
+                        </div>
+                        <div className={"trackerImage trackerEnroute" + (index >= 2 ? " trackerActive" : "")}></div>
+                        <div className="trackerText">
+                            Arrived
+                            <div className="trackerSubText" style={ index >= 3 ? {} : {display: "none"}}>{this.state.arrived}</div>
+                        </div>
                     </div>
                 </div>
             </div>
