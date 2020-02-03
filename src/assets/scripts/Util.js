@@ -139,12 +139,12 @@ export const formatPrice = price => {
     return priceS.substring(0,priceS.indexOf(".") + 3);
 }
 
-export const storeState = state => {
-  localStorage.setItem("lastAppState", JSON.stringify(state));
+export const storeState = (state, id) => {
+  localStorage.setItem("lastAppState" + id, JSON.stringify(state));
 }
 
-export const loadState = () => {
-  return JSON.parse(localStorage.getItem("lastAppState"));
+export const loadState = id => {
+  return JSON.parse(localStorage.getItem("lastAppState" + id));
 }
 
 export const updateFBToken = async (token, apiToken) => {

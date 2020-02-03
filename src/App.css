@@ -1009,6 +1009,13 @@ input:-webkit-autofill:active {
   position: absolute;
 }
 
+.itemShow .itemContainer .itemName {
+  padding: 5px;
+  font-weight: 500;
+  text-align: center;
+  font-size: 1.2em;
+}
+
 .itemShow .itemContainer .itemContent {
   position: relative;
   margin-top: 30px;
@@ -1027,6 +1034,62 @@ input:-webkit-autofill:active {
 
 .itemShow .itemContainer .itemContent .itemImage .foodImage {
   border-radius: 6px;
+}
+
+.itemShow .itemContainer .itemContent .subItems {
+
+}
+
+.itemShow .itemContainer .itemContent .subItems .subItemName {
+  
+}
+
+.itemShow .itemContainer .itemContent .subItems .subItemInfo {
+  
+}
+
+.itemShow .itemContainer .itemContent .subItems .subItemOptions {
+
+}
+
+.itemShow .itemContainer .itemContent .subItems .subItemOptions .optionText {
+  position: relative;
+  left: 5%;
+  top: 7px;
+  font-size: 1.1em;
+  color: #444;
+}
+
+.itemShow .itemContainer .itemContent .subItems .subItemOptions .separator {
+  margin: 7px 0;
+  width: 90%;
+  height: 2px;
+  background: #aaa;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.itemShow .itemContainer .itemContent .subItems .subItemCost {
+
+}
+
+.itemShow .itemContainer .itemContent .addToCartFAB {
+  background-color: var(--primary);
+  color: white;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  padding: 7px;
+  height: 40px;
+  width: 150px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .testCenter {

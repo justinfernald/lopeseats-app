@@ -11,7 +11,8 @@ export default class RestaurantDetails extends React.Component {
         console.log(this.props.menuData);
 
         this.state = {
-            selectedItem: null
+            selectedItem: null,
+            optionsChosen: []
         };
 
         this.restaurantData.hours = this.props.restaurantData.hours;
@@ -85,18 +86,26 @@ export default class RestaurantDetails extends React.Component {
                             <div className="subItems">
                                 {
                                     JSON.parse(this.state.selectedItem.items).map((x, i) => <div key={i}>
-                                        <div className="subItemName">{x.name}</div>
+                                        {JSON.parse(this.state.selectedItem.items).length > 1 && <div className="subItemName">{x.name}</div>}
                                         <div className="subItemInfo">
-                                            Item Sub Info Here
+                                            {x.tags.length > 0 && <span>Info</span>}
                                             {/*JSON.stringify(x.tags.map(y => y))*/}
                                         </div>
                                         <div className="subItemOptions">
-                                            {x.options.map(option => <Selector option={option} />)}
+                                            {x.options.length > 0 && <Fragment><span className="optionText">Options</span><div className="separator"></div></Fragment>}
+                                            {x.options.map((option, i) => <Selector key={i} option={option} />)}
                                         </div>
                                         <div className="subItemCost">
+                                            
                                         </div>
                                     </div>)
                                 }
+                            </div>
+                            <div className="addToCartFAB">
+                                <span>Add to Cart</span> <i className="material-icons-round">shopping_cart</i>
+                            </div>
+                            <div className="itemsCost">
+                                ${this.state.selectedItem.price} + 0.43 = ${this.state.selectedItem.price + .43}
                             </div>
                         </div>}
                     </div>
@@ -107,19 +116,8 @@ export default class RestaurantDetails extends React.Component {
                         <img alt="" src={this.props.restaurantData.banner}></img>
                         <div className="restaurantTitle">{this.props.restaurantData.name}</div>
                     </div>
-                    {/* 
-                    times it is open
-                    is it open now - how much longer till it closes and wait time
-                    menu items < shows sliding view of popular ones
-                    all menu items < have attributes like healthy, gluten free, high protein
-                    */}
                     <div className="restaurantDetails" onScroll={this.onContentScroll}>
                         <div className="restaurantInfo">
-                            {/* <div className="openStatus">
-                                {true ?
-                                <span style={{color: "#25bb00"}}>Open until 11:00pm</span> :
-                                <span style={{color: "#ff4444"}}>Closed until 8:00am 11/31/2019</span>}
-                            </div> */}
                             <div className="restaurantDescription">
                                 {this.props.restaurantData.description}
                             </div>
@@ -149,15 +147,6 @@ export default class RestaurantDetails extends React.Component {
                                         </div>
                                     </div>
                                 )}
-
-                                {/* {this.restaurantData.food.filter(x => x.featured).map((x, index) =>
-                                    <div key={index} className="menuItem">
-                                        <div className="itemImage img-fill"><img alt="" src={LopesEatIcon}></img></div>
-                                        <div className="itemContent">
-                                            {x.name}
-                                        </div>
-                                    </div>
-                                )} */}
                             </div>
                         </div>
                     </div>

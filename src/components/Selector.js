@@ -28,11 +28,12 @@ export default class Selector extends React.Component {
             choice: i
         })
         this.toggleDropdown();
-        this.props.onSelection(i);
+        if (this.props.onSelection)
+            this.props.onSelection(i);
     }
 
     toggleDropdown = () => {
-        console.log(this.optionsRef.current.classList.toggle("show"));
+        this.optionsRef.current.classList.toggle("show");
     }
 
     render() {
@@ -43,7 +44,7 @@ export default class Selector extends React.Component {
                     <div className="name">{this.state.choice}</div>
                     <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>
                 </div>
-                <span className="expandButton"><i class="material-icons">
+                <span className="expandButton"><i className="material-icons">
                 keyboard_arrow_down
                 </i></span>
             </div>
