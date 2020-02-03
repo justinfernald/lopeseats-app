@@ -11,6 +11,7 @@ import ForgotPassword from './ForgotPassword';
 import HomeScreen from './HomeScreen';
 import RestaurantsList from './QuickScreens/RestaurantsList';
 import RestaurantDetails from './QuickScreens/RestaurantDetails';
+import OrderTracker from './QuickScreens/OrderTracker';
 import CheckoutScreen from './OrderProcess/CheckoutScreen';
 import DeliveryDetails from './OrderProcess/DeliveryDetails';
 import Cart from './Cart';
@@ -31,10 +32,11 @@ export default class ScreenHandler extends React.Component {
                 studentNumber: "",
                 profileImage: "",
             },
+            apiToken: "",
             address: "",
             currentRestaurant: null,
             currentMenu: null,
-            screen: "RestaurantsList",
+            screen: "Login",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -244,8 +246,10 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("HomeScreen");
             }}
             />,
+            OrderTracker: <OrderTracker apiToken={this.state.apiToken}/>,
         }
         console.log(this.state);
+        console.log("token: " + this.props.fbToken);
         return (
             <Fragment>{Screens[this.state.screen]}</Fragment>
         );

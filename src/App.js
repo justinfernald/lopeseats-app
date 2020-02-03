@@ -18,6 +18,7 @@ class App extends React.Component {
 
   setToken(token) {
     this.fbToken = token;
+    console.log(token);
     this.forceUpdate();
   }
 
@@ -38,10 +39,13 @@ class App extends React.Component {
       var app = this;
 
       const messaging = firebase.messaging();
-      messaging.requestPermission()
+      messaging.usePublicVapidKey("BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784");
+      Notification.requestPermission()
       .then(function() {
-        console.log('Have Permission');
-        return messaging.getToken();
+        console.log('Permission ' + Notification.permission);
+        var token = messaging.getToken();
+        console.log(token);
+        return token;
       })
       .then(function(token) {
         console.log(token);
@@ -50,8 +54,8 @@ class App extends React.Component {
         console.log(err);
       });
     
-      messaging.onMessage(function (payload) { 
-        console.log(payload);
+      messaging.onMessage((payload) => {
+        console.log('Message received. ', payload);
       });
     }
   }
