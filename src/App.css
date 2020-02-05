@@ -1257,3 +1257,18 @@ input:-webkit-autofill:active {
 .trackerArrived {
   content: url(assets/images/arrived-icon-gray.svg);
 }
+
+.orderTrackerFooter {
+  height: 65px;
+  background-color: #3B55F3;
+  width: 88%;
+  margin: 0 6%;
+  border-radius: 10px 10px 0 0;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: white;
+  font-weight: 500;
+  font-size: 1.2em;
+}

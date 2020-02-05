@@ -105,6 +105,10 @@ export default class OrderTracker extends React.Component {
                         </div>
                     </div>
                 </div>
+                
+                <div className="orderTrackerFooter">
+                    Arriving in 15 minutes
+                </div>
             </div>
         );
     }
