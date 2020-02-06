@@ -32,11 +32,11 @@ export default class ScreenHandler extends React.Component {
                 studentNumber: "",
                 profileImage: "",
             },
-            apiToken: "",
+            apiToken: "5e2d29af1bb1f",
             address: "",
             currentRestaurant: null,
             currentMenu: null,
-            screen: "Login",
+            screen: "OrderTracker",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -246,7 +246,7 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("HomeScreen");
             }}
             />,
-            OrderTracker: <OrderTracker apiToken={this.state.apiToken}/>,
+            OrderTracker: <OrderTracker apiToken={this.state.apiToken} stateListener={this.props.stateListener}/>,
         }
         console.log(this.state);
         console.log("token: " + this.props.fbToken);

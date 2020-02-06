@@ -4,6 +4,8 @@ import { getOrder } from '../../assets/scripts/Util';
 
 export default class OrderTracker extends React.Component {
 
+    listenerId;
+
     constructor(props) {
         super(props);
 
@@ -20,6 +22,14 @@ export default class OrderTracker extends React.Component {
         this.fetchData();
     }
 
+    componentDidMount() {
+        this.listenerId = this.props.stateListener.addListener(() => {this.fetchData()});
+    }
+
+    componentWillUnmount() {
+        this.props.stateListener.removeListener(this.listenerId);
+    }
+
     makePHXTime(date) {
         return new Date(date.toLocaleString("en-US", {timeZone: "America/Phoenix"}));
     }
@@ -33,8 +43,10 @@ export default class OrderTracker extends React.Component {
     formatTime(date) {
         var hours = date.getHours();
         var suffix = hours > 12 ? "PM" : "AM";
-        hours = hours > 12 ? hours - 12 : hours;
-        return hours + ":" + date.getMinutes() + " " + suffix;
+        hours = hours == 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        var minutes = date.getMinutes();
+        var minuteString = minutes == 0 ? "00" : minutes < 10 ? "0" + minutes.toString() : minutes;
+        return hours + ":" + minuteString + suffix;
     }
 
     async fetchData() {
