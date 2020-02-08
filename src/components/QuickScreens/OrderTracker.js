@@ -16,7 +16,8 @@ export default class OrderTracker extends React.Component {
             placed: null,
             claimed: null,
             enroute: null,
-            arrived: null
+            arrived: null,
+            wait: 45
         };
 
         this.fetchData();
@@ -58,6 +59,8 @@ export default class OrderTracker extends React.Component {
         var claimed = this.parseDate(this.order.claimed);
         var enroute = this.parseDate(this.order.en_route);
         var arrived = this.parseDate(this.order.arrived);
+        var wait = this.order.wait.toString();
+        wait = wait.substring(0, wait.indexOf("."));
 
         this.setState({
             orderState,
@@ -65,6 +68,7 @@ export default class OrderTracker extends React.Component {
             claimed,
             enroute,
             arrived,
+            wait
         })
 
         this.forceUpdate();
@@ -119,7 +123,7 @@ export default class OrderTracker extends React.Component {
                 </div>
                 
                 <div className="orderTrackerFooter">
-                    Arriving in 15 minutes
+                    Arriving in {this.state.wait} minutes
                 </div>
             </div>
         );
