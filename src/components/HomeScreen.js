@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
                 icon: "timer",
             }, 
             {
-                title: "Current Orders",
+                title: "Order Tracker",
                 icon: "track_changes",
             }, 
             {

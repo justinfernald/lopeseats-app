@@ -12,7 +12,8 @@ export default class OrderTracker extends React.Component {
         this.orderStates = ["unclaimed", "claimed", "en route", "arrived", "completed"];
 
         this.state = {
-            orderState: "claimed",
+            order: null,
+            orderState: "unclaimed",
             placed: null,
             claimed: null,
             enroute: null,
@@ -54,37 +55,36 @@ export default class OrderTracker extends React.Component {
         this.order = await getOrder(this.props.apiToken);
         console.log(this.order);
         
-        var orderState = this.order.state;
-        var placed = this.parseDate(this.order.placed);
-        var claimed = this.parseDate(this.order.claimed);
-        var enroute = this.parseDate(this.order.en_route);
-        var arrived = this.parseDate(this.order.arrived);
-        var wait = this.order.wait.toString();
-        wait = wait.substring(0, wait.indexOf("."));
+        if (this.order != null) {
+            var orderState = this.order.state;
+            var placed = this.parseDate(this.order.placed);
+            var claimed = this.parseDate(this.order.claimed);
+            var enroute = this.parseDate(this.order.en_route);
+            var arrived = this.parseDate(this.order.arrived);
+            var wait = this.order.wait.toString();
+            wait = wait.substring(0, wait.indexOf("."));
 
-        this.setState({
-            orderState,
-            placed,
-            claimed,
-            enroute,
-            arrived,
-            wait
-        })
+            this.setState({
+                orderState,
+                placed,
+                claimed,
+                enroute,
+                arrived,
+                wait
+            })
+        }
 
         this.forceUpdate();
     }
 
     render() {
         var index = this.orderStates.indexOf(this.state.orderState);
-        return (
-            <div className="flexDisplay fillHeight">             
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
-                        <span className="screenTitle">Order Tracker</span>
-                    </div>
-                </div>
 
+        var content;
+        var footer;
+
+        if (this.order != null) {
+            content = (
                 <div className="flexDisplayRow" style={{height: "90%"}}>
                     <div className="flexDisplay trackerItems">
                         <div className="trackerText">
@@ -120,11 +120,29 @@ export default class OrderTracker extends React.Component {
                             <div className="trackerSubText" style={ index >= 3 ? {} : {display: "none"}}>{this.state.arrived}</div>
                         </div>
                     </div>
-                </div>
-                
+                </div>);
+
+                footer = (
                 <div className="orderTrackerFooter">
                     Arriving in {this.state.wait} minutes
+                </div>);
+        } else {
+            content = (<div className="noCurrentOrder">
+                No active order
+            </div>);
+        }
+        return (
+            <div className="flexDisplay fillHeight">             
+                <div className="restaurantTop">
+                    <div className="header">
+                        <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
+                        <span className="screenTitle">Order Tracker</span>
+                    </div>
                 </div>
+
+                {content}
+
+                {footer}
             </div>
         );
     }

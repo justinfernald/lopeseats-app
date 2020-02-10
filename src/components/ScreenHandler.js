@@ -36,7 +36,7 @@ export default class ScreenHandler extends React.Component {
             address: "",
             currentRestaurant: null,
             currentMenu: null,
-            screen: "OrderTracker",
+            screen: "HomeScreen",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -204,7 +204,7 @@ export default class ScreenHandler extends React.Component {
                 }
             }/>,
             ForgotPassword: <ForgotPassword />,
-            HomeScreen: <HomeScreen tileNavigation={["RestaurantsList", "QuickMeals", "RecentOrders", "CurrentOrders", "Updates", "Profile"]}
+            HomeScreen: <HomeScreen tileNavigation={["RestaurantsList", "QuickMeals", "RecentOrders", "OrderTracker", "Updates", "Profile"]}
             onMenuItemClick={
                 screen => {
                     this.setScreen(screen);
@@ -246,7 +246,10 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("HomeScreen");
             }}
             />,
-            OrderTracker: <OrderTracker apiToken={this.state.apiToken} stateListener={this.props.stateListener}/>,
+            OrderTracker: <OrderTracker apiToken={this.state.apiToken} stateListener={this.props.stateListener}
+            onBack={()=> {
+                this.backScreen();
+            }}/>,
         }
         console.log(this.state);
         console.log("token: " + this.props.fbToken);

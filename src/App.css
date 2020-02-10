@@ -1272,3 +1272,11 @@ input:-webkit-autofill:active {
   font-weight: 500;
   font-size: 1.2em;
 }
+
+.noCurrentOrder {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
