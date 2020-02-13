@@ -15,6 +15,7 @@ import OrderTracker from './QuickScreens/OrderTracker';
 import CheckoutScreen from './OrderProcess/CheckoutScreen';
 import DeliveryDetails from './OrderProcess/DeliveryDetails';
 import Cart from './Cart';
+import MessageScreen from './MessageScreen';
 
 
 export default class ScreenHandler extends React.Component {
@@ -249,7 +250,9 @@ export default class ScreenHandler extends React.Component {
             OrderTracker: <OrderTracker apiToken={this.state.apiToken} stateListener={this.props.stateListener}
             onBack={()=> {
                 this.backScreen();
-            }}/>,
+            }}
+            onMessageClick={() => {this.setScreen("Message")}}/>,
+            Message: <MessageScreen onBack={this.backScreen}/>,
         }
         console.log(this.state);
         console.log("token: " + this.props.fbToken);

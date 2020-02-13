@@ -122,10 +122,11 @@ export default class OrderTracker extends React.Component {
                     </div>
                 </div>);
 
-                footer = (
-                <div className="orderTrackerFooter">
-                    Arriving in {this.state.wait} minutes
-                </div>);
+            footer = (
+            <div className="orderTrackerFooter">
+                Arriving in {this.state.wait} minutes
+                <div className="messageButton" onClick={() => this.props.onMessageClick()}></div>
+            </div>);
         } else {
             content = (<div className="noCurrentOrder">
                 No active order

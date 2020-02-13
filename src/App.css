@@ -1280,3 +1280,12 @@ input:-webkit-autofill:active {
   justify-content: center;
   height: 100%;
 }
+
+.messageButton {
+  content: url(/static/media/message-icon.5a738d43.svg);
+  width: 55px;
+  height: 55px;
+  position: absolute;
+  right: 10%;
+  bottom: 33px;
+}
