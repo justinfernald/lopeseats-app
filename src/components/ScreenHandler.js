@@ -37,7 +37,7 @@ export default class ScreenHandler extends React.Component {
             address: "",
             currentRestaurant: null,
             currentMenu: null,
-            screen: "HomeScreen",
+            screen: "Message",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -247,7 +247,7 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("HomeScreen");
             }}
             />,
-            OrderTracker: <OrderTracker apiToken={this.state.apiToken} stateListener={this.props.stateListener}
+            OrderTracker: <OrderTracker apiToken={this.state.apiToken} messageListener={this.props.messageListener}
             onBack={()=> {
                 this.backScreen();
             }}

@@ -3,17 +3,17 @@ import ScreenHandler from './components/ScreenHandler';
 import './App.css';
 import firebase from 'firebase/app';
 import 'firebase/messaging';
-import StateListener from './StateListener';
+import MessageListener from './MessageListener';
 
 class App extends React.Component {
 
   fbToken = "";
-  stateListener = new StateListener();
+  messageListener = new MessageListener();
 
   render() {
     return (
         <div className="App">
-          <ScreenHandler fbToken={this.fbToken} stateListener={this.stateListener}/>
+          <ScreenHandler fbToken={this.fbToken} messageListener={this.messageListener}/>
         </div>
     );
   }
@@ -58,7 +58,7 @@ class App extends React.Component {
     
       messaging.onMessage((payload) => {
         console.log('Message received. ', payload);
-        this.stateListener.updateState(payload.data.state);
+        this.messageListener.messageReceived(payload.data);
       });
     }
   }

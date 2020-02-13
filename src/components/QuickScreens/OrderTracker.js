@@ -25,11 +25,11 @@ export default class OrderTracker extends React.Component {
     }
 
     componentDidMount() {
-        this.listenerId = this.props.stateListener.addListener(() => {this.fetchData()});
+        this.listenerId = this.props.messageListener.addListener(() => {this.fetchData()});
     }
 
     componentWillUnmount() {
-        this.props.stateListener.removeListener(this.listenerId);
+        this.props.messageListener.removeListener(this.listenerId);
     }
 
     makePHXTime(date) {

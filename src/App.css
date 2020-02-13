@@ -1282,10 +1282,25 @@ input:-webkit-autofill:active {
 }
 
 .messageButton {
-  content: url(/static/media/message-icon.5a738d43.svg);
-  width: 55px;
-  height: 55px;
+  content: url(assets/images/message-icon.svg);
+  width: 50px;
+  height: 50px;
   position: absolute;
   right: 10%;
-  bottom: 33px;
+  bottom: 36px;
+}
+
+.messageBox {
+  width: 94%;
+  position: fixed;
+  bottom: 0;
+  margin: 0 3% 2% 3%;
+}
+
+.messageInput {
+  width: 100%;
+  min-height: 40px;
+  border-radius: 5px;
+  padding: 0 3%;
+  background-color: #eee;
 }

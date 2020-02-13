@@ -22,7 +22,8 @@ messaging.setBackgroundMessageHandler(function(payload) {
     const notificationTitle = payload.data.title;
     const notificationOptions = {
       body: payload.data.body,
-      icon: '/lopeseaticon.png'
+      icon: '/images/icon-384.png',
+      image: '/images/icon-384.png',
     };
   
     return self.registration.showNotification(notificationTitle,
