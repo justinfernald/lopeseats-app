@@ -1291,25 +1291,30 @@ input:-webkit-autofill:active {
 }
 
 .messageBox {
-  width: 94%;
   min-height: 40px;
   position: fixed;
   bottom: 0;
-  margin: 0 3% 2% 3%;
+  left: 0.8em;
+  right: 0.8em;
+  margin: 0 0 0.5em 0;
   background-color: #ddd;
-  display: flex;
-  flex-direction: row;
   border-radius: 5px;
 }
 
+.messageBoxContainer {
+  position: absolute;
+  left: 0;
+  right: 40px;
+}
+
 .messageInput {
-  width: 90%;
+  width: 100%;
   min-height: 40px;
-  padding: 0 3%;
+  padding: 0 0.7em;
 }
 
 .sendMessage {
-  width: 10%;
+  width: 40px;
   height: 40px;
   margin: 0;
   font-size: 30px;
@@ -1318,6 +1323,8 @@ input:-webkit-autofill:active {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  position: absolute;
+  right: 0;
 }
 
 .sendMessage i {

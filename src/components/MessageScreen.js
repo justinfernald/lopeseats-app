@@ -14,7 +14,7 @@ export default class MessageScreen extends React.Component {
                 </div>
 
                 <div className="messageBox">
-                    <input className="messageInput" type="text" placeholder="Message Will"></input>
+                    <div className="messageBoxContainer"><input className="messageInput" type="text" placeholder="Message Will"></input></div>
                     <div className="sendMessage"><i className="material-icons-round">send</i></div>
                 </div>
             </div>
