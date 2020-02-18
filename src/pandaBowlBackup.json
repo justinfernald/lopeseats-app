@@ -1,0 +1,45 @@
+[
+    {
+        "name": "Bowl",
+        "tags": [],
+        "options": [
+            {
+                "name": "Side",
+                "choices": {
+                    "Chow-Mein": {
+                        "cost": 0,
+                        "altName": "Chow-Mein"
+                    },
+                    "Fried Rice": {
+                        "cost": 0,
+                        "altName": "Fried Rice"
+                    },
+                    "White Rice": {
+                        "cost": 0,
+                        "altName": "White Rice"
+                    }
+                },
+                "default": "Chow-Mein"
+            },
+            {
+                "name": "Entree",
+                "choices": {
+                    "Orange Chicken": {
+                        "cost": 0,
+                        "altName": "Orange Chicken"
+                    },
+                    "Shrimp Chicken": {
+                        "cost": 1.25,
+                        "altName": "Shrimp Chicken"
+                    },
+                    "Mushroom Chicken": {
+                        "cost": 0,
+                        "altName": "Mushroom Chicken"
+                    }
+                },
+                "default": "Orange Chicken"
+            }
+        ],
+        "nutrition": {}
+    }
+]

@@ -1,6 +1,8 @@
 .selector {
+    margin-top: 5px;
     padding: 5px;
     border-radius: 5px;
+    position: relative;
 }
 
 .selector .selectorChoice {
@@ -20,7 +22,6 @@
 }
 
 .selector .selectorOptions {
-    margin-top: 3px;
     padding: 5px;
     display: none;
     overflow: hidden;
@@ -47,6 +48,14 @@
 
 .selector .selectorOptions .selectorOption:hover {
     background-color: white;;
+}
+
+.selector .choiceName {
+    position: absolute;
+    background: white;
+    left: 15px;
+    top: -5px;
+    padding: 0 6px;
 }
 
 .selector .selectorOptions .selectorOption .name {

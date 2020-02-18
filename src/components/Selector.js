@@ -23,6 +23,8 @@ export default class Selector extends React.Component {
 
     }
 
+    
+
     onSelection = i => {
         this.setState({
             choice: i
@@ -39,6 +41,9 @@ export default class Selector extends React.Component {
     render() {
         // console.log(this.state.choices)
         return <div className="selector" ref={this.optionsRef}>
+            <div className="choiceName">
+                {this.state.name}
+            </div>
             <div className="selectorChoice" onClick={this.toggleDropdown}>
                 <div className="information">
                     <div className="name">{this.state.choice}</div>

@@ -9,6 +9,14 @@ export default class RestaurantDetails extends React.Component {
         super(props);
         console.log(this.props.restaurantData);
         console.log(this.props.menuData);
+        
+        let options = [
+            {
+                id: 4,
+                choices: [["Dr. Pepper", "Large"]]
+            }
+        ]
+
 
         this.state = {
             selectedItem: null,
@@ -86,14 +94,18 @@ export default class RestaurantDetails extends React.Component {
                             <div className="subItems">
                                 {
                                     JSON.parse(this.state.selectedItem.items).map((x, i) => <div key={i}>
-                                        {JSON.parse(this.state.selectedItem.items).length > 1 && <div className="subItemName">{x.name}</div>}
+                                        {/*{JSON.parse(this.state.selectedItem.items).length > 1 && <div className="subItemName">{x.name}</div>}*/}
                                         <div className="subItemInfo">
                                             {x.tags.length > 0 && <span>Info</span>}
                                             {/*JSON.stringify(x.tags.map(y => y))*/}
                                         </div>
                                         <div className="subItemOptions">
-                                            {x.options.length > 0 && <Fragment><span className="optionText">Options</span><div className="separator"></div></Fragment>}
-                                            {x.options.map((option, i) => <Selector key={i} option={option} />)}
+                                            {x.options.length > 0 && <Fragment><span className="optionText">{x.name}</span><div className="separator"></div></Fragment>}
+                                            {x.options.map((option, j) => <Selector populate={choices=>{
+                                                
+                                            }} onSelection={choiceIndex => {
+                                                console.log(i, j, option.choices[choiceIndex]);
+                                            }} key={j} option={option} />)}
                                         </div>
                                         <div className="subItemCost">
                                             

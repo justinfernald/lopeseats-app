@@ -17,13 +17,14 @@ export default class HomeScreen extends React.Component {
                 icon: "restaurant"
             },
             {
-                title: "Quick Meals",
-                icon: "fastfood"
-            }, 
-            {
                 title: "Recent Orders",
                 icon: "timer",
-            }, 
+            },
+            {
+                title: "Delivery Mode",
+                // icon: "fastfood"
+                icon: "local_shipping"
+            },  
             {
                 title: "Order Tracker",
                 icon: "track_changes",
