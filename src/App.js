@@ -7,6 +7,11 @@ import MessageListener from './MessageListener';
 
 class App extends React.Component {
 
+  // constructor(props) {
+  //   super(props);
+  //   window.getApp = () => this;
+  // }
+
   fbToken = "";
   messageListener = new MessageListener();
 

@@ -12,105 +12,13 @@ export default class RestaurantsList extends React.Component {
         COST: "cost"
     }
 
-    // restaurants = [
-    //     {
-    //         title: "Panda Express",
-    //         icon: LopesEatIcon,
-    //         waitTime: 3, //in minutes
-    //         cost: 7, //average common mean price
-    //         open: true,
-    //     },
-    //     {
-    //         title: "Chick-fil-A",
-    //         icon: LopesEatIcon,
-    //         waitTime: 10, //in minutes
-    //         cost: 5, //average common mean price
-    //         open: false,
-    //     },
-    //     {
-    //         title: "Pita Jungle",
-    //         icon: LopesEatIcon,
-    //         waitTime: 1, //in minutes
-    //         cost: 9, //average common mean price
-    //         open: true,
-    //     },
-    //     {
-    //         title: "Subway",
-    //         icon: LopesEatIcon,
-    //         waitTime: 7, //in minutes
-    //         cost: 8, //average common mean price
-    //         open: false,
-    //     },
-    //     {
-    //         title: "Auntie Anne's",
-    //         icon: LopesEatIcon,
-    //         waitTime: 1, //in minutes
-    //         cost: 4, //average common mean price
-    //         open: true,
-    //     },
-    //     {
-    //         title: "Qdoba",
-    //         icon: LopesEatIcon,
-    //         waitTime: 9, //in minutes
-    //         cost: 9, //average common mean price
-    //         open: false,
-    //     },
-    //     {
-    //         title: "Arena Cafe",
-    //         icon: LopesEatIcon,
-    //         waitTime: 15, //in minutes
-    //         cost: 7, //average common mean price
-    //         open: true,
-    //     },
-    //     {
-    //         title: "Purple Greens",
-    //         icon: LopesEatIcon,
-    //         waitTime: 1, //in minutes
-    //         cost: 8, //average common mean price
-    //         open: false,
-    //     },
-    //     {
-    //         title: "Fresh Fusion",
-    //         icon: LopesEatIcon,
-    //         waitTime: 2, //in minutes
-    //         cost: 8, //average common mean price
-    //         open: true,
-    //     },
-    //     {
-    //         title: "The Grid",
-    //         icon: LopesEatIcon,
-    //         waitTime: 2, //in minutes
-    //         cost: 5, //average common mean price
-    //         open: false,
-    //     },
-    //     {
-    //         title: "Canyon Crepes",
-    //         icon: LopesEatIcon,
-    //         waitTime: 1, //in minutes
-    //         cost: 8, //average common mean price
-    //         open: true,
-    //     },
-    //     {
-    //         title: "Canyon 49",
-    //         icon: LopesEatIcon,
-    //         waitTime: 10, //in minutes
-    //         cost: 11, //average common mean price
-    //         open: false,
-    //     },
-    //     {
-    //         title: "Harvest Kitchen",
-    //         icon: LopesEatIcon,
-    //         waitTime: 3, //in minutes
-    //         cost: 10, //average common mean price
-    //         open: true,
-    //     },
-    // ];
     restaurants = [];
     
     constructor(props) {
         super(props);
 
         
+
         this.state = {
             onlyOpen: true,
             flipOrder: false,
@@ -217,7 +125,7 @@ export default class RestaurantsList extends React.Component {
                     </div>})
                     }
                 </div>
-                <FloatingCartButton  onClick={()=>{this.props.onCartClick()}}></FloatingCartButton>
+                <FloatingCartButton onClick={()=>{this.props.onCartClick()}}></FloatingCartButton>
             </div>
         );
     }

@@ -13,6 +13,8 @@ export default class Selector extends React.Component {
         };
 
         this.optionsRef = React.createRef();
+
+        this.props.populate(this.props.option.default);
     }
 
     componentDidMount() {
@@ -22,8 +24,6 @@ export default class Selector extends React.Component {
     componentWillUnmount() {
 
     }
-
-    
 
     onSelection = i => {
         this.setState({
@@ -55,7 +55,7 @@ export default class Selector extends React.Component {
             </div>
             <div className="selectorOptions">
                 {makeMap(this.state.choices).filter((_x, i) => i !== this.state.choice).map((x, i) => {
-                    console.log(x);
+                    // console.log(x);
                     return <div key={i} className="selectorOption" onClick={() => this.onSelection(i)}>
                         <div className="name">{i}</div>
                         <div className="cost">${formatPrice(x.cost)}</div>

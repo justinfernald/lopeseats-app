@@ -694,12 +694,11 @@ input:-webkit-autofill:active {
 
 .searchBox {
   display: flex;
-  border-radius: 25px;
   height: 50px;
   width: 90%;
   margin-top: 10px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   padding: 10px;
+  border-bottom: 2px var(--light-grey) solid;
 }
 
 .searchBox > input {

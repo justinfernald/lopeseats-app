@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 // import PandaExpressBanner from '../../assets/images/pandabanner.png';
 import HoursList from '../HoursList';
 import Selector from '../Selector';
+import FloatingCartButton from '../FloatingCartButton';
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class RestaurantDetails extends React.Component {
         let options = [
             {
                 id: 4,
-                choices: [["Dr. Pepper", "Large"]]
+                choices: [[]]
             }
         ]
 
@@ -73,6 +74,10 @@ export default class RestaurantDetails extends React.Component {
         });
     }
 
+    addToCart = () => {
+
+    }
+
     render() {
         return (
             <Fragment>
@@ -101,10 +106,20 @@ export default class RestaurantDetails extends React.Component {
                                         </div>
                                         <div className="subItemOptions">
                                             {x.options.length > 0 && <Fragment><span className="optionText">{x.name}</span><div className="separator"></div></Fragment>}
-                                            {x.options.map((option, j) => <Selector populate={choices=>{
-                                                
+                                            {x.options.map((option, j) => <Selector populate={choiceIndex=>{
+                                                console.log(i, j, choiceIndex, option.choices[choiceIndex]);
+                                                let choices = this.state.optionsChosen;
+                                                if (!choices[i]) choices[i] = [];
+                                                choices[i][j] = choiceIndex;
+                                                this.setState({optionsChosen: choices})
+                                                console.log(choices);
                                             }} onSelection={choiceIndex => {
-                                                console.log(i, j, option.choices[choiceIndex]);
+                                                console.log(i, j, choiceIndex, option.choices[choiceIndex]);
+                                                let choices = this.state.optionsChosen;
+                                                if (!choices[i]) choices[i] = [];
+                                                choices[i][j] = choiceIndex;
+                                                this.setState({optionsChosen: choices})
+                                                console.log(choices);
                                             }} key={j} option={option} />)}
                                         </div>
                                         <div className="subItemCost">
@@ -163,6 +178,7 @@ export default class RestaurantDetails extends React.Component {
                         </div>
                     </div>
                 </div>
+                <FloatingCartButton  onClick={()=>{window.getScreenHandler().setScreen("Cart");}}></FloatingCartButton>
             </Fragment>
         );
     }
