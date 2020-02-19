@@ -6,6 +6,7 @@
     "braintree-web-drop-in-react": "^1.1.0",
     "compressorjs": "^1.0.6",
     "firebase": "^7.6.1",
+    "javascript-time-ago": "^2.0.7",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.3.0"

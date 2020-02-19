@@ -56,6 +56,7 @@ export default class OrderTracker extends React.Component {
         console.log(this.order);
         
         if (this.order != null) {
+            var order = this.order.id;
             var orderState = this.order.state;
             var placed = this.parseDate(this.order.placed);
             var claimed = this.parseDate(this.order.claimed);
@@ -65,6 +66,7 @@ export default class OrderTracker extends React.Component {
             wait = wait.substring(0, wait.indexOf("."));
 
             this.setState({
+                order,
                 orderState,
                 placed,
                 claimed,
@@ -125,7 +127,7 @@ export default class OrderTracker extends React.Component {
             footer = (
             <div className="orderTrackerFooter">
                 Arriving in {this.state.wait} minutes
-                <div className="messageButton" onClick={() => this.props.onMessageClick()}></div>
+                <div className="messageButton" onClick={() => this.props.onMessageClick(this.state.order)}></div>
             </div>);
         } else {
             content = (<div className="noCurrentOrder">
