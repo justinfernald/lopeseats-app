@@ -34,11 +34,12 @@ export default class ScreenHandler extends React.Component {
                 profileImage: "",
             },
             apiToken: "5e2d29af1bb1f",
+            orderId: -1,
             address: "",
             currentRestaurant: null,
             currentMenu: null,
             // screen: "Login",
-            screen: "RestaurantsList",
+            screen: "Login",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -253,8 +254,13 @@ export default class ScreenHandler extends React.Component {
             onBack={()=> {
                 this.backScreen();
             }}
-            onMessageClick={() => {this.setScreen("Message")}}/>,
-            Message: <MessageScreen onBack={this.backScreen}/>,
+            onMessageClick={(orderId) => {
+                this.setState({
+                    orderId
+                });
+                this.setScreen("Message");
+            }}/>,
+            Message: <MessageScreen messageListener={this.props.messageListener} apiToken={this.state.apiToken} orderId={this.state.orderId} onBack={this.backScreen}/>,
         }
         console.log(this.state);
         console.log("token: " + this.props.fbToken);

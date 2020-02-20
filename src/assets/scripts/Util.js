@@ -76,6 +76,7 @@ export const postData = async (url = '', data = {}) => {
     // body: JSON.stringify(data) // body data type must match "Content-Type" header
     body: formData
   });
+  console.log(response);
   return await response.json(); // parses JSON response into native JavaScript objects
 }
 
@@ -185,5 +186,18 @@ export const sendPayment = async (nonce, address, apiToken) => {
 export const getOrder = async (apiToken) => {
   return await postData("https://lopeseat.com/REST/getOrder.php", {
     apiToken: apiToken
+  });
+}
+
+export const getMessages = async (apiToken, orderId) => {
+  return await postData("https://lopeseat.com/REST/getMessages.php?orderId=" + orderId, {
+    apiToken: apiToken
+  });
+}
+
+export const sendMessage = async (apiToken, orderId, message) => {
+  return await postData("https://lopeseat.com/REST/sendMessage.php?orderId=" + orderId, {
+    apiToken: apiToken,
+    message: message
   });
 }

@@ -1363,19 +1363,20 @@ input:-webkit-autofill:active {
 
 .messageInfo {
   font-size: 0.8em;
-  margin: 0 0 1em 1em;
+  margin: 0 1em 1em 1em;
   color: #999;
 }
 
 .messageChunk {
   max-width: 60%;
+  float: left;
 }
 
-.messageChunk.right {
+.messageContainer.right > .messageChunk {
   float: right;
 }
 
-.messageChunk.right .messageBubble {
+.messageContainer.right .messageBubble {
   float: right;
   background-color: #8472FC;
   color: white;
@@ -1397,3 +1398,7 @@ input:-webkit-autofill:active {
   border-left: 1em solid white;
   border-right: 1em solid white;
 }
+
+.messageContainer {
+  overflow: auto;
+} 
