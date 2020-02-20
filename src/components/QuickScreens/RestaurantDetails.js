@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import HoursList from '../HoursList';
 import Selector from '../Selector';
 import FloatingCartButton from '../FloatingCartButton';
+import {getScreenHandler} from '../../assets/scripts/Util';
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -75,7 +76,7 @@ export default class RestaurantDetails extends React.Component {
     }
 
     addToCart = () => {
-
+        
     }
 
     render() {
@@ -178,7 +179,7 @@ export default class RestaurantDetails extends React.Component {
                         </div>
                     </div>
                 </div>
-                <FloatingCartButton  onClick={()=>{window.getScreenHandler().setScreen("Cart");}}></FloatingCartButton>
+                <FloatingCartButton  onClick={()=>{getScreenHandler().setScreen("Cart");}}></FloatingCartButton>
             </Fragment>
         );
     }

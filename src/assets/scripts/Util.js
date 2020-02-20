@@ -48,6 +48,12 @@ export const showErrors = errors => {
   }, 2000 + 1000 * errors.length);
 }
 
+export const getScreenHandler = () => window.getScreenHandler();
+
+export const getScreenState = () => getScreenHandler().state;
+
+export const setScreenState = (...args) => getScreenState().setState(...args);
+
 export const postData = async (url = '', data = {}) => {
   let formData = new FormData();
 
@@ -59,7 +65,7 @@ export const postData = async (url = '', data = {}) => {
   const response = await fetch(url, {
     method: 'post', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached // when done will start doing default or force-cache
     //   credentials: 'same-origin', // include, *same-origin, omit
     // headers: {
     //   'Content-Type': 'application/json'
@@ -106,6 +112,16 @@ export const getMenu = async restaurantID => {
   } catch (e) {
     console.error(e);
   }
+}
+
+export const addCartItem = async (apiToken, items) => {
+  // try {
+  //   return await postData("https://lopeseat.com/REST/cartItems.php", {
+  //     apiToken: apiToken
+  //   });
+  // } catch (e) {
+  //   console.error(e);
+  // }
 }
 
 export const getCart = async apiToken => {

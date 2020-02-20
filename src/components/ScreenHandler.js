@@ -48,7 +48,7 @@ export default class ScreenHandler extends React.Component {
     }
 
     componentDidMount() {
-
+        
     }
 
     componentWillUnmount() {
