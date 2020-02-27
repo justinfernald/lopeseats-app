@@ -15,10 +15,10 @@
 }
 
 :root {
-  --primary: #522398;
-  --secondary: #754db1;
+  --primary: #d50202;
+  --secondary: #fc3232;
   --light-grey: #ddd;
-  --placeholder: #a188ca;
+  --placeholder: #f97c7c;
 }
 
 body {
@@ -1378,7 +1378,7 @@ input:-webkit-autofill:active {
 
 .messageContainer.right .messageBubble {
   float: right;
-  background-color: #8472FC;
+  background-color: var(--placeholder);
   color: white;
 }
 
@@ -1402,3 +1402,20 @@ input:-webkit-autofill:active {
 .messageContainer {
   overflow: auto;
 } 
+
+.incomingOrderList {
+  overflow-y: scroll;
+}
+
+.incomingOrder {
+  padding: 0.6em 1em;
+}
+
+.orderTitle {
+  margin-bottom: 0.3em;
+}
+
+.orderInfo {
+  font-size: 0.9em;
+  color: gray;
+}

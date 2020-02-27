@@ -12,6 +12,7 @@ import HomeScreen from './HomeScreen';
 import RestaurantsList from './QuickScreens/RestaurantsList';
 import RestaurantDetails from './QuickScreens/RestaurantDetails';
 import OrderTracker from './QuickScreens/OrderTracker';
+import IncomingOrders from './QuickScreens/IncomingOrders';
 import CheckoutScreen from './OrderProcess/CheckoutScreen';
 import DeliveryDetails from './OrderProcess/DeliveryDetails';
 import Cart from './Cart';
@@ -39,7 +40,7 @@ export default class ScreenHandler extends React.Component {
             currentRestaurant: null,
             currentMenu: null,
             // screen: "Login",
-            screen: "Login",
+            screen: "IncomingOrders",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -261,6 +262,7 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("Message");
             }}/>,
             Message: <MessageScreen messageListener={this.props.messageListener} apiToken={this.state.apiToken} orderId={this.state.orderId} onBack={this.backScreen}/>,
+            IncomingOrders: <IncomingOrders/>,
         }
         console.log(this.state);
         console.log("token: " + this.props.fbToken);
