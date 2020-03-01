@@ -15,6 +15,7 @@ import OrderTracker from './QuickScreens/OrderTracker';
 import IncomingOrders from './QuickScreens/IncomingOrders';
 import CheckoutScreen from './OrderProcess/CheckoutScreen';
 import DeliveryDetails from './OrderProcess/DeliveryDetails';
+import OrderScreen from './OrderScreen';
 import Cart from './Cart';
 import MessageScreen from './MessageScreen';
 
@@ -39,8 +40,9 @@ export default class ScreenHandler extends React.Component {
             address: "",
             currentRestaurant: null,
             currentMenu: null,
+            currentOrder: -1,
             // screen: "Login",
-            screen: "IncomingOrders",
+            screen: "HomeScreen",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
@@ -209,7 +211,12 @@ export default class ScreenHandler extends React.Component {
                 }
             }/>,
             ForgotPassword: <ForgotPassword />,
-            HomeScreen: <HomeScreen tileNavigation={["RestaurantsList", "QuickMeals", "RecentOrders", "OrderTracker", "Updates", "Profile"]}
+            HomeScreen: <HomeScreen
+            tileNavigation={[
+                // Delivery Mode
+                ["IncomingOrders", "ActiveOrders", "SwitchMode", "LeaderBoard", "CompletedOrders", "Profile"]
+                // Customer Mode
+                ,["RestaurantsList", "RecentOrders", "SwitchMode", "OrderTracker", "Updates", "Profile"]]}
             onMenuItemClick={
                 screen => {
                     this.setScreen(screen);
@@ -262,7 +269,13 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("Message");
             }}/>,
             Message: <MessageScreen messageListener={this.props.messageListener} apiToken={this.state.apiToken} orderId={this.state.orderId} onBack={this.backScreen}/>,
-            IncomingOrders: <IncomingOrders/>,
+            IncomingOrders: <IncomingOrders onBack={this.backScreen} apiToken={this.state.apiToken} openOrderScreen={(order) => {
+                this.setState({
+                    currentOrder: order.id
+                });
+                this.setScreen("OrderScreen");
+            }}/>,
+            OrderScreen: <OrderScreen apiToken={this.state.apiToken} onBack={this.backScreen} orderId={this.state.currentOrder}/>
         }
         console.log(this.state);
         console.log("token: " + this.props.fbToken);

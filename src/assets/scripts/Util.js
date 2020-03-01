@@ -183,8 +183,14 @@ export const sendPayment = async (nonce, address, apiToken) => {
   // }
 }
 
-export const getOrder = async (apiToken) => {
-  return await postData("https://lopeseat.com/REST/getOrder.php", {
+export const getOrder = async (apiToken, id=-1) => {
+  return await postData("https://lopeseat.com/REST/getOrder.php" + (id != -1 ? "?id=" + id : ""), {
+    apiToken: apiToken
+  });
+}
+
+export const getOrderItems = async (apiToken, id) => {
+  return await postData("https://lopeseat.com/REST/orderItems.php?id=" + id, {
     apiToken: apiToken
   });
 }
@@ -199,5 +205,17 @@ export const sendMessage = async (apiToken, orderId, message) => {
   return await postData("https://lopeseat.com/REST/sendMessage.php?orderId=" + orderId, {
     apiToken: apiToken,
     message: message
+  });
+}
+
+export const getOrderList = async (apiToken) => {
+  return await postData("https://lopeseat.com/REST/orders.php?state=unclaimed", {
+    apiToken: apiToken
+  });
+}
+
+export const updateOrderState = async (apiToken, orderId, state) => {
+  return await postData("https://lopeseat.com/REST/updateOrderState.php?id=" + orderId + "&state=" + state, {
+    apiToken: apiToken
   });
 }

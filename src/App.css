@@ -519,6 +519,7 @@ input:-webkit-autofill:active {
   font-weight: 500;
   color: #888;
   transform: translateY(30px);
+  text-align: center;
 }
 
 .restaurantList {
@@ -1405,10 +1406,18 @@ input:-webkit-autofill:active {
 
 .incomingOrderList {
   overflow-y: scroll;
+  padding-top: 10px;
 }
 
 .incomingOrder {
-  padding: 0.6em 1em;
+  padding: 0.6em 1.4em;
+  width: 100%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+  height: 65px;
+  margin-bottom: 10px;
 }
 
 .orderTitle {
@@ -1418,4 +1427,9 @@ input:-webkit-autofill:active {
 .orderInfo {
   font-size: 0.9em;
   color: gray;
+}
+
+.orderAddress {
+  margin: 0.4em;
+  font-size: 1.6em;
 }
