@@ -208,14 +208,26 @@ export const sendMessage = async (apiToken, orderId, message) => {
   });
 }
 
-export const getOrderList = async (apiToken) => {
+export const getIncomingOrderList = async (apiToken) => {
   return await postData("https://lopeseat.com/REST/orders.php?state=unclaimed", {
+    apiToken: apiToken
+  });
+}
+
+export const getActiveOrderList = async (apiToken) => {
+  return await postData("https://lopeseat.com/REST/orders.php?state=!unclaimed&deliverer", {
     apiToken: apiToken
   });
 }
 
 export const updateOrderState = async (apiToken, orderId, state) => {
   return await postData("https://lopeseat.com/REST/updateOrderState.php?id=" + orderId + "&state=" + state, {
+    apiToken: apiToken
+  });
+}
+
+export const getOrderPaymentInfo = async (apiToken, orderId) => {
+  return await postData("https://lopeseat.com/REST/getOrderPaymentInfo.php?orderId=" + orderId, {
     apiToken: apiToken
   });
 }

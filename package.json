@@ -8,6 +8,7 @@
     "firebase": "^7.9.1",
     "javascript-time-ago": "^2.0.7",
     "react": "^16.13.0",
+    "react-barcode": "^1.4.0",
     "react-dom": "^16.13.0",
     "react-scripts": "^3.4.0"
   },
