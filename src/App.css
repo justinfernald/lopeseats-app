@@ -1433,3 +1433,25 @@ input:-webkit-autofill:active {
   margin: 0.4em;
   font-size: 1.6em;
 }
+
+.paymentLogo {
+  width: 100%;
+}
+
+.paymentContent {
+  height: 100%;
+  text-align: center;
+}
+
+.delivererImage {
+  width: 60%;
+  margin-bottom: 1.3em;
+}
+
+.cartFooter .messageButton {
+  bottom: 80px;
+}
+
+.barcodeContainer {
+  width: 100%;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-import { getIncomingOrderList } from '../../assets/scripts/Util';
+import { getActiveOrderList } from '../../assets/scripts/Util';
 
-export default class IncomingOrders extends React.Component {
+export default class ActiveOrders extends React.Component {
 
     constructor (props) {
         super(props);
@@ -12,7 +12,7 @@ export default class IncomingOrders extends React.Component {
     }
 
     async fetchData() {
-        var orders = await getIncomingOrderList(this.props.apiToken);
+        var orders = await getActiveOrderList(this.props.apiToken);
         console.log(this.props.apiToken + " " + orders);
         this.setState({orders});
     }

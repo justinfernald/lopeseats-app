@@ -1,5 +1,5 @@
 import React from 'react';
-import { getOrder, formatPrice, getOrderItems, updateOrderState, showErrors } from '../assets/scripts/Util';
+import { getOrder, formatPrice, getOrderItems, updateOrderState, showErrors } from '../../assets/scripts/Util';
 
 export default class OrderScreen extends React.Component {
 
@@ -29,8 +29,14 @@ export default class OrderScreen extends React.Component {
         }
     }
 
-    async readyToPay() {
-        
+    async updateState(state, updateState = true) {
+        var result = await updateOrderState(this.props.apiToken, this.props.orderId, state);
+        if (!result.success) {
+            showErrors([result.msg]);
+        } else {
+            if (updateState)
+                this.fetchData();
+        }
     }
 
     render() {
@@ -42,7 +48,14 @@ export default class OrderScreen extends React.Component {
         if (this.state.order.state === "unclaimed") {
             button = (<button className="checkoutButton" onClick={()=>this.claimOrder()}>Accept</button>);
         } else if (this.state.order.state === "claimed") {
-            button = (<button className="checkoutButton" onClick={()=>this.readyToPay()}>Ready To Pay</button>);
+            button = (<button className="checkoutButton" onClick={()=>this.props.openPayment(this.props.orderId)}>Ready To Pay</button>);
+        } else if (this.state.order.state === "en route") {
+            button = (<button className="checkoutButton" onClick={()=>this.updateState("arrived")}>Arrived</button>);
+        } else if (this.state.order.state === "arrived") {
+            button = (<button className="checkoutButton" onClick={()=>{
+                this.updateState("completed", false);
+                this.props.completeOrder();
+            }}>Complete Order</button>);
         }
         return (
             <div className="flexDisplay fillHeight">             
