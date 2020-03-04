@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 
-import {registerAccount, addBackStep, setupBackEvent} from '../assets/scripts/Util';
+import {registerAccount, addBackStep, setupBackEvent, loadState} from '../assets/scripts/Util';
 
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
@@ -18,7 +18,7 @@ import DeliveryDetails from './OrderProcess/DeliveryDetails';
 import OrderScreen from './OrderScreen';
 import Cart from './Cart';
 import MessageScreen from './MessageScreen';
-
+import {storeState} from '../assets/scripts/Util';
 
 export default class ScreenHandler extends React.Component {
     constructor(props) {
@@ -41,13 +41,14 @@ export default class ScreenHandler extends React.Component {
             currentRestaurant: null,
             currentMenu: null,
             currentOrder: -1,
-            // screen: "Login",
-            screen: "HomeScreen",
+            screen: "Login",
+            // screen: "HomeScreen",
             baseScreen: "Login",
             screenHistory: ["Login"]
         };
 
         setupBackEvent(this.backScreen);
+
         window.getScreenHandler = () => this;
     }
 
@@ -93,9 +94,7 @@ export default class ScreenHandler extends React.Component {
 
     newHistory = screen => {
         this.noBack = true;
-        console.log("thing: ", this.state.screenHistory);
         for (let i = 0; i < this.state.screenHistory.length - 1; i++) {
-            console.log(i + 1);
             window.history.back();
         }
 
@@ -108,11 +107,15 @@ export default class ScreenHandler extends React.Component {
     }
 
     render() {
+        if (this.state.apiToken)
+            storeState(this.state, "screenHandler");
+        
         const Screens = {
-            Login: <LoginScreen fbToken={this.props.fbToken} formSwitch={() => this.setState({screen: "Register"})}
+            Login: <LoginScreen fbToken={this.props.fbToken} apiToken={loadState("screenHandler").apiToken} formSwitch={() => this.setState({screen: "Register"})}
             onLogin={
                 apiToken => {
                     this.newHistory("HomeScreen");
+                    this.setState(loadState("screenHandler"));
                     this.setState({
                         apiToken: apiToken
                     });
@@ -277,8 +280,8 @@ export default class ScreenHandler extends React.Component {
             }}/>,
             OrderScreen: <OrderScreen apiToken={this.state.apiToken} onBack={this.backScreen} orderId={this.state.currentOrder}/>
         }
-        console.log(this.state);
-        console.log("token: " + this.props.fbToken);
+        // console.log(this.state);
+        // console.log("token: " + this.props.fbToken);
         return (
             <Fragment>{Screens[this.state.screen]}</Fragment>
         );
