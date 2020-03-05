@@ -76,7 +76,7 @@ export const postData = async (url = '', data = {}) => {
     // body: JSON.stringify(data) // body data type must match "Content-Type" header
     body: formData
   });
-  console.log(response);
+  // console.log(response);
   return await response.json(); // parses JSON response into native JavaScript objects
 }
 
@@ -94,7 +94,7 @@ export const addBackStep = () => {
 
 export const setupBackEvent = eventCallback => {
   window.addEventListener('popstate', () => {
-    console.log("Hit back");
+    // console.log("Hit back");
     eventCallback(false);
   });
 }
@@ -155,6 +155,10 @@ export const formatPrice = price => {
     }
     return priceS.substring(0,priceS.indexOf(".") + 3);
 }
+
+// export const storeGlobalState = () => {
+//   storeState(getScreenState(), "screenHandler")
+// }
 
 export const storeState = (state, id) => {
   localStorage.setItem("lastAppState" + id, JSON.stringify(state));

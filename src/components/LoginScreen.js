@@ -2,18 +2,35 @@ import React from 'react';
 import Input from './Input';
 import Phone from '../assets/images/phone-icon.png';
 import Lock from '../assets/images/lock.svg';
-import {loginAccount, showErrors, resendCode, updateFBToken} from '../assets/scripts/Util'
+import {loginAccount, showErrors, resendCode, updateFBToken,postData} from '../assets/scripts/Util'
 
 export default class LoginScreen extends React.Component {
 
     
     constructor(props) {
         super(props);
+
+        if (this.props.apiToken) {
+            this.checkToken(this.props.apiToken);
+        }
+            
+
         this.state = {
             showPassword: false,
         };
         this.phoneNumberRef = React.createRef();
         this.passwordRef = React.createRef();
+    }
+
+    async checkToken(token) {
+        console.log("checking" + token);
+
+        if (await postData("https://lopeseat.com/REST/validToken.php", {
+            apiToken: token
+        })) {
+            updateFBToken(this.props.fbToken, this.props.apiToken);
+            this.props.onLogin(this.props.apiToken);
+        }
     }
     
     toggleShowPassword = () => {
