@@ -92,7 +92,10 @@ export default class OrderScreen extends React.Component {
                 <div className="cartFooter">
                     {/* {formatPrice(this.total)} */}
                     <div className="total">Total<span className="price">${formatPrice(this.state.order.total)}</span></div>
-                    {button}
+                    <div className="buttonsFlex">
+                        {button}
+                        <div className="messageButtonFlex" onClick={() => this.props.onMessageClick(this.props.orderId)}></div>
+                    </div>
                 </div>
             </div>
         );

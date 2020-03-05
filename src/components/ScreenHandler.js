@@ -46,7 +46,8 @@ export default class ScreenHandler extends React.Component {
             // screen: "Login",
             screen: "HomeScreen",
             baseScreen: "Login",
-            screenHistory: ["Login"]
+            screenHistory: ["Login"],
+            deliveryMode: false
         };
 
         setupBackEvent(this.backScreen);
@@ -227,6 +228,8 @@ export default class ScreenHandler extends React.Component {
                     // });
                 }
             }
+            deliveryMode={this.state.deliveryMode}
+            switchModes={() => this.setState({deliveryMode: !this.state.deliveryMode})}
             />,
             RestaurantsList: <RestaurantsList onBack={this.backScreen} 
             openRestaurantScreen={
@@ -286,6 +289,12 @@ export default class ScreenHandler extends React.Component {
             }}
             completeOrder={() => {
                 this.setScreen("HomeScreen", false);
+            }}
+            onMessageClick={(orderId) => {
+                this.setState({
+                    orderId
+                });
+                this.setScreen("Message");
             }}/>,
             PaymentScreen: <PaymentScreen apiToken={this.state.apiToken} onBack={this.backScreen} orderId={this.state.currentOrder}
             onMessageClick={(orderId) => {
