@@ -122,9 +122,6 @@ export default class ScreenHandler extends React.Component {
                     this.setState({
                         apiToken: apiToken
                     });
-                    // this.setState({
-                    //     screen: "HomeScreen"
-                    // })
                 }
             }
             onNotConfirmed={
@@ -174,9 +171,6 @@ export default class ScreenHandler extends React.Component {
             onBackStep={
                 () => {
                     this.backScreen();
-                    // this.setState({
-                    //     screen: "Register"
-                    // })
                 }
             }
             />,
@@ -186,9 +180,6 @@ export default class ScreenHandler extends React.Component {
                 () => {
                     this.backScreen();
                 }
-                // () => this.setState({
-                //     screen: "PersonalInformation"
-                // })
             }
 
             onNextStep={
@@ -211,9 +202,6 @@ export default class ScreenHandler extends React.Component {
             PhoneConfirm: <PhoneConfirm phone={this.state.registerData.phone} onNextStep={
                 () => {
                     this.newHistory("HomeScreen");
-                    // this.setState({
-                    //     screen: "HomeScreen"
-                    // });
                 }
             }/>,
             ForgotPassword: <ForgotPassword />,
@@ -226,9 +214,6 @@ export default class ScreenHandler extends React.Component {
             onMenuItemClick={
                 screen => {
                     this.setScreen(screen);
-                    // this.setState({
-                    //     screen: screen
-                    // });
                 }
             }
             deliveryMode={this.state.deliveryMode}
@@ -319,8 +304,7 @@ export default class ScreenHandler extends React.Component {
                 this.setScreen("OrderScreen");
             }}/>
         }
-        // console.log(this.state);
-        // console.log("token: " + this.props.fbToken);
+
         return (
             <Fragment>{Screens[this.state.screen]}</Fragment>
         );

@@ -1471,3 +1471,25 @@ input:-webkit-autofill:active {
   margin: 0.625em;
   margin-right: 0;
 }
+
+.itemShow .itemContainer .specialInstructionsWrapper {
+  /* background-color: #f97c7c44; */
+}
+
+.itemShow .itemContainer .specialInstructionsWrapper .SIText {
+  text-align: center;
+  font-weight: 500;
+  color: #888;
+}
+
+.itemShow .itemContainer .specialInstructionsWrapper .SIInput {
+  border-radius: 5px;
+  border: 1px solid var(--primary);
+  padding: 3px;
+}
+
+.itemShow .itemContainer .specialInstructionsWrapper .SIInput textarea {
+  width: 100%;
+  height: 100%;
+  resize: vertical;
+}

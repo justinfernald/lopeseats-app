@@ -1,6 +1,4 @@
-import React, { Fragment } from 'react';
-// import LopesEatIcon from '../../assets/images/lopeseaticon.png';
-// import PandaExpressBanner from '../../assets/images/pandabanner.png';
+import React, { Fragment } from 'react'
 import HoursList from '../HoursList';
 import Selector from '../Selector';
 import FloatingCartButton from '../FloatingCartButton';
@@ -22,7 +20,8 @@ export default class RestaurantDetails extends React.Component {
 
         this.state = {
             selectedItem: null,
-            optionsChosen: []
+            optionsChosen: [],
+            instructions: null,
         };
 
         this.restaurantData.hours = this.props.restaurantData.hours;
@@ -76,7 +75,7 @@ export default class RestaurantDetails extends React.Component {
     }
 
     addToCart = () => {
-        addCartItem(getScreenState().apiToken, this.state.selectedItem.id, 1, "", this.state.optionsChosen);
+        addCartItem(getScreenState().apiToken, this.state.selectedItem.id, 1, this.state.instructions ? this.state.instructions : "", this.state.optionsChosen);
 
         this.closeItem();
     }
@@ -102,7 +101,6 @@ export default class RestaurantDetails extends React.Component {
                             <div className="subItems">
                                 {
                                     JSON.parse(this.state.selectedItem.items).map((x, i) => <div key={i}>
-                                        {/*{JSON.parse(this.state.selectedItem.items).length > 1 && <div className="subItemName">{x.name}</div>}*/}
                                         <div className="subItemInfo">
                                             {x.tags.length > 0 && <span>Info</span>}
                                             {/*JSON.stringify(x.tags.map(y => y))*/}
@@ -125,13 +123,20 @@ export default class RestaurantDetails extends React.Component {
                                                 console.log(choices);
                                             }} key={j} option={option} />)}
                                         </div>
-                                        {x.specialOptions && <div>Special Options</div>}
+                                        
                                         <div className="subItemCost">
                                             
                                         </div>
                                     </div>)
                                 }
                             </div>
+                            {console.log(this.state.selectedItem)}
+                            {this.state.selectedItem.specialInstructions === 1 && <div className="specialInstructionsWrapper">
+                                <div className="SIText">Special Instructions</div>
+                                <div className="SIInput">
+                                    <textarea onChange={e=>{this.setState({instructions: e.currentTarget.value})}}></textarea>
+                                </div>
+                            </div>}
                             <div className="addToCartFAB" onClick={this.addToCart}>
                                 <span>Add to Cart</span> <i className="material-icons-round">shopping_cart</i>
                             </div>
@@ -162,7 +167,6 @@ export default class RestaurantDetails extends React.Component {
                                     <div className="scrollCapFill"></div>
                                     {this.restaurantData.food.filter(x => x.featured).map((x, index) => <div key={index} className="featuredFoodItem"><div className="contentContainer">
                                         {/*x.name*/}
-                                        
                                     </div></div>)}
                                     <div className="scrollCapFill"></div>
                                 </div>
