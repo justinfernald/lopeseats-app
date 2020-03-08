@@ -43,8 +43,10 @@ export default class PaymentScreen extends React.Component {
                 </div>
 
                 <div className="cartFooter">
-                    <button className="checkoutButton" onClick={()=>this.paymentComplete()}>Payment Complete</button>
-                    <div className="messageButton" onClick={() => this.props.onMessageClick(this.props.orderId)}></div>
+                    <div className="buttonsFlex">
+                        <button className="checkoutButton" onClick={()=>this.paymentComplete()}>Payment Complete</button>
+                        <div className="messageButtonFlex" onClick={() => this.props.onMessageClick(this.props.orderId)}></div>
+                    </div>
                 </div>
             </div>
         );

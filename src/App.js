@@ -47,6 +47,7 @@ class App extends React.Component {
 
       const messaging = firebase.messaging();
       messaging.usePublicVapidKey("BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784");
+      console.log("Requesting permission");
       Notification.requestPermission()
       .then(function() {
         console.log('Permission ' + Notification.permission);
