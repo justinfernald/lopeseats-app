@@ -13,8 +13,7 @@ export default class LoginScreen extends React.Component {
         if (this.props.apiToken) {
             this.checkToken(this.props.apiToken);
         }
-            
-
+        
         this.state = {
             showPassword: false,
         };

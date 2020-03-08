@@ -918,6 +918,8 @@ input:-webkit-autofill:active {
   padding-top: 80%;
   position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+  background-size: cover;
+  background-image: url("https://www.tasteofhome.com/wp-content/uploads/2018/11/PX_OrangeChicken_FriedRice_Bowl-800x450.jpg");
 }
 
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem .contentContainer {

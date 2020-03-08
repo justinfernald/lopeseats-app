@@ -17,8 +17,6 @@ export default class RestaurantsList extends React.Component {
     constructor(props) {
         super(props);
 
-        
-
         this.state = {
             onlyOpen: true,
             flipOrder: false,

@@ -7,7 +7,7 @@ export default class PaymentScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            studentId: -1,
+            studentId: "20552343",
             image: null
         };
         this.fetchData();
@@ -39,7 +39,7 @@ export default class PaymentScreen extends React.Component {
 
                 <div className="paymentContent">
                     <img className="delivererImage" src={this.state.image}></img>
-                    <div className="barcodeContainer"><Barcode value={this.state.studentId.toString()} displayValue={false}></Barcode></div>
+                    {/*<div className="barcodeContainer"><Barcode value={this.state.studentId} displayValue={false}></Barcode></div>*/}
                 </div>
 
                 <div className="cartFooter">

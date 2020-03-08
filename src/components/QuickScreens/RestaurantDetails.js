@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import HoursList from '../HoursList';
 import Selector from '../Selector';
 import FloatingCartButton from '../FloatingCartButton';
-import {getScreenHandler} from '../../assets/scripts/Util';
+import {getScreenHandler, addCartItem, getScreenState} from '../../assets/scripts/Util';
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -76,7 +76,9 @@ export default class RestaurantDetails extends React.Component {
     }
 
     addToCart = () => {
-        
+        addCartItem(getScreenState().apiToken, this.state.selectedItem.id, 1, "", this.state.optionsChosen);
+
+        this.closeItem();
     }
 
     render() {
@@ -123,17 +125,18 @@ export default class RestaurantDetails extends React.Component {
                                                 console.log(choices);
                                             }} key={j} option={option} />)}
                                         </div>
+                                        {x.specialOptions && <div>Special Options</div>}
                                         <div className="subItemCost">
                                             
                                         </div>
                                     </div>)
                                 }
                             </div>
-                            <div className="addToCartFAB">
+                            <div className="addToCartFAB" onClick={this.addToCart}>
                                 <span>Add to Cart</span> <i className="material-icons-round">shopping_cart</i>
                             </div>
                             <div className="itemsCost">
-                                ${this.state.selectedItem.price} + 0.43 = ${this.state.selectedItem.price + .43}
+                                ${this.state.selectedItem.price} + 0.00 = ${this.state.selectedItem.price + .00}
                             </div>
                         </div>}
                     </div>
@@ -158,7 +161,8 @@ export default class RestaurantDetails extends React.Component {
                                 <div className="scrollArea">
                                     <div className="scrollCapFill"></div>
                                     {this.restaurantData.food.filter(x => x.featured).map((x, index) => <div key={index} className="featuredFoodItem"><div className="contentContainer">
-                                        {x.name}
+                                        {/*x.name*/}
+                                        
                                     </div></div>)}
                                     <div className="scrollCapFill"></div>
                                 </div>

@@ -37,7 +37,7 @@ export default class ScreenHandler extends React.Component {
                 studentNumber: "",
                 profileImage: "",
             },
-            apiToken: "5e2d29af1bb1f",
+            apiToken: "",
             orderId: -1,
             address: "",
             currentRestaurant: null,
@@ -113,7 +113,7 @@ export default class ScreenHandler extends React.Component {
             storeState(this.state, "screenHandler");
         
         const Screens = {
-            Login: <LoginScreen fbToken={this.props.fbToken} apiToken={loadState("screenHandler").apiToken} formSwitch={() => this.setState({screen: "Register"})}
+            Login: <LoginScreen fbToken={this.props.fbToken} apiToken={(loadState("screenHandler") && loadState("screenHandler").apiToken) ? loadState("screenHandler").apiToken : undefined} formSwitch={() => this.setState({screen: "Register"})}
             onLogin={
                 apiToken => {
                     this.newHistory("HomeScreen");

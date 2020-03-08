@@ -115,14 +115,14 @@ export const getMenu = async restaurantID => {
   }
 }
 
-export const addCartItem = async (apiToken, items) => {
-  // try {
-  //   return await postData("https://lopeseat.com/REST/cartItems.php", {
-  //     apiToken: apiToken
-  //   });
-  // } catch (e) {
-  //   console.error(e);
-  // }
+export const addCartItem = async (apiToken, id, amount, comment, items) => {
+  try {
+    return await postData(`https://lopeseat.com/REST/addCartItem.php?id=${id}&amount=${amount}&comment=${comment}&options=${JSON.stringify(items)}`, {
+      apiToken: apiToken
+    });
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export const getCart = async apiToken => {
