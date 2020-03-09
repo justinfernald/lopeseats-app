@@ -47,7 +47,7 @@ export default class Selector extends React.Component {
             <div className="selectorChoice" onClick={this.toggleDropdown}>
                 <div className="information">
                     <div className="name">{this.state.choice}</div>
-                    <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>
+                    {this.state.choices[this.state.choice].cost !== 0 && <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>}
                 </div>
                 <span className="expandButton"><i className="material-icons">
                 keyboard_arrow_down
@@ -58,7 +58,7 @@ export default class Selector extends React.Component {
                     // console.log(x);
                     return <div key={i} className="selectorOption" onClick={() => this.onSelection(i)}>
                         <div className="name">{i}</div>
-                        <div className="cost">${formatPrice(x.cost)}</div>
+                        {x.cost !== 0 && <div className="cost">${formatPrice(x.cost)}</div>}
                     </div>
                 })}
             </div>

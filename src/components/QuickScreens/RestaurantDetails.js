@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import HoursList from '../HoursList';
 import Selector from '../Selector';
 import FloatingCartButton from '../FloatingCartButton';
-import {getScreenHandler, addCartItem, getScreenState} from '../../assets/scripts/Util';
+import {getScreenHandler, addCartItem, getScreenState, formatPrice} from '../../assets/scripts/Util';
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -80,6 +80,21 @@ export default class RestaurantDetails extends React.Component {
         this.closeItem();
     }
 
+    calculatePrice = () => {
+        let c = this.state.optionsChosen;
+        if (!c) return 0;
+        let output = 0;
+        console.log(c);
+        JSON.parse(this.state.selectedItem.items).forEach((item, i) => {
+            item.options.forEach((option, j) => {
+                console.log(option, i + " : " + j);
+                if (c[i] && c[i][j] && option.choices[c[i][j]])
+                    output += option.choices[c[i][j]].cost;
+            })
+        })
+        return output;
+    }
+
     render() {
         return (
             <Fragment>
@@ -108,29 +123,20 @@ export default class RestaurantDetails extends React.Component {
                                         <div className="subItemOptions">
                                             {x.options.length > 0 && <Fragment><span className="optionText">{x.name}</span><div className="separator"></div></Fragment>}
                                             {x.options.map((option, j) => <Selector populate={choiceIndex=>{
-                                                console.log(i, j, choiceIndex, option.choices[choiceIndex]);
                                                 let choices = this.state.optionsChosen;
                                                 if (!choices[i]) choices[i] = [];
                                                 choices[i][j] = choiceIndex;
                                                 this.setState({optionsChosen: choices})
-                                                console.log(choices);
                                             }} onSelection={choiceIndex => {
-                                                console.log(i, j, choiceIndex, option.choices[choiceIndex]);
                                                 let choices = this.state.optionsChosen;
                                                 if (!choices[i]) choices[i] = [];
                                                 choices[i][j] = choiceIndex;
                                                 this.setState({optionsChosen: choices})
-                                                console.log(choices);
                                             }} key={j} option={option} />)}
-                                        </div>
-                                        
-                                        <div className="subItemCost">
-                                            
                                         </div>
                                     </div>)
                                 }
                             </div>
-                            {console.log(this.state.selectedItem)}
                             {this.state.selectedItem.specialInstructions === 1 && <div className="specialInstructionsWrapper">
                                 <div className="SIText">Special Instructions</div>
                                 <div className="SIInput">
@@ -141,7 +147,7 @@ export default class RestaurantDetails extends React.Component {
                                 <span>Add to Cart</span> <i className="material-icons-round">shopping_cart</i>
                             </div>
                             <div className="itemsCost">
-                                ${this.state.selectedItem.price} + 0.00 = ${this.state.selectedItem.price + .00}
+                                ${formatPrice(this.state.selectedItem.price)} + {formatPrice(this.calculatePrice())} = ${formatPrice(this.state.selectedItem.price + this.calculatePrice())}
                             </div>
                         </div>}
                     </div>

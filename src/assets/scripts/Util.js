@@ -65,7 +65,8 @@ export const postData = async (url = '', data = {}) => {
   const response = await fetch(url, {
     method: 'post', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached // when done will start doing default or force-cache
+    cache: 'force-cache',
+    // cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached // when done will start doing default or force-cache
     //   credentials: 'same-origin', // include, *same-origin, omit
     // headers: {
     //   'Content-Type': 'application/json'
@@ -116,6 +117,7 @@ export const getMenu = async restaurantID => {
 }
 
 export const addCartItem = async (apiToken, id, amount, comment, items) => {
+  console.log(JSON.stringify(items))
   try {
     return await postData(`https://lopeseat.com/REST/addCartItem.php?id=${id}&amount=${amount}&comment=${comment}&options=${JSON.stringify(items)}`, {
       apiToken: apiToken

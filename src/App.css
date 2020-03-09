@@ -486,7 +486,7 @@ input:-webkit-autofill:active {
   display: grid;
   grid-template-columns: auto auto auto;
   justify-content: space-evenly;
-  padding: 10px 0;
+  padding: 25px 0;
 }
 
 .screenTile {
