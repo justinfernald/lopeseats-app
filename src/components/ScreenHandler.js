@@ -118,7 +118,14 @@ export default class ScreenHandler extends React.Component {
             onLogin={
                 apiToken => {
                     this.newHistory("HomeScreen");
-                    this.setState(loadState("screenHandler"));
+
+                    let newState = loadState("screenHandler");
+                    if (newState && newState.screenHistory)
+                    for (let i = 1; i < newState.screenHistory.length; i++) {
+                        addBackStep();
+                    }
+
+                    this.setState(newState);
                     this.setState({
                         apiToken: apiToken
                     });
