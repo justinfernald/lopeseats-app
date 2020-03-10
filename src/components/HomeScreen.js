@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
                 icon: "local_shipping"
             },
             {
-                title: "Leader Board??",
+                title: "Payouts",
                 icon: "track_changes",
             },
             {

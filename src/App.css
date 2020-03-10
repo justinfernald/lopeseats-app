@@ -1493,3 +1493,9 @@ input:-webkit-autofill:active {
   height: 100%;
   resize: vertical;
 }
+
+.payoutStatus {
+  float: right;
+  font-weight: 600;
+  text-align: right;
+}
