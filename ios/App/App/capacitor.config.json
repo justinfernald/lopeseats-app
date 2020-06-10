@@ -3,7 +3,7 @@
   "appName": "LopesEat App",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "public",
+  "webDir": "build",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
