@@ -1,0 +1,7 @@
+{
+  "name": "LopesEat App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

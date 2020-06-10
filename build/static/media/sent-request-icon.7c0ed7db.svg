@@ -1,0 +1,6 @@
+<svg id="Icon" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <rect id="Bg" width="60" height="60" rx="30" fill="rgba(250,114,104,0.15)"/>
+  <g id="bill" transform="translate(20 18)">
+    <path id="Shape" d="M19,0H1A1,1,0,0,0,0,1V23.868L4,21.2l3,2,3-2,3,2,3-2,4,2.666V1A1,1,0,0,0,19,0ZM11,15H4V13h7Zm-1-5a3,3,0,1,1,2.121-.879A3,3,0,0,1,10,10Zm6,5H13V13h3Z" fill="#fa7268" fill-rule="evenodd"/>
+  </g>
+</svg>

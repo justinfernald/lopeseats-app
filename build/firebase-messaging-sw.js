@@ -1,5 +1,5 @@
-importScripts("https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js");
-importScripts("https://www.gstatic.com/firebasejs/7.6.1/firebase-messaging.js");
+importScripts("https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js");
+importScripts("https://www.gstatic.com/firebasejs/7.9.1/firebase-messaging.js");
 
 var firebaseConfig = {
     apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
@@ -15,3 +15,17 @@ firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 console.log("Started service worker");
+
+messaging.setBackgroundMessageHandler(function(payload) {
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    // Customize notification here
+    const notificationTitle = payload.data.title;
+    const notificationOptions = {
+      body: payload.data.body,
+      icon: '/images/icon-384.png',
+      image: '/images/icon-384.png',
+    };
+  
+    return self.registration.showNotification(notificationTitle,
+      notificationOptions);
+  });
