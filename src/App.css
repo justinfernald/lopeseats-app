@@ -630,6 +630,21 @@ input:-webkit-autofill:active {
   padding: 0.735em 0;
   margin: 0.521em 0;
   width: 100%;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.checkoutButton:active {
+  background-color: #ddd;
+}
+
+.checkoutButton.disabled {
+  opacity: 50%;
+}
+
+.checkoutButton.disabled:active {
+  opacity: 50%;
+  background-color: white;
 }
 
 .payButton {
@@ -1409,6 +1424,7 @@ input:-webkit-autofill:active {
 .incomingOrderList {
   overflow-y: scroll;
   padding-top: 10px;
+  height: 100%;
 }
 
 .incomingOrder {
@@ -1492,4 +1508,18 @@ input:-webkit-autofill:active {
   width: 100%;
   height: 100%;
   resize: vertical;
+}
+
+.payoutStatus {
+  float: right;
+  font-weight: 600;
+  text-align: right;
+}
+
+.loadingBox {
+  width: 8em;
+  height: 8em;
+  border: solid black 1px;
+  position: fixed;
+  background-color: white;
 }

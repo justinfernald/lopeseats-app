@@ -1,6 +1,6 @@
 import React from 'react';
 import LopesWayImage from '../assets/images/gcu-lopesway.jpg';
-
+import {Link, BrowserRouter} from 'react-router-dom';
 
 export default class HomeScreen extends React.Component {
 
@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
                 icon: "local_shipping"
             },
             {
-                title: "Leader Board??",
+                title: "Payouts",
                 icon: "track_changes",
             },
             {
@@ -90,6 +90,7 @@ export default class HomeScreen extends React.Component {
                     <div className="mainDisplayText">
                         <div className="subHeading">{this.props.deliveryMode ? "Deliver for" : "Welcome to"}</div>
                         <div className="heading">LopesEat</div>
+                        <div dangerouslySetInnerHTML={{__html: "<a target=\"_blank\" href=\"http://google.com\"> test</a>"}}></div>
                     </div>
                 </div>
                 <div className="screenTiles">

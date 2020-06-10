@@ -14,6 +14,7 @@ import RestaurantDetails from './QuickScreens/RestaurantDetails';
 import OrderTracker from './QuickScreens/OrderTracker';
 import IncomingOrders from './QuickScreens/IncomingOrders';
 import ActiveOrders from './QuickScreens/ActiveOrders';
+import Payouts from './QuickScreens/Payouts';
 import CheckoutScreen from './OrderProcess/CheckoutScreen';
 import DeliveryDetails from './OrderProcess/DeliveryDetails';
 import OrderScreen from './DeliveryProcess/OrderScreen';
@@ -215,7 +216,7 @@ export default class ScreenHandler extends React.Component {
             HomeScreen: <HomeScreen
             tileNavigation={[
                 // Delivery Mode
-                ["IncomingOrders", "ActiveOrders", "SwitchMode", "LeaderBoard", "CompletedOrders", "Profile"]
+                ["IncomingOrders", "ActiveOrders", "SwitchMode", "Payouts", "CompletedOrders", "Profile"]
                 // Customer Mode
                 ,["RestaurantsList", "RecentOrders", "SwitchMode", "OrderTracker", "Updates", "Profile"]]}
             onMenuItemClick={
@@ -309,7 +310,8 @@ export default class ScreenHandler extends React.Component {
                     currentOrder: order.id
                 });
                 this.setScreen("OrderScreen");
-            }}/>
+            }}/>,
+            Payouts: <Payouts onBack={this.backScreen} apiToken={this.state.apiToken}/>
         }
 
         return (
