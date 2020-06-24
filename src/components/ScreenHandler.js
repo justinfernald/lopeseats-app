@@ -22,6 +22,7 @@ import PaymentScreen from './DeliveryProcess/PaymentScreen';
 import Cart from './Cart';
 import MessageScreen from './MessageScreen';
 import {storeState} from '../assets/scripts/Util';
+import ItemOptions from './OrderProcess/ItemOptions';
 
 export default class ScreenHandler extends React.Component {
     constructor(props) {
@@ -48,7 +49,11 @@ export default class ScreenHandler extends React.Component {
             // screen: "HomeScreen",
             baseScreen: "Login",
             screenHistory: ["Login"],
-            deliveryMode: false
+            deliveryMode: false,
+            openItem: null,
+            editingItem: false,
+            optionsChosen: [],
+            instructions: null
         };
 
         setupBackEvent(this.backScreen);
@@ -64,6 +69,29 @@ export default class ScreenHandler extends React.Component {
 
     }
 
+    setScreenState = (screen, newState, addHistory = true) => {
+        if (screen === this.state.screen) return;
+        let screenHistory = this.state.screenHistory;
+        if (addHistory) {
+            screenHistory.push(screen);
+            addBackStep();
+        }
+        console.log({
+            newState
+        });
+        this.setState(s => ({
+            ...s,
+            ...newState
+        }));
+        setTimeout(() => {
+            this.setState(s => ({    
+                ...s, 
+                screenHistory,
+                screen
+            }))
+        }, 10);
+    }
+
     setScreen = (screen, addHistory = true) => {
         if (screen === this.state.screen) return;
         let screenHistory = this.state.screenHistory;
@@ -71,10 +99,11 @@ export default class ScreenHandler extends React.Component {
             screenHistory.push(screen);
             addBackStep();
         }
-        this.setState({
-            screenHistory: screenHistory,
-            screen: screen,
-        });
+        this.setState(s => ({
+            ...s,
+            screenHistory,
+            screen,
+        }));
     }
     
     backScreen = (setBack = true) => {
@@ -225,7 +254,10 @@ export default class ScreenHandler extends React.Component {
                 }
             }
             deliveryMode={this.state.deliveryMode}
-            switchModes={() => this.setState({deliveryMode: !this.state.deliveryMode})}
+            switchModes={() => {
+                this.setState({deliveryMode: !this.state.deliveryMode})
+                this.props.setTheme(!this.state.deliveryMode)
+            }}
             />,
             RestaurantsList: <RestaurantsList onBack={this.backScreen} 
             openRestaurantScreen={
@@ -242,8 +274,36 @@ export default class ScreenHandler extends React.Component {
             RestaurantDetails: <RestaurantDetails restaurantData={this.state.currentRestaurant} menuData={this.state.currentMenu}
             onBack={()=> {
                 this.backScreen();
+            }}
+            openItem={(item) => {
+                this.setState({openItem: item, editingItem: false});
+                this.setScreen("ItemOptions");
+            }
+            }/>,
+            ItemOptions: <ItemOptions restaurantData={this.state.currentRestaurant} selectedItem={this.state.openItem}
+            editingItem={this.state.editingItem}
+            optionsChosen={this.state.optionsChosen}
+            instructions={this.state.instructions}
+            closeItem = {() => {
+                this.setScreen("Cart",false);
+            }}
+            onBack={() => {
+                this.backScreen();
             }}/>,
             Cart: <Cart onBack={this.backScreen} apiToken={this.state.apiToken}
+            editItem={item => {
+                console.log("editing: ", item);
+                var optionsChosen = JSON.parse(item.options);
+                var openItem = item;
+                var instructions = instructions
+                var editingItem = true;
+                this.setScreenState("ItemOptions", {
+                    editingItem,
+                    openItem,
+                    optionsChosen,
+                    instructions
+                });
+            }}
             onNextStep={() => {
                 this.setScreen("DeliveryDetails");
             }}

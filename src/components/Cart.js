@@ -4,7 +4,6 @@ import { getCart, getCartPrices, formatPrice } from '../assets/scripts/Util';
 
 export default class Cart extends React.Component  {
 
-    items = [];
     subtotal = 0;
     tax = 0;
     total = 0;
@@ -13,11 +12,16 @@ export default class Cart extends React.Component  {
     constructor(props) {
         super(props);
 
+        this.state = {
+            items: []
+        };
+
         this.fetchData();
     }
 
     async fetchData() {
-        this.items = await getCart(this.props.apiToken);
+        var items = await getCart(this.props.apiToken);
+        this.setState({items});
         console.log(this.items);
 
         var prices = await getCartPrices(this.props.apiToken);
@@ -41,9 +45,19 @@ export default class Cart extends React.Component  {
 
                 <div className="cartList">
                     {
-                        this.items.map((value, index) => {
+                        this.state.items.map((value, index) => {
+                            var options = JSON.parse(value.options);
+                            var optionStrings = [];
+                            var j = 0;
+                            for (var i = 0; i < options.length; i++) {
+                                for (var k in options[i]) {
+                                    optionStrings[j] = k + ":   " + options[i][k];
+                                    optionStrings[j+1] = <br key={j*1000}/>
+                                    j+=2;
+                                }
+                            }
                             return (
-                                <div className="cartItem" key={index}>
+                                <div className="cartItem" key={index} onClick={() => this.props.editItem(value)}>
                                     <div className="imageHolder img-fill"><img alt="test" src={value.image}/></div>
                                     <div className="cartItemInfo">
                                         <div className="cartItemHeader">
@@ -51,8 +65,11 @@ export default class Cart extends React.Component  {
                                             <span className="cartItemPrice">${formatPrice(value.price * value.amount)}</span>
                                         </div>
                                         <div className="cartItemDescription">
-                                            {value.comment}<br/>
-                                            x{value.amount}
+                                            x{value.amount}<br/>
+
+                                            {optionStrings}
+
+                                            {value.comment}
                                         </div>
                                     </div>
                                 </div>

@@ -62,7 +62,7 @@ export const postData = async (url = '', data = {}) => {
   }
 
   // Default options are marked with *
-  const response = await fetch(url, {
+  const response = await fetch(encodeURI(url), {
     method: 'post', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'force-cache',
@@ -120,6 +120,16 @@ export const addCartItem = async (apiToken, id, amount, comment, items) => {
   console.log(JSON.stringify(items))
   try {
     return await postData(`https://lopeseat.com/REST/addCartItem.php?id=${id}&amount=${amount}&comment=${comment}&options=${JSON.stringify(items)}`, {
+      apiToken: apiToken
+    });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const removeCartItem = async (apiToken, id) => {
+  try {
+    return await postData(`https://lopeseat.com/REST/removeCartItem.php?id=${id}`, {
       apiToken: apiToken
     });
   } catch (e) {
@@ -260,4 +270,25 @@ export const requestPayout = async (apiToken) => {
   return await postData("https://lopeseat.com/REST/requestPayout.php", {
     apiToken: apiToken
   });
+}
+
+export const makePHXTime = (date) => {
+    return new Date(date.toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+}
+
+export const parseDate = (dateString) => {
+    if (dateString == null)
+        return null;
+    var t = dateString.split(/[- :]/);
+    var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+    return formatTime(makePHXTime(d));
+}
+
+export const formatTime = (date) => {
+    var hours = date.getHours();
+    var suffix = hours > 12 ? "PM" : "AM";
+    hours = hours == 0 ? 12 : hours > 12 ? hours - 12 : hours;
+    var minutes = date.getMinutes();
+    var minuteString = minutes == 0 ? "00" : minutes < 10 ? "0" + minutes.toString() : minutes;
+    return hours + ":" + minuteString + suffix;
 }

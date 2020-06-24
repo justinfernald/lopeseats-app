@@ -29,39 +29,50 @@ export default class Selector extends React.Component {
         this.setState({
             choice: i
         })
-        this.toggleDropdown();
         if (this.props.onSelection)
             this.props.onSelection(i);
     }
 
-    toggleDropdown = () => {
-        this.optionsRef.current.classList.toggle("show");
-    }
-
     render() {
         // console.log(this.state.choices)
-        return <div className="selector" ref={this.optionsRef}>
-            <div className="choiceName">
-                {this.state.name}
-            </div>
-            <div className="selectorChoice" onClick={this.toggleDropdown}>
-                <div className="information">
-                    <div className="name">{this.state.choice}</div>
-                    {this.state.choices[this.state.choice].cost !== 0 && <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>}
-                </div>
-                <span className="expandButton"><i className="material-icons">
-                keyboard_arrow_down
-                </i></span>
-            </div>
-            <div className="selectorOptions">
-                {makeMap(this.state.choices).filter((_x, i) => i !== this.state.choice).map((x, i) => {
-                    // console.log(x);
-                    return <div key={i} className="selectorOption" onClick={() => this.onSelection(i)}>
-                        <div className="name">{i}</div>
-                        {x.cost !== 0 && <div className="cost">${formatPrice(x.cost)}</div>}
-                    </div>
+        // return <div className="selector" ref={this.optionsRef}>
+        //     <div className="choiceName">
+        //         {this.state.name}
+        //     </div>
+        //     <div className="selectorChoice" onClick={this.toggleDropdown}>
+        //         <div className="information">
+        //             <div className="name">{this.state.choice}</div>
+        //             {this.state.choices[this.state.choice].cost !== 0 && <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>}
+        //         </div>
+        //         <span className="expandButton"><i className="material-icons">
+        //         keyboard_arrow_down
+        //         </i></span>
+        //     </div>
+        //     <div className="selectorOptions">
+        //         {makeMap(this.state.choices).filter((_x, i) => i !== this.state.choice).map((x, i) => {
+        //             // console.log(x);
+        //             return <div key={i} className="selectorOption" onClick={() => this.onSelection(i)}>
+        //                 <div className="name">{i}</div>
+        //                 {x.cost !== 0 && <div className="cost">${formatPrice(x.cost)}</div>}
+        //             </div>
+        //         })}
+        //     </div>
+        // </div>
+
+        return <div> 
+            <div className="itemOptionTitle">{this.state.name}</div>
+            <ul className="itemOptionList">
+                {makeMap(this.state.choices).map((x, i) => {
+                    return <li className={this.state.choice == i ? "selected" : ""} key={i} onClick={() => this.onSelection(i)}>
+                        {i}
+                        {x.cost !== 0 && " (+$" + formatPrice(x.cost) + ")"}
+                        {this.state.choice == i &&
+                        (<span className="check material-icons-round">
+                            check
+                        </span>)}
+                    </li>
                 })}
-            </div>
+            </ul>
         </div>
     }
 }

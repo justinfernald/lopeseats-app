@@ -63,95 +63,15 @@ export default class RestaurantDetails extends React.Component {
 
     openItem = item => {
         console.log(item);
-        this.setState({
-            selectedItem: item
-        });
-    }
-
-    closeItem = () => {
-        this.setState({
-            selectedItem: null
-        });
-    }
-
-    addToCart = () => {
-        addCartItem(getScreenState().apiToken, this.state.selectedItem.id, 1, this.state.instructions ? this.state.instructions : "", this.state.optionsChosen);
-
-        this.closeItem();
-    }
-
-    calculatePrice = () => {
-        let c = this.state.optionsChosen;
-        if (!c) return 0;
-        let output = 0;
-        console.log(c);
-        JSON.parse(this.state.selectedItem.items).forEach((item, i) => {
-            item.options.forEach((option, j) => {
-                console.log(option, i + " : " + j);
-                if (c[i] && c[i][j] && option.choices[c[i][j]])
-                    output += option.choices[c[i][j]].cost;
-            })
-        })
-        return output;
+        // this.setState({
+        //     selectedItem: item
+        // });
+        this.props.openItem(item);
     }
 
     render() {
         return (
             <Fragment>
-                <div className="itemShow" style={
-                    {
-                        opacity: this.state.selectedItem ? 1 : 0,
-                        pointerEvents: this.state.selectedItem ? "auto" : "none"
-                    }
-                }>
-                    <div className="itemContainer">
-                        <div className="closeIcon" onClick={this.closeItem}><i className="material-icons-round">close</i></div>
-                        { this.state.selectedItem && <div className="itemContent">
-                            <div className="itemImage img-fill">
-                                <img className="foodImage" alt={"Food"} src={this.state.selectedItem.image}/>
-                            </div>
-                            <div className="itemName">
-                                {this.state.selectedItem.name}
-                            </div>
-                            <div className="subItems">
-                                {
-                                    JSON.parse(this.state.selectedItem.items).map((x, i) => <div key={i}>
-                                        <div className="subItemInfo">
-                                            {x.tags.length > 0 && <span>Info</span>}
-                                            {/*JSON.stringify(x.tags.map(y => y))*/}
-                                        </div>
-                                        <div className="subItemOptions">
-                                            {x.options.length > 0 && <Fragment><span className="optionText">{x.name}</span><div className="separator"></div></Fragment>}
-                                            {x.options.map((option, j) => <Selector populate={choiceIndex=>{
-                                                let choices = this.state.optionsChosen;
-                                                if (!choices[i]) choices[i] = [];
-                                                choices[i][j] = choiceIndex;
-                                                this.setState({optionsChosen: choices})
-                                            }} onSelection={choiceIndex => {
-                                                let choices = this.state.optionsChosen;
-                                                if (!choices[i]) choices[i] = [];
-                                                choices[i][j] = choiceIndex;
-                                                this.setState({optionsChosen: choices})
-                                            }} key={j} option={option} />)}
-                                        </div>
-                                    </div>)
-                                }
-                            </div>
-                            {this.state.selectedItem.specialInstructions === 1 && <div className="specialInstructionsWrapper">
-                                <div className="SIText">Special Instructions</div>
-                                <div className="SIInput">
-                                    <textarea onChange={e=>{this.setState({instructions: e.currentTarget.value})}}></textarea>
-                                </div>
-                            </div>}
-                            <div className="addToCartFAB" onClick={this.addToCart}>
-                                <span>Add to Cart</span> <i className="material-icons-round">shopping_cart</i>
-                            </div>
-                            <div className="itemsCost">
-                                ${formatPrice(this.state.selectedItem.price)} + {formatPrice(this.calculatePrice())} = ${formatPrice(this.state.selectedItem.price + this.calculatePrice())}
-                            </div>
-                        </div>}
-                    </div>
-                </div>
                 <div className="flexDisplay fillHeight">
                     <div className="backIcon"><i className="material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i></div>        
                     <div id="restaurantSplash" className="restaurantSplash img-fill">

@@ -59,6 +59,18 @@ input:-webkit-autofill:active {
   position: absolute;
 }
 
+.dark {
+  background-color: #1c1c1c;
+}
+
+.light {
+  background-color: #fff
+}
+
+.light .homeScreen {
+  background-color: #F7F8FC
+}
+
 .loginWrapper {
   display: flex;
   flex-direction: column;
@@ -438,6 +450,19 @@ input:-webkit-autofill:active {
   opacity: 0;
 }
 
+.bg-img {
+  background-size: cover;
+  background-position-x: center;
+}
+
+.dark .bg-img {
+  background-image: linear-gradient(0,#1c1c1c,rgba(0, 0, 0, 0)),url(/static/media/gcu-lopesway.d0f43698.jpg);
+}
+
+.light .bg-img {
+  background-image: linear-gradient(0,#f7f8fc,rgba(0, 0, 0, 0)),url(/static/media/gcu-lopesway.d0f43698.jpg);
+}
+
 .img-fill {
   /* display: flex;
   justify-content: center;
@@ -456,13 +481,20 @@ input:-webkit-autofill:active {
 }
 
 .mainDisplayText {
-  color: white;
   /* background-color: #52239867; */
   position: absolute;
   width: 100%;
   bottom: 0;
   font-size: 1.7rem;
   padding: 20px;
+}
+
+.dark .mainDisplayText {
+  color: white;
+}
+
+.light .mainDisplayText {
+  color: #333;
 }
 
 .subHeading {
@@ -478,7 +510,7 @@ input:-webkit-autofill:active {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(#0000, #000c);
+  background-image: linear-gradient(#0000, #1c1c1cff);
   bottom: 0;
 }
 
@@ -498,17 +530,26 @@ input:-webkit-autofill:active {
   margin: 10px 0;
   font-size: 0.75em;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
   position: relative;
+}
+.dark .screenTile {
+  background-color: #2c2c2c;
+  border: 1px solid #606060
+}
+
+.light .screenTile {
+  background-color: #fff;
+  border: none;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
+  box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
 }
 
 .screenTile .iconTile {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -65%) !important;
 }
 
 .screenTile .iconTile i {
@@ -516,10 +557,18 @@ input:-webkit-autofill:active {
 }
 
 .screenTile div {
-  font-weight: 500;
-  color: #888;
-  transform: translateY(30px);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  transform: translateY(25px);
   text-align: center;
+}
+
+.dark .screenTile div {
+  color: #fff;
+}
+
+.light .screenTile div {
+  color: #555;
 }
 
 .restaurantList {
@@ -552,15 +601,15 @@ input:-webkit-autofill:active {
   -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
   display: flex;
-  height: 100px;
+  min-height: 100px;
   padding: 3px;
   margin-bottom: 10px;
 }
 
 .cartItemInfo {
-  margin: 0 15px;
+  margin: 5px 15px;
   display: flex;
-  flex: 1;
+  flex: 1 1;
   flex-direction: column;
   justify-content: center;
 }
@@ -587,9 +636,11 @@ input:-webkit-autofill:active {
 }
 
 .cartItem .imageHolder {
-  height: 100%;
-  width: 94px;
-  border-radius: 5px;
+  height: inherit;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .cartFooter {
@@ -634,6 +685,19 @@ input:-webkit-autofill:active {
   letter-spacing: 0.11em;
 }
 
+.addToCartButton {
+  background-color: #EB1C34;
+  color: #fff;
+  text-align: center;
+  border-radius: 50px;
+  font-size: 1.2em;
+  padding: 0.735em 0;
+  margin: 0.521em 0;
+  width: 100%;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
 .checkoutButton:active {
   background-color: #ddd;
 }
@@ -663,6 +727,12 @@ input:-webkit-autofill:active {
   height: 100%;
 }
 
+.cartItem .imageHolder > img {
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+}
+
 .restaurantName {
   margin-left: 20px;
   display: flex;
@@ -682,6 +752,10 @@ input:-webkit-autofill:active {
 .restaurantHeader .icon {
 }
 
+.incomingOrders {
+  background-color: #121212;
+}
+
 .restaurantHeader .screenTitle {
   float: right;
   transform: translate(-5px, -3px);
@@ -692,6 +766,14 @@ input:-webkit-autofill:active {
   font-size: 1.8em;
   font-weight: 400;
   font-family: "Rubik", sans-serif;
+}
+
+.dark .header {
+  color: white;
+}
+
+.light .header {
+  color: black;
 }
 
 .header .screenTitle {
@@ -804,6 +886,71 @@ input:-webkit-autofill:active {
 .restaurantDetails {
   padding: 10px;
   overflow: auto;
+}
+
+.itemOptionMenu {
+  overflow: auto;
+}
+
+.itemDescription {
+  text-align: center;
+}
+
+.itemHeader {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: black;
+  margin: 15px;
+}
+
+.itemDetails {
+  color: #777;
+  margin: 20px;
+  margin-top: 0px;
+  font-weight: 500;
+}
+
+.itemOptionTitle {
+  background-color: #f6f6f6;
+  width: 100%;
+  height: 40px;
+  font-size: 0.9em;
+  color: black;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.itemOptionList {
+  color: black;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.itemOptionList li {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 20px;
+  padding: 8px;
+}
+
+.itemOptionList li.selected {
+  font-weight: 700;
+}
+
+.check {
+  display: none;
+}
+
+.itemOptionList li.selected .check {
+  display: block;
+  width: 40px;
+  height: 40px;
+  color: #23BB54;
 }
 
 .restaurantInfo {
@@ -1429,31 +1576,67 @@ input:-webkit-autofill:active {
 
 .incomingOrder {
   padding: 0.6em 1.4em;
-  width: 100%;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  height: 65px;
-  margin-bottom: 10px;
+  width: 80%;
+  margin-left: 10%;
+  border-radius: 30px;
+  /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1); */
+  height: 120px;
+  margin-bottom: 30px;
+  background-color: #282828;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.9em;
+  letter-spacing: 0.1em;
+}
+
+.incomingOrderHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
 }
 
 .orderTitle {
   margin-bottom: 0.3em;
+  color: white;
+  font-size: 1.5em;
 }
 
 .orderInfo {
-  font-size: 0.9em;
-  color: gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 50%;
+  font-weight: 500;
 }
 
-.orderAddress {
-  margin: 0.4em;
-  font-size: 1.6em;
+.orderInfo div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.orderInfo > :first-child {
+  border-right: 1px solid white;
+}
+
+.orderInfo > :last-child {
+  margin-left: 10px;
+}
+
+.orderInfo > div > :first-child {
+  font-weight: 200;
 }
 
 .paymentLogo {
   width: 100%;
+}
+
+.orderTime {
+  font-weight: 300;
 }
 
 .paymentContent {
@@ -1488,26 +1671,17 @@ input:-webkit-autofill:active {
   margin-right: 0;
 }
 
-.itemShow .itemContainer .specialInstructionsWrapper {
-  /* background-color: #f97c7c44; */
+.SIInput {
+  margin: 15px 30px;
+  background-color: #f6f6f6;
 }
 
-.itemShow .itemContainer .specialInstructionsWrapper .SIText {
-  text-align: center;
-  font-weight: 500;
-  color: #888;
-}
-
-.itemShow .itemContainer .specialInstructionsWrapper .SIInput {
-  border-radius: 5px;
-  border: 1px solid var(--primary);
-  padding: 3px;
-}
-
-.itemShow .itemContainer .specialInstructionsWrapper .SIInput textarea {
+.SIInput textarea {
   width: 100%;
-  height: 100%;
-  resize: vertical;
+  font-size: 1.1em;
+  padding: 0.3em;
+  min-height: 2em;
+  resize: none;
 }
 
 .payoutStatus {
@@ -1522,4 +1696,21 @@ input:-webkit-autofill:active {
   border: solid black 1px;
   position: fixed;
   background-color: white;
+}
+
+.itemCost { 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 30px 5px 25px 5px;
+  font-size: 1.15em;
+  font-weight: 500;
+}
+
+.itemCost span {
+  font-weight: 700;
+}
+
+.itemOptionFooter {
+  padding: 0px 20px 10px 20px;
 }

@@ -19,10 +19,21 @@ class App extends React.Component {
   fbToken = "";
   messageListener = new MessageListener();
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      darkTheme: false
+    };
+  }
+
+  setTheme(darkTheme) {
+    this.setState({darkTheme})
+  }
+
   render() {
     return (
-        <div className="App">
-          <ScreenHandler fbToken={this.fbToken} messageListener={this.messageListener}/>
+        <div className={"App " + (this.state.darkTheme ? "dark" : "light")}>
+          <ScreenHandler fbToken={this.fbToken} messageListener={this.messageListener} setTheme={(theme) => this.setTheme(theme)}/>
         </div>
     );
   }
@@ -35,6 +46,7 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("mount");
+
     if (firebase.messaging.isSupported()) {
       var firebaseConfig = {
         apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",

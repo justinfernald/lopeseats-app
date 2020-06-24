@@ -83,14 +83,13 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <div className="flexDisplay fillHeight">             
-                <div className="flex img-fill">
-                    <img  alt="Lopes Way" src={LopesWayImage}/>
-                    <div className="imageGradient"></div>
+            <div className="flexDisplay fillHeight homeScreen">
+                <div className="flex img-fill bg-img">
+                    {/* <img  alt="Lopes Way" src={LopesWayImage}/>
+                    <div className="imageGradient"></div> */}
                     <div className="mainDisplayText">
                         <div className="subHeading">{this.props.deliveryMode ? "Deliver for" : "Welcome to"}</div>
                         <div className="heading">LopesEat</div>
-                        <div dangerouslySetInnerHTML={{__html: "<a target=\"_blank\" href=\"http://google.com\"> test</a>"}}></div>
                     </div>
                 </div>
                 <div className="screenTiles">

@@ -10,7 +10,7 @@
     "@ionic/react": "^5.1.1",
     "braintree-web-drop-in-react": "^1.1.0",
     "compressorjs": "^1.0.6",
-    "firebase": "^7.9.1",
+    "firebase": "^7.15.0",
     "ionic": "^5.4.16",
     "javascript-time-ago": "^2.0.7",
     "react": "^16.13.0",

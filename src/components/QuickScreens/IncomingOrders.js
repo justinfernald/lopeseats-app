@@ -1,5 +1,5 @@
 import React from 'react';
-import { getIncomingOrderList } from '../../assets/scripts/Util';
+import { getIncomingOrderList, parseDate } from '../../assets/scripts/Util';
 
 export default class IncomingOrders extends React.Component {
 
@@ -19,7 +19,7 @@ export default class IncomingOrders extends React.Component {
 
     render() {
         return (
-            <div className="flexDisplay fillHeight">             
+            <div className="flexDisplay fillHeight incomingOrders">       
                 <div className="restaurantTop">
                     <div className="header">
                         <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
@@ -32,9 +32,26 @@ export default class IncomingOrders extends React.Component {
                     this.state.orders == null ? "Loading" : 
                     this.state.orders.map((value, index) => {
                     return (
+                    // <div onClick={async () => this.props.openOrderScreen(value)} key={index} className="incomingOrder">
+                    //     <div className="orderTitle">{value.restaurant_name}</div>
+                    //     <div className="orderInfo">{value.address}</div>
+                    // </div>
+
                     <div onClick={async () => this.props.openOrderScreen(value)} key={index} className="incomingOrder">
-                        <div className="orderTitle">{value.restaurant_name}</div>
-                        <div className="orderInfo">{value.address}</div>
+                        <div className="incomingOrderHead">
+                            <div className="orderTitle">{value.restaurant_name}</div>
+                            <div className="orderTime">{parseDate(value.placed)}</div>
+                        </div>
+                        <div className="orderInfo">
+                            <div>
+                                <span>Deliver To:</span>
+                                <span>{value.address}</span>
+                            </div>
+                            <div>
+                                <span>Price:</span>
+                                <span>${value.total}</span>
+                            </div>
+                        </div>
                     </div>
                     )
                     })

@@ -84,7 +84,7 @@ export default class LoginScreen extends React.Component {
                 resendCode(phoneNumber);
                 return;
             }
-            errors.push("Invalid login");
+            errors.push(loginData.msg);
         }
 
         console.log(errors);
