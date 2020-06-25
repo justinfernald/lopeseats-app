@@ -1,15 +1,15 @@
-import React from 'react';
-import {formatPrice} from '../assets/scripts/Util';
-import '../assets/styles/Selector.css';
+import React from "react";
+import { formatPrice } from "../assets/scripts/Util";
+import "../assets/styles/Selector.css";
 
 export default class Selector extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             name: this.props.option.name,
             choice: this.props.option.default,
-            choices: this.props.option.choices
+            choices: this.props.option.choices,
         };
 
         this.optionsRef = React.createRef();
@@ -17,21 +17,16 @@ export default class Selector extends React.Component {
         this.props.populate(this.props.option.default);
     }
 
-    componentDidMount() {
+    componentDidMount() {}
 
-    }
+    componentWillUnmount() {}
 
-    componentWillUnmount() {
-
-    }
-
-    onSelection = i => {
+    onSelection = (i) => {
         this.setState({
-            choice: i
-        })
-        if (this.props.onSelection)
-            this.props.onSelection(i);
-    }
+            choice: i,
+        });
+        if (this.props.onSelection) this.props.onSelection(i);
+    };
 
     render() {
         // console.log(this.state.choices)
@@ -59,24 +54,37 @@ export default class Selector extends React.Component {
         //     </div>
         // </div>
 
-        return <div> 
-            <div className="itemOptionTitle">{this.state.name}</div>
-            <ul className="itemOptionList">
-                {makeMap(this.state.choices).map((x, i) => {
-                    // eslint-disable-next-line eqeqeq
-                    return <li className={this.state.choice == i ? "selected" : ""} key={i} onClick={() => this.onSelection(i)}>
-                        {i}
-                        {/*This needs fixing*/}
-                        {x.cost !== 0 && " (+$" + formatPrice(x.cost) + ")"}
-                        {/* eslint-disable-next-line eqeqeq */
-                             this.state.choice == i &&
-                        (<span className="check material-icons-round">
-                            check
-                        </span>)}
-                    </li>
-                })}
-            </ul>
-        </div>
+        return (
+            <div>
+                <div className="itemOptionTitle">{this.state.name}</div>
+                <ul className="itemOptionList">
+                    {makeMap(this.state.choices).map((x, i) => {
+                        // eslint-disable-next-line eqeqeq
+                        return (
+                            <li
+                                className={
+                                    this.state.choice == i ? "selected" : ""
+                                }
+                                key={i}
+                                onClick={() => this.onSelection(i)}>
+                                {i}
+                                {/*This needs fixing*/}
+                                {x.cost !== 0 &&
+                                    " (+$" + formatPrice(x.cost, false) + ")"}
+                                {
+                                    /* eslint-disable-next-line eqeqeq */
+                                    this.state.choice == i && (
+                                        <span className="check material-icons-round">
+                                            check
+                                        </span>
+                                    )
+                                }
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        );
     }
 }
 
@@ -87,7 +95,7 @@ function makeMap(x) {
 class MapObject {
     constructor(x) {
         for (let i in x) {
-            this[i] = x[i]
+            this[i] = x[i];
         }
     }
 
