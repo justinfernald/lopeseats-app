@@ -65,6 +65,7 @@ export default class Selector extends React.Component {
                 {makeMap(this.state.choices).map((x, i) => {
                     return <li className={this.state.choice == i ? "selected" : ""} key={i} onClick={() => this.onSelection(i)}>
                         {i}
+                        {/*This needs fixing*/}
                         {x.cost !== 0 && " (+$" + formatPrice(x.cost) + ")"}
                         {this.state.choice == i &&
                         (<span className="check material-icons-round">

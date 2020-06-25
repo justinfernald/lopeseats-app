@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import { getCart, getCartPrices, formatPrice } from '../assets/scripts/Util';
+import { getCart, getCartPrices, formatPrice, removeCartItem } from '../assets/scripts/Util';
 
 export default class Cart extends React.Component  {
 
@@ -57,9 +57,9 @@ export default class Cart extends React.Component  {
                                 }
                             }
                             return (
-                                <div className="cartItem" key={index} onClick={() => this.props.editItem(value)}>
-                                    <div className="imageHolder img-fill"><img alt="test" src={value.image}/></div>
-                                    <div className="cartItemInfo">
+                                <div className="cartItem" key={index}>
+                                    <div className="imageHolder img-fill" onClick={() => this.props.editItem(value)}><img alt="test" src={value.image}/></div>
+                                    <div className="cartItemInfo" onClick={() => this.props.editItem(value)}>
                                         <div className="cartItemHeader">
                                         <span className="cartItemName">{value.name}</span>
                                             <span className="cartItemPrice">${formatPrice(value.price * value.amount)}</span>
@@ -71,6 +71,9 @@ export default class Cart extends React.Component  {
 
                                             {value.comment}
                                         </div>
+                                    </div>
+                                    <div className="deleteBtn" onClick={() => {removeCartItem(this.props.apiToken, value.id); this.fetchData()}}>
+                                        <div className="minus"></div>
                                     </div>
                                 </div>
                             )

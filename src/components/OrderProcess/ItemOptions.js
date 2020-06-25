@@ -98,7 +98,7 @@ export default class ItemOptions extends React.Component {
                 {this.state.selectedItem.specialInstructions === 1 && <div className="specialInstructionsWrapper">
                     <div className="itemOptionTitle">Special Instructions</div>
                     <div className="SIInput">
-                        <textarea onChange={e=>{this.setState({instructions: e.currentTarget.value})}}></textarea>
+                        <textarea onChange={e=>{this.setState({instructions: e.currentTarget.value})}}>{this.state.instructions}</textarea>
                     </div>
                 </div>}
 

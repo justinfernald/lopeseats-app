@@ -295,7 +295,7 @@ export default class ScreenHandler extends React.Component {
                 console.log("editing: ", item);
                 var optionsChosen = JSON.parse(item.options);
                 var openItem = item;
-                var instructions = instructions
+                var instructions = item.comment;
                 var editingItem = true;
                 this.setScreenState("ItemOptions", {
                     editingItem,

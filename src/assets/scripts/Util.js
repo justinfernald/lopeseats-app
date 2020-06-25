@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const registerAccount = async (phone, firstName, lastName, email, studentNumber, password, profileImage) => {
   return await postData("https://lopeseat.com/REST/signup.php", {
     name: firstName + " " + lastName,
@@ -160,12 +162,12 @@ export const getCartPrices = async apiToken => {
 export const formatPrice = price => {
     var priceS = price.toString();
     if (!priceS.includes(".")) {
-        return priceS + ".00";
+      priceS = priceS + ".00";
     }
     if (priceS.length - priceS.indexOf(".") <= 2) {
-        return priceS + ("0").repeat(priceS.length - priceS.indexOf(".") - 1);
+      priceS = priceS + ("0").repeat(priceS.length - priceS.indexOf(".") - 1);
     }
-    return priceS.substring(0,priceS.indexOf(".") + 3);
+    return (<span className="priceFormat"><span>{priceS.substring(0,priceS.indexOf("."))}</span> <span className="moneyCents">{priceS.substring(priceS.indexOf("."),priceS.indexOf(".")+3)}</span></span>)
 }
 
 // export const storeGlobalState = () => {
