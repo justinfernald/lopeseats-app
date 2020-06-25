@@ -63,11 +63,13 @@ export default class Selector extends React.Component {
             <div className="itemOptionTitle">{this.state.name}</div>
             <ul className="itemOptionList">
                 {makeMap(this.state.choices).map((x, i) => {
+                    // eslint-disable-next-line eqeqeq
                     return <li className={this.state.choice == i ? "selected" : ""} key={i} onClick={() => this.onSelection(i)}>
                         {i}
                         {/*This needs fixing*/}
                         {x.cost !== 0 && " (+$" + formatPrice(x.cost) + ")"}
-                        {this.state.choice == i &&
+                        {/* eslint-disable-next-line eqeqeq */
+                             this.state.choice == i &&
                         (<span className="check material-icons-round">
                             check
                         </span>)}

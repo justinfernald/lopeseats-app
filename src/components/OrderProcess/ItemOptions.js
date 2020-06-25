@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import Selector from '../Selector';
 import {addCartItem, getScreenState, formatPrice, removeCartItem} from '../../assets/scripts/Util';
 
@@ -24,7 +24,7 @@ export default class ItemOptions extends React.Component {
         let bannerHeight = Math.round(175 - scrollLevel);
         bannerHeight = bannerHeight > 54 ? bannerHeight : 54;
         document.getElementById("restaurantSplash").style.height = bannerHeight + "px";
-        scrollLevel = scrollLevel > 54 ? 54 : scrollLevel;
+        scrollLevel = scrollLevel > 121 ? 121 : scrollLevel;
         target.style.paddingTop = scrollLevel + "px";
     }
 

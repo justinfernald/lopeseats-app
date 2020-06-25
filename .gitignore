@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#ionic
+/android
+/ios
+
 # testing
 /coverage
 

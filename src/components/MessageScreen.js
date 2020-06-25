@@ -69,8 +69,10 @@ export default class MessageScreen extends React.Component {
     formatDate(date) {
         var hours = date.getHours();
         var suffix = hours > 12 ? "PM" : "AM";
+        // eslint-disable-next-line eqeqeq
         hours = hours == 0 ? 12 : hours > 12 ? hours - 12 : hours;
         var minutes = date.getMinutes();
+        // eslint-disable-next-line eqeqeq
         var minuteString = minutes == 0 ? "00" : minutes < 10 ? "0" + minutes.toString() : minutes;
         return hours + ":" + minuteString + suffix;
     }
@@ -84,6 +86,7 @@ export default class MessageScreen extends React.Component {
             var className = "messageContainer" + (message.sender === this.state.selfId ? " right" : "");
             var date = this.parseDate(message.time);
             if (prevMessage != null) {
+                // eslint-disable-next-line eqeqeq
                 if (date.getDate() != this.parseDate(prevMessage.time).getDate()) {
                     messagesJSX.push((
                         <div className="newDayLine" key={i * 2}>

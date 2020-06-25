@@ -7,9 +7,13 @@
     "@capacitor/cli": "2.1.2",
     "@capacitor/core": "2.1.2",
     "@capacitor/ios": "^2.1.2",
+    "@ionic-native/firebase-messaging": "^5.27.0",
     "@ionic/react": "^5.1.1",
     "braintree-web-drop-in-react": "^1.1.0",
     "compressorjs": "^1.0.6",
+    "cordova-plugin-firebase-analytics": "^4.3.0",
+    "cordova-plugin-firebase-messaging": "^4.4.1",
+    "cordova-support-android-plugin": "^1.0.2",
     "firebase": "^7.15.0",
     "ionic": "^5.4.16",
     "javascript-time-ago": "^2.0.7",
@@ -44,5 +48,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-firebase-messaging": {}
+    }
   }
 }

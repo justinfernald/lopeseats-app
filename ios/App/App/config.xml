@@ -2,5 +2,15 @@
 <widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
   
+  <feature name="FirebaseAnalytics">
+    <param name="ios-package" value="FirebaseAnalyticsPlugin"/>
+    <param name="onload" value="$FIREBASE_ANALYTICS_COLLECTION_ENABLED"/>
+  </feature>
+
+  <feature name="FirebaseMessaging">
+    <param name="ios-package" value="FirebaseMessagingPlugin"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   
 </widget>

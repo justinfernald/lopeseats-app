@@ -1,0 +1,10 @@
+{
+  "cordova-plugin-firebase-messaging": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-firebase-messaging"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}

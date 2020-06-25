@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import { getCompletedOrderList, formatPrice, getPayoutTotal, getPayoutStatus, requestPayout } from '../../assets/scripts/Util';
 

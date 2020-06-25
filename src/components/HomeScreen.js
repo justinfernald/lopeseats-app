@@ -1,6 +1,6 @@
 import React from 'react';
-import LopesWayImage from '../assets/images/gcu-lopesway.jpg';
-import {Link, BrowserRouter} from 'react-router-dom';
+// import LopesWayImage from '../assets/images/gcu-lopesway.jpg';
+// import {Link, BrowserRouter} from 'react-router-dom';
 
 export default class HomeScreen extends React.Component {
 

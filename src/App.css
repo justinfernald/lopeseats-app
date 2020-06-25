@@ -98,8 +98,6 @@ input:-webkit-autofill:active {
   padding-top: 3px;
 }
 
-.button {
-}
 
 .formSwitchButton {
   position: absolute;
@@ -749,8 +747,8 @@ input:-webkit-autofill:active {
   font-family: "Rubik", sans-serif;
 }
 
-.restaurantHeader .icon {
-}
+/* .restaurantHeader .icon {
+} */
 
 .incomingOrders {
   background-color: #121212;
@@ -864,6 +862,7 @@ input:-webkit-autofill:active {
 .restaurantSplash {
   height: 175px;
   flex: 0 0 auto;
+  /* transition: all 0.05s ease-in-out 0s; */
   /* max-height: 200px;
   min-height: 70px; */
 }
@@ -953,9 +952,6 @@ input:-webkit-autofill:active {
   color: #23BB54;
 }
 
-.restaurantInfo {
-  /* height: 2000px; */
-}
 
 .restaurantInfo .restaurantDescription {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
@@ -1014,11 +1010,11 @@ input:-webkit-autofill:active {
   color: rgb(37, 187, 0);
 }
 
-.restaurantInfo .hoursList .hourOpen .openTimeList {
-}
+/* .restaurantInfo .hoursList .hourOpen .openTimeList {
+} */
 
-.restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem {
-}
+/* .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem {
+} */
 
 .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem.isOpen {
   color: rgb(37, 187, 0);
@@ -1033,14 +1029,14 @@ input:-webkit-autofill:active {
   width: 140px;
 }
 
-.restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem .openTime {
+/* .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem .openTime {
 }
 
 .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem .closingTime {
 }
 
 .restaurantFood {
-}
+} */
 
 .restaurantFood .featuredMenu {
   display: flex;
@@ -1206,7 +1202,7 @@ input:-webkit-autofill:active {
   border-radius: 6px;
 }
 
-.itemShow .itemContainer .itemContent .subItems {
+/* .itemShow .itemContainer .itemContent .subItems {
 
 }
 
@@ -1220,7 +1216,7 @@ input:-webkit-autofill:active {
 
 .itemShow .itemContainer .itemContent .subItems .subItemOptions {
 
-}
+} */
 
 .itemShow .itemContainer .itemContent .subItems .subItemOptions .optionText {
   position: relative;
@@ -1240,9 +1236,9 @@ input:-webkit-autofill:active {
   transform: translateX(-50%);
 }
 
-.itemShow .itemContainer .itemContent .subItems .subItemCost {
+/* .itemShow .itemContainer .itemContent .subItems .subItemCost {
 
-}
+} */
 
 .itemShow .itemContainer .itemContent .addToCartFAB {
   background-color: var(--primary);

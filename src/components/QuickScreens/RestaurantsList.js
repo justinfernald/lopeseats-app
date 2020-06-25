@@ -32,7 +32,7 @@ export default class RestaurantsList extends React.Component {
 
     async fetchData() {
         this.restaurants = await getRestaurants();
-        console.log(this.restaurants);
+        // console.log(this.restaurants);
 
         this.forceUpdate();
     }
