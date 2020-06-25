@@ -1,13 +1,16 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "LopesEat App",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "build",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "cordova": {}
+    "appId": "com.lopeseat.app",
+    "appName": "LopesEat",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "server": {
+        "allowNavigation": ["lopeseat.com", "*.lopeseat.com"]
+    },
+    "plugins": {
+        "SplashScreen": {
+            "launchShowDuration": 0
+        }
+    },
+    "cordova": {}
 }

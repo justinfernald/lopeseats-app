@@ -1,57 +1,50 @@
 {
-  "name": "lopeseats-pwa",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@capacitor/android": "^2.1.2",
-    "@capacitor/cli": "2.1.2",
-    "@capacitor/core": "2.1.2",
-    "@capacitor/ios": "^2.1.2",
-    "@ionic-native/firebase-messaging": "^5.27.0",
-    "@ionic/react": "^5.1.1",
-    "braintree-web-drop-in-react": "^1.1.0",
-    "compressorjs": "^1.0.6",
-    "cordova-plugin-firebase-analytics": "^4.3.0",
-    "cordova-plugin-firebase-messaging": "^4.4.1",
-    "cordova-support-android-plugin": "^1.0.2",
-    "firebase": "^7.15.0",
-    "ionic": "^5.4.16",
-    "javascript-time-ago": "^2.0.7",
-    "react": "^16.13.0",
-    "react-barcode": "^1.4.0",
-    "react-dom": "^16.13.0",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "ionic:build": "npm rum build && ionic capacitor copy",
-    "setup": "ionic capacitor add android && ionic capacitor add ios",
-    "android": "ionic capacitor run android",
-    "ios": "ionic capacitor run ios"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-firebase-messaging": {}
+    "name": "lopeseats-pwa",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@capacitor/android": "^2.1.2",
+        "@capacitor/cli": "2.1.2",
+        "@capacitor/core": "2.1.2",
+        "@capacitor/ios": "^2.1.2",
+        "@ionic-native/firebase-analytics": "^5.27.0",
+        "@ionic-native/firebase-messaging": "^5.27.0",
+        "@ionic/react": "^5.1.1",
+        "braintree-web-drop-in-react": "^1.1.0",
+        "compressorjs": "^1.0.6",
+        "firebase": "^7.15.0",
+        "ionic": "^5.4.16",
+        "javascript-time-ago": "^2.0.7",
+        "react": "^16.13.0",
+        "react-barcode": "^1.4.0",
+        "react-dom": "^16.13.0",
+        "react-router": "^5.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "^3.4.0"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "ionic:build": "npm rum build && ionic capacitor copy",
+        "setup": "ionic capacitor add android && ionic capacitor add ios",
+        "android": "ionic capacitor run android",
+        "ios": "ionic capacitor run ios"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
     }
-  }
 }

@@ -1,48 +1,48 @@
 * {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  color: inherit;
-  box-sizing: border-box;
-  background-color: transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    color: inherit;
+    box-sizing: border-box;
+    background-color: transparent;
 }
 
 *:focus {
-  outline: none;
+    outline: none;
 }
 
 :root {
-  --primary: #d50202;
-  --secondary: #fc3232;
-  --light-grey: #ddd;
-  --placeholder: #f97c7c;
+    --primary: #d50202;
+    --secondary: #fc3232;
+    --light-grey: #ddd;
+    --placeholder: #f97c7c;
 }
 
 body {
-  overflow-y: hidden;
-  touch-action: none; /* removes pinch zoom */
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
+    overflow-y: hidden;
+    touch-action: none; /* removes pinch zoom */
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
 
 input,
 .allowSelect {
-  -webkit-touch-callout: all; /* iOS Safari */
-  -webkit-user-select: all; /* Safari */
-  -khtml-user-select: all; /* Konqueror HTML */
-  -moz-user-select: all; /* Old versions of Firefox */
-  -ms-user-select: all; /* Internet Explorer/Edge */
-  user-select: all; /* Non-prefixed version, currently
+    -webkit-touch-callout: all; /* iOS Safari */
+    -webkit-user-select: all; /* Safari */
+    -khtml-user-select: all; /* Konqueror HTML */
+    -moz-user-select: all; /* Old versions of Firefox */
+    -ms-user-select: all; /* Internet Explorer/Edge */
+    user-select: all; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
 
@@ -50,964 +50,962 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  transition: all 0s 50000s; /* this removes the background from autofill - I don't know why it works */
+    transition: all 0s 50000s; /* this removes the background from autofill - I don't know why it works */
 }
 
 .App {
-  height: 100%;
-  width: 100%;
-  position: absolute;
+    height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 .dark {
-  background-color: #1c1c1c;
+    background-color: #1c1c1c;
 }
 
 .light {
-  background-color: #fff
+    background-color: #fff;
 }
 
 .light .homeScreen {
-  background-color: #F7F8FC
+    background-color: #f7f8fc;
 }
 
 .loginWrapper {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .errorWrapper {
-  top: 30px;
-  /* bottom: 50%; */
-  width: 100%;
-  padding: 10px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  color: white;
+    top: 30px;
+    /* bottom: 50%; */
+    width: 100%;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
 }
 
 .errorList {
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.25);
-  padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 10px;
 }
 
 .errorItem {
-  height: 30px;
-  padding-top: 3px;
+    height: 30px;
+    padding-top: 3px;
 }
 
-
 .formSwitchButton {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  color: var(--primary);
-  font-size: 1.2em;
-  font-weight: 500;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: var(--primary);
+    font-size: 1.2em;
+    font-weight: 500;
 }
 
 .loginImage {
-  position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 200px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 200px;
 }
 
 .imageFill {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .loginForm {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-  background: var(--light-grey);
-  border-top-right-radius: 30px;
-  border-top-left-radius: 30px;
-  padding: 20px 7px;
-  max-height: calc(100% - 250px);
-  overflow: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background: var(--light-grey);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+    padding: 20px 7px;
+    max-height: calc(100% - 250px);
+    overflow: auto;
 }
 
 .loginForm::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .signInText {
-  position: relative;
-  font-size: 1.5em;
-  color: var(--primary);
-  font-weight: 500;
-  text-align: center;
+    position: relative;
+    font-size: 1.5em;
+    color: var(--primary);
+    font-weight: 500;
+    text-align: center;
 }
 
 .inputWrap {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
-  width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
 }
 
 .appInput {
-  padding: 10px;
-  border-bottom: 1px solid var(--primary);
-  width: 100%;
-  display: flex;
-  margin-bottom: 30px;
+    padding: 10px;
+    border-bottom: 1px solid var(--primary);
+    width: 100%;
+    display: flex;
+    margin-bottom: 30px;
 }
 
 .appInput.forgot {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .appInput > input {
-  flex: 1;
-  position: relative;
-  top: 1px;
-  font-size: 1.25em;
-  color: var(--secondary);
-  min-width: 0;
+    flex: 1;
+    position: relative;
+    top: 1px;
+    font-size: 1.25em;
+    color: var(--secondary);
+    min-width: 0;
 }
 
 .appInput > input::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: var(--placeholder);
-  opacity: 1; /* Firefox */
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--placeholder);
+    opacity: 1; /* Firefox */
 }
 
 .appInput > input:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: var(--placeholder);
+    /* Internet Explorer 10-11 */
+    color: var(--placeholder);
 }
 
 .appInput > input::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: var(--placeholder);
+    /* Microsoft Edge */
+    color: var(--placeholder);
 }
 
 .forgotPassword {
-  color: var(--secondary);
-  position: relative;
-  width: 100%;
-  text-align: right;
+    color: var(--secondary);
+    position: relative;
+    width: 100%;
+    text-align: right;
 }
 
 .iconHolder > img {
-  width: 20px;
-  height: 20px;
-  margin-right: 13px;
-  transform: translateY(4px);
+    width: 20px;
+    height: 20px;
+    margin-right: 13px;
+    transform: translateY(4px);
 }
 
 .password.iconHolder > img {
-  margin-right: 0;
-  margin-left: 15px;
+    margin-right: 0;
+    margin-left: 15px;
 }
 
 .signInButton {
-  width: 100%;
-  height: 60px;
-  background-color: var(--primary);
-  border-radius: 30px;
-  color: white;
-  font-weight: 500;
-  font-size: 1.1em;
+    width: 100%;
+    height: 60px;
+    background-color: var(--primary);
+    border-radius: 30px;
+    color: white;
+    font-weight: 500;
+    font-size: 1.1em;
 }
 
 .registerHeader {
-  padding: 20px;
+    padding: 20px;
 }
 
 .registerStepTop {
-  width: 100%;
-  color: var(--primary);
+    width: 100%;
+    color: var(--primary);
 }
 
 .backButton {
-  float: left;
+    float: left;
 }
 
 .nextStepButton {
-  float: right;
-  font-size: 1.1em;
-  font-weight: 500;
+    float: right;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 
 .registerStepWrapper {
-  width: 100%;
-  margin-top: 30px;
+    width: 100%;
+    margin-top: 30px;
 }
 
 .registerStepText {
-  float: left;
-  color: var(--primary);
-  font-size: 2.1em;
-  font-weight: 500;
+    float: left;
+    color: var(--primary);
+    font-size: 2.1em;
+    font-weight: 500;
 }
 
 .registerStepProgress {
-  float: right;
-  color: var(--secondary);
-  font-weight: 500;
-  margin-top: 14px;
+    float: right;
+    color: var(--secondary);
+    font-weight: 500;
+    margin-top: 14px;
 }
 
 .registerStepBanner {
-  margin-top: 20px;
-  background: var(--light-grey);
-  width: 100%;
-  height: 50px;
-  padding-left: 40px;
-  line-height: 2.45;
-  font-size: 1.2em;
-  color: var(--primary);
-  font-weight: 700;
-  text-transform: uppercase;
+    margin-top: 20px;
+    background: var(--light-grey);
+    width: 100%;
+    height: 50px;
+    padding-left: 40px;
+    line-height: 2.45;
+    font-size: 1.2em;
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .flexDisplay {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .flexDisplayRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .fillHeight {
-  height: 100%;
+    height: 100%;
 }
 
 .fillWidth {
-  width: 100%;
+    width: 100%;
 }
 
 .flex {
-  flex: 1;
-  width: 100%;
+    flex: 1;
+    width: 100%;
 }
 
 .alignCenter {
-  align-items: center;
+    align-items: center;
 }
 
 .justifyCenter {
-  justify-content: center;
+    justify-content: center;
 }
 
 .registerFormContainer {
-  padding: 30px 30px 0 30px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: auto;
+    padding: 30px 30px 0 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
 }
 
 .uploaderContainer {
-  max-height: 155px;
-  min-height: 115px;
-  margin-bottom: 20px;
+    max-height: 155px;
+    min-height: 115px;
+    margin-bottom: 20px;
 }
 
 .uploaderCircle {
-  width: 100%;
-  height: 100%;
-  justify-content: center;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
 }
 
 .uploaderCircle .imageWrapper {
-  width: initial;
-  height: inherit;
-  position: relative;
+    width: initial;
+    height: inherit;
+    position: relative;
 }
 
 .uploaderCircle .backgroundImg {
-  height: 100%;
-  width: auto;
-  border-radius: 50%;
-  background: var(--primary);
-  display: block;
+    height: 100%;
+    width: auto;
+    border-radius: 50%;
+    background: var(--primary);
+    display: block;
 }
 
 .uploaderCircle .profileImg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
 
 .uploaderCircle .crossHair {
-  width: 25%;
-  padding-top: 25%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    width: 25%;
+    padding-top: 25%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .uploaderCircle .crossHair::before {
-  content: "";
-  width: 4px;
-  height: 100%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  position: absolute;
+    content: "";
+    width: 4px;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    position: absolute;
 }
 
 .uploaderCircle .crossHair::after {
-  content: "";
-  width: 100%;
-  height: 4px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  position: absolute;
+    content: "";
+    width: 100%;
+    height: 4px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    position: absolute;
 }
 
 .uploaderCircle .imageUpload {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  top: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    top: 0;
 }
 
 .labeledInput {
-  width: 75%;
+    width: 75%;
 }
 
 .labeledInput > .label {
-  color: var(--secondary);
+    color: var(--secondary);
 }
 
 .labeledInput > .appInput {
-  padding-left: 0;
-  padding-top: 0;
+    padding-left: 0;
+    padding-top: 0;
 }
 
 .registerFormContainer p {
-  padding: 10px;
+    padding: 10px;
 }
 
 .code-input {
-  background-color: white;
-  position: relative;
-  top: 15px;
-  height: 100px;
-  min-height: 100px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  max-width: 500px;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
-  margin-bottom: 10px;
+    background-color: white;
+    position: relative;
+    top: 15px;
+    height: 100px;
+    min-height: 100px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 500px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+    margin-bottom: 10px;
 }
 
 .code-input-element {
-  width: 35px;
-  height: 35px;
-  border-bottom: 3px #ddd solid;
-  border-radius: 3px;
-  color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3em;
-  font-weight: 700;
-  transition: 0.2s ease-in-out;
+    width: 35px;
+    height: 35px;
+    border-bottom: 3px #ddd solid;
+    border-radius: 3px;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3em;
+    font-weight: 700;
+    transition: 0.2s ease-in-out;
 }
 .code-input-element.filled {
-  color: black;
-  border-bottom: 3px var(--secondary) solid;
-  transform: scale(1.1);
+    color: black;
+    border-bottom: 3px var(--secondary) solid;
+    transform: scale(1.1);
 }
 
 .hidden-input {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
 }
 
 .bg-img {
-  background-size: cover;
-  background-position-x: center;
+    background-size: cover;
+    background-position-x: center;
 }
 
 .dark .bg-img {
-  background-image: linear-gradient(0,#1c1c1c,rgba(0, 0, 0, 0)),url(/static/media/gcu-lopesway.d0f43698.jpg);
+    background-image: linear-gradient(0, #1c1c1c, rgba(0, 0, 0, 0)),
+        url(/images/gcu-lopesway.jpg);
 }
 
 .light .bg-img {
-  background-image: linear-gradient(0,#f7f8fc,rgba(0, 0, 0, 0)),url(/static/media/gcu-lopesway.d0f43698.jpg);
+    background-image: linear-gradient(0, #f7f8fc, rgba(0, 0, 0, 0)),
+        url(/images/gcu-lopesway.jpg);
 }
 
 .img-fill {
-  /* display: flex;
+    /* display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;*/
-  position: relative;
+    position: relative;
 }
 
 .img-fill > img {
-  /* flex-shrink: 0;
+    /* flex-shrink: 0;
   min-width: 100%;
   min-height: 100% */
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 .mainDisplayText {
-  /* background-color: #52239867; */
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  font-size: 1.7rem;
-  padding: 20px;
+    /* background-color: #52239867; */
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    font-size: 1.7rem;
+    padding: 20px;
 }
 
 .dark .mainDisplayText {
-  color: white;
+    color: white;
 }
 
 .light .mainDisplayText {
-  color: #333;
+    color: #333;
 }
 
 .subHeading {
-  font-size: 1em;
-  transform: translate(5px, 15px);
+    font-size: 1em;
+    transform: translate(5px, 15px);
 }
 
 .heading {
-  font-size: 2.5em;
+    font-size: 2.5em;
 }
 
 .imageGradient {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient(#0000, #1c1c1cff);
-  bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(#0000, #1c1c1cff);
+    bottom: 0;
 }
 
 .screenTiles {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  justify-content: space-evenly;
-  padding: 25px 0;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-evenly;
+    padding: 25px 0;
 }
 
 .screenTile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 95px;
-  height: 95px;
-  margin: 10px 0;
-  font-size: 0.75em;
-  border-radius: 10px;
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95px;
+    height: 95px;
+    margin: 10px 0;
+    font-size: 0.75em;
+    border-radius: 10px;
+    position: relative;
 }
 .dark .screenTile {
-  background-color: #2c2c2c;
-  border: 1px solid #606060
+    background-color: #2c2c2c;
+    border: 1px solid #606060;
 }
 
 .light .screenTile {
-  background-color: #fff;
-  border: none;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
-  box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
+    background-color: #fff;
+    border: none;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
+    box-shadow: 0px 0px 15px 0px rgba(73, 25, 25, 0.1);
 }
 
 .screenTile .iconTile {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -65%) !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -65%) !important;
 }
 
 .screenTile .iconTile i {
-  font-size: 4em;
+    font-size: 4em;
 }
 
 .screenTile div {
-  font-weight: 300;
-  letter-spacing: 0.05em;
-  transform: translateY(25px);
-  text-align: center;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    transform: translateY(25px);
+    text-align: center;
 }
 
 .dark .screenTile div {
-  color: #fff;
+    color: #fff;
 }
 
 .light .screenTile div {
-  color: #555;
+    color: #555;
 }
 
 .restaurantList {
-  padding: 10px;
-  overflow: auto;
+    padding: 10px;
+    overflow: auto;
 }
 
 .restaurantItem {
-  width: 100%;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  display: flex;
-  height: 65px;
-  padding: 3px;
-  margin-bottom: 10px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    display: flex;
+    height: 65px;
+    padding: 3px;
+    margin-bottom: 10px;
 }
 
 .cartList {
-  padding: 10px;
-  overflow: auto;
-  height: 100%;
+    padding: 10px;
+    overflow: auto;
+    height: 100%;
 }
 
 .cartItem {
-  width: 100%;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-  display: flex;
-  min-height: 100px;
-  padding: 3px;
-  margin-bottom: 10px;
+    width: 100%;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    min-height: 100px;
+    padding: 3px;
+    margin-bottom: 10px;
 }
 
 .cartItemInfo {
-  margin: 5px 15px;
-  display: flex;
-  flex: 1 1;
-  flex-direction: column;
-  justify-content: center;
+    margin: 5px 15px;
+    display: flex;
+    flex: 1 1;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .cartItemHeader {
-  font-weight: 100;
-  font-size: 1.1em;
-  font-weight: 500;
-  margin-bottom: 5px;
+    font-weight: 100;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-bottom: 5px;
 }
 
 .cartItemPrice {
-  float: right;
+    float: right;
 }
 
 .cartItemDescription {
-  color: #777;
+    color: #777;
 }
 
 .restaurantItem .imageHolder {
-  height: 100%;
-  width: 59px;
-  border-radius: 5px;
+    height: 100%;
+    width: 59px;
+    border-radius: 5px;
 }
 
 .cartItem .imageHolder {
-  height: inherit;
-  width: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    height: inherit;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .cartFooter {
-  background-color: var(--primary);
-  width: 100%;
-  padding: 15px 20px;
-  border-radius: 20px 20px 0 0 ;
+    background-color: var(--primary);
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 20px 20px 0 0;
 }
 
 .subtotal {
-  color: #ccc;
-  margin-bottom: 8px;
+    color: #ccc;
+    margin-bottom: 8px;
 }
 
 .subtotal .price {
-  float: right;
-  font-weight: 500;
-  color: white;
+    float: right;
+    font-weight: 500;
+    color: white;
 }
 
 .total {
-  color: #ccc;
-  margin-bottom: 20px;
+    color: #ccc;
+    margin-bottom: 20px;
 }
 
 .total .price {
-  float: right;
-  font-weight: 800;
-  color: white;
+    float: right;
+    font-weight: 800;
+    color: white;
 }
 
 .checkoutButton {
-  background-color: white;
-  color: #f66;
-  text-align: center;
-  border-radius: 50px;
-  font-size: 1.2em;
-  padding: 0.735em 0;
-  margin: 0.521em 0;
-  width: 100%;
-  font-weight: 700;
-  letter-spacing: 0.11em;
+    background-color: white;
+    color: #f66;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 1.2em;
+    padding: 0.735em 0;
+    margin: 0.521em 0;
+    width: 100%;
+    font-weight: 700;
+    letter-spacing: 0.11em;
 }
 
 .addToCartButton {
-  background-color: #EB1C34;
-  color: #fff;
-  text-align: center;
-  border-radius: 50px;
-  font-size: 1.2em;
-  padding: 0.735em 0;
-  margin: 0.521em 0;
-  width: 100%;
-  font-weight: 700;
-  letter-spacing: 0.11em;
+    background-color: #eb1c34;
+    color: #fff;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 1.2em;
+    padding: 0.735em 0;
+    margin: 0.521em 0;
+    width: 100%;
+    font-weight: 700;
+    letter-spacing: 0.11em;
 }
 
 .checkoutButton:active {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 .checkoutButton.disabled {
-  opacity: 50%;
+    opacity: 50%;
 }
 
 .checkoutButton.disabled:active {
-  opacity: 50%;
-  background-color: white;
+    opacity: 50%;
+    background-color: white;
 }
 
 .payButton {
-  background-color: var(--primary);
-  color: #aaa;
-  text-align: center;
-  border-radius: 50px;
-  font-size: 1.2em;
-  padding: 14px 0;
-  margin: 10px 0;
-  width: 100%;
+    background-color: var(--primary);
+    color: #aaa;
+    text-align: center;
+    border-radius: 50px;
+    font-size: 1.2em;
+    padding: 14px 0;
+    margin: 10px 0;
+    width: 100%;
 }
 
 .imageHolder > img {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .cartItem .imageHolder > img {
-  width: 100%;
-  height: 100px;
-  border-radius: 5px;
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
 }
 
 .restaurantName {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  flex: 1;
-  font-weight: 100;
-  font-size: 1.5em;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    font-weight: 100;
+    font-size: 1.5em;
 }
 
 .restaurantHeader {
-  padding: 5px;
-  font-size: 1.8em;
-  font-weight: 400;
-  font-family: "Rubik", sans-serif;
+    padding: 5px;
+    font-size: 1.8em;
+    font-weight: 400;
+    font-family: "Rubik", sans-serif;
 }
 
 /* .restaurantHeader .icon {
 } */
 
 .incomingOrders {
-  background-color: #121212;
+    background-color: #121212;
 }
 
 .restaurantHeader .screenTitle {
-  float: right;
-  transform: translate(-5px, -3px);
+    float: right;
+    transform: translate(-5px, -3px);
 }
 
 .header {
-  padding: 5px;
-  font-size: 1.8em;
-  font-weight: 400;
-  font-family: "Rubik", sans-serif;
+    padding: 5px;
+    font-size: 1.8em;
+    font-weight: 400;
+    font-family: "Rubik", sans-serif;
 }
 
 .dark .header {
-  color: white;
+    color: white;
 }
 
 .light .header {
-  color: black;
+    color: black;
 }
 
 .header .screenTitle {
-  float: right;
-  transform: translate(-5px, -3px);
+    float: right;
+    transform: translate(-5px, -3px);
 }
 
 .sortControl {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /*  */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*  */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 7px;
 }
 
 .searchBox {
-  display: flex;
-  height: 50px;
-  width: 90%;
-  margin-top: 10px;
-  padding: 10px;
-  border-bottom: 2px var(--light-grey) solid;
+    display: flex;
+    height: 50px;
+    width: 90%;
+    margin-top: 10px;
+    padding: 10px;
+    border-bottom: 2px var(--light-grey) solid;
 }
 
 .searchBox > input {
-  font-size: 1.2em;
-  color: rgb(102, 102, 102); /*this is not a good number!*/
-  flex: 1;
-  margin-right: 10px;
-  transform: translateY(-2px);
+    font-size: 1.2em;
+    color: rgb(102, 102, 102); /*this is not a good number!*/
+    flex: 1;
+    margin-right: 10px;
+    transform: translateY(-2px);
 }
 
 .restaurantTop {
-  padding: 10px;
+    padding: 10px;
 }
 
 .sortOptions {
-  display: flex;
-  border-radius: 5px;
-  /* margin-top: 8px; */
-  height: 70px;
-  width: 100%;
-  /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
-  padding: 10px 0;
-  justify-content: space-evenly;
-  /* max-width: 405px; */
+    display: flex;
+    border-radius: 5px;
+    /* margin-top: 8px; */
+    height: 70px;
+    width: 100%;
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
+    padding: 10px 0;
+    justify-content: space-evenly;
+    /* max-width: 405px; */
 }
 
 .sortOption {
-  /* background: purple; */
-  border-radius: 5px;
-  /* box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.13); */
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    /* background: purple; */
+    border-radius: 5px;
+    /* box-shadow: 0 3px 6px rgba(0,0,0,0.06), 0 3px 6px rgba(0,0,0,0.13); */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sortOption.active {
-  color: var(--primary);
+    color: var(--primary);
 }
 
 .splitter {
-  width: 2px;
-  background: var(--light-grey);
+    width: 2px;
+    background: var(--light-grey);
 }
 
 .sortIcon.material-icons,
 .sortIcon.material-icons-round {
-  font-size: 2em;
+    font-size: 2em;
 }
 
 .sortIcon.fas {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .backIcon {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  font-size: 1.2em;
-  color: white;
-  z-index: 100;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    font-size: 1.2em;
+    color: white;
+    z-index: 100;
 }
 
 .restaurantSplash {
-  height: 175px;
-  flex: 0 0 auto;
-  /* transition: all 0.05s ease-in-out 0s; */
-  /* max-height: 200px;
+    height: 175px;
+    flex: 0 0 auto;
+    /* transition: all 0.05s ease-in-out 0s; */
+    /* max-height: 200px;
   min-height: 70px; */
 }
 
 .restaurantSplash img {
-  object-position: 50% 30%;
-  filter: brightness(0.5);
+    object-position: 50% 30%;
+    filter: brightness(0.5);
 }
 
 .restaurantTitle {
-  font-family: Rubik;
-  position: absolute;
-  bottom: 10.75px;
-  color: white;
-  font-size: 1.7em;
-  font-weight: 300;
-  right: 10px;
+    font-family: Rubik;
+    position: absolute;
+    bottom: 10.75px;
+    color: white;
+    font-size: 1.7em;
+    font-weight: 300;
+    right: 10px;
 }
 
 .restaurantDetails {
-  padding: 10px;
-  overflow: auto;
+    padding: 10px;
+    overflow: auto;
 }
 
 .itemOptionMenu {
-  overflow: auto;
+    overflow: auto;
 }
 
 .itemDescription {
-  text-align: center;
+    text-align: center;
 }
 
 .itemHeader {
-  font-size: 1.2em;
-  font-weight: 700;
-  color: black;
-  margin: 15px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: black;
+    margin: 15px;
 }
 
 .itemDetails {
-  color: #777;
-  margin: 20px;
-  margin-top: 0px;
-  font-weight: 500;
+    color: #777;
+    margin: 20px;
+    margin-top: 0px;
+    font-weight: 500;
 }
 
 .itemOptionTitle {
-  background-color: #f6f6f6;
-  width: 100%;
-  height: 40px;
-  font-size: 0.9em;
-  color: black;
-  font-weight: 500;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+    background-color: #f6f6f6;
+    width: 100%;
+    height: 40px;
+    font-size: 0.9em;
+    color: black;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 .itemOptionList {
-  color: black;
-  font-size: 1.1em;
-  font-weight: 500;
+    color: black;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 
 .itemOptionList li {
-  height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 20px;
-  padding: 8px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 20px;
+    padding: 8px;
 }
 
 .itemOptionList li.selected {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 .check {
-  display: none;
+    display: none;
 }
 
 .itemOptionList li.selected .check {
-  display: block;
-  width: 40px;
-  height: 40px;
-  color: #23BB54;
+    display: block;
+    width: 40px;
+    height: 40px;
+    color: #23bb54;
 }
 
-
 .restaurantInfo .restaurantDescription {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 5px;
 }
 
 .restaurantInfo .openStatus {
-  font-family: Rubik, "sans-serif";
-  font-weight: 300;
-  margin: 5px 0;
+    font-family: Rubik, "sans-serif";
+    font-weight: 300;
+    margin: 5px 0;
 }
 
 .restaurantInfo .hoursList {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  position: relative;
-  margin-top: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 10px;
 }
 
 .restaurantInfo .hoursList .title {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  border-bottom: 1px solid var(--light-grey);
-  width: fit-content;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  /* align-items: center; */
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 1px solid var(--light-grey);
+    width: fit-content;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
 }
 
 .restaurantInfo .hoursList .hourOpen {
-  /* border: 1px solid black; */
-  display: flex;
-  padding: 2px;
-  justify-content: center;
+    /* border: 1px solid black; */
+    display: flex;
+    padding: 2px;
+    justify-content: center;
 }
 
 .restaurantInfo .hoursList .hourOpen.sameDay {
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .restaurantInfo .hoursList .hourOpen.sameDay:not(.isOpen) {
-  color: rgb(241, 107, 66);
+    color: rgb(241, 107, 66);
 }
 
 .restaurantInfo .hoursList .hourOpen .weekDay {
-  width: 90px;
+    width: 90px;
 }
 
 .restaurantInfo .hoursList .hourOpen.sameDay.isOpen .weekDay {
-  color: rgb(37, 187, 0);
+    color: rgb(37, 187, 0);
 }
 
 /* .restaurantInfo .hoursList .hourOpen .openTimeList {
@@ -1017,16 +1015,16 @@ input:-webkit-autofill:active {
 } */
 
 .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem.isOpen {
-  color: rgb(37, 187, 0);
+    color: rgb(37, 187, 0);
 }
 
 .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem div {
-  width: 70px;
-  float: left;
+    width: 70px;
+    float: left;
 }
 
 .restaurantInfo .hoursList .hourOpen .openTimeList .noTime {
-  width: 140px;
+    width: 140px;
 }
 
 /* .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem .openTime {
@@ -1039,167 +1037,169 @@ input:-webkit-autofill:active {
 } */
 
 .restaurantFood .featuredMenu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  position: relative;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 10px;
 }
 
 .restaurantFood .featuredMenu .title {
-  border-bottom: 1px solid var(--light-grey);
-  width: fit-content;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
+    border-bottom: 1px solid var(--light-grey);
+    width: fit-content;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
 }
 
 .restaurantFood .featuredMenu .scrollArea {
-  /* border: 1px solid black; */
-  display: flex;
-  overflow: auto;
-  scroll-snap-type: x mandatory;
-  width: 100%;
+    /* border: 1px solid black; */
+    display: flex;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+    width: 100%;
 }
 
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem {
-  width: 80%;
-  margin: 10px;
-  border-radius: 7px;
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-  padding-top: 80%;
-  position: relative;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
-  background-size: cover;
-  background-image: url("https://www.tasteofhome.com/wp-content/uploads/2018/11/PX_OrangeChicken_FriedRice_Bowl-800x450.jpg");
+    width: 80%;
+    margin: 10px;
+    border-radius: 7px;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    padding-top: 80%;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+    background-size: cover;
+    background-image: url("https://www.tasteofhome.com/wp-content/uploads/2018/11/PX_OrangeChicken_FriedRice_Bowl-800x450.jpg");
 }
 
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem .contentContainer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
 }
 
 .restaurantFood .featuredMenu .scrollArea .scrollCapFill {
-  width: calc(
-    10% - 10px
-  ); /* half of the complement of the width - the margin size */
-  flex: 0 0 auto;
+    width: calc(
+        10% - 10px
+    ); /* half of the complement of the width - the margin size */
+    flex: 0 0 auto;
 }
 
 .restaurantFood .fullMenu {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 200px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  position: relative;
-  margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 200px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 10px;
 }
 
 .restaurantFood .fullMenu .title {
-  border-bottom: 1px solid var(--light-grey);
-  width: fit-content;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
+    border-bottom: 1px solid var(--light-grey);
+    width: fit-content;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
 }
 
 .restaurantFood .fullMenu .menuItem {
-  /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13); */
-  background-color: #f8f8f8;
-  width: 100%;
-  height: 70px;
-  padding: 10px;
-  border-radius: 5px;
-  position: relative;
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
+    /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13); */
+    background-color: #f8f8f8;
+    width: 100%;
+    height: 70px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .restaurantFood .fullMenu .menuItem .itemImage {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .restaurantFood .fullMenu .menuItem .itemImage .foodImage {
-  border-radius: 6px;
+    border-radius: 6px;
 }
 
-
 .restaurantFood .fullMenu .menuItem .itemContent {
-  padding: 0 10px;
-  width: 100%;
+    padding: 0 10px;
+    width: 100%;
 }
 
 .restaurantFood .fullMenu .menuItem .itemContent .name {
-  float: left;
+    float: left;
 }
 
 .restaurantFood .fullMenu .menuItem .itemContent .price {
-  float: right;
+    float: right;
 }
 
 .itemShow {
-  position: fixed;
-  top: 54px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 15px;
-  z-index: 1;
+    position: fixed;
+    top: 54px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    z-index: 1;
 }
 
 .itemShow .itemContainer {
-  position: relative;
-  background-color: #ffffff;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  border-radius: 7px;
-  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12)) drop-shadow(0 3px 3px rgba(0, 0, 0, 0.14)) drop-shadow(0 1px 8px rgba(0, 0, 0, 0.12)) drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
+    position: relative;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 7px;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12))
+        drop-shadow(0 3px 3px rgba(0, 0, 0, 0.14))
+        drop-shadow(0 1px 8px rgba(0, 0, 0, 0.12))
+        drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
 }
 
 .itemShow .itemContainer .closeIcon {
-  position: absolute;
+    position: absolute;
 }
 
 .itemShow .itemContainer .itemName {
-  padding: 5px;
-  font-weight: 500;
-  text-align: center;
-  font-size: 1.2em;
+    padding: 5px;
+    font-weight: 500;
+    text-align: center;
+    font-size: 1.2em;
 }
 
 .itemShow .itemContainer .itemContent {
-  position: relative;
-  margin-top: 30px;
-  border-top: 2px solid var(--light-grey);
-  height: calc(100% - 30px);
-  overflow: auto;
+    position: relative;
+    margin-top: 30px;
+    border-top: 2px solid var(--light-grey);
+    height: calc(100% - 30px);
+    overflow: auto;
 }
 
 .itemShow .itemContainer .itemContent .itemImage {
-  padding-top: 10px;
-  width: 200px;
-  height: 200px;
-  left: 50%;
-  transform: translateX(-50%);
+    padding-top: 10px;
+    width: 200px;
+    height: 200px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .itemShow .itemContainer .itemContent .itemImage .foodImage {
-  border-radius: 6px;
+    border-radius: 6px;
 }
 
 /* .itemShow .itemContainer .itemContent .subItems {
@@ -1219,21 +1219,21 @@ input:-webkit-autofill:active {
 } */
 
 .itemShow .itemContainer .itemContent .subItems .subItemOptions .optionText {
-  position: relative;
-  left: 5%;
-  top: 7px;
-  font-size: 1.1em;
-  color: #444;
+    position: relative;
+    left: 5%;
+    top: 7px;
+    font-size: 1.1em;
+    color: #444;
 }
 
 .itemShow .itemContainer .itemContent .subItems .subItemOptions .separator {
-  margin: 7px 0;
-  width: 90%;
-  height: 2px;
-  background: #aaa;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+    margin: 7px 0;
+    width: 90%;
+    height: 2px;
+    background: #aaa;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* .itemShow .itemContainer .itemContent .subItems .subItemCost {
@@ -1241,504 +1241,508 @@ input:-webkit-autofill:active {
 } */
 
 .itemShow .itemContainer .itemContent .addToCartFAB {
-  background-color: var(--primary);
-  color: white;
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  padding: 7px;
-  height: 40px;
-  width: 150px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color: var(--primary);
+    color: white;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    padding: 7px;
+    height: 40px;
+    width: 150px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .testCenter {
-  position: absolute;
-  left: 50%;
-  background-color: black;
-  width: 2px;
-  height: 100%;
-  top: 0;
+    position: absolute;
+    left: 50%;
+    background-color: black;
+    width: 2px;
+    height: 100%;
+    top: 0;
 }
 
 .floatingCartButton {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 15px;
-  right: 15px; 
-  color: white;
-  background-color: var(--primary);
-  border-radius: 30px;
-  -webkit-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  -moz-box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 15px;
+    right: 15px;
+    color: white;
+    background-color: var(--primary);
+    border-radius: 30px;
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+        0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .braintree-heading {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
 }
 
 .deliveryFormContainer {
-  padding: 30px 25px 0 25px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: auto;
+    padding: 30px 25px 0 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
 }
 
 .addressInput {
-  width: 100%;
+    width: 100%;
 }
 
 .deliveryFormContainer .appInput {
-  border-bottom: none;
-  background-color: #dfdfdf;
+    border-bottom: none;
+    background-color: #dfdfdf;
 }
 
 .deliveryFormContainer .appInput > input {
-  color: black;
+    color: black;
 }
 
 .deliveryFormContainer .appInput > input::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #777;
-  opacity: 1; /* Firefox */
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #777;
+    opacity: 1; /* Firefox */
 }
 
 .deliveryFormContainer .appInput > input:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: #777;
+    /* Internet Explorer 10-11 */
+    color: #777;
 }
 
 .deliveryFormContainer .appInput > input::-ms-input-placeholder {
-  /* Microsoft Edge */
-  color: #777;
+    /* Microsoft Edge */
+    color: #777;
 }
 
 .doneButton {
-  height: 45px;
-  margin: 0 20px 20px 20px;
-  border-radius: 25px;
-  background-color: #f66;
-  color: white;
+    height: 45px;
+    margin: 0 20px 20px 20px;
+    border-radius: 25px;
+    background-color: #f66;
+    color: white;
 }
 
 .trackerBarVert {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 1.5em;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 1.5em;
 }
 
 .progressDot {
-  width: 0.8em;
-  height: 0.8em;
-  border-radius: 1em;
-  background-color: #cdcdd7;
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 1em;
+    background-color: #cdcdd7;
 }
 
 .progressLine {
-  background-color: #cdcdd7;
-  height: 21%;
-  width: 0.15em;
-  margin: 0 0.35em;
+    background-color: #cdcdd7;
+    height: 21%;
+    width: 0.15em;
+    margin: 0 0.35em;
 }
 
 .progressDot.trackerActive {
-  background-color: #3B55F3;
+    background-color: #3b55f3;
 }
 
 .progressLine.trackerActive {
-  background-color: #3B55F3;
+    background-color: #3b55f3;
 }
 
 .trackerImage {
-  width: 5em;
-  height: 4em;
-  margin: 0.5em 0;
+    width: 5em;
+    height: 4em;
+    margin: 0.5em 0;
 }
 
 .trackerItems {
-  width: 5em;
-  justify-content: space-evenly;
+    width: 5em;
+    justify-content: space-evenly;
 }
 
 .trackerText {
-  text-align: center;
-  font-weight: 500;
-  width: 5em;
-  height: 5em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    width: 5em;
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .trackerSubText {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .trackerConfirmed.trackerActive {
-  content: url(assets/images/confirmed-icon.svg);
+    content: url(assets/images/confirmed-icon.svg);
 }
 
 .trackerConfirmed {
-  content: url(assets/images/confirmed-icon-gray.svg);
+    content: url(assets/images/confirmed-icon-gray.svg);
 }
 
 .trackerSentRequest.trackerActive {
-  content: url(assets/images/sent-request-icon.svg);
+    content: url(assets/images/sent-request-icon.svg);
 }
 
 .trackerSentRequest {
-  content: url(assets/images/sent-request-icon-gray.svg);
+    content: url(assets/images/sent-request-icon-gray.svg);
 }
 
 .trackerEnroute.trackerActive {
-  content: url(assets/images/enroute-icon.svg);
+    content: url(assets/images/enroute-icon.svg);
 }
 
 .trackerEnroute {
-  content: url(assets/images/enroute-icon-gray.svg);
+    content: url(assets/images/enroute-icon-gray.svg);
 }
 
 .trackerArrived.trackerActive {
-  content: url(assets/images/arrived-icon.svg);
+    content: url(assets/images/arrived-icon.svg);
 }
 
 .trackerArrived {
-  content: url(assets/images/arrived-icon-gray.svg);
+    content: url(assets/images/arrived-icon-gray.svg);
 }
 
 .orderTrackerFooter {
-  height: 65px;
-  background-color: #3B55F3;
-  width: 88%;
-  margin: 0 6%;
-  border-radius: 10px 10px 0 0;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  color: white;
-  font-weight: 500;
-  font-size: 1.2em;
+    height: 65px;
+    background-color: #3b55f3;
+    width: 88%;
+    margin: 0 6%;
+    border-radius: 10px 10px 0 0;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    font-size: 1.2em;
 }
 
 .noCurrentOrder {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
 }
 
 .messageButton {
-  content: url(assets/images/message-icon.svg);
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  right: 10%;
-  bottom: 36px;
+    content: url(assets/images/message-icon.svg);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 10%;
+    bottom: 36px;
 }
 
 .messageBox {
-  height: 2.5em;
-  position: fixed;
-  bottom: 0;
-  left: 0.8em;
-  right: 0.8em;
-  margin: 0 0 0.5em 0;
-  background-color: #ddd;
-  border-radius: 5px;
+    height: 2.5em;
+    position: fixed;
+    bottom: 0;
+    left: 0.8em;
+    right: 0.8em;
+    margin: 0 0 0.5em 0;
+    background-color: #ddd;
+    border-radius: 5px;
 }
 
 .messageBoxContainer {
-  position: absolute;
-  left: 0;
-  right: 2.5em;
+    position: absolute;
+    left: 0;
+    right: 2.5em;
 }
 
 .messageInput {
-  width: 100%;
-  height: 2.5em;
-  padding: 0 0.7em;
+    width: 100%;
+    height: 2.5em;
+    padding: 0 0.7em;
 }
 
 .sendMessage {
-  width: 1.3em;
-  height: 1.3em;
-  margin: 0;
-  font-size: 1.9em;
-  text-align: center;
-  vertical-align: middle;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  position: absolute;
-  right: 0;
+    width: 1.3em;
+    height: 1.3em;
+    margin: 0;
+    font-size: 1.9em;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    right: 0;
 }
 
 .sendMessage i {
-  font-size: inherit;
-  color: #777;
+    font-size: inherit;
+    color: #777;
 }
 
 .messageScroll {
-  position: fixed;
-  top: 4em;
-  bottom: 3.5em;
-  left: 0;
-  right: 0;
-  overflow-y: scroll;
-  padding-top: 0.8em;
+    position: fixed;
+    top: 4em;
+    bottom: 3.5em;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+    padding-top: 0.8em;
 }
 
 .horizontalLine {
-  width: 100%;
-  height: 1px;
-  background-color: #ddd;
-  border-left: 0.8em solid white;
-  border-right: 0.8em solid white;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    border-left: 0.8em solid white;
+    border-right: 0.8em solid white;
 }
 
 .messageBubble {
-  /* width: fit-content;
+    /* width: fit-content;
   max-width: 50%; */
-  height: fit-content;
-  margin: 0 0.8em 0.8em 0.8em;
-  background-color: var(--light-grey);
-  color: #444;
-  padding: 0.7em 0.8em;
-  border-radius: 8px;
-  font-family: "Rubik", sans-serif;
+    height: fit-content;
+    margin: 0 0.8em 0.8em 0.8em;
+    background-color: var(--light-grey);
+    color: #444;
+    padding: 0.7em 0.8em;
+    border-radius: 8px;
+    font-family: "Rubik", sans-serif;
 }
 
 .messageInfo {
-  font-size: 0.8em;
-  margin: 0 1em 1em 1em;
-  color: #999;
+    font-size: 0.8em;
+    margin: 0 1em 1em 1em;
+    color: #999;
 }
 
 .messageChunk {
-  max-width: 60%;
-  float: left;
+    max-width: 60%;
+    float: left;
 }
 
 .messageContainer.right > .messageChunk {
-  float: right;
+    float: right;
 }
 
 .messageContainer.right .messageBubble {
-  float: right;
-  background-color: var(--placeholder);
-  color: white;
+    float: right;
+    background-color: var(--placeholder);
+    color: white;
 }
 
 .newDayLine {
-  text-align: center;
-  font-size: 0.8em;
-  margin-bottom: 1em;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  vertical-align: middle;
-  color: #999;
+    text-align: center;
+    font-size: 0.8em;
+    margin-bottom: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+    color: #999;
 }
 
 .newDayLine .horizontalLine {
-  margin-top: 0.65em;
-  border-left: 1em solid white;
-  border-right: 1em solid white;
+    margin-top: 0.65em;
+    border-left: 1em solid white;
+    border-right: 1em solid white;
 }
 
 .messageContainer {
-  overflow: auto;
-} 
+    overflow: auto;
+}
 
 .incomingOrderList {
-  overflow-y: scroll;
-  padding-top: 10px;
-  height: 100%;
+    overflow-y: scroll;
+    padding-top: 10px;
+    height: 100%;
 }
 
 .incomingOrder {
-  padding: 0.6em 1.4em;
-  width: 80%;
-  margin-left: 10%;
-  border-radius: 30px;
-  /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1); */
-  height: 120px;
-  margin-bottom: 30px;
-  background-color: #282828;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 0.9em;
-  letter-spacing: 0.1em;
+    padding: 0.6em 1.4em;
+    width: 80%;
+    margin-left: 10%;
+    border-radius: 30px;
+    /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1); */
+    height: 120px;
+    margin-bottom: 30px;
+    background-color: #282828;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.9em;
+    letter-spacing: 0.1em;
 }
 
 .incomingOrderHead {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
 }
 
 .orderTitle {
-  margin-bottom: 0.3em;
-  color: white;
-  font-size: 1.5em;
+    margin-bottom: 0.3em;
+    color: white;
+    font-size: 1.5em;
 }
 
 .orderInfo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  height: 50%;
-  font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 50%;
+    font-weight: 500;
 }
 
 .orderInfo div {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .orderInfo > :first-child {
-  border-right: 1px solid white;
+    border-right: 1px solid white;
 }
 
 .orderInfo > :last-child {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .orderInfo > div > :first-child {
-  font-weight: 200;
+    font-weight: 200;
 }
 
 .paymentLogo {
-  width: 100%;
+    width: 100%;
 }
 
 .orderTime {
-  font-weight: 300;
+    font-weight: 300;
 }
 
 .paymentContent {
-  height: 100%;
-  text-align: center;
+    height: 100%;
+    text-align: center;
 }
 
 .delivererImage {
-  width: 60%;
-  margin-bottom: 1.3em;
+    width: 60%;
+    margin-bottom: 1.3em;
 }
 
 .cartFooter .messageButton {
-  bottom: 80px;
+    bottom: 80px;
 }
 
 .barcodeContainer {
-  width: 100%;
+    width: 100%;
 }
 
 .buttonsFlex {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .messageButtonFlex {
-  content: url(assets/images/message-icon.svg);
-  height: 3.4em;
-  width: 3.4em;
-  margin: 0.625em;
-  margin-right: 0;
+    content: url(assets/images/message-icon.svg);
+    height: 3.4em;
+    width: 3.4em;
+    margin: 0.625em;
+    margin-right: 0;
 }
 
 .SIInput {
-  margin: 15px 30px;
-  background-color: #f6f6f6;
+    margin: 15px 30px;
+    background-color: #f6f6f6;
 }
 
 .SIInput textarea {
-  width: 100%;
-  font-size: 1.1em;
-  padding: 0.3em;
-  min-height: 2em;
-  resize: none;
+    width: 100%;
+    font-size: 1.1em;
+    padding: 0.3em;
+    min-height: 2em;
+    resize: none;
 }
 
 .payoutStatus {
-  float: right;
-  font-weight: 600;
-  text-align: right;
+    float: right;
+    font-weight: 600;
+    text-align: right;
 }
 
 .loadingBox {
-  width: 8em;
-  height: 8em;
-  border: solid black 1px;
-  position: fixed;
-  background-color: white;
+    width: 8em;
+    height: 8em;
+    border: solid black 1px;
+    position: fixed;
+    background-color: white;
 }
 
-.itemCost { 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 30px 5px 25px 5px;
-  font-size: 1.15em;
-  font-weight: 500;
+.itemCost {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 30px 5px 25px 5px;
+    font-size: 1.15em;
+    font-weight: 500;
 }
 
 .itemCost span {
-  font-weight: 700;
+    font-weight: 700;
 }
 
 .itemOptionFooter {
-  padding: 0px 20px 10px 20px;
+    padding: 0px 20px 10px 20px;
 }
 
 .deleteBtn {
-  position: relative;
-  width: 0.7em;
-  height: 0.7em;
-  border-radius: 50%;
-  background-color: #EB1C34;
-  right: -0.35em;
-  top: -0.35em;
-  font-size: 2.2em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    position: relative;
+    width: 0.7em;
+    height: 0.7em;
+    border-radius: 50%;
+    background-color: #eb1c34;
+    right: -0.35em;
+    top: -0.35em;
+    font-size: 2.2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .deleteBtn .minus {
-  width: 66%;
-  height: 10%;
-  background-color: white;
-  margin: 0 17%;
+    width: 66%;
+    height: 10%;
+    background-color: white;
+    margin: 0 17%;
 }
 
 span.moneyCents {
-  font-size: 0.75em;
-  margin: 0;
-  padding-top: 0.25em;
+    font-size: 0.75em;
+    margin: 0;
+    padding-top: 0.25em;
 }
 
 .priceFormat {
-  display: inline-flex;
-  flex-direction: row;  
+    display: inline-flex;
+    flex-direction: row;
 }

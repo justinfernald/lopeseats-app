@@ -6,8 +6,8 @@
 .pnp.js
 
 #ionic
-/android
-/ios
+#/android
+#/ios
 
 # testing
 /coverage
