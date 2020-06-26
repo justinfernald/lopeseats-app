@@ -32,9 +32,6 @@
         "android": "ionic capacitor run android",
         "ios": "ionic capacitor run ios"
     },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
     "browserslist": {
         "production": [
             ">0.2%",

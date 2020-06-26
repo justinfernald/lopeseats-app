@@ -12,9 +12,6 @@ plugins/ios.json
 #android/
 #ios/
 
-#development
-.vscode/
-
 # testing
 coverage/
 
