@@ -211,7 +211,9 @@ export default class RestaurantsList extends React.Component {
                                 )}
                             </div>
                         </div>
-                        <div class="filterDetail" ref={this.filterDetailRef}>
+                        <div
+                            className="filterDetail"
+                            ref={this.filterDetailRef}>
                             {this.sortTypeLongName[this.state.sortBy]}
                         </div>
                     </div>

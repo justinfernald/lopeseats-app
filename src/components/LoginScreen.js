@@ -29,7 +29,6 @@ export default class LoginScreen extends React.Component {
     }
 
     async checkToken(token) {
-        console.log("checking" + token);
         if (
             await postData("https://lopeseat.com/REST/validToken.php", {
                 apiToken: token,
@@ -105,7 +104,6 @@ export default class LoginScreen extends React.Component {
     };
 
     render() {
-        console.log(this.state);
         if (this.state.loading) {
             return (
                 <div className="loadingWrapper">

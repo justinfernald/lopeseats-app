@@ -12,8 +12,6 @@ import {
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.restaurantData);
-        console.log(this.props.menuData);
 
         // let options = [
         //     {
@@ -39,11 +37,8 @@ export default class RestaurantDetails extends React.Component {
     componentWillUnmount() {}
 
     onContentScroll = (e) => {
-        // console.log(e);
         const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
         let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
-        console.log(scrollLevel);
-        console.log(Math.floor(scrollLevel));
         let bannerHeight = 175 - scrollLevel;
         bannerHeight = bannerHeight > 54 ? bannerHeight : 54;
         document.getElementById("restaurantSplash").style.height =
