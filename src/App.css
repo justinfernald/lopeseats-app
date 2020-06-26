@@ -1795,3 +1795,42 @@ span.moneyCents {
     display: inline-flex;
     flex-direction: row;
 }
+
+.loadingWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 30px;
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes prance {
+    0% {
+        left: -150px;
+        transform: rotate(-30deg) translateY(0px);
+    }
+
+    50% {
+        transform: rotate(0deg) translateY(-50px);
+    }
+
+    100% {
+        left: 100%;
+        transform: rotate(30deg) translateY(0px);
+    }
+}
+
+.loadingWrapper .lopeImage {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    animation: prance 1.4s linear 0s infinite;
+    bottom: 50%;
+}
+
+.loadingWrapper .loadingText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

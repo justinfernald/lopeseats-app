@@ -362,3 +362,7 @@ export const formatTime = (date) => {
         minutes == 0 ? "00" : minutes < 10 ? "0" + minutes.toString() : minutes;
     return hours + ":" + minuteString + suffix;
 };
+
+export const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
