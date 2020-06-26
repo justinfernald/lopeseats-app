@@ -1,8 +1,8 @@
 {
-  "name": "LopesEat App",
-  "integrations": {
-    "capacitor": {},
-    "cordova": {}
-  },
-  "type": "custom"
+    "name": "LopesEat",
+    "integrations": {
+        "capacitor": {},
+        "cordova": {}
+    },
+    "type": "custom"
 }

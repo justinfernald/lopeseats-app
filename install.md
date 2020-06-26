@@ -1,9 +1,6 @@
-
-Install and Setup
------
+## Install and Setup
 
 run `npm install`
-run `npm run setup`
 For Native Building do
 run `npm run android` or `npm run ios`
 

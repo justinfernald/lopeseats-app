@@ -8,6 +8,13 @@ import MessageListener from "./MessageListener";
 // capacitor plugin to pull into native tooling
 // import { Plugins } from '@capacitor/core';
 // const { Device, Modals } = Plugins;
+import {
+    Plugins,
+    PushNotification,
+    PushNotificationToken,
+    PushNotificationActionPerformed,
+} from "@capacitor/core";
+const { PushNotifications } = Plugins;
 
 class App extends React.Component {
     // constructor(props) {
@@ -49,6 +56,44 @@ class App extends React.Component {
 
     componentDidMount() {
         console.log("mount");
+        PushNotifications.register();
+        PushNotifications.addListener("registration", (token) => {
+            alert("Push registration success, token: " + token.value);
+        });
+
+        PushNotifications.addListener("registrationError", (error) => {
+            alert("Error on registration: " + JSON.stringify(error));
+        });
+
+        PushNotifications.addListener(
+            "pushNotificationReceived",
+            (notification) => {
+                let notif = this.state.notifications;
+                notif.push({
+                    id: notification.id,
+                    title: notification.title,
+                    body: notification.body,
+                });
+                this.setState({
+                    notifications: notif,
+                });
+            }
+        );
+
+        PushNotifications.addListener(
+            "pushNotificationActionPerformed",
+            (notification) => {
+                let notif = this.state.notifications;
+                notif.push({
+                    id: notification.notification.data.id,
+                    title: notification.notification.data.title,
+                    body: notification.notification.data.body,
+                });
+                this.setState({
+                    notifications: notif,
+                });
+            }
+        );
 
         if (firebase.messaging.isSupported()) {
             var firebaseConfig = {
