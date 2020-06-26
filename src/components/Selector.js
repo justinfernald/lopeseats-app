@@ -29,31 +29,6 @@ export default class Selector extends React.Component {
     };
 
     render() {
-        // console.log(this.state.choices)
-        // return <div className="selector" ref={this.optionsRef}>
-        //     <div className="choiceName">
-        //         {this.state.name}
-        //     </div>
-        //     <div className="selectorChoice" onClick={this.toggleDropdown}>
-        //         <div className="information">
-        //             <div className="name">{this.state.choice}</div>
-        //             {this.state.choices[this.state.choice].cost !== 0 && <div className="cost">${formatPrice(this.state.choices[this.state.choice].cost)}</div>}
-        //         </div>
-        //         <span className="expandButton"><i className="material-icons">
-        //         keyboard_arrow_down
-        //         </i></span>
-        //     </div>
-        //     <div className="selectorOptions">
-        //         {makeMap(this.state.choices).filter((_x, i) => i !== this.state.choice).map((x, i) => {
-        //             // console.log(x);
-        //             return <div key={i} className="selectorOption" onClick={() => this.onSelection(i)}>
-        //                 <div className="name">{i}</div>
-        //                 {x.cost !== 0 && <div className="cost">${formatPrice(x.cost)}</div>}
-        //             </div>
-        //         })}
-        //     </div>
-        // </div>
-
         return (
             <div>
                 <div className="itemOptionTitle">{this.state.name}</div>

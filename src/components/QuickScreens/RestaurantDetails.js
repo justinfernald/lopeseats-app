@@ -115,9 +115,20 @@ export default class RestaurantDetails extends React.Component {
                                         .map((x, index) => (
                                             <div
                                                 key={index}
-                                                className="featuredFoodItem">
+                                                className="featuredFoodItem"
+                                                onClick={() => this.openItem(x)}
+                                                style={{
+                                                    backgroundImage: `url(${x.image})`,
+                                                }}>
                                                 <div className="contentContainer">
-                                                    {/*x.name*/}
+                                                    <div className="informationBox">
+                                                        <div className="itemName">
+                                                            {x.name}
+                                                        </div>
+                                                        <div className="itemPrice">
+                                                            ${x.price}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}

@@ -5,9 +5,6 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 import MessageListener from "./MessageListener";
 
-// capacitor plugin to pull into native tooling
-// import { Plugins } from '@capacitor/core';
-// const { Device, Modals } = Plugins;
 import {
     Plugins,
     PushNotification,

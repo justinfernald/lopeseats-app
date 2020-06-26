@@ -1105,7 +1105,7 @@ input:-webkit-autofill:active {
     position: relative;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
     background-size: cover;
-    background-image: url("https://www.tasteofhome.com/wp-content/uploads/2018/11/PX_OrangeChicken_FriedRice_Bowl-800x450.jpg");
+    overflow: hidden;
 }
 
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem .contentContainer {
@@ -1113,6 +1113,25 @@ input:-webkit-autofill:active {
     width: 100%;
     height: 100%;
     top: 0;
+}
+
+.featuredFoodItem .contentContainer .informationBox {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    padding-bottom: 13px;
+    background: #ffffffbd;
+    font-weight: 500;
+}
+
+.featuredFoodItem .contentContainer .informationBox .itemName {
+    float: left;
+}
+
+.featuredFoodItem .contentContainer .informationBox .itemPrice {
+    float: right;
 }
 
 .restaurantFood .featuredMenu .scrollArea .scrollCapFill {
@@ -1144,8 +1163,6 @@ input:-webkit-autofill:active {
 }
 
 .restaurantFood .fullMenu .menuItem {
-    /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13); */
-    background-color: #f8f8f8;
     width: 100%;
     height: 70px;
     padding: 10px;
@@ -1154,11 +1171,13 @@ input:-webkit-autofill:active {
     margin-top: 10px;
     display: flex;
     align-items: center;
+    border: solid #80808030 1px;
 }
 
 .restaurantFood .fullMenu .menuItem .itemImage {
     width: 50px;
     height: 50px;
+    flex-shrink: 0;
 }
 
 .restaurantFood .fullMenu .menuItem .itemImage .foodImage {
