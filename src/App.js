@@ -115,11 +115,10 @@ class App extends React.Component {
                 .then(function () {
                     console.log("Permission " + Notification.permission);
                     var token = messaging.getToken();
-                    console.log(token);
+                    
                     return token;
                 })
                 .then(function (token) {
-                    console.log(token);
                     app.setToken(token);
                 })
                 .catch(function (err) {

@@ -34,7 +34,6 @@ export default class LoginScreen extends React.Component {
                 apiToken: token,
             })
         ) {
-            updateFBToken(this.props.fbToken, this.props.apiToken);
             this.props.onLogin(this.props.apiToken);
         }
 

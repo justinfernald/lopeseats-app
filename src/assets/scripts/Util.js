@@ -94,8 +94,17 @@ export const postData = async (url = "", data = {}) => {
         // body: JSON.stringify(data) // body data type must match "Content-Type" header
         body: formData,
     });
-    // console.log(response);
-    return await response.json(); // parses JSON response into native JavaScript objects
+
+    let text = await response.text();
+    console.log(text, url);
+    return JSON.parse(text);
+
+    try {
+        return await response.json(); // parses JSON response into native JavaScript objects
+    } catch (e) {
+        console.log(url)
+        console.error(e);
+    }
 };
 
 export const phoneNumberTaken = async (phoneNumber) => {
@@ -217,10 +226,11 @@ export const loadState = (id) => {
     return JSON.parse(localStorage.getItem("lastAppState" + id));
 };
 
-export const updateFBToken = async (token, apiToken) => {
+export const updateFBToken = async (token, platform, apiToken) => {
     postData("https://lopeseat.com/REST/setFBToken.php", {
-        token: token,
-        apiToken: apiToken,
+        token,
+        platform,
+        apiToken
     });
 };
 
