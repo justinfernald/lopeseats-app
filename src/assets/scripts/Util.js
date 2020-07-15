@@ -95,14 +95,9 @@ export const postData = async (url = "", data = {}) => {
         body: formData,
     });
 
-    let text = await response.text();
-    console.log(text, url);
-    return JSON.parse(text);
-
     try {
         return await response.json(); // parses JSON response into native JavaScript objects
     } catch (e) {
-        console.log(url)
         console.error(e);
     }
 };
@@ -123,7 +118,6 @@ export const addBackStep = () => {
 
 export const setupBackEvent = (eventCallback) => {
     window.addEventListener("popstate", () => {
-        // console.log("Hit back");
         eventCallback(false);
     });
 };
@@ -235,15 +229,11 @@ export const updateFBToken = async (token, platform, apiToken) => {
 };
 
 export const sendPayment = async (nonce, address, apiToken) => {
-    //try {
     return await postData("https://lopeseat.com/REST/sendOrder.php", {
         nonce: nonce,
         address: address,
         apiToken: apiToken,
     });
-    // } catch (e) {
-    //   console.error(e);
-    // }
 };
 
 export const getOrder = async (apiToken, id = -1) => {
