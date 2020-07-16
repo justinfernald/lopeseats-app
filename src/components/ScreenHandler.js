@@ -27,8 +27,9 @@ import PaymentScreen from "./DeliveryProcess/PaymentScreen";
 import Cart from "./Cart";
 import MessageScreen from "./MessageScreen";
 import ItemOptions from "./OrderProcess/ItemOptions";
+import DelivererPayment from "./DelivererScreens/DelivererPayment";
 
-import { storeState } from "../assets/scripts/Util";
+import { storeState, updateFBToken } from "../assets/scripts/Util";
 
 export default class ScreenHandler extends React.Component {
     constructor(props) {
@@ -52,9 +53,10 @@ export default class ScreenHandler extends React.Component {
             currentMenu: null,
             currentOrder: -1,
             screen: "Login",
-            // screen: "HomeScreen",
+            // screen: "DelivererPayment",
             baseScreen: "Login",
             screenHistory: ["Login"],
+            // screenHistory: ["Login", "DelivererPayment"],
             deliveryMode: false,
             openItem: null,
             editingItem: false,
@@ -155,6 +157,7 @@ export default class ScreenHandler extends React.Component {
                     }
                     formSwitch={() => this.setState({ screen: "Register" })}
                     onLogin={(apiToken) => {
+
                         this.newHistory("HomeScreen");
 
                         let newState = loadState("screenHandler");
@@ -166,11 +169,11 @@ export default class ScreenHandler extends React.Component {
                             ) {
                                 addBackStep();
                             }
+                        
+                        newState.apiToken = apiToken;
 
                         this.setState(newState);
-                        this.setState({
-                            apiToken: apiToken,
-                        });
+                        updateFBToken(this.props.fbToken, "web", apiToken);
                     }}
                     onNotConfirmed={(phone) => {
                         this.setState({
@@ -494,6 +497,12 @@ export default class ScreenHandler extends React.Component {
             ),
             Payouts: (
                 <Payouts
+                    onBack={this.backScreen}
+                    apiToken={this.state.apiToken}
+                />
+            ),
+            DelivererPayment: (
+                <DelivererPayment
                     onBack={this.backScreen}
                     apiToken={this.state.apiToken}
                 />
