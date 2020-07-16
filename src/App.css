@@ -1000,16 +1000,16 @@ input:-webkit-autofill:active {
     margin: 5px 0;
 }
 
-.restaurantInfo .hoursList {
+.restaurantDetails .hoursList {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
     width: 100%;
     padding: 10px;
     border-radius: 5px;
     position: relative;
-    margin-top: 10px;
+    margin-top: -190px;
 }
 
-.restaurantInfo .hoursList .title {
+.restaurantDetails .hoursList .title {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -1021,26 +1021,26 @@ input:-webkit-autofill:active {
     /* align-items: center; */
 }
 
-.restaurantInfo .hoursList .hourOpen {
+.restaurantDetails .hoursList .hourOpen {
     /* border: 1px solid black; */
     display: flex;
     padding: 2px;
     justify-content: center;
 }
 
-.restaurantInfo .hoursList .hourOpen.sameDay {
+.restaurantDetails .hoursList .hourOpen.sameDay {
     font-weight: 500;
 }
 
-.restaurantInfo .hoursList .hourOpen.sameDay:not(.isOpen) {
+.restaurantDetails .hoursList .hourOpen.sameDay:not(.isOpen) {
     color: rgb(241, 107, 66);
 }
 
-.restaurantInfo .hoursList .hourOpen .weekDay {
+.restaurantDetails .hoursList .hourOpen .weekDay {
     width: 90px;
 }
 
-.restaurantInfo .hoursList .hourOpen.sameDay.isOpen .weekDay {
+.restaurantDetails .hoursList .hourOpen.sameDay.isOpen .weekDay {
     color: rgb(37, 187, 0);
 }
 
@@ -1050,16 +1050,16 @@ input:-webkit-autofill:active {
 /* .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem {
 } */
 
-.restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem.isOpen {
+.restaurantDetails .hoursList .hourOpen .openTimeList .openTimeItem.isOpen {
     color: rgb(37, 187, 0);
 }
 
-.restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem div {
+.restaurantDetails .hoursList .hourOpen .openTimeList .openTimeItem div {
     width: 70px;
     float: left;
 }
 
-.restaurantInfo .hoursList .hourOpen .openTimeList .noTime {
+.restaurantDetails .hoursList .hourOpen .openTimeList .noTime {
     width: 140px;
 }
 
@@ -1347,10 +1347,6 @@ input:-webkit-autofill:active {
 
 .deliveryFormContainer {
     padding: 30px 25px 0 25px;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow: auto;
 }
 
 .addressInput {
@@ -1839,4 +1835,21 @@ span.moneyCents {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.addrItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.3em;
+}
+
+.addrItem .check {
+    display: none;
+}
+
+.selected .check {
+    display: inline;
+    color: #00cc00;
+    font-weight: 600;
 }

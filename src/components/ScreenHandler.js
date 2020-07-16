@@ -344,7 +344,10 @@ export default class ScreenHandler extends React.Component {
                     optionsChosen={this.state.optionsChosen}
                     instructions={this.state.instructions}
                     closeItem={() => {
-                        this.setScreen("Cart", false);
+                        if (this.state.editingItem)
+                            this.backScreen();
+                        else
+                            this.setScreen("Cart", false);
                     }}
                     onBack={() => {
                         this.backScreen();
@@ -358,7 +361,19 @@ export default class ScreenHandler extends React.Component {
                     editItem={(item) => {
                         console.log("editing: ", item);
                         var optionsChosen = JSON.parse(item.options);
+                        var items = JSON.parse(item.items);
                         var openItem = item;
+                        for (var i = 0; i < optionsChosen.length; i++) {
+                            var optionObj = optionsChosen[i];
+                            for (var j = 0; j < items[i].options.length; j++) {
+                                var option = items[i].options[j];
+                                var cost = option.choices[optionObj[option.name]].cost;
+                                if (cost > 0) {
+                                    openItem.price -= cost;
+                                }
+                            }
+                        }
+
                         var instructions = item.comment;
                         var editingItem = true;
                         this.setScreenState("ItemOptions", {

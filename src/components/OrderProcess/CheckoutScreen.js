@@ -2,6 +2,7 @@ import React from 'react';
 import '../../App.css';
 import DropIn from "braintree-web-drop-in-react";
 import {sendPayment, getCartPrices, formatPrice} from "../../assets/scripts/Util";
+import LopesEatLogo from "../../assets/images/icon-384x384.png";
 
 export default class CheckoutScreen extends React.Component {
 
@@ -38,8 +39,11 @@ export default class CheckoutScreen extends React.Component {
     render() {
         if (!this.state.clientToken) {
             return (
-                <div>
-                  <h1>Loading...</h1>
+                <div className="loadingWrapper">
+                    <img className="lopeImage" src={LopesEatLogo} />
+                    <div className="loadingText">
+                        Loading checkout screen. One moment
+                    </div>
                 </div>
               );
         } else {

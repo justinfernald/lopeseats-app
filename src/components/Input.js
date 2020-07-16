@@ -23,7 +23,7 @@ export default class LoginScreen extends React.Component {
             <div className={"appInput" + ((this.props.className) ? " " + this.props.className : "")}>
                 {this.props.icon && <div className="iconHolder"><img src={this.props.icon} alt={this.props.placeholder}/></div>}
                 {this.props.type === "tel" || this.props.type === "number" ?
-                <input maxLength="10" {...this.props.passedProps} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder} onKeyPress={e=> {
+                <input maxLength="10" {...this.props.passedProps} onChange={this.props.onChange} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder} onKeyPress={e=> {
                     let key;
                     // Handle paste
                     if (e.type === 'paste') {
@@ -49,7 +49,7 @@ export default class LoginScreen extends React.Component {
                 }
 
                  />:
-                <input {...this.props.passedProps} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder} defaultValue={this.props.defaultValue}/>}
+                <input {...this.props.passedProps} onChange={this.props.onChange} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder} defaultValue={this.props.defaultValue}/>}
                 {this.props.showHidden &&
                 <div className="iconHolder password" onClick={this.props.onShow}><img alt="Show Password" src={this.props.showHidden === "off" ? GreyEye : PurpleEye}></img></div>
                 }
