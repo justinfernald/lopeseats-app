@@ -33,11 +33,9 @@ export default class LoginScreen extends React.Component {
             await postData("https://lopeseat.com/REST/validToken.php", {
                 apiToken: token,
             })
-        ) {
+        )
             this.props.onLogin(this.props.apiToken);
-        }
-
-        this.setState({ loading: false });
+        else this.setState({ loading: false });
     }
 
     toggleShowPassword = () => {
