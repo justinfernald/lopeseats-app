@@ -46,7 +46,7 @@ export default class LoginScreen extends React.Component {
 
     componentDidMount() {}
 
-    componentWillUnmount() {}
+    // componentWillUnmount() {}
 
     onSignIn = async () => {
         let phoneNumber = this.phoneNumberRef.current.value;

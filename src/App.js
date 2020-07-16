@@ -4,6 +4,7 @@ import "./App.css";
 import firebase from "firebase/app";
 import "firebase/messaging";
 import MessageListener from "./MessageListener";
+import LopesEatLogo from "./assets/images/icon-384x384.png";
 
 import {
     Plugins,
@@ -14,13 +15,14 @@ import {
 const { PushNotifications } = Plugins;
 
 class App extends React.Component {
-    fbToken = "";
+    // fbToken = "";
     messageListener = new MessageListener();
 
     constructor(props) {
         super(props);
         this.state = {
             darkTheme: false,
+            fbToken: null
         };
     }
 
@@ -31,19 +33,29 @@ class App extends React.Component {
     render() {
         return (
             <div className={"App " + (this.state.darkTheme ? "dark" : "light")}>
-                <ScreenHandler
-                    fbToken={this.fbToken}
-                    messageListener={this.messageListener}
-                    setTheme={(theme) => this.setTheme(theme)}
-                />
+                {this.state.fbToken ? (
+                    <ScreenHandler
+                        fbToken={this.state.fbToken}
+                        messageListener={this.messageListener}
+                        setTheme={(theme) => this.setTheme(theme)}
+                    />
+                ) : (
+                    <div className="loadingWrapper">
+                        <img className="lopeImage" src={LopesEatLogo} />
+                        <div className="loadingText">
+                            App loading. One moment please.
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }
 
     setToken(token) {
-        this.fbToken = token;
+        // this.fbToken = token;
+        this.setState({fbToken: token});
         console.log(token);
-        this.forceUpdate();
+        // this.forceUpdate();
     }
 
     componentDidMount() {

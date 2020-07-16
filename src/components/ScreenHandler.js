@@ -71,7 +71,7 @@ export default class ScreenHandler extends React.Component {
 
     componentDidMount() {}
 
-    componentWillUnmount() {}
+    // componentWillUnmount() {}
 
     setScreenState = (screen, newState, addHistory = true) => {
         if (screen === this.state.screen) return;
@@ -173,6 +173,7 @@ export default class ScreenHandler extends React.Component {
                         newState.apiToken = apiToken;
 
                         this.setState(newState);
+                        console.log(this.props.fbToken);
                         updateFBToken(this.props.fbToken, "web", apiToken);
                     }}
                     onNotConfirmed={(phone) => {
