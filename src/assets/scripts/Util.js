@@ -340,6 +340,10 @@ export const requestPayout = async (apiToken) => {
     });
 };
 
+export const getBuildings = async () => {
+    return await postData("https://lopeseat.com/REST/getBuildings.php");
+}
+
 export const makePHXTime = (date) => {
     return new Date(
         date.toLocaleString("en-US", { timeZone: "America/Phoenix" })

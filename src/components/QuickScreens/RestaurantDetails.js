@@ -98,7 +98,6 @@ export default class RestaurantDetails extends React.Component {
                             <div className="restaurantDescription">
                                 {this.props.restaurantData.description}
                             </div>
-                            <HoursList restaurantData={this.restaurantData} />
                         </div>
                         <div className="restaurantFood">
                             <div className="featuredMenu">
@@ -156,6 +155,7 @@ export default class RestaurantDetails extends React.Component {
                                     </div>
                                 ))}
                             </div>
+                            <HoursList restaurantData={this.restaurantData} />
                         </div>
                     </div>
                 </div>
