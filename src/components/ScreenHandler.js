@@ -169,12 +169,12 @@ export default class ScreenHandler extends React.Component {
                             ) {
                                 addBackStep();
                             }
-                        
-                        newState.apiToken = apiToken;
+                        console.log("apitoken: " + apiToken);
+                        this.setState({apiToken});
 
                         this.setState(newState);
                         console.log(this.props.fbToken);
-                        updateFBToken(this.props.fbToken, "web", apiToken);
+                        updateFBToken(this.props.fbToken, this.props.platform, apiToken);
                     }}
                     onNotConfirmed={(phone) => {
                         this.setState({

@@ -6,7 +6,9 @@ import "firebase/messaging";
 import MessageListener from "./MessageListener";
 import LopesEatLogo from "./assets/images/icon-384x384.png";
 
+import { isPlatform } from "@ionic/react";
 import {
+    Capacitor,
     Plugins,
     PushNotification,
     PushNotificationToken,
@@ -22,7 +24,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             darkTheme: false,
-            fbToken: null
+            fbToken: null,
+            fbPlatform: null,
         };
     }
 
@@ -36,6 +39,7 @@ class App extends React.Component {
                 {this.state.fbToken ? (
                     <ScreenHandler
                         fbToken={this.state.fbToken}
+                        fbPlatform={this.state.fbPlatform}
                         messageListener={this.messageListener}
                         setTheme={(theme) => this.setTheme(theme)}
                     />
@@ -51,54 +55,61 @@ class App extends React.Component {
         );
     }
 
-    setToken(token) {
+    setToken(token, platform) {
         // this.fbToken = token;
-        this.setState({fbToken: token});
+        this.setState({ fbToken: token, fbPlatform: platform });
         console.log(token);
         // this.forceUpdate();
     }
 
     componentDidMount() {
         console.log("mount");
-        PushNotifications.register();
-        PushNotifications.addListener("registration", (token) => {
-            // alert("Push registration success, token: " + token.value);
-            this.setToken(token);
-        });
+        if (Capacitor.isPluginAvailable("PushNotifications")) {
+            PushNotifications.register();
+            PushNotifications.addListener("registration", async (token) => {
+                console.log("Push registration success, token: " + token.value);
+                this.setToken(
+                    token.value,
+                    isPlatform("ios") ? "ios" : "and"
+                );
+            });
 
-        // PushNotifications.addListener("registrationError", (error) => {
-        //     alert("Error on registration: " + JSON.stringify(error));
-        // });
+            PushNotifications.addListener("registrationError", (error) => {
+                console.error(
+                    "Error on registration: " + JSON.stringify(error)
+                );
+            });
 
-        PushNotifications.addListener(
-            "pushNotificationReceived",
-            (notification) => {
-                let notif = this.state.notifications;
-                notif.push({
-                    id: notification.id,
-                    title: notification.title,
-                    body: notification.body,
-                });
-                this.setState({
-                    notifications: notif,
-                });
-            }
-        );
+            PushNotifications.addListener(
+                "pushNotificationReceived",
+                (notification) => {
+                    let notif = this.state.notifications;
+                    notif.push({
+                        id: notification.id,
+                        title: notification.title,
+                        body: notification.body,
+                    });
+                    this.setState({
+                        notifications: notif,
+                    });
+                }
+            );
 
-        PushNotifications.addListener(
-            "pushNotificationActionPerformed",
-            (notification) => {
-                let notif = this.state.notifications;
-                notif.push({
-                    id: notification.notification.data.id,
-                    title: notification.notification.data.title,
-                    body: notification.notification.data.body,
-                });
-                this.setState({
-                    notifications: notif,
-                });
-            }
-        );
+            PushNotifications.addListener(
+                "pushNotificationActionPerformed",
+                (notification) => {
+                    let notif = this.state.notifications;
+                    notif.push({
+                        id: notification.notification.data.id,
+                        title: notification.notification.data.title,
+                        body: notification.notification.data.body,
+                    });
+                    this.setState({
+                        notifications: notif,
+                    });
+                }
+            );
+        }
 
         if (firebase.messaging.isSupported()) {
             var firebaseConfig = {
@@ -123,11 +134,11 @@ class App extends React.Component {
                 .then(function () {
                     console.log("Permission " + Notification.permission);
                     var token = messaging.getToken();
-                    
+
                     return token;
                 })
                 .then(function (token) {
-                    app.setToken(token);
+                    app.setToken(token, "web");
                 })
                 .catch(function (err) {
                     console.log(err);
