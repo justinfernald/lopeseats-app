@@ -61,7 +61,7 @@ export default class ScreenHandler extends React.Component {
             openItem: null,
             editingItem: false,
             optionsChosen: [],
-            instructions: null,
+            instructions: null
         };
 
         setupBackEvent(this.backScreen);
@@ -141,6 +141,22 @@ export default class ScreenHandler extends React.Component {
         });
         this.noBack = false;
     };
+
+    toggleMode = () => {
+        this.setState({
+            deliveryMode: !this.state.deliveryMode,
+        });
+        this.props.setTheme(!this.state.deliveryMode);
+    };
+
+    getActionBtn = () => {
+        if (this.state.deliveryMode) {
+
+        } else {
+
+        }
+        return null;
+    }
 
     render() {
         if (this.state.apiToken) storeState(this.state, "screenHandler");
@@ -300,12 +316,8 @@ export default class ScreenHandler extends React.Component {
                         this.setScreen(screen);
                     }}
                     deliveryMode={this.state.deliveryMode}
-                    switchModes={() => {
-                        this.setState({
-                            deliveryMode: !this.state.deliveryMode,
-                        });
-                        this.props.setTheme(!this.state.deliveryMode);
-                    }}
+                    switchModes={this.toggleMode}
+                    actionBtn={this.getActionBtn()}
                 />
             ),
             RestaurantsList: (
