@@ -17,7 +17,6 @@ import {
 const { PushNotifications } = Plugins;
 
 class App extends React.Component {
-    // fbToken = "";
     messageListener = new MessageListener();
 
     constructor(props) {
@@ -56,10 +55,7 @@ class App extends React.Component {
     }
 
     setToken(token, platform) {
-        // this.fbToken = token;
         this.setState({ fbToken: token, fbPlatform: platform });
-        console.log(token);
-        // this.forceUpdate();
     }
 
     componentDidMount() {
@@ -68,10 +64,7 @@ class App extends React.Component {
             PushNotifications.register();
             PushNotifications.addListener("registration", async (token) => {
                 console.log("Push registration success, token: " + token.value);
-                this.setToken(
-                    token.value,
-                    isPlatform("ios") ? "ios" : "and"
-                );
+                this.setToken(token.value, isPlatform("ios") ? "ios" : "and");
             });
 
             PushNotifications.addListener("registrationError", (error) => {
