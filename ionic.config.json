@@ -4,5 +4,5 @@
         "capacitor": {},
         "cordova": {}
     },
-    "type": "custom"
+    "type": "react"
 }

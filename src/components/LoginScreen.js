@@ -33,11 +33,9 @@ export default class LoginScreen extends React.Component {
             await postData("https://lopeseat.com/REST/validToken.php", {
                 apiToken: token,
             })
-        ) {
+        )
             this.props.onLogin(this.props.apiToken);
-        }
-
-        this.setState({ loading: false });
+        else this.setState({ loading: false });
     }
 
     toggleShowPassword = () => {
@@ -95,7 +93,7 @@ export default class LoginScreen extends React.Component {
         console.log(errors);
 
         if (errors.length === 0) {
-            updateFBToken(this.props.fbToken, loginData.msg);
+            // updateFBToken(this.props.fbToken, loginData.msg);
             this.props.onLogin(loginData.msg);
         } else {
             showErrors(["Invalid login"]);

@@ -9,7 +9,7 @@
         "@capacitor/ios": "^2.1.2",
         "@ionic-native/firebase-analytics": "^5.27.0",
         "@ionic-native/firebase-messaging": "^5.27.0",
-        "@ionic/react": "^5.1.1",
+        "@ionic/react": "^5.2.3",
         "braintree-web-drop-in-react": "^1.1.0",
         "compressorjs": "^1.0.6",
         "firebase": "^7.15.0",
@@ -29,7 +29,7 @@
         "eject": "react-scripts eject",
         "ionic:build": "npm rum build && ionic capacitor copy",
         "setup": "ionic capacitor add android && ionic capacitor add ios",
-        "android": "ionic capacitor run android",
+        "android": "ionic capacitor run android -l --external",
         "ios": "ionic capacitor run ios"
     },
     "browserslist": {

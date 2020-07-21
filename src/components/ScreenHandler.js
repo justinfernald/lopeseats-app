@@ -173,7 +173,6 @@ export default class ScreenHandler extends React.Component {
                     }
                     formSwitch={() => this.setState({ screen: "Register" })}
                     onLogin={(apiToken) => {
-
                         this.newHistory("HomeScreen");
 
                         let newState = loadState("screenHandler");
@@ -185,12 +184,16 @@ export default class ScreenHandler extends React.Component {
                             ) {
                                 addBackStep();
                             }
-                        
-                        newState.apiToken = apiToken;
+                        console.log("apitoken: " + apiToken);
+                        this.setState({ apiToken });
 
                         this.setState(newState);
                         console.log(this.props.fbToken);
-                        updateFBToken(this.props.fbToken, "web", apiToken);
+                        updateFBToken(
+                            this.props.fbToken,
+                            this.props.fbPlatform,
+                            apiToken
+                        );
                     }}
                     onNotConfirmed={(phone) => {
                         this.setState({
@@ -356,10 +359,8 @@ export default class ScreenHandler extends React.Component {
                     optionsChosen={this.state.optionsChosen}
                     instructions={this.state.instructions}
                     closeItem={() => {
-                        if (this.state.editingItem)
-                            this.backScreen();
-                        else
-                            this.setScreen("Cart", false);
+                        if (this.state.editingItem) this.backScreen();
+                        else this.setScreen("Cart", false);
                     }}
                     onBack={() => {
                         this.backScreen();
@@ -379,7 +380,8 @@ export default class ScreenHandler extends React.Component {
                             var optionObj = optionsChosen[i];
                             for (var j = 0; j < items[i].options.length; j++) {
                                 var option = items[i].options[j];
-                                var cost = option.choices[optionObj[option.name]].cost;
+                                var cost =
+                                    option.choices[optionObj[option.name]].cost;
                                 if (cost > 0) {
                                     openItem.price -= cost;
                                 }
