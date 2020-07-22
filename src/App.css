@@ -489,7 +489,7 @@ input:-webkit-autofill:active {
     /* background-color: #52239867; */
     position: absolute;
     width: 100%;
-    bottom: 0;
+    bottom: 20px;
     font-size: 1.7rem;
     padding: 20px;
 }
@@ -1353,6 +1353,15 @@ input:-webkit-autofill:active {
     width: 100%;
 }
 
+.addrResults {
+    position: absolute;
+    top: 130px;
+    left: 7%;
+    width: 86%;
+    bottom: 75px;
+    overflow: scroll;
+}
+
 .deliveryFormContainer .appInput {
     border-bottom: none;
     background-color: #dfdfdf;
@@ -1380,10 +1389,13 @@ input:-webkit-autofill:active {
 
 .doneButton {
     height: 45px;
-    margin: 0 20px 20px 20px;
     border-radius: 25px;
     background-color: #f66;
     color: white;
+    position: absolute;
+    bottom: 15px;
+    left: 4%;
+    width: 92%;
 }
 
 .trackerBarVert {
@@ -1842,6 +1854,9 @@ span.moneyCents {
     flex-direction: row;
     justify-content: space-between;
     font-size: 1.3em;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #898989;
 }
 
 .addrItem .check {
@@ -1852,4 +1867,31 @@ span.moneyCents {
     display: inline;
     color: #00cc00;
     font-weight: 600;
+}
+
+.homeFuncBtn {
+    position: absolute;
+    bottom: -15px;
+    width: 80%;
+    text-align: center;
+    border: solid 1px #EB1C34;
+    font-weight: 700;
+    font-size: 1.1em;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 10%;
+    border-radius: 20px;
+}
+
+.light .homeFuncBtn {
+    background-color: #eee;
+    box-shadow: 2px 2px 10px #555f;
+    color: #333;
+}
+
+.dark .homeFuncBtn {
+    background-color: #333;
+    color: #fff;
 }

@@ -93,6 +93,10 @@ export default class HomeScreen extends React.Component {
                         </div>
                         <div className="heading">LopesEat</div>
                     </div>
+                    {
+                    (this.props.actionBtn == null) ||
+                    (<div className="homeFuncBtn" onClick={this.props.actionBtn.onClick}>{this.props.actionBtn.name}</div>)
+                    }
                 </div>
                 <div className="screenTiles">
                     {this.tiles[this.props.deliveryMode ? 0 : 1].map(

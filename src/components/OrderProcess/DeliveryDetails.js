@@ -16,7 +16,12 @@ export default class DeliveryDetails extends React.Component {
         };
     }
 
+    componentDidMount() {
+        
+    }
+
     async updateValue(e) {
+        console.log(e);
         var search = e.target.value;
         var searchResults = [];
 
@@ -33,6 +38,12 @@ export default class DeliveryDetails extends React.Component {
         this.setState({search,searchResults});
     }
 
+    setValue(value) {
+        this.addressRef.current.value = value;
+        var obj = {target: {value}};
+        this.updateValue(obj);
+    }
+
     render() {
         return (
             <div className="flexDisplay fillHeight">             
@@ -43,7 +54,7 @@ export default class DeliveryDetails extends React.Component {
                     </div>
                 </div>
 
-                <div className="deliveryFormContainer flex alignCenter">
+                <div className="deliveryFormContainer flex alignCenter" style={{paddingTop: 0}}>
                     <div className="addressInput">
                         <Input passedRef={this.addressRef} placeholder="Address" onChange={e => this.updateValue(e)} defaultValue={this.props.address}/>
                     </div>
@@ -52,7 +63,7 @@ export default class DeliveryDetails extends React.Component {
                         {
                             this.state.searchResults.map((value,index) => {
                                 return (
-                                <div className={"addrItem" + (value.name.toLowerCase() == this.state.search.toLowerCase() ? " selected" : "")}>
+                                <div onClick={() => this.setValue(value.name)} key={index} className={"addrItem" + (value.name.toLowerCase() == this.state.search.toLowerCase() ? " selected" : "")}>
                                     <span className="addrTitle">{value.name}</span>
                                     <span className="material-icons check">done</span>
                                 </div>);
