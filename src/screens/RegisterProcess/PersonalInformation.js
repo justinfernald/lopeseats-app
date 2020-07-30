@@ -1,8 +1,8 @@
 import React from 'react';
 import RegisterStep from './RegisterStep';
 import ImageUploader from './ImageUploader';
-import Input from '../Input';
-import { showErrors } from '../../assets/scripts/Util';
+import Input from '../../components/Input';
+import { showErrors, setScreenState, getScreenState } from '../../assets/scripts/Util';
 
 export default class PersonalInformation extends React.Component {
 
@@ -24,10 +24,6 @@ export default class PersonalInformation extends React.Component {
 
     componentWillUnmount() {
 
-    }
-
-    onBackStep = () => {
-        this.props.onBackStep();
     }
 
     onNextStep = () => {
@@ -58,8 +54,21 @@ export default class PersonalInformation extends React.Component {
             errors.push("Student number invalid");
         }
 
+        var screenState = getScreenState();
+
         if (errors.length === 0) {
-            this.props.onNextStep(firstName, lastName, email, studentNumber, profileImage);
+            setScreenState({
+                registerData: {
+                    firstName,
+                    lastName,
+                    email,
+                    studentNumber,
+                    profileImage,
+                    phone: screenState.registerData.phone,
+                    password: screenState.registerData.password,
+                },
+            });
+            this.props.history.push("/register/verify");
         } else {
             showErrors(errors);
         }
@@ -72,7 +81,7 @@ export default class PersonalInformation extends React.Component {
     render() {
         return (
             <div className="flexDisplay fillHeight">
-                <RegisterStep step={{part: 1, total: 3}} onNextStep={this.onNextStep} onBackStep={this.onBackStep}/>
+                <RegisterStep step={{part: 1, total: 3}} onNextStep={this.onNextStep} onBackStep={this.props.history.goBack}/>
                 <div className="registerStepBanner">Personal Information</div>
                 <div className="registerFormContainer flex alignCenter">
                     <div className="flex flexDisplay alignCenter uploaderContainer"><ImageUploader image={this.state.profileImage} onUpload={this.onUpload} /></div>

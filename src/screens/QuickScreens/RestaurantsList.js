@@ -2,8 +2,8 @@ import React from "react";
 // import LopesEatIcon from '../../assets/images/icon-72x72.png';
 import SearchIcon from "../../assets/images/search-grey.svg";
 import { getRestaurants, getMenu } from "../../assets/scripts/Util";
-import FloatingCartButton from "../FloatingCartButton";
-import { isOpen } from "../HoursList";
+import FloatingCartButton from "../../components/FloatingCartButton";
+import { isOpen } from "../../components/HoursList";
 
 export default class RestaurantsList extends React.Component {
     sortType = {

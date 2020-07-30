@@ -69,7 +69,7 @@ export const getScreenHandler = () => window.getScreenHandler();
 
 export const getScreenState = () => getScreenHandler().state;
 
-export const setScreenState = (...args) => getScreenState().setState(...args);
+export const setScreenState = (...args) => getScreenHandler().setState(...args);
 
 export const postData = async (url = "", data = {}) => {
     let formData = new FormData();
@@ -117,9 +117,9 @@ export const addBackStep = () => {
 };
 
 export const setupBackEvent = (eventCallback) => {
-    window.addEventListener("popstate", () => {
-        eventCallback(false);
-    });
+    // window.addEventListener("popstate", () => {
+    //     eventCallback(false);
+    // });
 };
 
 export const getRestaurants = async () => {
@@ -282,7 +282,7 @@ export const getIncomingOrderList = async (apiToken) => {
 
 export const getActiveOrderList = async (apiToken) => {
     return await postData(
-        "https://lopeseat.com/REST/orders.php?state=!unclaimed&deliverer",
+        "https://lopeseat.com/REST/orders.php?state=!completed&deliverer",
         {
             apiToken: apiToken,
         }

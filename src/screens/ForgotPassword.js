@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterStep from './RegisterProcess/RegisterStep';
-import Input from './Input';
+import RegisterStep from '../components/RegisterProcess/RegisterStep';
+import Input from '../components/Input';
 import Lock from '../assets/images/lock.svg'
 
 

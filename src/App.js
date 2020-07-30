@@ -1,5 +1,5 @@
 import React from "react";
-import ScreenHandler from "./components/ScreenHandler";
+import ScreenHandler from "./ScreenHandler";
 import "./App.css";
 import firebase from "firebase/app";
 import "firebase/messaging";
