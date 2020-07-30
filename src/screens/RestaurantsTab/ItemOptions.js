@@ -1,5 +1,5 @@
 import React from "react";
-import Selector from "../Selector";
+import Selector from "../../components/Selector";
 import {
     addCartItem,
     getScreenState,
@@ -11,10 +11,11 @@ export default class ItemOptions extends React.Component {
     constructor(props) {
         super(props);
 
+        var screenState = getScreenState();
         this.state = {
-            selectedItem: props.selectedItem,
-            optionsChosen: props.editingItem ? props.optionsChosen : [],
-            instructions: props.editingItem ? props.instructions : null,
+            selectedItem: screenState.openItem,
+            optionsChosen: screenState.editingItem ? screenState.optionsChosen : [],
+            instructions: screenState.editingItem ? screenState.instructions : null,
         };
     }
 
@@ -32,7 +33,8 @@ export default class ItemOptions extends React.Component {
     };
 
     closeItem = () => {
-        this.props.closeItem();
+        if (this.state.editingItem) this.history.goBack();
+        else this.props.history.push("/app/restaurants/cart");
     };
 
     addToCart = () => {
@@ -40,16 +42,17 @@ export default class ItemOptions extends React.Component {
         // for (var i = 0; i < this.state.optionsChosen.length; i++) {
         //     chosenOptionMap[this.state.optionKeys[i]] = this.state.optionsChosen[i];
         // }
+        var screenState = getScreenState();
         var itemId = this.state.selectedItem.id;
-        if (this.props.editingItem) {
+        if (screenState.editingItem) {
             removeCartItem(
-                getScreenState().apiToken,
+                screenState.apiToken,
                 this.state.selectedItem.id
             );
             itemId = this.state.selectedItem.item_id;
         }
         addCartItem(
-            getScreenState().apiToken,
+            screenState.apiToken,
             itemId,
             1,
             this.state.instructions ? this.state.instructions : "",
@@ -77,19 +80,20 @@ export default class ItemOptions extends React.Component {
     };
 
     render() {
+        var screenState = getScreenState();
         return (
             <div className="flexDisplay fillHeight">
                 <div className="backIcon">
                     <i
                         className="material-icons-round"
-                        onClick={this.props.onBack}>
+                        onClick={this.props.history.goBack}>
                         arrow_back_ios
                     </i>
                 </div>
                 <div
                     id="restaurantSplash"
                     className="restaurantSplash img-fill">
-                    <img alt="" src={this.props.restaurantData.banner}></img>
+                    <img alt="" src={screenState.currentRestaurant.banner}></img>
                 </div>
                 <div className="itemOptionMenu" onScroll={this.onContentScroll}>
                     <div className="itemDescription">
@@ -104,8 +108,8 @@ export default class ItemOptions extends React.Component {
                     {JSON.parse(this.state.selectedItem.items).map((x, i) => (
                         <div key={i}>
                             {x.options.map((option, j) => {
-                                if (this.props.editingItem) {
-                                    option.default = this.props.optionsChosen[
+                                if (screenState.editingItem) {
+                                    option.default = screenState.optionsChosen[
                                         i
                                     ][option.name];
                                 }
@@ -173,7 +177,7 @@ export default class ItemOptions extends React.Component {
                         <div
                             className="addToCartButton"
                             onClick={this.addToCart}>
-                            {this.props.editingItem ? "Update " : "Add to "}{" "}
+                            {screenState.editingItem ? "Update " : "Add to "}{" "}
                             Cart
                         </div>
                     </div>

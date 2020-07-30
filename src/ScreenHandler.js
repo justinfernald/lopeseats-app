@@ -8,15 +8,12 @@ import {
 } from "./assets/scripts/Util";
 
 import HomeScreen from "./screens/HomeScreen";
-import RestaurantsList from "./screens/QuickScreens/RestaurantsList";
+import RestaurantsRouter from "./screens/RestaurantsTab/RestaurantsRouter";
 import OrderTracker from "./screens/QuickScreens/OrderTracker";
 import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./screens/QuickScreens/Profile";
 import LoginScreen from "./screens/LoginScreen";
-import RegisterScreen from "./screens/RegisterScreen";
-import PersonalInformation from "./screens/RegisterProcess/PersonalInformation";
-import VerifyPhone from "./screens/RegisterProcess/VerifyPhone";
-import RegisterProcess from "./screens/RegisterProcess/RegisterProcess";
+import RegisterRouter from "./screens/RegisterProcess/RegisterRouter";
 
 import { storeState, updateFBToken, getOrder, getActiveOrderList } from "./assets/scripts/Util";
 import { IonRouterOutlet, IonApp, IonTabs, IonPage, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
@@ -29,7 +26,7 @@ const mainScreen = () => (
         <IonTabs>
             <IonRouterOutlet>
                 <Route path="/app/:tab(home)" component={HomeScreen} exact/>
-                <Route path="/app/:tab(restaurants)" component={RestaurantsList} exact/>
+                <Route path="/app/:tab(restaurants)" component={RestaurantsRouter}/>
                 <Route path="/app/:tab(delivery)" component={OrderScreen} exact/>
                 <Route path="/app/:tab(tracker)" component={OrderTracker} exact/>
                 <Route path="/app/:tab(profile)" component={Profile} exact/>
@@ -164,7 +161,7 @@ export default class ScreenHandler extends React.Component {
             <IonReactRouter>
                 <IonRouterOutlet>
                     <Route exact path="/login" component={LoginScreen}/>
-                    <Route path="/register" component={RegisterProcess}/>
+                    <Route path="/register" component={RegisterRouter}/>
                     <Route path="/app" component={mainScreen}/>
                     <Redirect exact from="/" to="/login"/>
                 </IonRouterOutlet>

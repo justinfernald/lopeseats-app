@@ -1,15 +1,17 @@
 import React, { Fragment } from "react";
-import HoursList from "../HoursList";
+import HoursList from "../../components/HoursList";
 // import Selector from "../Selector";
-import FloatingCartButton from "../FloatingCartButton";
+import FloatingCartButton from "../../components/FloatingCartButton";
 import {
     getScreenHandler,
     // addCartItem,
-    // getScreenState,
+    getScreenState,
+    setScreenState,
     // formatPrice,
 } from "../../assets/scripts/Util";
 
 export default class RestaurantDetails extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -26,8 +28,9 @@ export default class RestaurantDetails extends React.Component {
             instructions: null,
         };
 
-        this.restaurantData.hours = this.props.restaurantData.hours;
-        this.restaurantData.food = this.props.menuData;
+        var screenState = getScreenState();
+        this.restaurantData.hours = screenState.currentRestaurant.hours;
+        this.restaurantData.food = screenState.currentMenu;
     }
 
     restaurantData = {};
@@ -67,17 +70,19 @@ export default class RestaurantDetails extends React.Component {
         // this.setState({
         //     selectedItem: item
         // });
-        this.props.openItem(item);
+        setScreenState({ openItem: item, editingItem: false });
+        this.props.history.push("/app/restaurants/item");
     };
 
     render() {
+        var screenState = getScreenState();
         return (
             <Fragment>
                 <div className="flexDisplay fillHeight">
                     <div className="backIcon">
                         <i
                             className="material-icons-round"
-                            onClick={this.props.onBack}>
+                            onClick={this.props.history.goBack}>
                             arrow_back_ios
                         </i>
                     </div>
@@ -86,9 +91,9 @@ export default class RestaurantDetails extends React.Component {
                         className="restaurantSplash img-fill">
                         <img
                             alt=""
-                            src={this.props.restaurantData.banner}></img>
+                            src={screenState.currentRestaurant.banner}></img>
                         <div className="restaurantTitle">
-                            {this.props.restaurantData.name}
+                            {screenState.currentRestaurant.name}
                         </div>
                     </div>
                     <div
@@ -96,7 +101,7 @@ export default class RestaurantDetails extends React.Component {
                         onScroll={this.onContentScroll}>
                         <div className="restaurantInfo">
                             <div className="restaurantDescription">
-                                {this.props.restaurantData.description}
+                                {screenState.currentRestaurant.description}
                             </div>
                         </div>
                         <div className="restaurantFood">
@@ -133,7 +138,7 @@ export default class RestaurantDetails extends React.Component {
                             <div className="fullMenu">
                                 <div className="title">Meal Options</div>
 
-                                {this.props.menuData.map((item, index) => (
+                                {screenState.currentMenu.map((item, index) => (
                                     <div
                                         key={index}
                                         className="menuItem"

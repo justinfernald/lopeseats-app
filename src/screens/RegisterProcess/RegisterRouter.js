@@ -7,7 +7,7 @@ import PersonalInformation from "./PersonalInformation";
 import VerifyPhone from "./VerifyPhone";
 import PhoneComirm from "./PhoneConfirm";
 
-export default function RegisterProcess() {
+export default function RegisterRouter() {
     return (<IonRouterOutlet>
         <Route exact path="/register" component={RegisterScreen}/>
         <Route exact path="/register/info" component={PersonalInformation}/>

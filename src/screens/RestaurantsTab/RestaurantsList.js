@@ -1,7 +1,7 @@
 import React from "react";
 // import LopesEatIcon from '../../assets/images/icon-72x72.png';
 import SearchIcon from "../../assets/images/search-grey.svg";
-import { getRestaurants, getMenu } from "../../assets/scripts/Util";
+import { getRestaurants, getMenu, setScreenState } from "../../assets/scripts/Util";
 import FloatingCartButton from "../../components/FloatingCartButton";
 import { isOpen } from "../../components/HoursList";
 
@@ -99,6 +99,18 @@ export default class RestaurantsList extends React.Component {
 
     componentWillUnmount() {}
 
+    openRestaurantScreen = (restaurant, menu) => {
+        setScreenState({
+            currentRestaurant: restaurant,
+            currentMenu: menu,
+        });
+        this.props.history.push("/app/restaurants/details");
+    }
+
+    onCartClick = () => {
+        this.props.history.push("/app/cart");
+    }
+
     render() {
         // hello.run();
         return (
@@ -107,7 +119,7 @@ export default class RestaurantsList extends React.Component {
                     <div className="restaurantHeader">
                         <i
                             className="icon material-icons-round"
-                            onClick={this.props.onBack}>
+                            onClick={this.props.history.goBack}>
                             arrow_back_ios
                         </i>
                         <span className="screenTitle">Restaurants</span>
@@ -223,7 +235,7 @@ export default class RestaurantsList extends React.Component {
                         return (
                             <div
                                 onClick={async () =>
-                                    this.props.openRestaurantScreen(
+                                    this.openRestaurantScreen(
                                         value,
                                         await getMenu(value.id)
                                     )
@@ -240,10 +252,7 @@ export default class RestaurantsList extends React.Component {
                         );
                     })}
                 </div>
-                <FloatingCartButton
-                    onClick={() => {
-                        this.props.onCartClick();
-                    }}></FloatingCartButton>
+                <FloatingCartButton history={this.props.history}></FloatingCartButton>
             </div>
         );
     }
