@@ -1,13 +1,12 @@
 import React from 'react';
-import Input from './Input';
+import Input from '../components/Input';
 import Phone from '../assets/images/phone-icon.png';
 import Lock from '../assets/images/lock.svg';
-import {phoneNumberTaken, showErrors} from '../assets/scripts/Util'
+import {phoneNumberTaken, showErrors, setScreenState} from '../assets/scripts/Util'
 
 
 export default class RegisterScreen extends React.Component {
 
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -53,7 +52,6 @@ export default class RegisterScreen extends React.Component {
             return input.match(phoneRegex);
         };
         
-
         if (!isPhoneNumber(phoneNumber)) {
             errors.push("Invalid Phone Number");
         }
@@ -83,18 +81,22 @@ export default class RegisterScreen extends React.Component {
         }
     }
 
-    
+    proceedRegistration = (phone, password) => {
+        setScreenState({
+            registerData: {
+                phone,
+                password,
+            },
+        });
+        this.props.history.push("/register/info");
+    };
 
-    proceedRegistration(phoneNumber, password) {
-        this.props.proceedRegistration(phoneNumber, password);
-    }
-
-    
+    formSwitch = () => this.props.history.push("/login");
 
     render() {
         return (
             <div className="loginWrapper">
-                <div className="formSwitchButton" onClick={this.props.formSwitch}>
+                <div className="formSwitchButton" onClick={this.formSwitch}>
                     SIGN IN
                 </div> 
                 <div className="loginImage">

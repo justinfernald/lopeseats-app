@@ -1895,3 +1895,19 @@ span.moneyCents {
     background-color: #333;
     color: #fff;
 }
+
+ion-tab-button ion-icon {
+    color: #707070;
+}
+
+ion-tab-button.tab-selected ion-icon {
+    color: black;
+}
+
+ion-tab-button .material-icons-round {
+    color: #707070;
+}
+
+ion-tab-button.tab-selected .material-icons-round {
+    color: black;
+}

@@ -1,14 +1,16 @@
 import React from 'react';
 import RegisterStep from './RegisterStep';
-import {verifyCode, showErrors} from '../../assets/scripts/Util';
+import {verifyCode, showErrors, getScreenState, setScreenState, loginAccount} from '../../assets/scripts/Util';
 
 export default class PhoneConfirm extends React.Component {
 
     
     constructor(props) {
         super(props);
+        let screenState = getScreenState();
         this.state = {
             code: "",
+            phone: screenState.registerData.phone
         };
 
         this.codeRef = React.createRef();
@@ -22,9 +24,15 @@ export default class PhoneConfirm extends React.Component {
 
     }
 
-    onNextStep = async (bypass = false) => {
-        if (bypass || await verifyCode(this.props.phone, this.codeRef.value)) {
-            this.props.onNextStep();
+    onNextStep = async value => {
+        console.log(value);
+        if (await verifyCode(this.state.phone, value)) {
+            let screenState = getScreenState();
+            var loginData = await loginAccount(screenState.registerData.phone, screenState.registerData.password);
+            setScreenState({
+                apiToken: loginData.msg
+            });
+            this.props.history.push("/app");
         } else {
             showErrors(["Invalid Code"]);
         }
@@ -35,8 +43,8 @@ export default class PhoneConfirm extends React.Component {
         e.target.value = e.target.value.slice(0,6);
         if (e.target.value !== this.state.code) {
             this.setState({code: e.target.value});
-            if (e.target.value.length === 6 && await verifyCode(this.props.phone, e.target.value)) {
-                this.onNextStep(true);
+            if (e.target.value.length === 6) {
+                this.onNextStep(e.target.value);
             }
         }
     }
@@ -45,10 +53,10 @@ export default class PhoneConfirm extends React.Component {
         let elements = [...[...this.state.code], ...Array(6-this.state.code.length)];
         return (
             <div className="flexDisplay fillHeight">
-                <RegisterStep step={{part: 3, total: 3}} noBack onNextStep={this.onNextStep}/>
+                <RegisterStep step={{part: 3, total: 3}} noBack onNextStep={null}/>
                 <div className="registerStepBanner">Verify Phone</div>
                 <div className="registerFormContainer flex">
-                    <p>We've send a code to your phone number {this.props.phone}</p>
+                    <p>We've send a code to your phone number {this.state.phone}</p>
                     <p>Enter in the code and we can get started!</p>
                     <div className="flexDisplay alignCenter">
                         <div className="code-input">

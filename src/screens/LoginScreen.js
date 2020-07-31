@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "./Input";
+import Input from "../components/Input";
 import Phone from "../assets/images/phone-icon.png";
 import Lock from "../assets/images/lock.svg";
 import LopesEatLogo from "../assets/images/icon-384x384.png";
@@ -9,19 +9,27 @@ import {
     resendCode,
     updateFBToken,
     postData,
+    getScreenState,
+    loadState,
+    addBackStep,
+    setScreenState
 } from "../assets/scripts/Util";
 
 export default class LoginScreen extends React.Component {
+
+    screenState;
+
     constructor(props) {
         super(props);
+        this.screenState = getScreenState();
 
         this.state = {
             showPassword: false,
-            loading: !!this.props.apiToken,
+            loading: !!this.screenState.apiToken,
         };
 
-        if (this.props.apiToken) {
-            this.checkToken(this.props.apiToken);
+        if (this.screenState.apiToken) {
+            this.checkToken(this.screenState.apiToken);
         }
 
         this.phoneNumberRef = React.createRef();
@@ -34,7 +42,7 @@ export default class LoginScreen extends React.Component {
                 apiToken: token,
             })
         )
-            this.props.onLogin(this.props.apiToken);
+        this.onLogin(token);
         else this.setState({ loading: false });
     }
 
@@ -83,7 +91,7 @@ export default class LoginScreen extends React.Component {
         let loginData = await loginAccount(phoneNumber, password);
         if (errors.length === 0 && !loginData.success) {
             if (loginData.msg === "Account not confirmed") {
-                this.props.onNotConfirmed(phoneNumber);
+                this.onNotConfirmed(phoneNumber);
                 resendCode(phoneNumber);
                 return;
             }
@@ -94,10 +102,49 @@ export default class LoginScreen extends React.Component {
 
         if (errors.length === 0) {
             // updateFBToken(this.props.fbToken, loginData.msg);
-            this.props.onLogin(loginData.msg);
+            this.onLogin(loginData.msg);
         } else {
             showErrors(["Invalid login"]);
         }
+    };
+
+    formSwitch = () => this.props.history.push("/register");
+
+    onLogin = (apiToken) => {
+        let newState = loadState("screenHandler");
+        if (newState && newState.screenHistory)
+            for (
+                let i = 1;
+                i < newState.screenHistory.length;
+                i++
+            ) {
+                addBackStep();
+            }
+        console.log("apitoken: " + apiToken);
+        setScreenState({ apiToken });
+
+        setScreenState(newState);
+        updateFBToken(
+            this.props.fbToken,
+            this.props.fbPlatform,
+            apiToken
+        );
+        this.props.history.push("/app");
+    };
+
+    onNotConfirmed = (phone) => {
+        this.setState({
+            registerData: {
+                phone: phone,
+            },
+        });
+        this.newHistory("PhoneConfirm");
+    };
+
+    onForgotPassword = () => {
+        this.setState({
+            // screen: "ForgotPassword"
+        });
     };
 
     render() {
@@ -115,7 +162,7 @@ export default class LoginScreen extends React.Component {
             <div className="loginWrapper">
                 <div
                     className="formSwitchButton"
-                    onClick={this.props.formSwitch}>
+                    onClick={this.formSwitch}>
                     REGISTER
                 </div>
                 <div className="loginImage">
@@ -151,7 +198,7 @@ export default class LoginScreen extends React.Component {
                         />
 
                         <div
-                            onClick={this.props.onForgotPassword}
+                            onClick={this.onForgotPassword}
                             className="forgotPassword">
                             Forgot password?
                         </div>

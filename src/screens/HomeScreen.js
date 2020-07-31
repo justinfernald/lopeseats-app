@@ -3,10 +3,11 @@ import React from "react";
 // import {Link, BrowserRouter} from 'react-router-dom';
 
 export default class HomeScreen extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            showPassword: false,
+            showPassword: false
         };
 
         this.tiles = [
@@ -69,7 +70,8 @@ export default class HomeScreen extends React.Component {
         ];
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     componentWillUnmount() {}
 
@@ -95,7 +97,7 @@ export default class HomeScreen extends React.Component {
                     </div>
                     {
                     (this.props.actionBtn == null) ||
-                    (<div className="homeFuncBtn" onClick={this.props.actionBtn.onClick}>{this.props.actionBtn.name}</div>)
+                    (<div className="homeFuncBtn" onClick={() => this.props.actionBtn.action()}>{this.props.actionBtn.text}</div>)
                     }
                 </div>
                 <div className="screenTiles">
