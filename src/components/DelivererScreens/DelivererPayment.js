@@ -20,7 +20,20 @@ export default class DeliveryPayment extends React.Component {
                         <span className="screenTitle">Check Out</span>
                     </div>
                 </div>
-                <div></div>
+                <div>
+                    <div>Align Barcode to Reader</div>
+                    <div>
+                        Deliverer
+                        <span className="delivererName">Justin Fernald</span>
+                    </div>
+                    <div>
+                        Customer
+                        <span className="customerName">Will Garrett</span>
+                    </div>
+                    <div className="barcodeContainer">
+                        <div className="barcode"></div>
+                    </div>
+                </div>
             </div>
         );
     }
