@@ -92,7 +92,8 @@ export default class ScreenHandler extends React.Component {
                 actionBtn: null,
                 actionBtnUpdated: false,
                 fbToken: props.fbToken,
-                redirectTo: null
+                redirectTo: null,
+                messageListener: this.props.messageListener
             };
         }
 

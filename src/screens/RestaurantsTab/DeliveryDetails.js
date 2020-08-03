@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
-import Input from '../Input';
-import {getBuildings} from '../../assets/scripts/Util';
+import Input from '../../components/Input';
+import {getBuildings, getScreenState, setScreenState} from '../../assets/scripts/Util';
 
 export default class DeliveryDetails extends React.Component {
 
@@ -9,7 +9,8 @@ export default class DeliveryDetails extends React.Component {
 
     constructor(props) {
         super(props);
-        this.addressRef = React.createRef(this.props.address);
+        var screenState = getScreenState();
+        this.addressRef = React.createRef(screenState.address);
         this.state = {
             search: "",
             searchResults: []
@@ -44,19 +45,25 @@ export default class DeliveryDetails extends React.Component {
         this.updateValue(obj);
     }
 
+    onNextStep = (address) => {
+        setScreenState({ address });
+        this.props.history.push("/app/restaurants/checkout");
+    }
+
     render() {
+        var screenState = getScreenState();
         return (
             <div className="flexDisplay fillHeight">             
                 <div className="restaurantTop">
                     <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
+                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
                         <span className="screenTitle">Delivery Details</span>
                     </div>
                 </div>
 
                 <div className="deliveryFormContainer flex alignCenter" style={{paddingTop: 0}}>
                     <div className="addressInput">
-                        <Input passedRef={this.addressRef} placeholder="Address" onChange={e => this.updateValue(e)} defaultValue={this.props.address}/>
+                        <Input passedRef={this.addressRef} placeholder="Address" onChange={e => this.updateValue(e)} defaultValue={screenState.address}/>
                     </div>
 
                     <div className="addrResults">
@@ -70,7 +77,7 @@ export default class DeliveryDetails extends React.Component {
                             })
                         }
                     </div>
-                    <button className="doneButton" onClick={() => this.props.onNextStep(this.addressRef.current.value)}>DONE</button>
+                    <button className="doneButton" onClick={() => this.onNextStep(this.addressRef.current.value)}>DONE</button>
                 </div>
             </div>
         );
