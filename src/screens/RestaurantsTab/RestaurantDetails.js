@@ -164,10 +164,7 @@ export default class RestaurantDetails extends React.Component {
                         </div>
                     </div>
                 </div>
-                <FloatingCartButton
-                    onClick={() => {
-                        getScreenHandler().setScreen("Cart");
-                    }}></FloatingCartButton>
+                <FloatingCartButton history={this.props.history}></FloatingCartButton>
             </Fragment>
         );
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import { getCart, getCartPrices, formatPrice, removeCartItem } from '../assets/scripts/Util';
+import { getCart, getCartPrices, formatPrice, removeCartItem, getScreenState, setScreenState } from '../assets/scripts/Util';
 
 export default class Cart extends React.Component  {
 
@@ -20,11 +20,13 @@ export default class Cart extends React.Component  {
     }
 
     async fetchData() {
-        var items = await getCart(this.props.apiToken);
+        var screenState = getScreenState();
+        var items = await getCart(screenState.apiToken);
+        if (items == null) items = [];
         this.setState({items});
         console.log(this.items);
 
-        var prices = await getCartPrices(this.props.apiToken);
+        var prices = await getCartPrices(screenState.apiToken);
         this.subtotal = prices.subtotal;
         this.total = prices.total;
         this.tax = prices.tax;
@@ -33,12 +35,44 @@ export default class Cart extends React.Component  {
         this.forceUpdate();
     }
 
+    editItem = (item) => {
+        console.log("editing: ", item);
+        var optionsChosen = JSON.parse(item.options);
+        var items = JSON.parse(item.items);
+        var openItem = item;
+        for (var i = 0; i < optionsChosen.length; i++) {
+            var optionObj = optionsChosen[i];
+            for (var j = 0; j < items[i].options.length; j++) {
+                var option = items[i].options[j];
+                var cost =
+                    option.choices[optionObj[option.name]].cost;
+                if (cost > 0) {
+                    openItem.price -= cost;
+                }
+            }
+        }
+
+        var instructions = item.comment;
+        var editingItem = true;
+        setScreenState({
+            editingItem,
+            openItem,
+            optionsChosen,
+            instructions,
+        });
+        this.props.history.push("/app/restaurants/item");
+    }
+
+    onNextStep= () => {
+        this.props.history.push("/app/restaurants/address");
+    }
+
     render () {
         return (
             <div className="flexDisplay fillHeight">             
                 <div className="restaurantTop">
                     <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
+                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
                         <span className="screenTitle">Cart</span>
                     </div>
                 </div>
@@ -58,8 +92,8 @@ export default class Cart extends React.Component  {
                             }
                             return (
                                 <div className="cartItem" key={index}>
-                                    <div className="imageHolder img-fill" onClick={() => this.props.editItem(value)}><img alt="test" src={value.image}/></div>
-                                    <div className="cartItemInfo" onClick={() => this.props.editItem(value)}>
+                                    <div className="imageHolder img-fill" onClick={() => this.editItem(value)}><img alt="test" src={value.image}/></div>
+                                    <div className="cartItemInfo" onClick={() => this.editItem(value)}>
                                         <div className="cartItemHeader">
                                         <span className="cartItemName">{value.name}</span>
                                             <span className="cartItemPrice">${formatPrice(value.price * value.amount)}</span>
@@ -72,7 +106,7 @@ export default class Cart extends React.Component  {
                                             {value.comment}
                                         </div>
                                     </div>
-                                    <div className="deleteBtn" onClick={() => {removeCartItem(this.props.apiToken, value.id); this.fetchData()}}>
+                                    <div className="deleteBtn" onClick={() => {removeCartItem(getScreenState().apiToken, value.id); this.fetchData()}}>
                                         <div className="minus"></div>
                                     </div>
                                 </div>
@@ -88,7 +122,7 @@ export default class Cart extends React.Component  {
                     <div className="subtotal">Tax & fees<span className="price">${formatPrice(this.tax)}</span></div>
                     <div className="total">Total (Dining Dollars)<span className="price">${formatPrice(this.total)}</span></div>
                     <div className="total">Delivery Fee<span className="price">${formatPrice(this.fee)}</span></div>
-                    <button className="checkoutButton" onClick={()=>this.props.onNextStep()}>Checkout</button>
+                    <button className="checkoutButton" onClick={()=>this.onNextStep()}>Checkout</button>
                 </div>
             </div>
         )

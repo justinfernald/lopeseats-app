@@ -33,7 +33,7 @@ export default class ItemOptions extends React.Component {
     };
 
     closeItem = () => {
-        if (this.state.editingItem) this.history.goBack();
+        if (this.state.editingItem) this.props.history.goBack();
         else this.props.history.push("/app/restaurants/cart");
     };
 

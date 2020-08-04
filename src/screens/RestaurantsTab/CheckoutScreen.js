@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../App.css';
 import DropIn from "braintree-web-drop-in-react";
-import {sendPayment, getCartPrices, formatPrice} from "../../assets/scripts/Util";
+import {sendPayment, getCartPrices, formatPrice, getScreenState} from "../../assets/scripts/Util";
 import LopesEatLogo from "../../assets/images/icon-384x384.png";
 
 export default class CheckoutScreen extends React.Component {
@@ -19,7 +19,9 @@ export default class CheckoutScreen extends React.Component {
 
         console.log(clientToken);
 
-        var prices = await getCartPrices(this.props.apiToken);
+        var screenState = getScreenState();
+
+        var prices = await getCartPrices(screenState.apiToken);
         this.fee = prices.delivery_fee;
 
         this.setState({
@@ -29,10 +31,12 @@ export default class CheckoutScreen extends React.Component {
     }
 
     async pay() {
+        var screenState = getScreenState();
+
         if (this.instance.isPaymentMethodRequestable()) {
             const {nonce} = await this.instance.requestPaymentMethod();
-            await sendPayment(nonce, this.props.address, this.props.apiToken);
-            this.props.paymentComplete();
+            await sendPayment(nonce, screenState.address, screenState.apiToken);
+            this.props.history.push("/app/home");
         }
     }
 
@@ -51,7 +55,7 @@ export default class CheckoutScreen extends React.Component {
                 <div className="flexDisplay fillHeight">             
                     <div className="restaurantTop">
                         <div className="header">
-                            <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
+                            <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
                             <span className="screenTitle">Checkout</span>
                         </div>
                     </div>
