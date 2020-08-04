@@ -14,47 +14,98 @@ import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./screens/QuickScreens/Profile";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterRouter from "./screens/RegisterProcess/RegisterRouter";
+import DelivererOrder from "./screens/DelivererScreens/DelivererOrder";
 
-import { storeState, updateFBToken, getOrder, getActiveOrderList } from "./assets/scripts/Util";
-import { IonRouterOutlet, IonApp, IonTabs, IonPage, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
+import {
+    storeState,
+    updateFBToken,
+    getOrder,
+    getActiveOrderList,
+} from "./assets/scripts/Util";
+import {
+    IonRouterOutlet,
+    IonApp,
+    IonTabs,
+    IonPage,
+    IonTabBar,
+    IonTabButton,
+    IonIcon,
+    IonLabel,
+} from "@ionic/react";
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
-import { IonReactRouter } from '@ionic/react-router';
-import { Route, Redirect } from 'react-router-dom';
+import { IonReactRouter } from "@ionic/react-router";
+import { Route, Redirect } from "react-router-dom";
 
 const mainScreen = () => (
     <IonPage id="app">
         <IonTabs>
             <IonRouterOutlet>
-                <Route path="/app/:tab(home)" component={HomeScreen} exact/>
-                <Route path="/app/:tab(restaurants)" component={RestaurantsRouter}/>
-                <Route path="/app/:tab(delivery)" component={OrderScreen} exact/>
-                <Route path="/app/:tab(tracker)" component={OrderTracker} exact/>
-                <Route path="/app/:tab(profile)" component={Profile} exact/>
-                <Redirect from="/app/" to="/app/home" exact/>
+                <Route path="/app/:tab(home)" component={HomeScreen} exact />
+                <Route
+                    path="/app/:tab(restaurants)"
+                    component={RestaurantsRouter}
+                />
+                <Route
+                    path="/app/:tab(delivery)"
+                    component={OrderScreen}
+                    exact
+                />
+                <Route
+                    path="/app/:tab(tracker)"
+                    component={OrderTracker}
+                    exact
+                />
+                <Route path="/app/:tab(profile)" component={Profile} exact />
+                <Route
+                    path="/app/deliverer/order"
+                    component={DelivererOrder}
+                    exact
+                />
+                <Redirect from="/app/" to="/app/home" exact />
             </IonRouterOutlet>
 
             <IonTabBar slot="bottom">
                 <IonTabButton tab="home" href="/app/home">
-                    <IonIcon icon={restaurant} style={{width: "100%", height: "50%"}}/>
+                    <IonIcon
+                        icon={restaurant}
+                        style={{ width: "100%", height: "50%" }}
+                    />
                 </IonTabButton>
                 <IonTabButton tab="restaurants" href="/app/restaurants">
-                    <IonIcon icon={search} style={{width: "100%", height: "53%"}}/>
+                    <IonIcon
+                        icon={search}
+                        style={{ width: "100%", height: "53%" }}
+                    />
                 </IonTabButton>
                 <IonTabButton tab="delivery" href="/app/delivery">
-                    <IonIcon icon={repeatSharp} style={{width: "100%", height: "65%"}}/>
+                    <IonIcon
+                        icon={repeatSharp}
+                        style={{ width: "100%", height: "65%" }}
+                    />
                 </IonTabButton>
                 <IonTabButton tab="tracker" href="/app/tracker">
-                    <i className="material-icons-round" style={{width: "100%", height: "50%", fontSize: "1.9em"}}>track_changes</i>
+                    <i
+                        className="material-icons-round"
+                        style={{
+                            width: "100%",
+                            height: "50%",
+                            fontSize: "1.9em",
+                        }}>
+                        track_changes
+                    </i>
                 </IonTabButton>
                 <IonTabButton tab="profile" href="/app/profile">
-                    <IonIcon icon={person} style={{width: "100%", height: "50%"}}/>
+                    <IonIcon
+                        icon={person}
+                        style={{ width: "100%", height: "50%" }}
+                    />
                 </IonTabButton>
             </IonTabBar>
         </IonTabs>
-    </IonPage>);
+    </IonPage>
+);
 
 export default class ScreenHandler extends React.Component {
-
     constructor(props) {
         super(props);
         this.noBack = false;
@@ -93,7 +144,7 @@ export default class ScreenHandler extends React.Component {
                 actionBtnUpdated: false,
                 fbToken: props.fbToken,
                 redirectTo: null,
-                messageListener: this.props.messageListener
+                messageListener: this.props.messageListener,
             };
         }
 
@@ -102,19 +153,18 @@ export default class ScreenHandler extends React.Component {
         window.getScreenHandler = () => this;
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     async loadActionBtnData() {
         var actionBtn = await this.getActionBtn();
         var actionBtnUpdated = true;
-        this.setState({actionBtn, actionBtnUpdated});
+        this.setState({ actionBtn, actionBtnUpdated });
     }
 
     toggleMode = () => {
         this.setState({
             deliveryMode: !this.state.deliveryMode,
-            actionBtnUpdated: false
+            actionBtnUpdated: false,
         });
         this.props.setTheme(!this.state.deliveryMode);
     };
@@ -123,51 +173,67 @@ export default class ScreenHandler extends React.Component {
         if (this.state.deliveryMode) {
             var orderList = await getActiveOrderList(this.state.apiToken);
             if (orderList.length == 0) {
-                return {text: "Start Delivery", action: () => this.setScreen("ActiveOrders")};
+                return {
+                    text: "Start Delivery",
+                    action: () => this.setScreen("ActiveOrders"),
+                };
             } else {
                 var mainOrder = orderList[0];
                 for (var i = 0; i < orderList.length; i++) {
-                    if (Date.parse(orderList[i].placed) < Date.parse(mainOrder.placed)) {
+                    if (
+                        Date.parse(orderList[i].placed) <
+                        Date.parse(mainOrder.placed)
+                    ) {
                         mainOrder = orderList[i];
                     }
                 }
 
                 // getActiveOrderList still sends "completed" orders. Needs to be fixed...
-                switch(mainOrder.state) {
+                switch (mainOrder.state) {
                     case "claimed":
-                        return {text: "Pick up food", action: null};
+                        return { text: "Pick up food", action: null };
                     case "en route":
-                        return {text: "Notify customer of arrival", action: null};
+                        return {
+                            text: "Notify customer of arrival",
+                            action: null,
+                        };
                     case "arrived":
-                        return {text: "Complete order", action: null};
+                        return { text: "Complete order", action: null };
                 }
             }
         } else {
             var order = await getOrder(this.state.apiToken);
             if (order == null) {
-                return {text: "Place order", action: () => this.setScreen("RestaurantsList")}
+                return {
+                    text: "Place order",
+                    action: () => this.setScreen("RestaurantsList"),
+                };
             } else {
-                return {text: "Message Deliverer", action: () => this.setScreen("Message")}
+                return {
+                    text: "Message Deliverer",
+                    action: () => this.setScreen("Message"),
+                };
             }
         }
         return null;
-    }
+    };
 
     render() {
         if (this.state.apiToken) storeState(this.state, "screenHandler");
         if (!this.state.actionBtnUpdated) this.loadActionBtnData();
 
         return (
-        <IonApp>
-            <IonReactRouter>
-                <IonRouterOutlet>
-                    <Route exact path="/login" component={LoginScreen}/>
-                    <Route path="/register" component={RegisterRouter}/>
-                    <Route path="/app" component={mainScreen}/>
-                    <Redirect exact from="/" to="/login"/>
-                </IonRouterOutlet>
-            </IonReactRouter>
-        </IonApp>
+            <IonApp>
+                <IonReactRouter>
+                    <IonRouterOutlet>
+                        <Route exact path="/login" component={LoginScreen} />
+                        <Route path="/register" component={RegisterRouter} />
+                        {!this.state.apiToken && <Redirect to="/login" />}
+                        <Route path="/app" component={mainScreen} />
+                        <Redirect exact from="/" to="/login" />
+                    </IonRouterOutlet>
+                </IonReactRouter>
+            </IonApp>
         );
     }
 }
