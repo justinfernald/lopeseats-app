@@ -14,6 +14,7 @@
         "@ionic-native/firebase-messaging": "^5.27.0",
         "@ionic/react": "^5.3.1",
         "@ionic/react-router": "^5.3.1",
+        "aphrodite": "^2.4.0",
         "braintree-web-drop-in-react": "^1.1.0",
         "compressorjs": "^1.0.6",
         "firebase": "^7.15.0",
