@@ -71,6 +71,8 @@ export const getScreenState = () => getScreenHandler().state;
 
 export const setScreenState = (...args) => getScreenHandler().setState(...args);
 
+export const getMessageListener = () => window.getScreenHandler().getMessageListener();
+
 export const postData = async (
     url = "",
     data = {},

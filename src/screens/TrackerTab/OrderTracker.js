@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css';
-import { getOrder } from '../../assets/scripts/Util';
+import { getOrder, setScreenState, getScreenState, getMessageListener } from '../../assets/scripts/Util';
 
 export default class OrderTracker extends React.Component {
 
@@ -25,11 +25,11 @@ export default class OrderTracker extends React.Component {
     }
 
     componentDidMount() {
-        this.listenerId = this.props.messageListener.addListener(() => {this.fetchData()});
+        this.listenerId = getMessageListener().addListener(() => {this.fetchData()});
     }
 
     componentWillUnmount() {
-        this.props.messageListener.removeListener(this.listenerId);
+        getMessageListener().removeListener(this.listenerId);
     }
 
     makePHXTime(date) {
@@ -56,7 +56,7 @@ export default class OrderTracker extends React.Component {
     }
 
     async fetchData() {
-        this.order = await getOrder(this.props.apiToken);
+        this.order = await getOrder(getScreenState().apiToken);
         console.log(this.order);
         
         if (this.order != null) {
@@ -81,6 +81,13 @@ export default class OrderTracker extends React.Component {
         }
 
         this.forceUpdate();
+    }
+
+    onMessageClick = (orderId) => {
+        setScreenState({
+            orderId,
+        });
+        this.props.history.push("/app/tracker/message");
     }
 
     render() {
@@ -131,7 +138,7 @@ export default class OrderTracker extends React.Component {
             footer = (
             <div className="orderTrackerFooter">
                 Arriving in {this.state.wait} minutes
-                <div className="messageButton" onClick={() => this.props.onMessageClick(this.state.order)}></div>
+                <div className="messageButton" onClick={() => this.onMessageClick(this.state.order)}></div>
             </div>);
         } else {
             content = (<div className="noCurrentOrder">
@@ -142,7 +149,7 @@ export default class OrderTracker extends React.Component {
             <div className="flexDisplay fillHeight">             
                 <div className="restaurantTop">
                     <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.onBack}>arrow_back_ios</i>
+                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
                         <span className="screenTitle">Order Tracker</span>
                     </div>
                 </div>

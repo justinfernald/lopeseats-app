@@ -10,7 +10,7 @@ import {
 
 import HomeScreen from "./screens/HomeScreen";
 import RestaurantsRouter from "./screens/RestaurantsTab/RestaurantsRouter";
-import OrderTracker from "./screens/QuickScreens/OrderTracker";
+import OrderTracker from "./screens/TrackerTab/OrderTracker";
 import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./screens/QuickScreens/Profile";
 import LoginScreen from "./screens/LoginScreen";
@@ -37,6 +37,7 @@ import {
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router-dom";
+import TrackerRouter from "./screens/TrackerTab/TrackerRouter";
 
 const mainScreen = (props) =>
     !getScreenState().apiToken ? (
@@ -68,7 +69,7 @@ const mainScreen = (props) =>
                     />
                     <Route
                         path="/app/:tab(tracker)"
-                        component={OrderTracker}
+                        component={TrackerRouter}
                         exact
                     />
                     <Route
@@ -169,13 +170,18 @@ export default class ScreenHandler extends React.Component {
                 actionBtnUpdated: false,
                 fbToken: props.fbToken,
                 redirectTo: null,
-                messageListener: this.props.messageListener,
             };
         }
+
+        this.state.messageListener = props.messageListener;
 
         setupBackEvent(this.backScreen);
 
         window.getScreenHandler = () => this;
+    }
+
+    getMessageListener() {
+        return this.props.messageListener;
     }
 
     componentDidMount() {}
