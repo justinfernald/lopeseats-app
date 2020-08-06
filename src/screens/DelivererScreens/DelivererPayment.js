@@ -114,25 +114,43 @@ export default class DeliveryPayment extends React.Component {
                         </div> */}
                     </div>
                     <div className={css(styles.paymentBox)}>
-                        <div className={css(styles.row)}>
-                            <span className={css(styles.label)}>Subtotal</span>
-                            <span className={css(styles.value)}>$5.54</span>
-                        </div>
-                        <div className={css(styles.row)}>
-                            <span className={css(styles.label)}>
-                                Tax & Fees
-                            </span>
-                            <span className={css(styles.value)}>$0.56</span>
-                        </div>
-                        <div className={css(styles.row)}>
-                            <span
-                                className={css(styles.label, styles.emphasis)}>
-                                Total
-                            </span>
-                            <span
-                                className={css(styles.value, styles.emphasis)}>
-                                $6.10
-                            </span>
+                        <div>
+                            <div className={css(styles.row)}>
+                                <span className={css(styles.label)}>
+                                    Customer
+                                </span>
+                                <span className={css(styles.value)}>
+                                    John Doe
+                                </span>
+                            </div>
+                            <div className={css(styles.row)}>
+                                <span className={css(styles.label)}>
+                                    Subtotal
+                                </span>
+                                <span className={css(styles.value)}>$5.54</span>
+                            </div>
+                            <div className={css(styles.row)}>
+                                <span className={css(styles.label)}>
+                                    Tax & Fees
+                                </span>
+                                <span className={css(styles.value)}>$0.56</span>
+                            </div>
+                            <div className={css(styles.row)}>
+                                <span
+                                    className={css(
+                                        styles.label,
+                                        styles.emphasis
+                                    )}>
+                                    Total
+                                </span>
+                                <span
+                                    className={css(
+                                        styles.value,
+                                        styles.emphasis
+                                    )}>
+                                    $6.10
+                                </span>
+                            </div>
                         </div>
                         <div className={css(styles.completeButton)}>
                             Finish Button
@@ -149,6 +167,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         flex: 1,
+        overflow: "auto",
     },
     screenMessage: {
         color: "white",
@@ -210,8 +229,10 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         flex: 1,
+        // flexBasis: 400,
         display: "flex",
         flexDirection: "column",
+        justifyContent: "space-between",
         padding: 25,
         color: "white",
         fontSize: "1.2em",
@@ -230,13 +251,13 @@ const styles = StyleSheet.create({
     },
 
     completeButton: {
-        position: "absolute",
-        bottom: 30,
+        position: "relative",
         background: "var(--primary)",
         textAlign: "center",
         height: 56,
         width: "80%",
         left: "50%",
+        marginTop: 10,
         paddingTop: 13,
         transform: "translateX(-50%)",
         borderRadius: 28,
