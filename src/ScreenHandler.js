@@ -16,6 +16,7 @@ import Profile from "./screens/QuickScreens/Profile";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterRouter from "./screens/RegisterProcess/RegisterRouter";
 import DelivererOrder from "./screens/DelivererScreens/DelivererOrder";
+import DelivererPayment from "./screens/DelivererScreens/DelivererPayment";
 
 import {
     storeState,
@@ -78,6 +79,11 @@ const mainScreen = (props) =>
                     <Route
                         path="/app/deliverer/order"
                         component={DelivererOrder}
+                        exact
+                    />
+                    <Route
+                        path="/app/deliverer/payment"
+                        component={DelivererPayment}
                         exact
                     />
                     <Redirect from="/app/" to="/app/home" exact />

@@ -71,7 +71,12 @@ export const getScreenState = () => getScreenHandler().state;
 
 export const setScreenState = (...args) => getScreenHandler().setState(...args);
 
-export const postData = async (url = "", data = {}) => {
+export const postData = async (
+    url = "",
+    data = {},
+    raw = false,
+    promise = false
+) => {
     let formData = new FormData();
 
     for (let i in data) {
@@ -96,7 +101,10 @@ export const postData = async (url = "", data = {}) => {
     });
 
     try {
-        return await response.json(); // parses JSON response into native JavaScript objects
+        if (promise) {
+            return raw ? response.text() : response.json();
+        }
+        return raw ? await response.text() : await response.json(); // parses JSON response into native JavaScript objects
     } catch (e) {
         console.error(e);
     }
@@ -113,7 +121,7 @@ export const phoneNumberTaken = async (phoneNumber) => {
 };
 
 export const addBackStep = () => {
-    window.history.pushState(null, null, window.location.href);
+    // window.history.pushState(null, null, window.location.href);
 };
 
 export const setupBackEvent = (eventCallback) => {
@@ -322,6 +330,24 @@ export const updateOrderState = async (apiToken, orderId, state) => {
         {
             apiToken: apiToken,
         }
+    );
+};
+
+export const getProfileImage = async (apiToken) => {
+    return await postData(
+        "https://lopeseat.com/REST/getProfileImage.php",
+        {
+            apiToken,
+        },
+        true
+    );
+};
+
+export const getBarcodeData = async (key) => {
+    return await postData(
+        "https://lopeseat.com/REST/barcodeTest.php?key=" + key,
+        null,
+        true
     );
 };
 
