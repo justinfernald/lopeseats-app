@@ -69,9 +69,9 @@ export default class DeliveryPayment extends React.Component {
 
     render() {
         return (
-            <div className="flexDisplay fillHeight dark">
+            <div className="flexDisplay fillHeight">
                 <div className={"restaurantTop " + css(styles.white)}>
-                    <div className="header dark">
+                    <div className="header">
                         <i
                             className="icon material-icons-round"
                             onClick={this.props.onBack}>
@@ -170,13 +170,18 @@ const styles = StyleSheet.create({
         overflow: "auto",
     },
     screenMessage: {
-        color: "white",
+        color: "black",
         fontSize: "1.5em",
         textAlign: "center",
     },
 
-    informationBox: {
+    dark: {
+        color: "white",
         background: "#333",
+    },
+
+    informationBox: {
+        background: "#fff",
         margin: 10,
         borderRadius: 10,
         // flex: 1,
@@ -184,6 +189,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         padding: 10,
+        boxShadow: "0px 0px 15px 0px rgba(25, 25, 25, 0.2)",
     },
 
     profileImageWrap: {
@@ -219,23 +225,23 @@ const styles = StyleSheet.create({
     delivererName: {
         fontSize: "1.4em",
         fontWeight: 500,
-        color: "white",
+        color: "black",
     },
 
     paymentBox: {
-        background: "#333",
+        background: "#fff",
         margin: 10,
         marginBottom: 0,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         flex: 1,
-        // flexBasis: 400,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
         padding: 25,
-        color: "white",
+        color: "black",
         fontSize: "1.2em",
+        boxShadow: "0px 0px 15px 0px rgba(25, 25, 25, 0.2)",
     },
 
     row: { display: "flex", justifyContent: "space-between" },
@@ -243,6 +249,10 @@ const styles = StyleSheet.create({
     label: {},
 
     value: {
+        color: "#888",
+    },
+
+    valueDark: {
         color: "#999",
     },
 
@@ -261,5 +271,10 @@ const styles = StyleSheet.create({
         paddingTop: 13,
         transform: "translateX(-50%)",
         borderRadius: 28,
+        color: "white",
+    },
+
+    completeButtonDark: {
+        color: "black",
     },
 });
