@@ -343,6 +343,12 @@ export const getProfileImage = async (apiToken) => {
     );
 };
 
+export const getProfileData = async (apiToken) => {
+    return await postData("https://lopeseat.com/REST/getProfileData.php", {
+        apiToken,
+    });
+};
+
 export const getBarcodeData = async (key) => {
     return await postData(
         "https://lopeseat.com/REST/barcodeTest.php?key=" + key,

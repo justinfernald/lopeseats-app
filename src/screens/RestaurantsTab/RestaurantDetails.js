@@ -3,7 +3,6 @@ import HoursList from "../../components/HoursList";
 // import Selector from "../Selector";
 import FloatingCartButton from "../../components/FloatingCartButton";
 import {
-    getScreenHandler,
     // addCartItem,
     getScreenState,
     setScreenState,
@@ -11,7 +10,6 @@ import {
 } from "../../assets/scripts/Util";
 
 export default class RestaurantDetails extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -164,7 +162,8 @@ export default class RestaurantDetails extends React.Component {
                         </div>
                     </div>
                 </div>
-                <FloatingCartButton history={this.props.history}></FloatingCartButton>
+                <FloatingCartButton
+                    history={this.props.history}></FloatingCartButton>
             </Fragment>
         );
     }

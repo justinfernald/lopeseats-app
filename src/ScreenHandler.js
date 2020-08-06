@@ -1,8 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import {
-    registerAccount,
-    addBackStep,
+    // registerAccount,
+    // addBackStep,
     setupBackEvent,
     loadState,
     getScreenState,
@@ -20,7 +20,7 @@ import DelivererPayment from "./screens/DelivererScreens/DelivererPayment";
 
 import {
     storeState,
-    updateFBToken,
+    // updateFBToken,
     getOrder,
     getActiveOrderList,
 } from "./assets/scripts/Util";
@@ -32,7 +32,7 @@ import {
     IonTabBar,
     IonTabButton,
     IonIcon,
-    IonLabel,
+    // IonLabel,
 } from "@ionic/react";
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";

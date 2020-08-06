@@ -1871,7 +1871,7 @@ span.moneyCents {
     font-weight: 600;
 }
 
-.barcodeContainer > div {
+.barcode > div {
     transform-origin: top left;
 }
 

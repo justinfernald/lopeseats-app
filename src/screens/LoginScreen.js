@@ -12,11 +12,10 @@ import {
     getScreenState,
     loadState,
     addBackStep,
-    setScreenState
+    setScreenState,
 } from "../assets/scripts/Util";
 
 export default class LoginScreen extends React.Component {
-
     screenState;
 
     constructor(props) {
@@ -42,7 +41,7 @@ export default class LoginScreen extends React.Component {
                 apiToken: token,
             })
         )
-        this.onLogin(token);
+            this.onLogin(token);
         else this.setState({ loading: false });
     }
 
@@ -113,22 +112,14 @@ export default class LoginScreen extends React.Component {
     onLogin = (apiToken) => {
         let newState = loadState("screenHandler");
         if (newState && newState.screenHistory)
-            for (
-                let i = 1;
-                i < newState.screenHistory.length;
-                i++
-            ) {
+            for (let i = 1; i < newState.screenHistory.length; i++) {
                 addBackStep();
             }
         console.log("apitoken: " + apiToken);
         setScreenState({ apiToken });
 
         setScreenState(newState);
-        updateFBToken(
-            this.props.fbToken,
-            this.props.fbPlatform,
-            apiToken
-        );
+        updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
         this.props.history.push("/app");
     };
 
@@ -151,7 +142,7 @@ export default class LoginScreen extends React.Component {
         if (this.state.loading) {
             return (
                 <div className="loadingWrapper">
-                    <img className="lopeImage" src={LopesEatLogo} />
+                    <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
                     <div className="loadingText">
                         Signing you in. One moment please.
                     </div>
@@ -160,9 +151,7 @@ export default class LoginScreen extends React.Component {
         }
         return (
             <div className="loginWrapper">
-                <div
-                    className="formSwitchButton"
-                    onClick={this.formSwitch}>
+                <div className="formSwitchButton" onClick={this.formSwitch}>
                     REGISTER
                 </div>
                 <div className="loginImage">

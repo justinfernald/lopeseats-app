@@ -10,9 +10,9 @@ import { isPlatform } from "@ionic/react";
 import {
     Capacitor,
     Plugins,
-    PushNotification,
-    PushNotificationToken,
-    PushNotificationActionPerformed,
+    // PushNotification,
+    // PushNotificationToken,
+    // PushNotificationActionPerformed,
 } from "@capacitor/core";
 const { PushNotifications } = Plugins;
 
@@ -44,7 +44,11 @@ class App extends React.Component {
                     />
                 ) : (
                     <div className="loadingWrapper">
-                        <img className="lopeImage" src={LopesEatLogo} />
+                        <img
+                            className="lopeImage"
+                            src={LopesEatLogo}
+                            alt="Logo"
+                        />
                         <div className="loadingText">
                             App loading. One moment please.
                         </div>
