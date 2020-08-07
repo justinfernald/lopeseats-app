@@ -10,6 +10,7 @@ import {
 } from "../../assets/scripts/Util";
 
 import { IonPage } from "@ionic/react";
+import Screen from "../../components/Screen";
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -39,17 +40,6 @@ export default class RestaurantDetails extends React.Component {
 
     componentWillUnmount() {}
 
-    onContentScroll = (e) => {
-        const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
-        let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
-        let bannerHeight = 175 - scrollLevel;
-        bannerHeight = bannerHeight > 54 ? bannerHeight : 54;
-        document.getElementById("restaurantSplash").style.height =
-            bannerHeight + "px";
-        scrollLevel = scrollLevel > 121 ? 121 : scrollLevel;
-        target.style.paddingTop = scrollLevel + "px";
-    };
-
     formatTime(time) {
         let splitTime = time.split(":");
         let hourTime = parseInt(splitTime[0]);
@@ -77,103 +67,75 @@ export default class RestaurantDetails extends React.Component {
     render() {
         var screenState = getScreenState();
         return (
-            <IonPage>
-                <div
-                    className="flexDisplay fillHeight"
-                    style={{
-                        position: "absolute",
-                        width: "100%",
-                        background: "white",
-                        minHeight: "100vh",
-                    }}>
-                    <div className="backIcon">
-                        <i
-                            className="material-icons-round"
-                            onClick={this.props.history.goBack}>
-                            arrow_back_ios
-                        </i>
+            <Screen appBar={{title: screenState.currentRestaurant.name, 
+                splash: screenState.currentRestaurant.banner, 
+                onBack: this.props.history.goBack}}>
+                <div className="restaurantInfo">
+                    <div className="restaurantDescription">
+                        {screenState.currentRestaurant.description}
                     </div>
-                    <div
-                        id="restaurantSplash"
-                        className="restaurantSplash img-fill">
-                        <img
-                            alt=""
-                            src={screenState.currentRestaurant.banner}></img>
-                        <div className="restaurantTitle">
-                            {screenState.currentRestaurant.name}
-                        </div>
-                    </div>
-                    <div
-                        className="restaurantDetails"
-                        onScroll={this.onContentScroll}>
-                        <div className="restaurantInfo">
-                            <div className="restaurantDescription">
-                                {screenState.currentRestaurant.description}
-                            </div>
-                        </div>
-                        <div className="restaurantFood">
-                            <div className="featuredMenu">
-                                <div className="title">Popular Options</div>
-                                <div className="scrollArea">
-                                    <div className="scrollCapFill"></div>
-                                    {this.restaurantData.food
-                                        .filter((x) => x.featured)
-                                        .map((x, index) => (
-                                            <div
-                                                key={index}
-                                                className="featuredFoodItem"
-                                                onClick={() => this.openItem(x)}
-                                                style={{
-                                                    backgroundImage: `url(${x.image})`,
-                                                }}>
-                                                <div className="contentContainer">
-                                                    <div className="informationBox">
-                                                        <div className="itemName">
-                                                            {x.name}
-                                                        </div>
-                                                        <div className="itemPrice">
-                                                            ${x.price}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    <div className="scrollCapFill"></div>
-                                </div>
-                            </div>
+                </div>
+                <div className="restaurantFood">
 
-                            <div className="fullMenu">
-                                <div className="title">Meal Options</div>
-
-                                {screenState.currentMenu.map((item, index) => (
+                    <div className="featuredMenu">
+                        <div className="title">Popular Options</div>
+                        <div className="scrollArea">
+                            <div className="scrollCapFill"></div>
+                            {this.restaurantData.food
+                                .filter((x) => x.featured)
+                                .map((x, index) => (
                                     <div
                                         key={index}
-                                        className="menuItem"
-                                        onClick={() => this.openItem(item)}>
-                                        <div className="itemImage img-fill">
-                                            <img
-                                                className="foodImage"
-                                                alt=""
-                                                src={item.image}></img>
-                                        </div>
-                                        <div className="itemContent">
-                                            <div className="name">
-                                                {item.name}
-                                            </div>
-                                            <div className="price">
-                                                ${item.price}
+                                        className="featuredFoodItem"
+                                        onClick={() => this.openItem(x)}
+                                        style={{
+                                            backgroundImage: `url(${x.image})`,
+                                        }}>
+                                        <div className="contentContainer">
+                                            <div className="informationBox">
+                                                <div className="itemName">
+                                                    {x.name}
+                                                </div>
+                                                <div className="itemPrice">
+                                                    ${x.price}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
-                            </div>
-                            <HoursList restaurantData={this.restaurantData} />
+                            <div className="scrollCapFill"></div>
                         </div>
                     </div>
+
+                    <div className="fullMenu">
+                        <div className="title">Meal Options</div>
+
+                        {screenState.currentMenu.map((item, index) => (
+                            <div
+                                key={index}
+                                className="menuItem"
+                                onClick={() => this.openItem(item)}>
+                                <div className="itemImage img-fill">
+                                    <img
+                                        className="foodImage"
+                                        alt=""
+                                        src={item.image}></img>
+                                </div>
+                                <div className="itemContent">
+                                    <div className="name">
+                                        {item.name}
+                                    </div>
+                                    <div className="price">
+                                        ${item.price}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <HoursList restaurantData={this.restaurantData} />
                 </div>
-                <FloatingCartButton
-                    history={this.props.history}></FloatingCartButton>
-            </IonPage>
+            </Screen>
         );
     }
 }

@@ -3,6 +3,7 @@ import '../../App.css';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import { getMessages, sendMessage, getScreenState, getMessageListener } from '../../assets/scripts/Util';
+import Screen from '../../components/Screen';
 
 export default class MessageScreen extends React.Component {
 
@@ -115,13 +116,7 @@ export default class MessageScreen extends React.Component {
         ));
 
         return (
-            <div className="flexDisplay fillHeight">             
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
-                        <span className="screenTitle">{this.state.otherName}</span>
-                    </div>
-                </div>
+            <Screen appBar={{title: this.state.otherName, onBack: this.props.history.goBack}}>
                 <span className="horizontalLine"></span>
 
                 <div className="messageScroll">
@@ -137,7 +132,7 @@ export default class MessageScreen extends React.Component {
                         this.fetchData();
                     }}><i className="material-icons-round">send</i></div>
                 </div>
-            </div>
+            </Screen>
         );
     }
 
