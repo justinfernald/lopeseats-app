@@ -9,6 +9,8 @@ import {
     // formatPrice,
 } from "../../assets/scripts/Util";
 
+import { IonPage } from "@ionic/react";
+
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -75,8 +77,15 @@ export default class RestaurantDetails extends React.Component {
     render() {
         var screenState = getScreenState();
         return (
-            <Fragment>
-                <div className="flexDisplay fillHeight">
+            <IonPage>
+                <div
+                    className="flexDisplay fillHeight"
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                        background: "white",
+                        minHeight: "100vh",
+                    }}>
                     <div className="backIcon">
                         <i
                             className="material-icons-round"
@@ -164,7 +173,7 @@ export default class RestaurantDetails extends React.Component {
                 </div>
                 <FloatingCartButton
                     history={this.props.history}></FloatingCartButton>
-            </Fragment>
+            </IonPage>
         );
     }
 }

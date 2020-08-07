@@ -1,9 +1,15 @@
 import React from "react";
 // import LopesEatIcon from '../../assets/images/icon-72x72.png';
 import SearchIcon from "../../assets/images/search-grey.svg";
-import { getRestaurants, getMenu, setScreenState } from "../../assets/scripts/Util";
+import {
+    getRestaurants,
+    getMenu,
+    setScreenState,
+} from "../../assets/scripts/Util";
 import FloatingCartButton from "../../components/FloatingCartButton";
 import { isOpen } from "../../components/HoursList";
+
+import { IonPage } from "@ionic/react";
 
 export default class RestaurantsList extends React.Component {
     sortType = {
@@ -105,155 +111,169 @@ export default class RestaurantsList extends React.Component {
             currentMenu: menu,
         });
         this.props.history.push("/app/restaurants/details");
-    }
+    };
 
     onCartClick = () => {
         this.props.history.push("/app/cart");
-    }
+    };
 
     render() {
         // hello.run();
         return (
-            <div className="flexDisplay fillHeight">
-                <div className="restaurantTop">
-                    <div className="restaurantHeader">
-                        <i
-                            className="icon material-icons-round"
-                            onClick={this.props.history.goBack}>
-                            arrow_back_ios
-                        </i>
-                        <span className="screenTitle">Restaurants</span>
-                    </div>
-                    <div className="sortControl">
-                        <div className="searchBox">
-                            <div className="searchIcon iconHolder">
-                                <img alt="Search" src={SearchIcon} />
-                            </div>
-                            <input
-                                type="text"
-                                placeholder="Search"
-                                onInput={(e) => {
-                                    this.setState({
-                                        searchFilter: e.target.value,
-                                    });
-                                }}></input>
+            <IonPage>
+                <div
+                    className="flexDisplay fillHeight"
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                        background: "white",
+                    }}>
+                    <div className="restaurantTop">
+                        <div className="restaurantHeader">
+                            <i
+                                className="icon material-icons-round"
+                                onClick={this.props.history.goBack}>
+                                arrow_back_ios
+                            </i>
+                            <span className="screenTitle">Restaurants</span>
                         </div>
-                        <div className="sortOptions">
-                            {/* sort by (name, wait time, pricing), toggle open and closed, reverse search */}
-                            <div
-                                onClick={() => {
-                                    this.updateFilterDetail();
-                                    this.setState({
-                                        sortBy: this.sortType.ALPHA,
-                                    });
-                                }}
-                                className={
-                                    "sortOption" +
-                                    (this.state.sortBy === this.sortType.ALPHA
-                                        ? " active"
-                                        : "")
-                                }>
-                                <i className="sortIcon material-icons-round">
-                                    sort_by_alpha
-                                </i>
-                            </div>
-                            <div
-                                onClick={() => {
-                                    this.updateFilterDetail();
-                                    this.setState({
-                                        sortBy: this.sortType.WAITTIME,
-                                    });
-                                }}
-                                className={
-                                    "sortOption" +
-                                    (this.state.sortBy ===
-                                    this.sortType.WAITTIME
-                                        ? " active"
-                                        : "")
-                                }>
-                                <i className="sortIcon material-icons-round">
-                                    timer
-                                </i>
-                            </div>
-                            <div
-                                onClick={() => {
-                                    this.updateFilterDetail();
-                                    this.setState({
-                                        sortBy: this.sortType.COST,
-                                    });
-                                }}
-                                className={
-                                    "sortOption" +
-                                    (this.state.sortBy === this.sortType.COST
-                                        ? " active"
-                                        : "")
-                                }>
-                                <i className="sortIcon material-icons">
-                                    attach_money
-                                </i>
-                            </div>
-                            <div className="sortOption splitter"></div>
-                            <div
-                                onClick={() => {
-                                    this.setState({
-                                        onlyOpen: !this.state.onlyOpen,
-                                    });
-                                }}
-                                className={
-                                    "sortOption" +
-                                    (this.state.onlyOpen ? " active" : "")
-                                }>
-                                {this.state.onlyOpen ? (
-                                    <i className="sortIcon fas fa-door-open"></i>
-                                ) : (
-                                    <i className="sortIcon fas fa-door-closed"></i>
-                                )}
-                            </div>
-                            <div
-                                onClick={() => {
-                                    this.setState({
-                                        flipOrder: !this.state.flipOrder,
-                                    });
-                                }}
-                                className="sortOption">
-                                {!this.state.flipOrder ? (
-                                    <i className="sortIcon fas fa-sort-up"></i>
-                                ) : (
-                                    <i className="sortIcon fas fa-sort-down"></i>
-                                )}
-                            </div>
-                        </div>
-                        <div
-                            className="filterDetail"
-                            ref={this.filterDetailRef}>
-                            {this.sortTypeLongName[this.state.sortBy]}
-                        </div>
-                    </div>
-                </div>
-                <div className="restaurantList">
-                    {this.sortRestaurants().map((value, index) => {
-                        return (
-                            <div
-                                onClick={async () =>
-                                    this.openRestaurantScreen(
-                                        value,
-                                        await getMenu(value.id)
-                                    )
-                                }
-                                key={index}
-                                className="restaurantItem">
-                                <div className="imageHolder img-fill">
-                                    <img alt={value.name} src={value.logo} />
+                        <div className="sortControl">
+                            <div className="searchBox">
+                                <div className="searchIcon iconHolder">
+                                    <img alt="Search" src={SearchIcon} />
                                 </div>
-                                <div className="restaurantName">
-                                    {value.name}
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    onInput={(e) => {
+                                        this.setState({
+                                            searchFilter: e.target.value,
+                                        });
+                                    }}></input>
+                            </div>
+                            <div className="sortOptions">
+                                {/* sort by (name, wait time, pricing), toggle open and closed, reverse search */}
+                                <div
+                                    onClick={() => {
+                                        this.updateFilterDetail();
+                                        this.setState({
+                                            sortBy: this.sortType.ALPHA,
+                                        });
+                                    }}
+                                    className={
+                                        "sortOption" +
+                                        (this.state.sortBy ===
+                                        this.sortType.ALPHA
+                                            ? " active"
+                                            : "")
+                                    }>
+                                    <i className="sortIcon material-icons-round">
+                                        sort_by_alpha
+                                    </i>
+                                </div>
+                                <div
+                                    onClick={() => {
+                                        this.updateFilterDetail();
+                                        this.setState({
+                                            sortBy: this.sortType.WAITTIME,
+                                        });
+                                    }}
+                                    className={
+                                        "sortOption" +
+                                        (this.state.sortBy ===
+                                        this.sortType.WAITTIME
+                                            ? " active"
+                                            : "")
+                                    }>
+                                    <i className="sortIcon material-icons-round">
+                                        timer
+                                    </i>
+                                </div>
+                                <div
+                                    onClick={() => {
+                                        this.updateFilterDetail();
+                                        this.setState({
+                                            sortBy: this.sortType.COST,
+                                        });
+                                    }}
+                                    className={
+                                        "sortOption" +
+                                        (this.state.sortBy ===
+                                        this.sortType.COST
+                                            ? " active"
+                                            : "")
+                                    }>
+                                    <i className="sortIcon material-icons">
+                                        attach_money
+                                    </i>
+                                </div>
+                                <div className="sortOption splitter"></div>
+                                <div
+                                    onClick={() => {
+                                        this.setState({
+                                            onlyOpen: !this.state.onlyOpen,
+                                        });
+                                    }}
+                                    className={
+                                        "sortOption" +
+                                        (this.state.onlyOpen ? " active" : "")
+                                    }>
+                                    {this.state.onlyOpen ? (
+                                        <i className="sortIcon fas fa-door-open"></i>
+                                    ) : (
+                                        <i className="sortIcon fas fa-door-closed"></i>
+                                    )}
+                                </div>
+                                <div
+                                    onClick={() => {
+                                        this.setState({
+                                            flipOrder: !this.state.flipOrder,
+                                        });
+                                    }}
+                                    className="sortOption">
+                                    {!this.state.flipOrder ? (
+                                        <i className="sortIcon fas fa-sort-up"></i>
+                                    ) : (
+                                        <i className="sortIcon fas fa-sort-down"></i>
+                                    )}
                                 </div>
                             </div>
-                        );
-                    })}
+                            <div
+                                className="filterDetail"
+                                ref={this.filterDetailRef}>
+                                {this.sortTypeLongName[this.state.sortBy]}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="restaurantList">
+                        {this.sortRestaurants().map((value, index) => {
+                            return (
+                                <div
+                                    onClick={async () =>
+                                        this.openRestaurantScreen(
+                                            value,
+                                            await getMenu(value.id)
+                                        )
+                                    }
+                                    key={index}
+                                    className="restaurantItem">
+                                    <div className="imageHolder img-fill">
+                                        <img
+                                            alt={value.name}
+                                            src={value.logo}
+                                        />
+                                    </div>
+                                    <div className="restaurantName">
+                                        {value.name}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <FloatingCartButton
+                        history={this.props.history}></FloatingCartButton>
                 </div>
-                <FloatingCartButton history={this.props.history}></FloatingCartButton>
-            </div>
+            </IonPage>
         );
     }
 }

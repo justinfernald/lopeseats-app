@@ -1,13 +1,14 @@
 import React from "react";
+import { IonPage } from "@ionic/react";
+
 // import LopesWayImage from '../assets/images/gcu-lopesway.jpg';
 // import {Link, BrowserRouter} from 'react-router-dom';
 
 export default class HomeScreen extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            showPassword: false
+            showPassword: false,
         };
 
         this.tiles = [
@@ -70,8 +71,7 @@ export default class HomeScreen extends React.Component {
         ];
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     componentWillUnmount() {}
 
@@ -83,49 +83,62 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <div className="flexDisplay fillHeight homeScreen">
-                <div className="flex img-fill bg-img">
-                    {/* <img  alt="Lopes Way" src={LopesWayImage}/>
-                    <div className="imageGradient"></div> */}
-                    <div className="mainDisplayText">
-                        <div className="subHeading">
-                            {this.props.deliveryMode
-                                ? "Deliver for"
-                                : "Welcome to"}
+            <IonPage>
+                <div
+                    className="flexDisplay fillHeight homeScreen"
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                        background: "white",
+                    }}>
+                    <div className="flex img-fill bg-img">
+                        {/* <img  alt="Lopes Way" src={LopesWayImage}/>
+                        <div className="imageGradient"></div> */}
+                        <div className="mainDisplayText">
+                            <div className="subHeading">
+                                {this.props.deliveryMode
+                                    ? "Deliver for"
+                                    : "Welcome to"}
+                            </div>
+                            <div className="heading">LopesEat</div>
                         </div>
-                        <div className="heading">LopesEat</div>
+                        {this.props.actionBtn == null || (
+                            <div
+                                className="homeFuncBtn"
+                                onClick={() => this.props.actionBtn.action()}>
+                                {this.props.actionBtn.text}
+                            </div>
+                        )}
                     </div>
-                    {
-                    (this.props.actionBtn == null) ||
-                    (<div className="homeFuncBtn" onClick={() => this.props.actionBtn.action()}>{this.props.actionBtn.text}</div>)
-                    }
-                </div>
-                <div className="screenTiles">
-                    {this.tiles[this.props.deliveryMode ? 0 : 1].map(
-                        (value, index) => {
-                            return (
-                                <div
-                                    className={"screenTile"}
-                                    key={index}
-                                    onClick={() => {
-                                        this.changeScreen(
-                                            this.props.tileNavigation[
-                                                this.props.deliveryMode ? 0 : 1
-                                            ][index]
-                                        );
-                                    }}>
-                                    <div className="iconTile">
-                                        <i className="material-icons-round">
-                                            {value.icon}
-                                        </i>
+                    <div className="screenTiles">
+                        {this.tiles[this.props.deliveryMode ? 0 : 1].map(
+                            (value, index) => {
+                                return (
+                                    <div
+                                        className={"screenTile"}
+                                        key={index}
+                                        onClick={() => {
+                                            this.changeScreen(
+                                                this.props.tileNavigation[
+                                                    this.props.deliveryMode
+                                                        ? 0
+                                                        : 1
+                                                ][index]
+                                            );
+                                        }}>
+                                        <div className="iconTile">
+                                            <i className="material-icons-round">
+                                                {value.icon}
+                                            </i>
+                                        </div>
+                                        <div>{value.title}</div>
                                     </div>
-                                    <div>{value.title}</div>
-                                </div>
-                            );
-                        }
-                    )}
+                                );
+                            }
+                        )}
+                    </div>
                 </div>
-            </div>
+            </IonPage>
         );
     }
 }
