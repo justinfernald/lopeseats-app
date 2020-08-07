@@ -1,5 +1,6 @@
 import React from "react";
 import { IonPage } from "@ionic/react";
+import Screen from "../components/Screen";
 
 // import LopesWayImage from '../assets/images/gcu-lopesway.jpg';
 // import {Link, BrowserRouter} from 'react-router-dom';
@@ -83,7 +84,7 @@ export default class HomeScreen extends React.Component {
 
     render() {
         return (
-            <IonPage>
+            <Screen>
                 <div
                     className="flexDisplay fillHeight homeScreen"
                     style={{
@@ -138,7 +139,7 @@ export default class HomeScreen extends React.Component {
                         )}
                     </div>
                 </div>
-            </IonPage>
+            </Screen>
         );
     }
 }

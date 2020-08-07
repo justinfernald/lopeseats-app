@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../App.css';
 import { getOrder, setScreenState, getScreenState, getMessageListener } from '../../assets/scripts/Util';
+import Screen from '../../components/Screen';
 
 export default class OrderTracker extends React.Component {
 
@@ -146,18 +147,10 @@ export default class OrderTracker extends React.Component {
             </div>);
         }
         return (
-            <div className="flexDisplay fillHeight">             
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
-                        <span className="screenTitle">Order Tracker</span>
-                    </div>
-                </div>
-
+           <Screen appBar={{title: "Order Tracker", onBack: this.props.history.goBack}}>
                 {content}
-
                 {footer}
-            </div>
+            </Screen>
         );
     }
 
