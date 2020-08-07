@@ -70,7 +70,6 @@ const mainScreen = (props) =>
                     <Route
                         path="/app/:tab(tracker)"
                         component={TrackerRouter}
-                        exact
                     />
                     <Route
                         path="/app/:tab(profile)"

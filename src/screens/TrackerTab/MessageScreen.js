@@ -12,7 +12,6 @@ export default class MessageScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        this.fetchData();
         this.state = {
             selfId: -1,
             selfName: "",
@@ -23,6 +22,7 @@ export default class MessageScreen extends React.Component {
         this.messageRef = React.createRef();
         TimeAgo.addLocale(en);
         this.timeAgo = new TimeAgo('en-US');
+        this.fetchData();
     }
 
     componentDidMount() {
@@ -80,53 +80,52 @@ export default class MessageScreen extends React.Component {
 
     render() {
         var screenState = getScreenState();
-        // var messagesJSX = [];
+        var messagesJSX = [];
 
-        // var prevMessage = null;
-        // for (var i = 0; i < this.state.messages.length; i++) {
-        //     var message = this.state.messages[i];
-        //     var className = "messageContainer" + (message.sender === this.state.selfId ? " right" : "");
-        //     var date = this.parseDate(message.time);
-        //     if (prevMessage != null) {
-        //         // eslint-disable-next-line eqeqeq
-        //         if (date.getDate() != this.parseDate(prevMessage.time).getDate()) {
-        //             messagesJSX.push((
-        //                 <div className="newDayLine" key={i * 2}>
-        //                     <span className="horizontalLine"></span>
-        //                     {new Date().getDate() === date.getDate() ? "Today" : this.days[date.getDay()]}
-        //                     <span className="horizontalLine"></span>
-        //                 </div>
-        //             ));
-        //         }
-        //     }
-        //     messagesJSX.push((
-        //         <div className={className} key={i*2 + 1}>
-        //             <div className="messageChunk">
-        //                 <div className="messageInfo">{this.formatDate(date)}</div>
-        //                 <div className="messageBubble">{message.message}</div>
-        //             </div>
-        //         </div>
-        //     ));
-        //     prevMessage = message;
-        // }
+        var prevMessage = null;
+        for (var i = 0; i < this.state.messages.length; i++) {
+            var message = this.state.messages[i];
+            var className = "messageContainer" + (message.sender === this.state.selfId ? " right" : "");
+            var date = this.parseDate(message.time);
+            if (prevMessage != null) {
+                // eslint-disable-next-line eqeqeq
+                if (date.getDate() != this.parseDate(prevMessage.time).getDate()) {
+                    messagesJSX.push((
+                        <div className="newDayLine" key={i * 2}>
+                            <span className="horizontalLine"></span>
+                            {new Date().getDate() === date.getDate() ? "Today" : this.days[date.getDay()]}
+                            <span className="horizontalLine"></span>
+                        </div>
+                    ));
+                }
+            }
+            messagesJSX.push((
+                <div className={className} key={i*2 + 1}>
+                    <div className="messageChunk">
+                        <div className="messageInfo">{this.formatDate(date)}</div>
+                        <div className="messageBubble">{message.message}</div>
+                    </div>
+                </div>
+            ));
+            prevMessage = message;
+        }
 
-        // messagesJSX.push((
-        //     <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messageEnd = el; }} key={this.state.messages.length * 2}></div>
-        // ));
+        messagesJSX.push((
+            <div style={{ float:"left", clear: "both" }} ref={(el) => { this.messageEnd = el; }} key={this.state.messages.length * 2}></div>
+        ));
 
         return (
             <div className="flexDisplay fillHeight">             
                 <div className="restaurantTop">
                     <div className="header">
                         <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
-                        {/* <span className="screenTitle">{this.state.otherName}</span> */}
-                        <span className="screenTitle">test</span>
+                        <span className="screenTitle">{this.state.otherName}</span>
                     </div>
                 </div>
                 <span className="horizontalLine"></span>
 
                 <div className="messageScroll">
-                    {/* {messagesJSX} */}
+                    {messagesJSX}
                 </div>
 
                 <span className="horizontalLine" style={{position: "absolute", bottom: "3.5em"}}></span>
