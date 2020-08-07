@@ -1906,6 +1906,10 @@ ion-tab-bar {
     box-shadow: 0 0 10px 0 #1c1c1c33;
 }
 
+ion-tab-button {
+    --ripple-color: #444;
+}
+
 ion-tab-button ion-icon {
     color: #707070;
 }
