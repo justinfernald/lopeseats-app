@@ -1002,7 +1002,7 @@ input:-webkit-autofill:active {
     margin: 5px 0;
 }
 
-.restaurantDetails .hoursList {
+.hoursList {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
     width: 100%;
     padding: 10px;
@@ -1011,7 +1011,7 @@ input:-webkit-autofill:active {
     margin-top: -190px;
 }
 
-.restaurantDetails .hoursList .title {
+.hoursList .title {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -1023,26 +1023,26 @@ input:-webkit-autofill:active {
     /* align-items: center; */
 }
 
-.restaurantDetails .hoursList .hourOpen {
+.hoursList .hourOpen {
     /* border: 1px solid black; */
     display: flex;
     padding: 2px;
     justify-content: center;
 }
 
-.restaurantDetails .hoursList .hourOpen.sameDay {
+.hoursList .hourOpen.sameDay {
     font-weight: 500;
 }
 
-.restaurantDetails .hoursList .hourOpen.sameDay:not(.isOpen) {
+.hoursList .hourOpen.sameDay:not(.isOpen) {
     color: rgb(241, 107, 66);
 }
 
-.restaurantDetails .hoursList .hourOpen .weekDay {
+.hoursList .hourOpen .weekDay {
     width: 90px;
 }
 
-.restaurantDetails .hoursList .hourOpen.sameDay.isOpen .weekDay {
+.hoursList .hourOpen.sameDay.isOpen .weekDay {
     color: rgb(37, 187, 0);
 }
 
@@ -1052,16 +1052,16 @@ input:-webkit-autofill:active {
 /* .restaurantInfo .hoursList .hourOpen .openTimeList .openTimeItem {
 } */
 
-.restaurantDetails .hoursList .hourOpen .openTimeList .openTimeItem.isOpen {
+.hoursList .hourOpen .openTimeList .openTimeItem.isOpen {
     color: rgb(37, 187, 0);
 }
 
-.restaurantDetails .hoursList .hourOpen .openTimeList .openTimeItem div {
+.hoursList .hourOpen .openTimeList .openTimeItem div {
     width: 70px;
     float: left;
 }
 
-.restaurantDetails .hoursList .hourOpen .openTimeList .noTime {
+.hoursList .hourOpen .openTimeList .noTime {
     width: 140px;
 }
 
