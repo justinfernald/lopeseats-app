@@ -67,16 +67,19 @@ export default class RestaurantDetails extends React.Component {
     render() {
         var screenState = getScreenState();
         return (
-            <Screen appBar={{title: screenState.currentRestaurant.name, 
-                splash: screenState.currentRestaurant.banner, 
-                onBack: this.props.history.goBack}}>
+            <Screen
+                appBar={{
+                    title: screenState.currentRestaurant.name,
+                    splash: screenState.currentRestaurant.banner,
+                    onBack: this.props.history.goBack,
+                }}
+                ionPage>
                 <div className="restaurantInfo">
                     <div className="restaurantDescription">
                         {screenState.currentRestaurant.description}
                     </div>
                 </div>
                 <div className="restaurantFood">
-
                     <div className="featuredMenu">
                         <div className="title">Popular Options</div>
                         <div className="scrollArea">
@@ -122,12 +125,8 @@ export default class RestaurantDetails extends React.Component {
                                         src={item.image}></img>
                                 </div>
                                 <div className="itemContent">
-                                    <div className="name">
-                                        {item.name}
-                                    </div>
-                                    <div className="price">
-                                        ${item.price}
-                                    </div>
+                                    <div className="name">{item.name}</div>
+                                    <div className="price">${item.price}</div>
                                 </div>
                             </div>
                         ))}

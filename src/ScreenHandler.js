@@ -253,16 +253,14 @@ export default class ScreenHandler extends React.Component {
         if (!this.state.actionBtnUpdated) this.loadActionBtnData();
 
         return (
-            <IonApp>
-                <IonReactRouter>
-                    <IonRouterOutlet>
-                        <Route exact path="/login" component={LoginScreen} />
-                        <Route path="/register" component={RegisterRouter} />
-                        <Route path="/app" component={mainScreen} />
-                        <Redirect exact from="/" to="/login" />
-                    </IonRouterOutlet>
-                </IonReactRouter>
-            </IonApp>
+            <IonReactRouter>
+                <IonRouterOutlet>
+                    <Route exact path="/login" component={LoginScreen} />
+                    <Route path="/register" component={RegisterRouter} />
+                    <Route path="/app" component={mainScreen} />
+                    <Redirect exact from="/" to="/login" />
+                </IonRouterOutlet>
+            </IonReactRouter>
         );
     }
 }

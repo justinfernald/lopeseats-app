@@ -121,7 +121,11 @@ export default class RestaurantsList extends React.Component {
     render() {
         // hello.run();
         return (
-            <Screen appBar={{title: "Restaurants", onBack: this.props.history.goBack}}>
+            <Screen
+                appBar={{
+                    title: "Restaurants",
+                    onBack: this.props.history.goBack,
+                }}>
                 <div className="restaurantTop">
                     <div className="sortControl">
                         <div className="searchBox">
@@ -148,8 +152,7 @@ export default class RestaurantsList extends React.Component {
                                 }}
                                 className={
                                     "sortOption" +
-                                    (this.state.sortBy ===
-                                    this.sortType.ALPHA
+                                    (this.state.sortBy === this.sortType.ALPHA
                                         ? " active"
                                         : "")
                                 }>
@@ -184,8 +187,7 @@ export default class RestaurantsList extends React.Component {
                                 }}
                                 className={
                                     "sortOption" +
-                                    (this.state.sortBy ===
-                                    this.sortType.COST
+                                    (this.state.sortBy === this.sortType.COST
                                         ? " active"
                                         : "")
                                 }>
@@ -244,10 +246,7 @@ export default class RestaurantsList extends React.Component {
                                 key={index}
                                 className="restaurantItem">
                                 <div className="imageHolder img-fill">
-                                    <img
-                                        alt={value.name}
-                                        src={value.logo}
-                                    />
+                                    <img alt={value.name} src={value.logo} />
                                 </div>
                                 <div className="restaurantName">
                                     {value.name}

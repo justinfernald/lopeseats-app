@@ -6,7 +6,7 @@ import "firebase/messaging";
 import MessageListener from "./MessageListener";
 import LopesEatLogo from "./assets/images/icon-384x384.png";
 
-import { isPlatform } from "@ionic/react";
+import { isPlatform, IonApp } from "@ionic/react";
 import {
     Capacitor,
     Plugins,
@@ -34,27 +34,32 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className={"App " + (this.state.darkTheme ? "dark" : "light")}>
-                {this.state.fbToken ? (
-                    <ScreenHandler
-                        fbToken={this.state.fbToken}
-                        fbPlatform={this.state.fbPlatform}
-                        messageListener={this.messageListener}
-                        setTheme={(theme) => this.setTheme(theme)}
-                    />
-                ) : (
-                    <div className="loadingWrapper">
-                        <img
-                            className="lopeImage"
-                            src={LopesEatLogo}
-                            alt="Logo"
+            <IonApp>
+                <div
+                    className={
+                        "App " + (this.state.darkTheme ? "dark" : "light")
+                    }>
+                    {this.state.fbToken ? (
+                        <ScreenHandler
+                            fbToken={this.state.fbToken}
+                            fbPlatform={this.state.fbPlatform}
+                            messageListener={this.messageListener}
+                            setTheme={(theme) => this.setTheme(theme)}
                         />
-                        <div className="loadingText">
-                            App loading. One moment please.
+                    ) : (
+                        <div className="loadingWrapper">
+                            <img
+                                className="lopeImage"
+                                src={LopesEatLogo}
+                                alt="Logo"
+                            />
+                            <div className="loadingText">
+                                App loading. One moment please.
+                            </div>
                         </div>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            </IonApp>
         );
     }
 

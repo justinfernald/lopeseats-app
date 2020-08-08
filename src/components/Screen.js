@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react';
-import { IonPage, IonContent } from '@ionic/react';
-import { css } from 'aphrodite';
-import { StyleSheet } from 'aphrodite/no-important';
-import '../App.css';
+import React, { Fragment } from "react";
+import { IonPage, IonContent } from "@ionic/react";
+import { StyleSheet, css } from "aphrodite/no-important";
+import "../App.css";
 
 export default class Screen extends React.Component {
-
     constructor(props) {
         super(props);
         this.splashRef = React.createRef();
@@ -16,8 +14,7 @@ export default class Screen extends React.Component {
         let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
         let bannerHeight = 175 - scrollLevel;
         bannerHeight = bannerHeight > 54 ? bannerHeight : 54;
-        this.splashRef.current.style.height =
-            bannerHeight + "px";
+        this.splashRef.current.style.height = bannerHeight + "px";
         scrollLevel = scrollLevel > 121 ? 121 : scrollLevel;
         target.style.paddingTop = scrollLevel + "px";
     };
@@ -29,98 +26,122 @@ export default class Screen extends React.Component {
         if (this.props.appBar) {
             if (this.props.appBar.splash != null) {
                 header = (
-                <Fragment>
-                    <div className="backIcon">
-                        <i
-                            className="material-icons-round"
-                            onClick={this.props.appBar.onBack}>
-                            arrow_back_ios
-                        </i>
-                    </div>
-                    <div
-                        ref={this.splashRef}
-                        className={css(styles.splash)}
-                        style={{height:"175px"}}>
-                        <img
-                            alt=""
-                            className={css(styles.splashImg)}
-                            src={this.props.appBar.splash}></img>
-                        <div className={css(styles.splashTitle)}>
-                            {this.props.appBar.title}
+                    <Fragment>
+                        <div className="backIcon">
+                            <i
+                                className="material-icons-round"
+                                onClick={this.props.appBar.onBack}>
+                                arrow_back_ios
+                            </i>
                         </div>
-                    </div>
-                </Fragment>
+                        <div
+                            ref={this.splashRef}
+                            className={css(styles.splash)}
+                            style={{ height: "175px" }}>
+                            <img
+                                alt=""
+                                className={css(styles.splashImg)}
+                                src={this.props.appBar.splash}></img>
+                            <div className={css(styles.splashTitle)}>
+                                {this.props.appBar.title}
+                            </div>
+                        </div>
+                    </Fragment>
                 );
-                content = <div style={{overflowY: "scroll"}} onScroll={this.onContentScroll}>{this.props.children}</div>
+                content = (
+                    <div
+                        style={{ overflowY: "scroll" }}
+                        onScroll={this.onContentScroll}>
+                        {this.props.children}
+                    </div>
+                );
             } else {
                 header = (
-                    <div style={{padding: "10px"}}>
+                    <div style={{ padding: "10px" }}>
                         <div className={css(styles.header)}>
-                            <i className="icon material-icons-round" onClick={this.props.appBar.onBack}>arrow_back_ios</i>
-                            <span className={css(styles.screenTitle)}>{this.props.appBar.title}</span>
+                            <i
+                                className="icon material-icons-round"
+                                onClick={this.props.appBar.onBack}>
+                                arrow_back_ios
+                            </i>
+                            <span className={css(styles.screenTitle)}>
+                                {this.props.appBar.title}
+                            </span>
                         </div>
                     </div>
                 );
             }
         }
 
-        return <IonPage>
-            <IonContent fullscreen>
-                <div className={css(styles.screen) + " " + (this.props.dark ? css(styles.dark) : css(styles.light))}>
+        let structure = (
+            <IonPage>
+                <div
+                    className={css(
+                        styles.screen,
+                        this.props.dark ? styles.dark : styles.light
+                    )}>
                     {header}
                     {content}
                 </div>
-            </IonContent>
-        </IonPage>;
-    }
+            </IonPage>
+        );
 
+        return this.props.ionPage ? (
+            <IonPage>
+                <IonContent fullscreen>{structure}</IonContent>
+            </IonPage>
+        ) : (
+            structure
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     light: {
         backgroundColor: "white",
-        color: "black"
+        color: "black",
     },
     dark: {
         backgroundColor: "#121212",
-        color: "white"
+        color: "white",
     },
     screen: {
         display: "flex",
         flexDirection: "column",
         position: "absolute",
         width: "100%",
+        // height: "calc(100vh - 56px)",
         top: 0,
-        bottom: 0
+        bottom: 56,
     },
-    header: {    
+    header: {
         padding: "5px",
         fontSize: "1.8em",
         fontWeight: 400,
-        fontFamily: '"Rubik", sans-serif'
+        fontFamily: '"Rubik", sans-serif',
     },
     screenTitle: {
         float: "right",
-        transform: "translate(-5px, -3px)"
+        transform: "translate(-5px, -3px)",
     },
     splash: {
         flex: "0 0 auto",
-        position: "relative"
+        position: "relative",
     },
-    splashImg: {    
+    splashImg: {
         objectPosition: "50% 30%",
         filter: "brightness(0.5)",
         objectFit: "cover",
         height: "100%",
-        width: "100%"
+        width: "100%",
     },
-    splashTitle: {    
+    splashTitle: {
         fontFamily: "Rubik",
         position: "absolute",
         bottom: "10.75px",
         color: "white",
         fontSize: "1.7em",
         fontWeight: 300,
-        right: "10px"
-    }
+        right: "10px",
+    },
 });
