@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css';
 import { getCart, getCartPrices, formatPrice, removeCartItem, getScreenState, setScreenState } from '../assets/scripts/Util';
+import Screen from '../components/Screen';
 
 export default class Cart extends React.Component  {
 
@@ -69,14 +70,7 @@ export default class Cart extends React.Component  {
 
     render () {
         return (
-            <div className="flexDisplay fillHeight">             
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
-                        <span className="screenTitle">Cart</span>
-                    </div>
-                </div>
-
+            <Screen appBar={{title: "Cart", onBack: this.props.history.goBack}}>
                 <div className="cartList">
                     {
                         this.state.items.map((value, index) => {
@@ -124,7 +118,7 @@ export default class Cart extends React.Component  {
                     <div className="total">Delivery Fee<span className="price">${formatPrice(this.fee)}</span></div>
                     <button className="checkoutButton" onClick={()=>this.onNextStep()}>Checkout</button>
                 </div>
-            </div>
+            </Screen>
         )
     };
 }

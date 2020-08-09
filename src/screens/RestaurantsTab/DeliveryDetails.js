@@ -2,6 +2,7 @@ import React from 'react';
 import '../../App.css';
 import Input from '../../components/Input';
 import {getBuildings, getScreenState, setScreenState} from '../../assets/scripts/Util';
+import Screen from '../../components/Screen';
 
 export default class DeliveryDetails extends React.Component {
 
@@ -53,14 +54,7 @@ export default class DeliveryDetails extends React.Component {
     render() {
         var screenState = getScreenState();
         return (
-            <div className="flexDisplay fillHeight">             
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i className="icon material-icons-round" onClick={this.props.history.goBack}>arrow_back_ios</i>
-                        <span className="screenTitle">Delivery Details</span>
-                    </div>
-                </div>
-
+            <Screen appBar={{title:"Delivery Details", onBack:this.props.history.goBack}}>
                 <div className="deliveryFormContainer flex alignCenter" style={{paddingTop: 0}}>
                     <div className="addressInput">
                         <Input passedRef={this.addressRef} placeholder="Address" onChange={e => this.updateValue(e)} defaultValue={screenState.address}/>
@@ -79,7 +73,7 @@ export default class DeliveryDetails extends React.Component {
                     </div>
                     <button className="doneButton" onClick={() => this.onNextStep(this.addressRef.current.value)}>DONE</button>
                 </div>
-            </div>
+            </Screen>
         );
     }
 

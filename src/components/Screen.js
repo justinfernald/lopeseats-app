@@ -27,13 +27,6 @@ export default class Screen extends React.Component {
             if (this.props.appBar.splash != null) {
                 header = (
                     <Fragment>
-                        <div className="backIcon">
-                            <i
-                                className="material-icons-round"
-                                onClick={this.props.appBar.onBack}>
-                                arrow_back_ios
-                            </i>
-                        </div>
                         <div
                             ref={this.splashRef}
                             className={css(styles.splash)}
@@ -45,6 +38,13 @@ export default class Screen extends React.Component {
                             <div className={css(styles.splashTitle)}>
                                 {this.props.appBar.title}
                             </div>
+                        </div>
+                        <div className="backIcon">
+                            <i
+                                className="material-icons-round"
+                                onClick={this.props.appBar.onBack}>
+                                arrow_back_ios
+                            </i>
                         </div>
                     </Fragment>
                 );
@@ -74,7 +74,7 @@ export default class Screen extends React.Component {
         }
 
         let structure = (
-            <IonPage>
+            <IonPage id={this.props.id}>
                 <div
                     className={css(
                         styles.screen,
@@ -87,13 +87,7 @@ export default class Screen extends React.Component {
         );
 
         //! || true (TEST)
-        return this.props.ionPage || true ? (
-            <IonPage>
-                <IonContent fullscreen>{structure}</IonContent>
-            </IonPage>
-        ) : (
-            structure
-        );
+        return structure;
     }
 }
 
@@ -113,7 +107,7 @@ const styles = StyleSheet.create({
         width: "100%",
         // height: "calc(100vh - 56px)",
         top: 0,
-        bottom: 56,
+        bottom: 0,
     },
     header: {
         padding: "5px",
