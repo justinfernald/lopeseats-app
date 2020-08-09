@@ -86,7 +86,8 @@ export default class Screen extends React.Component {
             </IonPage>
         );
 
-        return this.props.ionPage ? (
+        //! || true (TEST)
+        return this.props.ionPage || true ? (
             <IonPage>
                 <IonContent fullscreen>{structure}</IonContent>
             </IonPage>

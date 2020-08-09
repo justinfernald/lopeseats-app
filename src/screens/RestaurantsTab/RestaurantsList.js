@@ -25,8 +25,6 @@ export default class RestaurantsList extends React.Component {
         cost: "Median Cost of Meals",
     };
 
-    restaurants = [];
-
     constructor(props) {
         super(props);
 
@@ -36,12 +34,13 @@ export default class RestaurantsList extends React.Component {
             onlyOpen: true,
             flipOrder: false,
             sortBy: this.sortType.ALPHA,
-            sortedRestaurants: this.restaurants,
+            restaurants: [],
+            sortedRestaurants: [],
             searchFilter: "",
         };
 
         this.fetchData();
-        console.log(this.restaurants);
+        console.log(this.state.restaurants);
     }
 
     updateFilterDetail() {
@@ -51,14 +50,11 @@ export default class RestaurantsList extends React.Component {
     }
 
     async fetchData() {
-        this.restaurants = await getRestaurants();
-        // console.log(this.restaurants);
-
-        this.forceUpdate();
+        this.setState({ restaurants: await getRestaurants() });
     }
 
     sortRestaurants() {
-        let output = this.restaurants.sort((a, b) =>
+        let output = this.state.restaurants.sort((a, b) =>
             a.name.localeCompare(b.name)
         );
 
@@ -237,12 +233,13 @@ export default class RestaurantsList extends React.Component {
                     {this.sortRestaurants().map((value, index) => {
                         return (
                             <div
-                                onClick={async () =>
+                                onClick={async (e) => {
+                                    e.preventDefault();
                                     this.openRestaurantScreen(
                                         value,
                                         await getMenu(value.id)
-                                    )
-                                }
+                                    );
+                                }}
                                 key={index}
                                 className="restaurantItem">
                                 <div className="imageHolder img-fill">

@@ -35,30 +35,30 @@ class App extends React.Component {
     render() {
         return (
             <IonApp>
-                <div
+                {/* <div
                     className={
                         "App " + (this.state.darkTheme ? "dark" : "light")
-                    }>
-                    {this.state.fbToken ? (
-                        <ScreenHandler
-                            fbToken={this.state.fbToken}
-                            fbPlatform={this.state.fbPlatform}
-                            messageListener={this.messageListener}
-                            setTheme={(theme) => this.setTheme(theme)}
+                    }> */}
+                {this.state.fbToken ? (
+                    <ScreenHandler
+                        fbToken={this.state.fbToken}
+                        fbPlatform={this.state.fbPlatform}
+                        messageListener={this.messageListener}
+                        setTheme={(theme) => this.setTheme(theme)}
+                    />
+                ) : (
+                    <div className="loadingWrapper">
+                        <img
+                            className="lopeImage"
+                            src={LopesEatLogo}
+                            alt="Logo"
                         />
-                    ) : (
-                        <div className="loadingWrapper">
-                            <img
-                                className="lopeImage"
-                                src={LopesEatLogo}
-                                alt="Logo"
-                            />
-                            <div className="loadingText">
-                                App loading. One moment please.
-                            </div>
+                        <div className="loadingText">
+                            App loading. One moment please.
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
+                {/* </div> */}
             </IonApp>
         );
     }

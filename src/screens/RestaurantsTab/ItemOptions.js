@@ -7,6 +7,8 @@ import {
     removeCartItem,
 } from "../../assets/scripts/Util";
 
+import Screen from "../../components/Screen";
+
 export default class ItemOptions extends React.Component {
     constructor(props) {
         super(props);
@@ -14,8 +16,12 @@ export default class ItemOptions extends React.Component {
         var screenState = getScreenState();
         this.state = {
             selectedItem: screenState.openItem,
-            optionsChosen: screenState.editingItem ? screenState.optionsChosen : [],
-            instructions: screenState.editingItem ? screenState.instructions : null,
+            optionsChosen: screenState.editingItem
+                ? screenState.optionsChosen
+                : [],
+            instructions: screenState.editingItem
+                ? screenState.instructions
+                : null,
         };
     }
 
@@ -45,10 +51,7 @@ export default class ItemOptions extends React.Component {
         var screenState = getScreenState();
         var itemId = this.state.selectedItem.id;
         if (screenState.editingItem) {
-            removeCartItem(
-                screenState.apiToken,
-                this.state.selectedItem.id
-            );
+            removeCartItem(screenState.apiToken, this.state.selectedItem.id);
             itemId = this.state.selectedItem.item_id;
         }
         addCartItem(
@@ -82,107 +85,121 @@ export default class ItemOptions extends React.Component {
     render() {
         var screenState = getScreenState();
         return (
-            <div className="flexDisplay fillHeight">
-                <div className="backIcon">
-                    <i
-                        className="material-icons-round"
-                        onClick={this.props.history.goBack}>
-                        arrow_back_ios
-                    </i>
-                </div>
-                <div
-                    id="restaurantSplash"
-                    className="restaurantSplash img-fill">
-                    <img alt="" src={screenState.currentRestaurant.banner}></img>
-                </div>
-                <div className="itemOptionMenu" onScroll={this.onContentScroll}>
-                    <div className="itemDescription">
-                        <div className="itemHeader">
-                            {this.state.selectedItem.name}
-                        </div>
-                        <div className="itemDetails">
-                            {this.state.selectedItem.description}
-                        </div>
+            <Screen>
+                <div className="flexDisplay fillHeight">
+                    <div className="backIcon">
+                        <i
+                            className="material-icons-round"
+                            onClick={this.props.history.goBack}>
+                            arrow_back_ios
+                        </i>
                     </div>
-
-                    {JSON.parse(this.state.selectedItem.items).map((x, i) => (
-                        <div key={i}>
-                            {x.options.map((option, j) => {
-                                if (screenState.editingItem) {
-                                    option.default = screenState.optionsChosen[
-                                        i
-                                    ][option.name];
-                                }
-                                return (
-                                    <Selector
-                                        populate={(choiceIndex) => {
-                                            let choices = this.state
-                                                .optionsChosen;
-                                            if (!choices[i]) choices[i] = {};
-                                            choices[i][
-                                                option.name
-                                            ] = choiceIndex;
-                                            this.setState({
-                                                optionsChosen: choices,
-                                            });
-                                        }}
-                                        onSelection={(choiceIndex) => {
-                                            let choices = this.state
-                                                .optionsChosen;
-                                            if (!choices[i]) choices[i] = {};
-                                            choices[i][
-                                                option.name
-                                            ] = choiceIndex;
-                                            this.setState({
-                                                optionsChosen: choices,
-                                            });
-                                        }}
-                                        key={j}
-                                        option={option}
-                                    />
-                                );
-                            })}
-                        </div>
-                    ))}
-
-                    {this.state.selectedItem.specialInstructions === 1 && (
-                        <div className="specialInstructionsWrapper">
-                            <div className="itemOptionTitle">
-                                Special Instructions
+                    <div
+                        id="restaurantSplash"
+                        className="restaurantSplash img-fill">
+                        <img
+                            alt=""
+                            src={screenState.currentRestaurant.banner}></img>
+                    </div>
+                    <div
+                        className="itemOptionMenu"
+                        onScroll={this.onContentScroll}>
+                        <div className="itemDescription">
+                            <div className="itemHeader">
+                                {this.state.selectedItem.name}
                             </div>
-                            <div className="SIInput">
-                                <textarea
-                                    onChange={(e) => {
-                                        this.setState({
-                                            instructions: e.currentTarget.value,
-                                        });
-                                    }}>
-                                    {this.state.instructions}
-                                </textarea>
+                            <div className="itemDetails">
+                                {this.state.selectedItem.description}
                             </div>
                         </div>
-                    )}
 
-                    <div className="itemOptionFooter">
-                        <div className="itemCost">
-                            Total
-                            <span>
-                                $
-                                {formatPrice(
-                                    this.state.selectedItem.price +
-                                        this.calculatePrice()
-                                )}
-                            </span>
-                        </div>
-                        <div
-                            className="addToCartButton"
-                            onClick={this.addToCart}>
-                            {screenState.editingItem ? "Update " : "Add to "}{" "}
-                            Cart
+                        {JSON.parse(this.state.selectedItem.items).map(
+                            (x, i) => (
+                                <div key={i}>
+                                    {x.options.map((option, j) => {
+                                        if (screenState.editingItem) {
+                                            option.default =
+                                                screenState.optionsChosen[i][
+                                                    option.name
+                                                ];
+                                        }
+                                        return (
+                                            <Selector
+                                                populate={(choiceIndex) => {
+                                                    let choices = this.state
+                                                        .optionsChosen;
+                                                    if (!choices[i])
+                                                        choices[i] = {};
+                                                    choices[i][
+                                                        option.name
+                                                    ] = choiceIndex;
+                                                    this.setState({
+                                                        optionsChosen: choices,
+                                                    });
+                                                }}
+                                                onSelection={(choiceIndex) => {
+                                                    let choices = this.state
+                                                        .optionsChosen;
+                                                    if (!choices[i])
+                                                        choices[i] = {};
+                                                    choices[i][
+                                                        option.name
+                                                    ] = choiceIndex;
+                                                    this.setState({
+                                                        optionsChosen: choices,
+                                                    });
+                                                }}
+                                                key={j}
+                                                option={option}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            )
+                        )}
+
+                        {this.state.selectedItem.specialInstructions === 1 && (
+                            <div className="specialInstructionsWrapper">
+                                <div className="itemOptionTitle">
+                                    Special Instructions
+                                </div>
+                                <div className="SIInput">
+                                    <textarea
+                                        onChange={(e) => {
+                                            this.setState({
+                                                instructions:
+                                                    e.currentTarget.value,
+                                            });
+                                        }}>
+                                        {this.state.instructions}
+                                    </textarea>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="itemOptionFooter">
+                            <div className="itemCost">
+                                Total
+                                <span>
+                                    $
+                                    {formatPrice(
+                                        this.state.selectedItem.price +
+                                            this.calculatePrice()
+                                    )}
+                                </span>
+                            </div>
+                            <div
+                                className="addToCartButton"
+                                onClick={this.addToCart}>
+                                {screenState.editingItem
+                                    ? "Update "
+                                    : "Add to "}{" "}
+                                Cart
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </Screen>
         );
     }
 }

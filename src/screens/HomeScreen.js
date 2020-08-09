@@ -86,7 +86,7 @@ export default class HomeScreen extends React.Component {
         return (
             <Screen>
                 <div
-                    className="flexDisplay fillHeight homeScreen"
+                    className="flexDisplay fillHeight homeScreen light"
                     style={{
                         position: "absolute",
                         width: "100%",
