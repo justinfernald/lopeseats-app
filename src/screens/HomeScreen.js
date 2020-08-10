@@ -1,6 +1,5 @@
 import React from "react";
 import Screen from "../components/Screen";
-import { connect } from "react-redux";
 
 class HomeScreen extends React.Component {
     constructor(props) {
