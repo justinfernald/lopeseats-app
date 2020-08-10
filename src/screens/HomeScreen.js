@@ -1,11 +1,9 @@
 import React from "react";
-import { IonPage } from "@ionic/react";
 import Screen from "../components/Screen";
+import store, { actions } from "../Redux";
+import { connect } from "react-redux";
 
-// import LopesWayImage from '../assets/images/gcu-lopesway.jpg';
-// import {Link, BrowserRouter} from 'react-router-dom';
-
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -70,6 +68,11 @@ export default class HomeScreen extends React.Component {
                 },
             ],
         ];
+
+        console.log("home screen");
+
+        store.dispatch(actions.setApiToken("yeet haw"));
+        console.log(props);
     }
 
     componentDidMount() {}
@@ -83,6 +86,7 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
+        console.log("apiToken: " + this.props.reduxState.apiToken);
         return (
             <Screen>
                 <div
@@ -143,3 +147,21 @@ export default class HomeScreen extends React.Component {
         );
     }
 }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         setApiToken: () => dispatch({ type: "apiToken/set" }),
+//     };
+// };
+
+const mapStateToProps = (state) => {
+    return { reduxState: state };
+};
+
+// const actionCreators = {
+//     setApiToken: actions.setApiToken,
+// }; // or instead of setting each one to use just do {...actions}
+
+// export default connect(mapStateToProps, actionCreators)(HomeScreen);
+
+export default connect(mapStateToProps)(HomeScreen);

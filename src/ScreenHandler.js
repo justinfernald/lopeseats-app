@@ -38,6 +38,7 @@ import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router-dom";
 import TrackerRouter from "./screens/TrackerTab/TrackerRouter";
+import IncomingOrders from "./screens/QuickScreens/IncomingOrders";
 
 const mainScreen = (props) =>
     !getScreenState().apiToken ? (
@@ -56,8 +57,8 @@ const mainScreen = (props) =>
                 <Route path="/app/:tab(home)" component={HomeScreen} exact />
                 <Route path="/app/restaurants" component={RestaurantsRouter} />
                 <Route
-                    path="/app/:tab(delivery)"
-                    component={OrderScreen}
+                    path="/app/:tab(deliverer)"
+                    component={IncomingOrders}
                     exact
                 />
                 <Route path="/app/:tab(tracker)" component={TrackerRouter} />
@@ -88,7 +89,7 @@ const mainScreen = (props) =>
                         style={{ width: "100%", height: "53%" }}
                     />
                 </IonTabButton>
-                <IonTabButton tab="delivery" href="/app/delivery">
+                <IonTabButton tab="delivery" href="/app/deliverer">
                     <IonIcon
                         icon={repeatSharp}
                         style={{ width: "100%", height: "65%" }}
