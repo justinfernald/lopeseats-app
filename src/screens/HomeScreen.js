@@ -79,7 +79,6 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        console.log("apiToken: " + this.props.reduxState.apiToken);
         return (
             <Screen>
                 <div
