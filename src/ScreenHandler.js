@@ -10,7 +10,6 @@ import {
 
 import HomeScreen from "./screens/HomeScreen";
 import RestaurantsRouter from "./screens/RestaurantsTab/RestaurantsRouter";
-import OrderTracker from "./screens/TrackerTab/OrderTracker";
 import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./screens/QuickScreens/Profile";
 import LoginScreen from "./screens/LoginScreen";
@@ -51,17 +50,17 @@ const mainScreen = (props) =>
             }}
         />
     ) : (
-        // <IonPage id="app">
+        <IonPage id="app">
         <IonTabs>
             <IonRouterOutlet>
-                <Route path="/app/:tab(home)" component={HomeScreen} exact />
-                <Route path="/app/restaurants" component={RestaurantsRouter} />
+                <Route path="/app/:tab(home)" component={HomeScreen} exact/>
+                <Route path="/app/:tab(restaurants)" component={RestaurantsRouter} />
                 <Route
                     path="/app/:tab(deliverer)"
                     component={IncomingOrders}
                     exact
                 />
-                <Route path="/app/:tab(tracker)" component={TrackerRouter} />
+                <Route path="/app/:tab(tracker)" component={TrackerRouter}/>
                 <Route path="/app/:tab(profile)" component={Profile} exact />
                 <Route
                     path="/app/deliverer/order"
@@ -73,7 +72,7 @@ const mainScreen = (props) =>
                     component={DelivererPayment}
                     exact
                 />
-                <Redirect from="/app/" to="/app/home" exact />
+                <Redirect from="/app" to="/app/:tab(home)" exact />
             </IonRouterOutlet>
 
             <IonTabBar slot="bottom">
@@ -114,7 +113,7 @@ const mainScreen = (props) =>
                 </IonTabButton>
             </IonTabBar>
         </IonTabs>
-        //</IonPage>
+        </IonPage>
     );
 
 export default class ScreenHandler extends React.Component {

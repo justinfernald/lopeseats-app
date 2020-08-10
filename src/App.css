@@ -893,7 +893,6 @@ input:-webkit-autofill:active {
     top: 15px;
     font-size: 1.2em;
     color: white;
-    z-index: 100;
 }
 
 .restaurantSplash {
@@ -1924,4 +1923,8 @@ ion-tab-button .material-icons-round {
 
 ion-tab-button.tab-selected .material-icons-round {
     color: black;
+}
+
+.ion-page-hidden {
+    display: none;
 }
