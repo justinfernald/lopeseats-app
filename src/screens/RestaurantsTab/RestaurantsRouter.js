@@ -22,7 +22,6 @@ export default function RestaurantsRouter() {
                     exact
                     path="/app/:tab(restaurants)/details"
                     component={RestaurantDetails}
-                    exact
                 />
                 {/* <Route
                     exact
@@ -35,7 +34,11 @@ export default function RestaurantsRouter() {
                     path="/app/:tab(restaurants)/item"
                     component={ItemOptions}
                 />
-                <Route exact path="/app/:tab(restaurants)/cart" component={Cart} />
+                <Route
+                    exact
+                    path="/app/:tab(restaurants)/cart"
+                    component={Cart}
+                />
                 <Route
                     exact
                     path="/app/:tab(restaurants)/address"

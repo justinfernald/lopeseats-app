@@ -1,7 +1,7 @@
 import {
     createSlice,
     configureStore,
-    getDefaultMiddleware,
+    // getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 // import logger from "redux-logger";
 
@@ -47,7 +47,7 @@ const reducers = {
         { payload: cartItemId }: { payload: number }
     ) => {
         state.cartItems = state.cartItems.filter(
-            (item: { id: number; [key: string]: any }) => item.id != cartItemId
+            (item: { id: number; [key: string]: any }) => item.id !== cartItemId
         );
     },
     clearCartItem: (state: any) => {

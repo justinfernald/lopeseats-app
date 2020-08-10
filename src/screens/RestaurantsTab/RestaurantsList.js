@@ -9,7 +9,6 @@ import {
 import FloatingCartButton from "../../components/FloatingCartButton";
 import { isOpen } from "../../components/HoursList";
 
-import { IonPage } from "@ionic/react";
 import Screen from "../../components/Screen";
 
 export default class RestaurantsList extends React.Component {

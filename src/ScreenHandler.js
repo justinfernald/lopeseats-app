@@ -1,8 +1,6 @@
 import React from "react";
 
 import {
-    // registerAccount,
-    // addBackStep,
     setupBackEvent,
     loadState,
     getScreenState,
@@ -10,7 +8,7 @@ import {
 
 import HomeScreen from "./screens/HomeScreen";
 import RestaurantsRouter from "./screens/RestaurantsTab/RestaurantsRouter";
-import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
+// import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./screens/QuickScreens/Profile";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterRouter from "./screens/RegisterProcess/RegisterRouter";
@@ -25,13 +23,11 @@ import {
 } from "./assets/scripts/Util";
 import {
     IonRouterOutlet,
-    IonApp,
     IonTabs,
     IonPage,
     IonTabBar,
     IonTabButton,
     IonIcon,
-    // IonLabel,
 } from "@ionic/react";
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
@@ -51,68 +47,82 @@ const mainScreen = (props) =>
         />
     ) : (
         <IonPage id="app">
-        <IonTabs>
-            <IonRouterOutlet>
-                <Route path="/app/:tab(home)" component={HomeScreen} exact/>
-                <Route path="/app/:tab(restaurants)" component={RestaurantsRouter} />
-                <Route
-                    path="/app/:tab(deliverer)"
-                    component={IncomingOrders}
-                    exact
-                />
-                <Route path="/app/:tab(tracker)" component={TrackerRouter}/>
-                <Route path="/app/:tab(profile)" component={Profile} exact />
-                <Route
-                    path="/app/deliverer/order"
-                    component={DelivererOrder}
-                    exact
-                />
-                <Route
-                    path="/app/deliverer/payment"
-                    component={DelivererPayment}
-                    exact
-                />
-                <Redirect from="/app" to="/app/:tab(home)" exact />
-            </IonRouterOutlet>
+            <IonTabs>
+                <IonRouterOutlet>
+                    <Route
+                        path="/app/:tab(home)"
+                        component={HomeScreen}
+                        exact
+                    />
+                    <Route
+                        path="/app/:tab(restaurants)"
+                        component={RestaurantsRouter}
+                    />
+                    <Route
+                        path="/app/:tab(deliverer)"
+                        component={IncomingOrders}
+                        exact
+                    />
+                    <Route
+                        path="/app/:tab(tracker)"
+                        component={TrackerRouter}
+                    />
+                    <Route
+                        path="/app/:tab(profile)"
+                        component={Profile}
+                        exact
+                    />
+                    <Route
+                        path="/app/deliverer/order"
+                        component={DelivererOrder}
+                        exact
+                    />
+                    <Route
+                        path="/app/deliverer/payment"
+                        component={DelivererPayment}
+                        exact
+                    />
+                    <Redirect from="/app" to="/app/home" exact />
+                </IonRouterOutlet>
 
-            <IonTabBar slot="bottom">
-                <IonTabButton tab="home" href="/app/home">
-                    <IonIcon
-                        icon={restaurant}
-                        style={{ width: "100%", height: "50%" }}
-                    />
-                </IonTabButton>
-                <IonTabButton tab="restaurants" href="/app/restaurants">
-                    <IonIcon
-                        icon={search}
-                        style={{ width: "100%", height: "53%" }}
-                    />
-                </IonTabButton>
-                <IonTabButton tab="delivery" href="/app/deliverer">
-                    <IonIcon
-                        icon={repeatSharp}
-                        style={{ width: "100%", height: "65%" }}
-                    />
-                </IonTabButton>
-                <IonTabButton tab="tracker" href="/app/tracker">
-                    <i
-                        className="material-icons-round"
-                        style={{
-                            width: "100%",
-                            height: "50%",
-                            fontSize: "1.9em",
-                        }}>
-                        track_changes
-                    </i>
-                </IonTabButton>
-                <IonTabButton tab="profile" href="/app/profile">
-                    <IonIcon
-                        icon={person}
-                        style={{ width: "100%", height: "50%" }}
-                    />
-                </IonTabButton>
-            </IonTabBar>
-        </IonTabs>
+                <IonTabBar slot="bottom">
+                    <IonTabButton tab="home" href="/app/home">
+                        <IonIcon
+                            icon={restaurant}
+                            style={{ width: "100%", height: "50%" }}
+                        />
+                    </IonTabButton>
+                    <IonTabButton tab="restaurants" href="/app/restaurants">
+                        <IonIcon
+                            icon={search}
+                            style={{ width: "100%", height: "53%" }}
+                        />
+                    </IonTabButton>
+                    <IonTabButton tab="delivery" href="/app/deliverer">
+                        <IonIcon
+                            icon={repeatSharp}
+                            style={{ width: "100%", height: "65%" }}
+                        />
+                    </IonTabButton>
+                    <IonTabButton tab="tracker" href="/app/tracker">
+                        <i
+                            className="material-icons-round"
+                            style={{
+                                width: "100%",
+                                height: "50%",
+                                fontSize: "1.9em",
+                            }}>
+                            track_changes
+                        </i>
+                    </IonTabButton>
+                    <IonTabButton tab="profile" href="/app/profile">
+                        <IonIcon
+                            icon={person}
+                            style={{ width: "100%", height: "50%" }}
+                        />
+                    </IonTabButton>
+                </IonTabBar>
+            </IonTabs>
         </IonPage>
     );
 
@@ -188,7 +198,7 @@ export default class ScreenHandler extends React.Component {
     getActionBtn = async () => {
         if (this.state.deliveryMode) {
             var orderList = await getActiveOrderList(this.state.apiToken);
-            if (orderList.length == 0) {
+            if (orderList.length === 0) {
                 return {
                     text: "Start Delivery",
                     action: () => this.setScreen("ActiveOrders"),
@@ -215,6 +225,8 @@ export default class ScreenHandler extends React.Component {
                         };
                     case "arrived":
                         return { text: "Complete order", action: null };
+                    default:
+                        break;
                 }
             }
         } else {

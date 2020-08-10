@@ -38,7 +38,7 @@ export default class Selector extends React.Component {
                         return (
                             <li
                                 className={
-                                    this.state.choice == i ? "selected" : ""
+                                    this.state.choice === i ? "selected" : ""
                                 }
                                 key={i}
                                 onClick={() => this.onSelection(i)}>
@@ -48,7 +48,7 @@ export default class Selector extends React.Component {
                                     " (+$" + formatPrice(x.cost, false) + ")"}
                                 {
                                     /* eslint-disable-next-line eqeqeq */
-                                    this.state.choice == i && (
+                                    this.state.choice === i && (
                                         <span className="check material-icons-round">
                                             check
                                         </span>

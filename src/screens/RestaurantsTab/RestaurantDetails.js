@@ -1,15 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import HoursList from "../../components/HoursList";
-// import Selector from "../Selector";
-import FloatingCartButton from "../../components/FloatingCartButton";
-import {
-    // addCartItem,
-    getScreenState,
-    setScreenState,
-    // formatPrice,
-} from "../../assets/scripts/Util";
+import { getScreenState, setScreenState } from "../../assets/scripts/Util";
 
-import { IonPage } from "@ionic/react";
 import Screen from "../../components/Screen";
 
 export default class RestaurantDetails extends React.Component {

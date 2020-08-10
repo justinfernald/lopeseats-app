@@ -1,6 +1,5 @@
 import React from "react";
 import Screen from "../components/Screen";
-import store, { actions } from "../Redux";
 import { connect } from "react-redux";
 
 class HomeScreen extends React.Component {
@@ -68,11 +67,6 @@ class HomeScreen extends React.Component {
                 },
             ],
         ];
-
-        console.log("home screen");
-
-        store.dispatch(actions.setApiToken("yeet haw"));
-        console.log(props);
     }
 
     componentDidMount() {}
@@ -97,8 +91,6 @@ class HomeScreen extends React.Component {
                         background: "white",
                     }}>
                     <div className="flex img-fill bg-img">
-                        {/* <img  alt="Lopes Way" src={LopesWayImage}/>
-                        <div className="imageGradient"></div> */}
                         <div className="mainDisplayText">
                             <div className="subHeading">
                                 {this.props.deliveryMode
@@ -148,20 +140,4 @@ class HomeScreen extends React.Component {
     }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         setApiToken: () => dispatch({ type: "apiToken/set" }),
-//     };
-// };
-
-const mapStateToProps = (state) => {
-    return { reduxState: state };
-};
-
-// const actionCreators = {
-//     setApiToken: actions.setApiToken,
-// }; // or instead of setting each one to use just do {...actions}
-
-// export default connect(mapStateToProps, actionCreators)(HomeScreen);
-
-export default connect(mapStateToProps)(HomeScreen);
+export default HomeScreen;

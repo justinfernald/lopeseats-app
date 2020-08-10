@@ -71,7 +71,8 @@ export const getScreenState = () => getScreenHandler().state;
 
 export const setScreenState = (...args) => getScreenHandler().setState(...args);
 
-export const getMessageListener = () => window.getScreenHandler().getMessageListener();
+export const getMessageListener = () =>
+    window.getScreenHandler().getMessageListener();
 
 export const postData = async (
     url = "",
@@ -249,7 +250,7 @@ export const sendPayment = async (nonce, address, apiToken) => {
 export const getOrder = async (apiToken, id = -1) => {
     return await postData(
         "https://lopeseat.com/REST/getOrder.php" +
-            (id != -1 ? "?id=" + id : ""),
+            (id !== -1 ? "?id=" + id : ""),
         {
             apiToken: apiToken,
         }
@@ -394,9 +395,11 @@ export const parseDate = (dateString) => {
 export const formatTime = (date) => {
     var hours = date.getHours();
     var suffix = hours > 12 ? "PM" : "AM";
+    // eslint-disable-next-line
     hours = hours == 0 ? 12 : hours > 12 ? hours - 12 : hours;
     var minutes = date.getMinutes();
     var minuteString =
+        // eslint-disable-next-line
         minutes == 0 ? "00" : minutes < 10 ? "0" + minutes.toString() : minutes;
     return hours + ":" + minuteString + suffix;
 };

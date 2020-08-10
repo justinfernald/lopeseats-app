@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { IonPage, IonContent } from "@ionic/react";
+import { IonPage /*IonContent*/ } from "@ionic/react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import "../App.css";
 
