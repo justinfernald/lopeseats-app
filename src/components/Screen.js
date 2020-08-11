@@ -73,7 +73,7 @@ export default class Screen extends React.Component {
             }
         }
 
-        let structure = (
+        return (
             <IonPage id={this.props.id}>
                 <div
                     className={css(
@@ -85,9 +85,6 @@ export default class Screen extends React.Component {
                 </div>
             </IonPage>
         );
-
-        //! || true (TEST)
-        return structure;
     }
 }
 
@@ -105,9 +102,9 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         position: "absolute",
         width: "100%",
-        // height: "calc(100vh - 56px)",
+        height: "calc(100vh - 56px)",
         top: 0,
-        bottom: 0,
+        // bottom: 0,
     },
     header: {
         padding: "5px",
