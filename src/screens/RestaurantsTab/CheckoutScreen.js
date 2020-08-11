@@ -43,7 +43,7 @@ export default class CheckoutScreen extends React.Component {
         if (this.instance.isPaymentMethodRequestable()) {
             const { nonce } = await this.instance.requestPaymentMethod();
             await sendPayment(nonce, screenState.address, screenState.apiToken);
-            this.props.history.push("/app/restaurants");
+            this.props.history.go(-(this.props.history.length - 2));
         }
     }
 

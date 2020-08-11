@@ -14,21 +14,23 @@ import {
     addBackStep,
     setScreenState,
 } from "../assets/scripts/Util";
+import { connect } from "react-redux";
+import store, {actions} from "../Redux";
 
-export default class LoginScreen extends React.Component {
-    screenState;
+export default connect(({apiToken}) => ({apiToken}))(LoginScreen);
+
+class LoginScreen extends React.Component {
 
     constructor(props) {
         super(props);
-        this.screenState = getScreenState();
 
         this.state = {
             showPassword: false,
-            loading: !!this.screenState.apiToken,
+            loading: !!this.props.apiToken,
         };
 
-        if (this.screenState.apiToken) {
-            this.checkToken(this.screenState.apiToken);
+        if (this.props.apiToken) {
+            this.checkToken(this.props.apiToken);
         }
 
         this.phoneNumberRef = React.createRef();
@@ -107,7 +109,7 @@ export default class LoginScreen extends React.Component {
         }
     };
 
-    formSwitch = () => this.props.history.push("/register");
+    formSwitch = () => this.props.history.replace("/register");
 
     onLogin = (apiToken) => {
         let newState = loadState("screenHandler");
@@ -120,7 +122,7 @@ export default class LoginScreen extends React.Component {
 
         setScreenState(newState);
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
-        this.props.history.push("/app");
+        this.props.history.replace("/app");
     };
 
     onNotConfirmed = (phone) => {
