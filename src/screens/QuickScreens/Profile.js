@@ -1,24 +1,18 @@
 import React from "react";
+import Screen from "../../components/Screen";
 
 export default class Profile extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
-            <div className="flexDisplay fillHeight">
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i
-                            className="icon material-icons-round"
-                            onClick={this.props.onBack}>
-                            arrow_back_ios
-                        </i>
-                        <span className="screenTitle">Profile</span>
-                    </div>
-                </div>
-            </div>
+            <Screen
+                appBar={{
+                    title: "Profile",
+                    onBack: this.props.history.goBack,
+                }}></Screen>
         );
     }
 }

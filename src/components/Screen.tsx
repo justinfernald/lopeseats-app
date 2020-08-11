@@ -3,13 +3,25 @@ import { IonPage /*IonContent*/ } from "@ionic/react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import "../App.css";
 
-export default class Screen extends React.Component {
-    constructor(props) {
+interface PropType {
+    appBar?: {
+        splash: string;
+        title: string | JSX.Element;
+        onBack: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+    };
+    children?: JSX.Element;
+    id?: string;
+    dark?: boolean;
+}
+
+export default class Screen extends React.Component<PropType> {
+    splashRef: React.RefObject<any>;
+    constructor(props: PropType) {
         super(props);
         this.splashRef = React.createRef();
     }
 
-    onContentScroll = (e) => {
+    onContentScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
         const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
         let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
         let bannerHeight = 175 - scrollLevel;
@@ -20,8 +32,8 @@ export default class Screen extends React.Component {
     };
 
     render() {
-        var header;
-        var content = this.props.children;
+        var header: any;
+        var content: any = this.props.children;
 
         if (this.props.appBar) {
             if (this.props.appBar.splash != null) {
