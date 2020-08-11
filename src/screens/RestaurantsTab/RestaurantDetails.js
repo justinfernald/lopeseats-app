@@ -3,6 +3,7 @@ import HoursList from "../../components/HoursList";
 import { getScreenState, setScreenState } from "../../assets/scripts/Util";
 
 import Screen from "../../components/Screen";
+import { css, StyleSheet } from "aphrodite/no-important";
 
 export default class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -66,67 +67,77 @@ export default class RestaurantDetails extends React.Component {
                     onBack: this.props.history.goBack,
                 }}
                 ionPage>
-                <div className="restaurantInfo">
-                    <div className="restaurantDescription">
-                        {screenState.currentRestaurant.description}
+                <div className={css(styles.contentWrapper)}>
+                    <div className="restaurantInfo">
+                        <div className="restaurantDescription">
+                            {screenState.currentRestaurant.description}
+                        </div>
                     </div>
-                </div>
-                <div className="restaurantFood">
-                    <div className="featuredMenu">
-                        <div className="title">Popular Options</div>
-                        <div className="scrollArea">
-                            <div className="scrollCapFill"></div>
-                            {this.restaurantData.food
-                                .filter((x) => x.featured)
-                                .map((x, index) => (
-                                    <div
-                                        key={index}
-                                        className="featuredFoodItem"
-                                        onClick={() => this.openItem(x)}
-                                        style={{
-                                            backgroundImage: `url(${x.image})`,
-                                        }}>
-                                        <div className="contentContainer">
-                                            <div className="informationBox">
-                                                <div className="itemName">
-                                                    {x.name}
-                                                </div>
-                                                <div className="itemPrice">
-                                                    ${x.price}
+                    <div className="restaurantFood">
+                        <div className="featuredMenu">
+                            <div className="title">Popular Options</div>
+                            <div className="scrollArea">
+                                <div className="scrollCapFill"></div>
+                                {this.restaurantData.food
+                                    .filter((x) => x.featured)
+                                    .map((x, index) => (
+                                        <div
+                                            key={index}
+                                            className="featuredFoodItem"
+                                            onClick={() => this.openItem(x)}
+                                            style={{
+                                                backgroundImage: `url(${x.image})`,
+                                            }}>
+                                            <div className="contentContainer">
+                                                <div className="informationBox">
+                                                    <div className="itemName">
+                                                        {x.name}
+                                                    </div>
+                                                    <div className="itemPrice">
+                                                        ${x.price}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
-                            <div className="scrollCapFill"></div>
-                        </div>
-                    </div>
-
-                    <div className="fullMenu">
-                        <div className="title">Meal Options</div>
-
-                        {screenState.currentMenu.map((item, index) => (
-                            <div
-                                key={index}
-                                className="menuItem"
-                                onClick={() => this.openItem(item)}>
-                                <div className="itemImage img-fill">
-                                    <img
-                                        className="foodImage"
-                                        alt=""
-                                        src={item.image}></img>
-                                </div>
-                                <div className="itemContent">
-                                    <div className="name">{item.name}</div>
-                                    <div className="price">${item.price}</div>
-                                </div>
+                                    ))}
+                                <div className="scrollCapFill"></div>
                             </div>
-                        ))}
-                    </div>
+                        </div>
 
-                    <HoursList restaurantData={this.restaurantData} />
+                        <div className="fullMenu">
+                            <div className="title">Meal Options</div>
+
+                            {screenState.currentMenu.map((item, index) => (
+                                <div
+                                    key={index}
+                                    className="menuItem"
+                                    onClick={() => this.openItem(item)}>
+                                    <div className="itemImage img-fill">
+                                        <img
+                                            className="foodImage"
+                                            alt=""
+                                            src={item.image}></img>
+                                    </div>
+                                    <div className="itemContent">
+                                        <div className="name">{item.name}</div>
+                                        <div className="price">
+                                            ${item.price}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <HoursList restaurantData={this.restaurantData} />
+                    </div>
                 </div>
             </Screen>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    contentWrapper: {
+        padding: 10,
+    },
+});
