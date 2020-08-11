@@ -4,23 +4,23 @@ import {
     setupBackEvent,
     loadState,
     getScreenState,
-} from "./assets/scripts/Util";
+} from "../assets/scripts/Util";
 
-import HomeScreen from "./screens/HomeScreen";
-import RestaurantsRouter from "./screens/RestaurantsTab/RestaurantsRouter";
+import HomeScreen from "./Customer/HomeScreen";
+import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
 // import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
-import Profile from "./screens/QuickScreens/Profile";
-import LoginScreen from "./screens/LoginScreen";
-import RegisterRouter from "./screens/RegisterProcess/RegisterRouter";
-import DelivererOrder from "./screens/DelivererScreens/DelivererOrder";
-import DelivererPayment from "./screens/DelivererScreens/DelivererPayment";
+import Profile from "./Customer/Profile";
+import LoginScreen from "./Authentication/LoginScreen";
+import RegisterRouter from "./Authentication/RegisterProcess/RegisterRouter";
+import DelivererOrder from "./Deliverer/DelivererOrder";
+import DelivererPayment from "./Deliverer/DelivererPayment";
 
 import {
     storeState,
     // updateFBToken,
     getOrder,
     getActiveOrderList,
-} from "./assets/scripts/Util";
+} from "../assets/scripts/Util";
 import {
     IonRouterOutlet,
     IonTabs,
@@ -32,8 +32,8 @@ import {
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router-dom";
-import TrackerRouter from "./screens/TrackerTab/TrackerRouter";
-import IncomingOrders from "./screens/QuickScreens/IncomingOrders";
+import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
+import IncomingOrders from "./Deliverer/IncomingOrders";
 
 const mainScreen = (props) =>
     !getScreenState().apiToken ? (

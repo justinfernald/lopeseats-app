@@ -1,33 +1,31 @@
-import React from 'react';
-import Input from '../components/Input';
-import Phone from '../assets/images/phone-icon.png';
-import Lock from '../assets/images/lock.svg';
-import {phoneNumberTaken, showErrors, setScreenState} from '../assets/scripts/Util'
-
+import React from "react";
+import Input from "../../components/Input";
+import Phone from "../../assets/images/phone-icon.png";
+import Lock from "../../assets/images/lock.svg";
+import {
+    phoneNumberTaken,
+    showErrors,
+    setScreenState,
+} from "../../assets/scripts/Util";
 
 export default class RegisterScreen extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            showPassword: false
+            showPassword: false,
         };
         this.phoneNumberRef = React.createRef();
         this.passwordRef = React.createRef();
         this.passwordConfirmRef = React.createRef();
     }
 
-    componentDidMount() {
+    componentDidMount() {}
 
-    }
-
-    componentWillUnmount() {
-
-    }
+    componentWillUnmount() {}
 
     toggleShowPassword = () => {
-        this.setState({showPassword: !this.state.showPassword})
-    }
+        this.setState({ showPassword: !this.state.showPassword });
+    };
 
     registerAccount = async () => {
         // eslint-disable-next-line
@@ -47,11 +45,11 @@ export default class RegisterScreen extends React.Component {
             return false;
         };
 
-        let isPhoneNumber = input => {
+        let isPhoneNumber = (input) => {
             let phoneRegex = /^\d{10}$/;
             return input.match(phoneRegex);
         };
-        
+
         if (!isPhoneNumber(phoneNumber)) {
             errors.push("Invalid Phone Number");
         }
@@ -64,11 +62,13 @@ export default class RegisterScreen extends React.Component {
             errors.push("Password needs to be at least 8 characters long");
         }
 
-        if (!(doesContain(password, alphabet) && doesContain(password, numbers))) {
+        if (
+            !(doesContain(password, alphabet) && doesContain(password, numbers))
+        ) {
             errors.push("Must contain one letter and one number");
         }
 
-        if (errors.length === 0 && await phoneNumberTaken(phoneNumber)) {
+        if (errors.length === 0 && (await phoneNumberTaken(phoneNumber))) {
             errors.push("Phone number is taken. Try logging in.");
         }
 
@@ -79,7 +79,7 @@ export default class RegisterScreen extends React.Component {
         } else {
             showErrors(errors);
         }
-    }
+    };
 
     proceedRegistration = (phone, password) => {
         setScreenState({
@@ -98,19 +98,51 @@ export default class RegisterScreen extends React.Component {
             <div className="loginWrapper">
                 <div className="formSwitchButton" onClick={this.formSwitch}>
                     SIGN IN
-                </div> 
+                </div>
                 <div className="loginImage">
-                    <img alt="LopesEat Logo" src={require("../assets/images/lopeseaticon.png")} className="imageFill"/>
+                    <img
+                        alt="LopesEat Logo"
+                        src={require("../../assets/images/lopeseaticon.png")}
+                        className="imageFill"
+                    />
                 </div>
                 <div className="loginForm">
                     <div className="signInText">
                         <span>REGISTER</span>
                     </div>
                     <div className="inputWrap">
-                        <Input passedRef={this.phoneNumberRef} icon={Phone} autoComplete="current-phone" placeholder="Phone Number" type="tel"/>
-                        <Input passedRef={this.passwordRef} icon={Lock} showHidden={!this.state.showPassword ? "off" : "on"} onShow={this.toggleShowPassword} autoComplete="current-password" type={!this.state.showPassword ? "password" : "text"} placeholder="Password"/>
-                        <Input passedRef={this.passwordConfirmRef} icon={Lock} showHidden={!this.state.showPassword ? "off" : "on"} onShow={this.toggleShowPassword} autoComplete="current-password" type={!this.state.showPassword ? "password" : "text"} placeholder="Confirm password"/>
-                        <button className="signInButton" onClick={this.registerAccount}>
+                        <Input
+                            passedRef={this.phoneNumberRef}
+                            icon={Phone}
+                            autoComplete="current-phone"
+                            placeholder="Phone Number"
+                            type="tel"
+                        />
+                        <Input
+                            passedRef={this.passwordRef}
+                            icon={Lock}
+                            showHidden={!this.state.showPassword ? "off" : "on"}
+                            onShow={this.toggleShowPassword}
+                            autoComplete="current-password"
+                            type={
+                                !this.state.showPassword ? "password" : "text"
+                            }
+                            placeholder="Password"
+                        />
+                        <Input
+                            passedRef={this.passwordConfirmRef}
+                            icon={Lock}
+                            showHidden={!this.state.showPassword ? "off" : "on"}
+                            onShow={this.toggleShowPassword}
+                            autoComplete="current-password"
+                            type={
+                                !this.state.showPassword ? "password" : "text"
+                            }
+                            placeholder="Confirm password"
+                        />
+                        <button
+                            className="signInButton"
+                            onClick={this.registerAccount}>
                             REGISTER
                         </button>
                     </div>

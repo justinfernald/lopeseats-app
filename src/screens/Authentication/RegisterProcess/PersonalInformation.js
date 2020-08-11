@@ -1,12 +1,14 @@
-import React from 'react';
-import RegisterStep from './RegisterStep';
-import ImageUploader from './ImageUploader';
-import Input from '../../components/Input';
-import { showErrors, setScreenState, getScreenState } from '../../assets/scripts/Util';
+import React from "react";
+import RegisterStep from "./RegisterStep";
+import ImageUploader from "./ImageUploader";
+import Input from "../../../components/Input";
+import {
+    showErrors,
+    setScreenState,
+    getScreenState,
+} from "../../../assets/scripts/Util";
 
 export default class PersonalInformation extends React.Component {
-
-    
     constructor(props) {
         super(props);
         this.state = {
@@ -18,13 +20,9 @@ export default class PersonalInformation extends React.Component {
         this.studentNumberRef = React.createRef();
     }
 
-    componentDidMount() {
+    componentDidMount() {}
 
-    }
-
-    componentWillUnmount() {
-
-    }
+    componentWillUnmount() {}
 
     onNextStep = () => {
         let errors = [];
@@ -33,10 +31,10 @@ export default class PersonalInformation extends React.Component {
         let lastName = this.lastNameRef.current.value;
         let email = this.emailRef.current.value;
         let studentNumber = this.studentNumberRef.current.value;
-        let checkEmail = mail => {
+        let checkEmail = (mail) => {
             // eslint-disable-next-line
             return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
-        }
+        };
 
         if (!profileImage) {
             errors.push("No profile picture added");
@@ -72,34 +70,57 @@ export default class PersonalInformation extends React.Component {
         } else {
             showErrors(errors);
         }
-    }
+    };
 
-    onUpload = data => {
-        this.setState({profileImage: data});
-    }
+    onUpload = (data) => {
+        this.setState({ profileImage: data });
+    };
 
     render() {
         return (
             <div className="flexDisplay fillHeight">
-                <RegisterStep step={{part: 1, total: 3}} onNextStep={this.onNextStep} onBackStep={this.props.history.goBack}/>
+                <RegisterStep
+                    step={{ part: 1, total: 3 }}
+                    onNextStep={this.onNextStep}
+                    onBackStep={this.props.history.goBack}
+                />
                 <div className="registerStepBanner">Personal Information</div>
                 <div className="registerFormContainer flex alignCenter">
-                    <div className="flex flexDisplay alignCenter uploaderContainer"><ImageUploader image={this.state.profileImage} onUpload={this.onUpload} /></div>
+                    <div className="flex flexDisplay alignCenter uploaderContainer">
+                        <ImageUploader
+                            image={this.state.profileImage}
+                            onUpload={this.onUpload}
+                        />
+                    </div>
                     <div className="labeledInput">
                         <div className="label">First Name</div>
-                        <Input passedRef={this.firstNameRef} placeholder="Joshua"/>
+                        <Input
+                            passedRef={this.firstNameRef}
+                            placeholder="Joshua"
+                        />
                     </div>
                     <div className="labeledInput">
                         <div className="label">Last Name</div>
-                        <Input passedRef={this.lastNameRef} placeholder="Thornburg"/>
+                        <Input
+                            passedRef={this.lastNameRef}
+                            placeholder="Thornburg"
+                        />
                     </div>
                     <div className="labeledInput">
                         <div className="label">Email</div>
-                        <Input passedRef={this.emailRef} placeholder="LopesEat@lopeseat.com"/>
+                        <Input
+                            passedRef={this.emailRef}
+                            placeholder="LopesEat@lopeseat.com"
+                        />
                     </div>
                     <div className="labeledInput">
                         <div className="label">Student Number</div>
-                        <Input passedRef={this.studentNumberRef} placeholder="20405673" type="number" passedProps={{maxLength: 8}}/>
+                        <Input
+                            passedRef={this.studentNumberRef}
+                            placeholder="20405673"
+                            type="number"
+                            passedProps={{ maxLength: 8 }}
+                        />
                     </div>
                 </div>
             </div>

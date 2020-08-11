@@ -1,13 +1,13 @@
 import React from "react";
-import Selector from "../../components/Selector";
+import Selector from "../../../components/Selector";
 import {
     addCartItem,
     getScreenState,
     formatPrice,
     removeCartItem,
-} from "../../assets/scripts/Util";
+} from "../../../assets/scripts/Util";
 
-import Screen from "../../components/Screen";
+import Screen from "../../../components/Screen";
 
 export default class ItemOptions extends React.Component {
     constructor(props) {
@@ -85,10 +85,12 @@ export default class ItemOptions extends React.Component {
     render() {
         var screenState = getScreenState();
         return (
-            <Screen appBar={{onBack: this.props.history.goBack, splash: screenState.currentRestaurant.banner}}>
-                <div
-                    className="itemOptionMenu"
-                    onScroll={this.onContentScroll}>
+            <Screen
+                appBar={{
+                    onBack: this.props.history.goBack,
+                    splash: screenState.currentRestaurant.banner,
+                }}>
+                <div className="itemOptionMenu" onScroll={this.onContentScroll}>
                     <div className="itemDescription">
                         <div className="itemHeader">
                             {this.state.selectedItem.name}
@@ -98,50 +100,46 @@ export default class ItemOptions extends React.Component {
                         </div>
                     </div>
 
-                    {JSON.parse(this.state.selectedItem.items).map(
-                        (x, i) => (
-                            <div key={i}>
-                                {x.options.map((option, j) => {
-                                    if (screenState.editingItem) {
-                                        option.default =
-                                            screenState.optionsChosen[i][
+                    {JSON.parse(this.state.selectedItem.items).map((x, i) => (
+                        <div key={i}>
+                            {x.options.map((option, j) => {
+                                if (screenState.editingItem) {
+                                    option.default =
+                                        screenState.optionsChosen[i][
+                                            option.name
+                                        ];
+                                }
+                                return (
+                                    <Selector
+                                        populate={(choiceIndex) => {
+                                            let choices = this.state
+                                                .optionsChosen;
+                                            if (!choices[i]) choices[i] = {};
+                                            choices[i][
                                                 option.name
-                                            ];
-                                    }
-                                    return (
-                                        <Selector
-                                            populate={(choiceIndex) => {
-                                                let choices = this.state
-                                                    .optionsChosen;
-                                                if (!choices[i])
-                                                    choices[i] = {};
-                                                choices[i][
-                                                    option.name
-                                                ] = choiceIndex;
-                                                this.setState({
-                                                    optionsChosen: choices,
-                                                });
-                                            }}
-                                            onSelection={(choiceIndex) => {
-                                                let choices = this.state
-                                                    .optionsChosen;
-                                                if (!choices[i])
-                                                    choices[i] = {};
-                                                choices[i][
-                                                    option.name
-                                                ] = choiceIndex;
-                                                this.setState({
-                                                    optionsChosen: choices,
-                                                });
-                                            }}
-                                            key={j}
-                                            option={option}
-                                        />
-                                    );
-                                })}
-                            </div>
-                        )
-                    )}
+                                            ] = choiceIndex;
+                                            this.setState({
+                                                optionsChosen: choices,
+                                            });
+                                        }}
+                                        onSelection={(choiceIndex) => {
+                                            let choices = this.state
+                                                .optionsChosen;
+                                            if (!choices[i]) choices[i] = {};
+                                            choices[i][
+                                                option.name
+                                            ] = choiceIndex;
+                                            this.setState({
+                                                optionsChosen: choices,
+                                            });
+                                        }}
+                                        key={j}
+                                        option={option}
+                                    />
+                                );
+                            })}
+                        </div>
+                    ))}
 
                     {this.state.selectedItem.specialInstructions === 1 && (
                         <div className="specialInstructionsWrapper">
@@ -152,8 +150,7 @@ export default class ItemOptions extends React.Component {
                                 <textarea
                                     onChange={(e) => {
                                         this.setState({
-                                            instructions:
-                                                e.currentTarget.value,
+                                            instructions: e.currentTarget.value,
                                         });
                                     }}>
                                     {this.state.instructions}
@@ -176,9 +173,7 @@ export default class ItemOptions extends React.Component {
                         <div
                             className="addToCartButton"
                             onClick={this.addToCart}>
-                            {screenState.editingItem
-                                ? "Update "
-                                : "Add to "}{" "}
+                            {screenState.editingItem ? "Update " : "Add to "}{" "}
                             Cart
                         </div>
                     </div>
