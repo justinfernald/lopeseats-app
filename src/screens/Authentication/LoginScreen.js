@@ -14,8 +14,7 @@ import {
     addBackStep,
     setScreenState,
 } from "../../assets/scripts/Util";
-
-export default connect(({apiToken}) => ({apiToken}))(LoginScreen);
+import { connect } from "react-redux";
 
 class LoginScreen extends React.Component {
 
@@ -203,3 +202,5 @@ class LoginScreen extends React.Component {
         );
     }
 }
+
+export default connect(({apiToken}) => ({apiToken}))(LoginScreen);
