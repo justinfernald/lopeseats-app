@@ -1,14 +1,13 @@
 import React from "react";
-import "../../App.css";
 import DropIn from "braintree-web-drop-in-react";
 import {
     sendPayment,
     getCartPrices,
     formatPrice,
     getScreenState,
-} from "../../assets/scripts/Util";
-import LopesEatLogo from "../../assets/images/icon-384x384.png";
-import Screen from "../../components/Screen";
+} from "../../../assets/scripts/Util";
+import LopesEatLogo from "../../../assets/images/icon-384x384.png";
+import Screen from "../../../components/Screen";
 
 export default class CheckoutScreen extends React.Component {
     instance;
@@ -48,21 +47,29 @@ export default class CheckoutScreen extends React.Component {
     }
 
     render() {
-        var dropin = !this.state.clientToken ? (<div className="loadingWrapper">
-                    <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
-                    <div className="loadingText">
-                        Loading payment authorization. One moment please
-                    </div>
-                </div>) : (<DropIn
-                        options={{
-                            authorization: this.state.clientToken,
-                            paypal: true,
-                            venmo: true,
-                        }}
-                        onInstance={(instance) => (this.instance = instance)}
-                    />);
+        var dropin = !this.state.clientToken ? (
+            <div className="loadingWrapper">
+                <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
+                <div className="loadingText">
+                    Loading payment authorization. One moment please
+                </div>
+            </div>
+        ) : (
+            <DropIn
+                options={{
+                    authorization: this.state.clientToken,
+                    paypal: true,
+                    venmo: true,
+                }}
+                onInstance={(instance) => (this.instance = instance)}
+            />
+        );
         return (
-            <Screen appBar={{title:"Checkout", onBack:this.props.history.goBack}}>
+            <Screen
+                appBar={{
+                    title: "Checkout",
+                    onBack: this.props.history.goBack,
+                }}>
                 {dropin}
                 <div
                     className="cartFooter"
@@ -72,9 +79,7 @@ export default class CheckoutScreen extends React.Component {
                     }}>
                     <div className="total">
                         Delivery Fee
-                        <span className="price">
-                            ${formatPrice(this.fee)}
-                        </span>
+                        <span className="price">${formatPrice(this.fee)}</span>
                     </div>
                     <button
                         className="checkoutButton"

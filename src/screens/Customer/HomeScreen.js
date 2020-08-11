@@ -1,5 +1,5 @@
 import React from "react";
-import Screen from "../components/Screen";
+import Screen from "../../components/Screen";
 
 class HomeScreen extends React.Component {
     constructor(props) {

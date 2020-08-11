@@ -1,8 +1,8 @@
 import React from "react";
-import Input from "../components/Input";
-import Phone from "../assets/images/phone-icon.png";
-import Lock from "../assets/images/lock.svg";
-import LopesEatLogo from "../assets/images/icon-384x384.png";
+import Input from "../../components/Input";
+import Phone from "../../assets/images/phone-icon.png";
+import Lock from "../../assets/images/lock.svg";
+import LopesEatLogo from "../../assets/images/icon-384x384.png";
 import {
     loginAccount,
     showErrors,
@@ -13,9 +13,7 @@ import {
     loadState,
     addBackStep,
     setScreenState,
-} from "../assets/scripts/Util";
-import { connect } from "react-redux";
-import store, {actions} from "../Redux";
+} from "../../assets/scripts/Util";
 
 export default connect(({apiToken}) => ({apiToken}))(LoginScreen);
 

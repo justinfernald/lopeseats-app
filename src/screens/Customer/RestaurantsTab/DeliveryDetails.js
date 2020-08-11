@@ -1,12 +1,11 @@
 import React from "react";
-import "../../App.css";
-import Input from "../../components/Input";
+import Input from "../../../components/Input";
 import {
     getBuildings,
     getScreenState,
     setScreenState,
-} from "../../assets/scripts/Util";
-import Screen from "../../components/Screen";
+} from "../../../assets/scripts/Util";
+import Screen from "../../../components/Screen";
 
 export default class DeliveryDetails extends React.Component {
     buildings = null;

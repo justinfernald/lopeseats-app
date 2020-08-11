@@ -1,8 +1,8 @@
 import React from "react";
-import HoursList from "../../components/HoursList";
-import { getScreenState, setScreenState } from "../../assets/scripts/Util";
+import HoursList from "../../../components/HoursList";
+import { getScreenState, setScreenState } from "../../../assets/scripts/Util";
 
-import Screen from "../../components/Screen";
+import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 
 export default class RestaurantDetails extends React.Component {
