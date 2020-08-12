@@ -15,6 +15,9 @@ import {
     setScreenState,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
+import store, {actions} from "../../Redux";
+import Screen from "../../components/Screen";
+import { IonPage } from "@ionic/react";
 
 class LoginScreen extends React.Component {
 
@@ -109,32 +112,28 @@ class LoginScreen extends React.Component {
     formSwitch = () => this.props.history.replace("/register");
 
     onLogin = (apiToken) => {
-        let newState = loadState("screenHandler");
-        if (newState && newState.screenHistory)
-            for (let i = 1; i < newState.screenHistory.length; i++) {
-                addBackStep();
-            }
+        // let newState = loadState("screenHandler");
+        // if (newState && newState.screenHistory)
+        //     for (let i = 1; i < newState.screenHistory.length; i++) {
+        //         addBackStep();
+        //     }
         console.log("apitoken: " + apiToken);
-        setScreenState({ apiToken });
+        store.dispatch(actions.setApiToken(apiToken));
 
-        setScreenState(newState);
+        // setScreenState(newState);
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
         this.props.history.replace("/app");
     };
 
     onNotConfirmed = (phone) => {
-        this.setState({
-            registerData: {
-                phone: phone,
-            },
-        });
-        this.newHistory("PhoneConfirm");
+        store.dispatch(actions.setRegisterDetails({phone}))
+        this.props.history.replace("/register/confirm");
     };
 
     onForgotPassword = () => {
-        this.setState({
-            // screen: "ForgotPassword"
-        });
+        // this.setState({
+        //     screen: "ForgotPassword"
+        // });
     };
 
     render() {
@@ -149,56 +148,58 @@ class LoginScreen extends React.Component {
             );
         }
         return (
-            <div className="loginWrapper">
-                <div className="formSwitchButton" onClick={this.formSwitch}>
-                    REGISTER
-                </div>
-                <div className="loginImage">
-                    <img
-                        alt="LopesEat Logo"
-                        src={LopesEatLogo}
-                        className="imageFill"
-                    />
-                </div>
-                <div className="loginForm">
-                    <div className="signInText">
-                        <span>SIGN IN</span>
+            <IonPage>
+                <div className="loginWrapper">
+                    <div className="formSwitchButton" onClick={this.formSwitch}>
+                        REGISTER
                     </div>
-                    <div className="inputWrap">
-                        <Input
-                            icon={Phone}
-                            passedRef={this.phoneNumberRef}
-                            autoComplete="current-phone"
-                            placeholder="Phone Number"
-                            type="tel"
+                    <div className="loginImage">
+                        <img
+                            alt="LopesEat Logo"
+                            src={LopesEatLogo}
+                            className="imageFill"
                         />
-                        <Input
-                            className="forgot"
-                            passedRef={this.passwordRef}
-                            icon={Lock}
-                            showHidden={!this.state.showPassword ? "off" : "on"}
-                            onShow={this.toggleShowPassword}
-                            autoComplete="current-password"
-                            type={
-                                !this.state.showPassword ? "password" : "text"
-                            }
-                            placeholder="Password"
-                        />
-
-                        <div
-                            onClick={this.onForgotPassword}
-                            className="forgotPassword">
-                            Forgot password?
+                    </div>
+                    <div className="loginForm">
+                        <div className="signInText">
+                            <span>SIGN IN</span>
                         </div>
-                        <div style={{ height: "70px" }}></div>
-                        <button
-                            className="signInButton"
-                            onClick={this.onSignIn}>
-                            Sign In
-                        </button>
+                        <div className="inputWrap">
+                            <Input
+                                icon={Phone}
+                                passedRef={this.phoneNumberRef}
+                                autoComplete="current-phone"
+                                placeholder="Phone Number"
+                                type="tel"
+                            />
+                            <Input
+                                className="forgot"
+                                passedRef={this.passwordRef}
+                                icon={Lock}
+                                showHidden={!this.state.showPassword ? "off" : "on"}
+                                onShow={this.toggleShowPassword}
+                                autoComplete="current-password"
+                                type={
+                                    !this.state.showPassword ? "password" : "text"
+                                }
+                                placeholder="Password"
+                            />
+
+                            <div
+                                onClick={this.onForgotPassword}
+                                className="forgotPassword">
+                                Forgot password?
+                            </div>
+                            <div style={{ height: "70px" }}></div>
+                            <button
+                                className="signInButton"
+                                onClick={this.onSignIn}>
+                                Sign In
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </IonPage>
         );
     }
 }
