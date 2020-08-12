@@ -9,14 +9,9 @@ import {
     resendCode,
     updateFBToken,
     postData,
-    getScreenState,
-    loadState,
-    addBackStep,
-    setScreenState,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
 import store, {actions} from "../../Redux";
-import Screen from "../../components/Screen";
 import { IonPage } from "@ionic/react";
 
 class LoginScreen extends React.Component {
@@ -52,8 +47,6 @@ class LoginScreen extends React.Component {
     };
 
     componentDidMount() {}
-
-    // componentWillUnmount() {}
 
     onSignIn = async () => {
         let phoneNumber = this.phoneNumberRef.current.value;
@@ -112,11 +105,6 @@ class LoginScreen extends React.Component {
     formSwitch = () => this.props.history.replace("/register");
 
     onLogin = (apiToken) => {
-        // let newState = loadState("screenHandler");
-        // if (newState && newState.screenHistory)
-        //     for (let i = 1; i < newState.screenHistory.length; i++) {
-        //         addBackStep();
-        //     }
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
 

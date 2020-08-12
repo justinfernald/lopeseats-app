@@ -5,8 +5,9 @@ import Lock from "../../assets/images/lock.svg";
 import {
     phoneNumberTaken,
     showErrors,
-    setScreenState,
 } from "../../assets/scripts/Util";
+
+import store, {actions} from "../../Redux";
 
 export default class RegisterScreen extends React.Component {
     constructor(props) {
@@ -82,12 +83,10 @@ export default class RegisterScreen extends React.Component {
     };
 
     proceedRegistration = (phone, password) => {
-        setScreenState({
-            registerData: {
-                phone,
-                password,
-            },
-        });
+        store.dispatch(actions.setRegisterDetails({
+            phone,
+            password,
+        }));
         this.props.history.push("/register/info");
     };
 
