@@ -7,7 +7,7 @@ interface PropType {
     appBar?: {
         splash: string;
         title: string | JSX.Element;
-        onBack: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+        onBack?: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
     };
     children?: JSX.Element;
     id?: string;
@@ -51,13 +51,15 @@ export default class Screen extends React.Component<PropType> {
                                 {this.props.appBar.title}
                             </div>
                         </div>
-                        <div className="backIcon">
-                            <i
-                                className="material-icons-round"
-                                onClick={this.props.appBar.onBack}>
-                                arrow_back_ios
-                            </i>
-                        </div>
+                        {this.props.appBar.onBack ? (
+                            <div className="backIcon">
+                                <i
+                                    className="material-icons-round"
+                                    onClick={this.props.appBar.onBack}>
+                                    arrow_back_ios
+                                </i>
+                            </div>
+                        ) : null}
                     </Fragment>
                 );
                 content = (
@@ -71,11 +73,13 @@ export default class Screen extends React.Component<PropType> {
                 header = (
                     <div style={{ padding: "10px" }}>
                         <div className={css(styles.header)}>
-                            <i
-                                className="icon material-icons-round"
-                                onClick={this.props.appBar.onBack}>
-                                arrow_back_ios
-                            </i>
+                            {this.props.appBar.onBack ? (
+                                <i
+                                    className="icon material-icons-round"
+                                    onClick={this.props.appBar.onBack}>
+                                    arrow_back_ios
+                                </i>
+                            ) : null}
                             <span className={css(styles.screenTitle)}>
                                 {this.props.appBar.title}
                             </span>

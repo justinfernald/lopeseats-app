@@ -11,11 +11,10 @@ import {
     postData,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
-import store, {actions} from "../../Redux";
+import store, { actions } from "../../Redux";
 import { IonPage } from "@ionic/react";
 
 class LoginScreen extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -32,14 +31,21 @@ class LoginScreen extends React.Component {
         this.passwordRef = React.createRef();
     }
 
-    async checkToken(token) {
+    async checkToken(apiToken) {
         if (
             await postData("https://lopeseat.com/REST/validToken.php", {
-                apiToken: token,
+                apiToken,
             })
-        )
-            this.onLogin(token);
-        else this.setState({ loading: false });
+        ) {
+            const profileData = await postData(
+                "https://lopeseat.com/REST/getProfileData.php",
+                {
+                    apiToken,
+                }
+            );
+            console.log(profileData);
+            this.onLogin(apiToken, profileData);
+        } else this.setState({ loading: false });
     }
 
     toggleShowPassword = () => {
@@ -96,7 +102,13 @@ class LoginScreen extends React.Component {
 
         if (errors.length === 0) {
             // updateFBToken(this.props.fbToken, loginData.msg);
-            this.onLogin(loginData.msg);
+            const profileData = await postData(
+                "https://lopeseat.com/REST/getProfileData.php",
+                {
+                    apiToken: loginData.msg,
+                }
+            );
+            this.onLogin(loginData.msg, profileData);
         } else {
             showErrors(["Invalid login"]);
         }
@@ -107,14 +119,15 @@ class LoginScreen extends React.Component {
     onLogin = (apiToken) => {
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
-
+        console.log("profile data ", profileData);
+        store.dispatch(actions.setUserDetails(profileData));
         // setScreenState(newState);
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
         this.props.history.replace("/app");
     };
 
     onNotConfirmed = (phone) => {
-        store.dispatch(actions.setRegisterDetails({phone}))
+        store.dispatch(actions.setRegisterDetails({ phone }));
         this.props.history.replace("/register/confirm");
     };
 
@@ -164,11 +177,15 @@ class LoginScreen extends React.Component {
                                 className="forgot"
                                 passedRef={this.passwordRef}
                                 icon={Lock}
-                                showHidden={!this.state.showPassword ? "off" : "on"}
+                                showHidden={
+                                    !this.state.showPassword ? "off" : "on"
+                                }
                                 onShow={this.toggleShowPassword}
                                 autoComplete="current-password"
                                 type={
-                                    !this.state.showPassword ? "password" : "text"
+                                    !this.state.showPassword
+                                        ? "password"
+                                        : "text"
                                 }
                                 placeholder="Password"
                             />
@@ -192,4 +209,4 @@ class LoginScreen extends React.Component {
     }
 }
 
-export default connect(({apiToken}) => ({apiToken}))(LoginScreen);
+export default connect(({ apiToken }) => ({ apiToken }))(LoginScreen);

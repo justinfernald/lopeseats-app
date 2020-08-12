@@ -219,10 +219,6 @@ export const formatPrice = (price, asSpan = true) => {
     );
 };
 
-// export const storeGlobalState = () => {
-//   storeState(getScreenState(), "screenHandler")
-// }
-
 export const storeState = (state, id) => {
     localStorage.setItem("lastAppState" + id, JSON.stringify(state));
 };

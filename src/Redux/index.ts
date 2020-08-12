@@ -9,12 +9,11 @@ const initialState = {
     apiToken: null,
     cartItems: [],
     userDetails: {
-        firstName: null,
-        lastName: null,
+        name: null,
         studentNumber: null,
         phoneNumber: null,
         email: null,
-        deliverer: false,
+        isDeliverer: false,
     },
     registerDetails: {
         firstName: null,
@@ -77,7 +76,10 @@ const reducers = {
         state: any,
         { payload: newRegisterDetails }: { payload: object }
     ) => {
-        state.registerDetails = {...state.registerDetails, ...newRegisterDetails};
+        state.registerDetails = {
+            ...state.registerDetails,
+            ...newRegisterDetails,
+        };
     },
     unsetRegisterDetails: (state: any) => {
         state.registerDetails = initialState.registerDetails;
