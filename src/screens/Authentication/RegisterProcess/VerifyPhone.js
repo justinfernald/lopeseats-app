@@ -57,8 +57,7 @@ export default class VerifyPhone extends React.Component {
                     password: screenState.registerData.password,
                 },
             });
-            this.props.history.push("/register/confirm");
-            registerAccount(
+            let result = await registerAccount(
                 phoneNumber,
                 screenState.registerData.firstName,
                 screenState.registerData.lastName,
@@ -67,6 +66,12 @@ export default class VerifyPhone extends React.Component {
                 screenState.registerData.password,
                 screenState.registerData.profileImage
             );
+            if (result.success) {
+                this.props.history.push("/register/confirm");
+            } else {
+                this.props.goBack();
+                showErrors([result.msg]);
+            }
         } else {
             showErrors(errors);
         }

@@ -4,11 +4,12 @@ import ImageUploader from "./ImageUploader";
 import Input from "../../../components/Input";
 import {
     showErrors,
-    setScreenState,
-    getScreenState,
 } from "../../../assets/scripts/Util";
 
-export default class PersonalInformation extends React.Component {
+import { connect } from "react-redux";
+import store, {actions} from "../../../Redux";
+
+class PersonalInformation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -52,20 +53,16 @@ export default class PersonalInformation extends React.Component {
             errors.push("Student number invalid");
         }
 
-        var screenState = getScreenState();
-
         if (errors.length === 0) {
-            setScreenState({
-                registerData: {
-                    firstName,
-                    lastName,
-                    email,
-                    studentNumber,
-                    profileImage,
-                    phone: screenState.registerData.phone,
-                    password: screenState.registerData.password,
-                },
-            });
+            store.dispatch(actions.setRegisterDetails({
+                firstName,
+                lastName,
+                email,
+                studentNumber,
+                profileImage,
+                phone: this.props.registerDetails.phone,
+                password: this.props.registerDetails.password,
+            }));
             this.props.history.push("/register/verify");
         } else {
             showErrors(errors);
@@ -127,3 +124,5 @@ export default class PersonalInformation extends React.Component {
         );
     }
 }
+
+export default connect(({registerDetails}) => ({registerDetails}))(PersonalInformation);
