@@ -31,7 +31,6 @@
         "react-redux": "^7.2.1",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
-        "react-scripts": "^3.4.0",
         "redux-logger": "^3.0.6",
         "typescript": "^3.9.7"
     },
@@ -42,7 +41,8 @@
         "eject": "react-scripts eject",
         "ionic:build": "npm rum build && ionic capacitor copy",
         "setup": "ionic capacitor add android && ionic capacitor add ios",
-        "android": "ionic capacitor run android -l --external",
+        "android": "ionic capacitor run android",
+        "android-live": "ionic capacitor run android -l --external",
         "ios": "ionic capacitor run ios"
     },
     "browserslist": {
@@ -58,6 +58,7 @@
         ]
     },
     "devDependencies": {
-        "babel-eslint": "^10.1.0"
+        "babel-eslint": "^10.1.0",
+        "react-scripts": "3.4.2"
     }
 }
