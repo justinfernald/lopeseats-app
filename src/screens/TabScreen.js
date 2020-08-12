@@ -1,8 +1,27 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { IonPage, IonTabs, IonRouterOutlet } from "@ionic/react";
+import {
+    IonPage,
+    IonTabs,
+    IonRouterOutlet,
+    IonTabBar,
+    IonTabButton,
+    IonIcon,
+} from "@ionic/react";
 import { Route, Redirect } from "react-router-dom";
+
+import HomeScreen from "./Customer/HomeScreen";
+import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
+// import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
+import Profile from "./Customer/Profile";
+import DelivererOrder from "./Deliverer/DelivererOrder";
+import DelivererPayment from "./Deliverer/DelivererPayment";
+import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
+import IncomingOrders from "./Deliverer/IncomingOrders";
+
+import { restaurant, search, repeatSharp, person } from "ionicons/icons";
+
 const MainScreen = (props) =>
     !props.apiToken ? (
         <Redirect

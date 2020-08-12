@@ -15,12 +15,11 @@ import {
     setScreenState,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
-import store, {actions} from "../../Redux";
+import store, { actions } from "../../Redux";
 import Screen from "../../components/Screen";
 import { IonPage } from "@ionic/react";
 
 class LoginScreen extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -37,14 +36,20 @@ class LoginScreen extends React.Component {
         this.passwordRef = React.createRef();
     }
 
-    async checkToken(token) {
+    async checkToken(apiToken) {
         if (
             await postData("https://lopeseat.com/REST/validToken.php", {
-                apiToken: token,
+                apiToken,
             })
-        )
-            this.onLogin(token);
-        else this.setState({ loading: false });
+        ) {
+            const profileData = await postData(
+                "https://lopeseat.com/REST/getProfileData.php",
+                {
+                    apiToken,
+                }
+            );
+            this.onLogin(apiToken, profileData);
+        } else this.setState({ loading: false });
     }
 
     toggleShowPassword = () => {
@@ -111,7 +116,7 @@ class LoginScreen extends React.Component {
 
     formSwitch = () => this.props.history.replace("/register");
 
-    onLogin = (apiToken) => {
+    onLogin = (apiToken, profileData) => {
         // let newState = loadState("screenHandler");
         // if (newState && newState.screenHistory)
         //     for (let i = 1; i < newState.screenHistory.length; i++) {
@@ -119,14 +124,14 @@ class LoginScreen extends React.Component {
         //     }
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
-
+        store.dispatch(actions.setUserDetails(profileData));
         // setScreenState(newState);
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
         this.props.history.replace("/app");
     };
 
     onNotConfirmed = (phone) => {
-        store.dispatch(actions.setRegisterDetails({phone}))
+        store.dispatch(actions.setRegisterDetails({ phone }));
         this.props.history.replace("/register/confirm");
     };
 
@@ -176,11 +181,15 @@ class LoginScreen extends React.Component {
                                 className="forgot"
                                 passedRef={this.passwordRef}
                                 icon={Lock}
-                                showHidden={!this.state.showPassword ? "off" : "on"}
+                                showHidden={
+                                    !this.state.showPassword ? "off" : "on"
+                                }
                                 onShow={this.toggleShowPassword}
                                 autoComplete="current-password"
                                 type={
-                                    !this.state.showPassword ? "password" : "text"
+                                    !this.state.showPassword
+                                        ? "password"
+                                        : "text"
                                 }
                                 placeholder="Password"
                             />
@@ -204,4 +213,4 @@ class LoginScreen extends React.Component {
     }
 }
 
-export default connect(({apiToken}) => ({apiToken}))(LoginScreen);
+export default connect(({ apiToken }) => ({ apiToken }))(LoginScreen);
