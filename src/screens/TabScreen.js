@@ -85,12 +85,14 @@ const MainScreen = (props) =>
                             style={{ width: "100%", height: "53%" }}
                         />
                     </IonTabButton>
-                    <IonTabButton tab="delivery" href="/app/deliverer">
-                        <IonIcon
-                            icon={repeatSharp}
-                            style={{ width: "100%", height: "65%" }}
-                        />
-                    </IonTabButton>
+                    {props.isDeliverer ? (
+                        <IonTabButton tab="delivery" href="/app/deliverer">
+                            <IonIcon
+                                icon={repeatSharp}
+                                style={{ width: "100%", height: "65%" }}
+                            />
+                        </IonTabButton>
+                    ) : null}
                     <IonTabButton tab="tracker" href="/app/tracker">
                         <i
                             className="material-icons-round"
@@ -113,8 +115,9 @@ const MainScreen = (props) =>
         </IonPage>
     );
 
-const mapStateToProps = ({ apiToken }) => ({
+const mapStateToProps = ({ apiToken, userDetails: { isDeliverer } }) => ({
     apiToken,
+    isDeliverer,
 });
 
 export default connect(mapStateToProps)(MainScreen);

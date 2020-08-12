@@ -16,7 +16,7 @@ class IncomingOrders extends React.Component {
 
     async fetchData() {
         var orders = await getIncomingOrderList(this.props.apiToken);
-        if (!orders.success) this.props.history.push("/app/home");
+        if (orders.success === false) this.props.history.push("/app/home");
         else this.setState({ orders });
     }
 
