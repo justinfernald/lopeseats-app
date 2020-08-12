@@ -116,7 +116,7 @@ class LoginScreen extends React.Component {
 
     formSwitch = () => this.props.history.replace("/register");
 
-    onLogin = (apiToken) => {
+    onLogin = (apiToken, profileData) => {
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
         console.log("profile data ", profileData);
