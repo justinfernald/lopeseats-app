@@ -48,6 +48,7 @@ class LoginScreen extends React.Component {
                     apiToken,
                 }
             );
+            console.log(profileData);
             this.onLogin(apiToken, profileData);
         } else this.setState({ loading: false });
     }
@@ -108,7 +109,13 @@ class LoginScreen extends React.Component {
 
         if (errors.length === 0) {
             // updateFBToken(this.props.fbToken, loginData.msg);
-            this.onLogin(loginData.msg);
+            const profileData = await postData(
+                "https://lopeseat.com/REST/getProfileData.php",
+                {
+                    apiToken: loginData.msg,
+                }
+            );
+            this.onLogin(loginData.msg, profileData);
         } else {
             showErrors(["Invalid login"]);
         }
@@ -124,6 +131,7 @@ class LoginScreen extends React.Component {
         //     }
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
+        console.log("profile data ", profileData);
         store.dispatch(actions.setUserDetails(profileData));
         // setScreenState(newState);
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
