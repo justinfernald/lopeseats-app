@@ -16,6 +16,15 @@ const initialState = {
         email: null,
         deliverer: false,
     },
+    registerDetails: {
+        firstName: null,
+        lastName: null,
+        studentNumber: null,
+        phoneNumber: null,
+        email: null,
+        password: null,
+        profileImage: "",
+    },
     selectedRestaurant: null,
     selectedMenu: null,
     currentOrder: -1,
@@ -62,6 +71,16 @@ const reducers = {
     },
     unsetUserDetails: (state: any) => {
         state.userDetails = initialState.userDetails;
+    },
+    //registerDetails
+    setRegisterDetails: (
+        state: any,
+        { payload: newRegisterDetails }: { payload: object }
+    ) => {
+        state.registerDetails = {...state.registerDetails, ...newRegisterDetails};
+    },
+    unsetRegisterDetails: (state: any) => {
+        state.registerDetails = initialState.registerDetails;
     },
     //selectedRestaurant
     setSelectedRestaurant: (

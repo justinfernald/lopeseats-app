@@ -91,7 +91,7 @@ export default class RegisterScreen extends React.Component {
         this.props.history.push("/register/info");
     };
 
-    formSwitch = () => this.props.history.push("/login");
+    formSwitch = () => this.props.history.replace("/login");
 
     render() {
         return (
