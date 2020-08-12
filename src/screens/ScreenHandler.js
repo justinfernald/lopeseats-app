@@ -34,6 +34,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router-dom";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 import IncomingOrders from "./Deliverer/IncomingOrders";
+import TabScreen from "./TabScreen";
 
 const mainScreen = (props) =>
     !getScreenState().apiToken ? (
@@ -255,7 +256,7 @@ export default class ScreenHandler extends React.Component {
                 <IonRouterOutlet>
                     <Route exact path="/login" component={LoginScreen} />
                     <Route path="/register" component={RegisterRouter} />
-                    <Route path="/app" component={mainScreen} />
+                    <Route path="/app" component={TabScreen} />
                     <Redirect exact from="/" to="/login" />
                 </IonRouterOutlet>
             </IonReactRouter>

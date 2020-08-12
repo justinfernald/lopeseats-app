@@ -14,7 +14,7 @@ const initialState = {
         studentNumber: null,
         phoneNumber: null,
         email: null,
-        deliverer: false,
+        isDeliverer: false,
     },
     selectedRestaurant: null,
     selectedMenu: null,
