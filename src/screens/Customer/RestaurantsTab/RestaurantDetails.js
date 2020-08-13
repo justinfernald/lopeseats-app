@@ -1,11 +1,12 @@
 import React from "react";
 import HoursList from "../../../components/HoursList";
-import { getScreenState, setScreenState } from "../../../assets/scripts/Util";
 
 import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
+import { connect } from "react-redux";
+import store, { actions } from "../../../Redux";
 
-export default class RestaurantDetails extends React.Component {
+class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,9 +23,8 @@ export default class RestaurantDetails extends React.Component {
             instructions: null,
         };
 
-        var screenState = getScreenState();
-        this.restaurantData.hours = screenState.currentRestaurant.hours;
-        this.restaurantData.food = screenState.currentMenu;
+        this.restaurantData.hours = props.selectedRestaurant.hours;
+        this.restaurantData.food = props.selectedMenu;
     }
 
     restaurantData = {};
@@ -53,24 +53,23 @@ export default class RestaurantDetails extends React.Component {
         // this.setState({
         //     selectedItem: item
         // });
-        setScreenState({ openItem: item, editingItem: false });
+        store.dispatch(actions.setItemDetails({openItem: item, editingItem: false}));
         this.props.history.push("/app/restaurants/item");
     };
 
     render() {
-        var screenState = getScreenState();
         return (
             <Screen
                 appBar={{
-                    title: screenState.currentRestaurant.name,
-                    splash: screenState.currentRestaurant.banner,
+                    title: this.props.selectedRestaurant.name,
+                    splash: this.props.selectedRestaurant.banner,
                     onBack: this.props.history.goBack,
                 }}
                 ionPage>
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantInfo">
                         <div className="restaurantDescription">
-                            {screenState.currentRestaurant.description}
+                            {this.props.selectedRestaurant.description}
                         </div>
                     </div>
                     <div className="restaurantFood">
@@ -107,7 +106,7 @@ export default class RestaurantDetails extends React.Component {
                         <div className="fullMenu">
                             <div className="title">Meal Options</div>
 
-                            {screenState.currentMenu.map((item, index) => (
+                            {this.props.selectedMenu.map((item, index) => (
                                 <div
                                     key={index}
                                     className="menuItem"
@@ -141,3 +140,5 @@ const styles = StyleSheet.create({
         padding: 10,
     },
 });
+
+export default connect(({selectedRestaurant, selectedMenu}) => ({selectedRestaurant, selectedMenu}))(RestaurantDetails);

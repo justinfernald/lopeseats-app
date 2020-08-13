@@ -4,12 +4,12 @@ import en from "javascript-time-ago/locale/en";
 import {
     getMessages,
     sendMessage,
-    getScreenState,
     getMessageListener,
 } from "../../../assets/scripts/Util";
 import Screen from "../../../components/Screen";
+import { connect } from "react-redux";
 
-export default class MessageScreen extends React.Component {
+class MessageScreen extends React.Component {
     timeAgo;
     days = [
         "Sunday",
@@ -48,8 +48,7 @@ export default class MessageScreen extends React.Component {
     }
 
     async fetchData() {
-        var screenState = getScreenState();
-        var data = await getMessages(screenState.apiToken, screenState.orderId);
+        var data = await getMessages(this.props.apiToken, this.props.orderId);
         console.log(data);
 
         if (data.success !== false) {
@@ -101,7 +100,6 @@ export default class MessageScreen extends React.Component {
     }
 
     render() {
-        var screenState = getScreenState();
         var messagesJSX = [];
 
         var prevMessage = null;
@@ -176,8 +174,8 @@ export default class MessageScreen extends React.Component {
                         className="sendMessage"
                         onClick={() => {
                             sendMessage(
-                                screenState.apiToken,
-                                screenState.orderId,
+                                this.props.apiToken,
+                                this.props.messageOrderId,
                                 this.messageRef.current.value
                             );
                             this.messageRef.current.value = "";
@@ -190,3 +188,5 @@ export default class MessageScreen extends React.Component {
         );
     }
 }
+
+export default connect(({messageOrderId, apiToken}) => ({messageOrderId, apiToken}))(MessageScreen);

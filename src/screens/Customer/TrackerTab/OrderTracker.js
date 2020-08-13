@@ -1,13 +1,13 @@
 import React from "react";
 import {
     getOrder,
-    setScreenState,
-    getScreenState,
     getMessageListener,
 } from "../../../assets/scripts/Util";
 import Screen from "../../../components/Screen";
+import { connect } from "react-redux";
+import store, { actions } from "../../../Redux";
 
-export default class OrderTracker extends React.Component {
+class OrderTracker extends React.Component {
     listenerId;
 
     constructor(props) {
@@ -74,7 +74,7 @@ export default class OrderTracker extends React.Component {
     }
 
     async fetchData() {
-        this.order = await getOrder(getScreenState().apiToken);
+        this.order = await getOrder(this.props.apiToken);
         console.log(this.order);
 
         if (this.order != null) {
@@ -102,9 +102,7 @@ export default class OrderTracker extends React.Component {
     }
 
     onMessageClick = (orderId) => {
-        setScreenState({
-            orderId,
-        });
+        store.dispatch(actions.setMessageOrderId(orderId))
         this.props.history.push("/app/tracker/message");
     };
 
@@ -233,3 +231,5 @@ export default class OrderTracker extends React.Component {
         );
     }
 }
+
+export default connect(({apiToken}) => ({apiToken}))(OrderTracker);

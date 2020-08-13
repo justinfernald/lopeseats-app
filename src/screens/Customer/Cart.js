@@ -5,12 +5,12 @@ import {
     getCartPrices,
     formatPrice,
     removeCartItem,
-    getScreenState,
-    setScreenState,
 } from "../../assets/scripts/Util";
 import Screen from "../../components/Screen";
+import { connect } from "react-redux";
+import store, { actions } from "../../Redux";
 
-export default class Cart extends React.Component {
+class Cart extends React.Component {
     subtotal = 0;
     tax = 0;
     total = 0;
@@ -27,13 +27,12 @@ export default class Cart extends React.Component {
     }
 
     async fetchData() {
-        var screenState = getScreenState();
-        var items = await getCart(screenState.apiToken);
+        var items = await getCart(this.props.apiToken);
         if (items == null) items = [];
         this.setState({ items });
         console.log(this.items);
 
-        var prices = await getCartPrices(screenState.apiToken);
+        var prices = await getCartPrices(this.props.apiToken);
         this.subtotal = prices.subtotal;
         this.total = prices.total;
         this.tax = prices.tax;
@@ -60,12 +59,12 @@ export default class Cart extends React.Component {
 
         var instructions = item.comment;
         var editingItem = true;
-        setScreenState({
+        store.dispatch(actions.setItemDetails({
             editingItem,
             openItem,
             optionsChosen,
             instructions,
-        });
+        }));
         this.props.history.push("/app/restaurants/item");
     };
 
@@ -121,7 +120,7 @@ export default class Cart extends React.Component {
                                     className="deleteBtn"
                                     onClick={() => {
                                         removeCartItem(
-                                            getScreenState().apiToken,
+                                            this.props.apiToken,
                                             value.id
                                         );
                                         this.fetchData();
@@ -165,3 +164,5 @@ export default class Cart extends React.Component {
         );
     }
 }
+
+export default connect(({apiToken}) => ({apiToken}))(Cart);

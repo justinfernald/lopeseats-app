@@ -5,17 +5,16 @@ import Phone from "../../../assets/images/phone-icon.png";
 import {
     phoneNumberTaken,
     showErrors,
-    getScreenState,
-    setScreenState,
     registerAccount,
 } from "../../../assets/scripts/Util";
+import { connect } from "react-redux";
+import store, { actions } from "../../../Redux";
 
-export default class VerifyPhone extends React.Component {
+class VerifyPhone extends React.Component {
     constructor(props) {
         super(props);
-        var screenState = getScreenState();
         this.state = {
-            phone: screenState.registerData.phone,
+            phone: this.props.registerDetails.phone,
         };
         this.phoneNumberRef = React.createRef();
     }
@@ -45,31 +44,20 @@ export default class VerifyPhone extends React.Component {
         }
 
         if (errors.length === 0) {
-            let screenState = getScreenState();
-            setScreenState({
-                registerData: {
-                    phone: phoneNumber,
-                    firstName: screenState.registerData.firstName,
-                    lastName: screenState.registerData.lastName,
-                    email: screenState.registerData.email,
-                    studentNumber: screenState.registerData.studentNumber,
-                    profileImage: screenState.registerData.profileImage,
-                    password: screenState.registerData.password,
-                },
-            });
+            store.dispatch(actions.setRegisterDetails({phoneNumber}));
             let result = await registerAccount(
                 phoneNumber,
-                screenState.registerData.firstName,
-                screenState.registerData.lastName,
-                screenState.registerData.email,
-                screenState.registerData.studentNumber,
-                screenState.registerData.password,
-                screenState.registerData.profileImage
+                this.props.registerDetails.firstName,
+                this.props.registerDetails.lastName,
+                this.props.registerDetails.email,
+                this.props.registerDetails.studentNumber,
+                this.props.registerDetails.password,
+                this.props.registerDetails.profileImage
             );
             if (result.success) {
                 this.props.history.push("/register/confirm");
             } else {
-                this.props.goBack();
+                this.props.history.goBack();
                 showErrors([result.msg]);
             }
         } else {
@@ -103,3 +91,5 @@ export default class VerifyPhone extends React.Component {
         );
     }
 }
+
+export default connect(({registerDetails}) => ({registerDetails}))(VerifyPhone);

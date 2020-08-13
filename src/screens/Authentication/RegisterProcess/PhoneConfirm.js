@@ -3,18 +3,17 @@ import RegisterStep from "./RegisterStep";
 import {
     verifyCode,
     showErrors,
-    getScreenState,
-    setScreenState,
     loginAccount,
 } from "../../../assets/scripts/Util";
+import { connect } from "react-redux";
+import store, { actions } from "../../../Redux";
 
-export default class PhoneConfirm extends React.Component {
+class PhoneConfirm extends React.Component {
     constructor(props) {
         super(props);
-        let screenState = getScreenState();
         this.state = {
             code: "",
-            phone: screenState.registerData.phone,
+            phone: this.props.registerDetails.phone,
         };
 
         this.codeRef = React.createRef();
@@ -27,14 +26,11 @@ export default class PhoneConfirm extends React.Component {
     onNextStep = async (value) => {
         console.log(value);
         if (await verifyCode(this.state.phone, value)) {
-            let screenState = getScreenState();
             var loginData = await loginAccount(
-                screenState.registerData.phone,
-                screenState.registerData.password
+                this.props.registerDetails.phone,
+                this.props.registerDetails.password
             );
-            setScreenState({
-                apiToken: loginData.msg,
-            });
+            store.dispatch(actions.setApiToken(loginData.msg));
             this.props.history.push("/app");
         } else {
             showErrors(["Invalid Code"]);
@@ -105,3 +101,5 @@ export default class PhoneConfirm extends React.Component {
         );
     }
 }
+
+export default connect(({registerDetails}) => ({registerDetails}))(PhoneConfirm);

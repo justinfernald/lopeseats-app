@@ -2,25 +2,24 @@ import React from "react";
 import Selector from "../../../components/Selector";
 import {
     addCartItem,
-    getScreenState,
     formatPrice,
     removeCartItem,
 } from "../../../assets/scripts/Util";
+import { connect } from "react-redux";
 
 import Screen from "../../../components/Screen";
 
-export default class ItemOptions extends React.Component {
+class ItemOptions extends React.Component {
     constructor(props) {
         super(props);
 
-        var screenState = getScreenState();
         this.state = {
-            selectedItem: screenState.openItem,
-            optionsChosen: screenState.editingItem
-                ? screenState.optionsChosen
+            selectedItem: props.itemDetails.openItem,
+            optionsChosen: props.itemDetails.editingItem
+                ? props.itemDetails.optionsChosen
                 : [],
-            instructions: screenState.editingItem
-                ? screenState.instructions
+            instructions: props.itemDetails.editingItem
+                ? props.itemDetails.instructions
                 : null,
         };
     }
@@ -48,14 +47,13 @@ export default class ItemOptions extends React.Component {
         // for (var i = 0; i < this.state.optionsChosen.length; i++) {
         //     chosenOptionMap[this.state.optionKeys[i]] = this.state.optionsChosen[i];
         // }
-        var screenState = getScreenState();
         var itemId = this.state.selectedItem.id;
-        if (screenState.editingItem) {
-            removeCartItem(screenState.apiToken, this.state.selectedItem.id);
+        if (this.props.itemDetails.editingItem) {
+            removeCartItem(this.props.apiToken, this.state.selectedItem.id);
             itemId = this.state.selectedItem.item_id;
         }
         addCartItem(
-            screenState.apiToken,
+            this.props.apiToken,
             itemId,
             1,
             this.state.instructions ? this.state.instructions : "",
@@ -83,12 +81,11 @@ export default class ItemOptions extends React.Component {
     };
 
     render() {
-        var screenState = getScreenState();
         return (
             <Screen
                 appBar={{
                     onBack: this.props.history.goBack,
-                    splash: screenState.currentRestaurant.banner,
+                    splash: this.props.selectedRestaurant.banner,
                 }}>
                 <div className="itemOptionMenu" onScroll={this.onContentScroll}>
                     <div className="itemDescription">
@@ -103,9 +100,9 @@ export default class ItemOptions extends React.Component {
                     {JSON.parse(this.state.selectedItem.items).map((x, i) => (
                         <div key={i}>
                             {x.options.map((option, j) => {
-                                if (screenState.editingItem) {
+                                if (this.props.itemDetails.editingItem) {
                                     option.default =
-                                        screenState.optionsChosen[i][
+                                        this.props.itemDetails.optionsChosen[i][
                                             option.name
                                         ];
                                 }
@@ -173,7 +170,7 @@ export default class ItemOptions extends React.Component {
                         <div
                             className="addToCartButton"
                             onClick={this.addToCart}>
-                            {screenState.editingItem ? "Update " : "Add to "}{" "}
+                            {this.props.itemDetails.editingItem ? "Update " : "Add to "}{" "}
                             Cart
                         </div>
                     </div>
@@ -182,3 +179,5 @@ export default class ItemOptions extends React.Component {
         );
     }
 }
+
+export default connect(({itemDetails, apiToken, selectedRestaurant}) => ({itemDetails, apiToken, selectedRestaurant}))(ItemOptions);
