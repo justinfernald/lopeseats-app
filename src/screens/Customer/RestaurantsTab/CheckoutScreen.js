@@ -4,12 +4,12 @@ import {
     sendPayment,
     getCartPrices,
     formatPrice,
-    getScreenState,
 } from "../../../assets/scripts/Util";
 import LopesEatLogo from "../../../assets/images/icon-384x384.png";
 import Screen from "../../../components/Screen";
+import { connect } from "react-redux";
 
-export default class CheckoutScreen extends React.Component {
+class CheckoutScreen extends React.Component {
     instance;
     fee = 0;
 
@@ -25,9 +25,7 @@ export default class CheckoutScreen extends React.Component {
 
         console.log(clientToken);
 
-        var screenState = getScreenState();
-
-        var prices = await getCartPrices(screenState.apiToken);
+        var prices = await getCartPrices(this.props.apiToken);
         this.fee = prices.delivery_fee;
 
         this.setState({
@@ -37,11 +35,9 @@ export default class CheckoutScreen extends React.Component {
     }
 
     async pay() {
-        var screenState = getScreenState();
-
         if (this.instance.isPaymentMethodRequestable()) {
             const { nonce } = await this.instance.requestPaymentMethod();
-            await sendPayment(nonce, screenState.address, screenState.apiToken);
+            await sendPayment(nonce, this.props.address, this.props.apiToken);
             this.props.history.go(-(this.props.history.length - 2));
         }
     }
@@ -91,3 +87,5 @@ export default class CheckoutScreen extends React.Component {
         );
     }
 }
+
+export default connect(({apiToken, address}) => ({apiToken, address}))(CheckoutScreen);

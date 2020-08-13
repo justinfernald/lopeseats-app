@@ -2,7 +2,6 @@ import React from "react";
 
 import { setupBackEvent, loadState } from "../assets/scripts/Util";
 
-import Profile from "./Customer/Profile";
 import LoginScreen from "./Authentication/LoginScreen";
 import RegisterRouter from "./Authentication/RegisterProcess/RegisterRouter";
 

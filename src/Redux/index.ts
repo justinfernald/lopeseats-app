@@ -24,9 +24,24 @@ const initialState = {
         password: null,
         profileImage: "",
     },
+    // Item Details
+    itemDetails: {
+        openItem: null,
+        editingItem: false,
+        optionsChosen: [],
+        instructions: null,
+    },
+    // Restaurant Details
     selectedRestaurant: null,
     selectedMenu: null,
     currentOrder: -1,
+    // Messaging
+    messageOrderId: -1,
+    // Notifications
+    fbToken: null,
+    fbPlatform: null,
+    // Delivery Details
+    address: null
 };
 
 const reducers = {
@@ -113,6 +128,39 @@ const reducers = {
     },
     unsetCurrentOrder: (state: any) => {
         state.currentOrder = null;
+    },
+    //Item Details
+    setItemDetails: (state: any, {payload: itemDetails}: {payload: object}) => {
+        state.itemDetails = {...state.itemDetails, ...itemDetails};
+    },
+    unsetItemDetails: (state: any) => {
+        state.itemDetails = null;
+    },
+    //Messaging
+    setMessageOrderId: (state: any, {payload: messageOrderId}: {payload: object}) => {
+        state.messageOrderId = messageOrderId;
+    },
+    unsetMessageOrderId: (state: any) => {
+        state.messageOrderId = null;
+    },
+    // Notifications
+    setFBToken: (state: any, {payload: fbToken}: {payload: string}) => {
+        state.fbToken = fbToken;
+    },
+    unsetFBToken: (state: any) => {
+        state.fbToken = null;
+    },
+    setFBPlatform: (state: any, {payload: fbPlatform}: {payload: string}) => {
+        state.fbPlatform = fbPlatform;
+    },
+    unsetFBPlatform: (state: any) => {
+        state.fbPlatform = null;
+    },
+    setAddress: (state: any, {payload: address}: {payload: string}) => {
+        state.address = address;
+    },
+    unsetAddress: (state: any) => {
+        state.address = null;
     },
 };
 

@@ -4,12 +4,13 @@ import SearchIcon from "../../../assets/images/search-grey.svg";
 import {
     getRestaurants,
     getMenu,
-    setScreenState,
 } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
 import { isOpen } from "../../../components/HoursList";
 
 import Screen from "../../../components/Screen";
+
+import store, { actions } from "../../../Redux";
 
 export default class RestaurantsList extends React.Component {
     sortType = {
@@ -102,10 +103,8 @@ export default class RestaurantsList extends React.Component {
     componentWillUnmount() {}
 
     openRestaurantScreen = (restaurant, menu) => {
-        setScreenState({
-            currentRestaurant: restaurant,
-            currentMenu: menu,
-        });
+        store.dispatch(actions.setSelectedRestaurant(restaurant));
+        store.dispatch(actions.setSelectedMenu(menu));
         this.props.history.push("/app/restaurants/details");
     };
 

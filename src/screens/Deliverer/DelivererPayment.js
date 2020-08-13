@@ -4,16 +4,16 @@ import {
     getProfileImage,
     getProfileData,
     getBarcodeData,
-    getScreenState,
 } from "../../assets/scripts/Util";
+import { connect } from "react-redux";
 
-export default class DeliveryPayment extends React.Component {
+class DelivererPayment extends React.Component {
     constructor(props) {
         super(props);
-        getProfileImage(getScreenState().apiToken).then((profileImage) => {
+        getProfileImage(this.props.apiToken).then((profileImage) => {
             this.setState({ profileImage });
         });
-        getProfileData(getScreenState().apiToken).then((profileData) => {
+        getProfileData(this.props.apiToken).then((profileData) => {
             this.setState({ ...profileData });
         });
         getBarcodeData("20552343").then((barcodeData) => {
@@ -161,6 +161,8 @@ export default class DeliveryPayment extends React.Component {
         );
     }
 }
+
+export default connect(({registerDetails}) => ({registerDetails}))(DelivererPayment);
 
 const styles = StyleSheet.create({
     content: {

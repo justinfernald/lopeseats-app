@@ -2,18 +2,17 @@ import React from "react";
 import Input from "../../../components/Input";
 import {
     getBuildings,
-    getScreenState,
-    setScreenState,
 } from "../../../assets/scripts/Util";
 import Screen from "../../../components/Screen";
+import { connect } from "react-redux";
+import store, { actions } from "../../../Redux";
 
-export default class DeliveryDetails extends React.Component {
+class DeliveryDetails extends React.Component {
     buildings = null;
 
     constructor(props) {
         super(props);
-        var screenState = getScreenState();
-        this.addressRef = React.createRef(screenState.address);
+        this.addressRef = React.createRef(props.address);
         this.state = {
             search: "",
             searchResults: [],
@@ -51,12 +50,11 @@ export default class DeliveryDetails extends React.Component {
     }
 
     onNextStep = (address) => {
-        setScreenState({ address });
+        store.dispatch(actions.setAddress(address));
         this.props.history.push("/app/restaurants/checkout");
     };
 
     render() {
-        var screenState = getScreenState();
         return (
             <Screen
                 appBar={{
@@ -71,7 +69,7 @@ export default class DeliveryDetails extends React.Component {
                             passedRef={this.addressRef}
                             placeholder="Address"
                             onChange={(e) => this.updateValue(e)}
-                            defaultValue={screenState.address}
+                            defaultValue={this.props.address}
                         />
                     </div>
 
@@ -110,3 +108,5 @@ export default class DeliveryDetails extends React.Component {
         );
     }
 }
+
+export default connect(({address}) => ({address}))(DeliveryDetails)

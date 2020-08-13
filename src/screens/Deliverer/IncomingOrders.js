@@ -1,9 +1,7 @@
 import React from "react";
 import { getIncomingOrderList, parseDate } from "../../assets/scripts/Util";
-import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
-import { title } from "process";
 
 class IncomingOrders extends React.Component {
     constructor(props) {
