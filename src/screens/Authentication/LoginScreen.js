@@ -13,23 +13,23 @@ import {
 import { connect } from "react-redux";
 import store, { actions } from "../../Redux";
 import { IonPage } from "@ionic/react";
-import {withCookies} from 'react-cookie';
+import { withCookies } from "react-cookie";
 
 class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        const {cookies} = props;
+        const { cookies } = props;
 
         // console.log(cookies.get('apiToken'));
 
         this.state = {
             showPassword: false,
-            loading: !!cookies.get('apiToken'),
+            loading: !!cookies.get("apiToken"),
         };
 
-        if (cookies.get('apiToken')) {
-            this.checkToken(cookies.get('apiToken'));
+        if (cookies.get("apiToken")) {
+            this.checkToken(cookies.get("apiToken"));
         }
 
         this.phoneNumberRef = React.createRef();
@@ -124,11 +124,20 @@ class LoginScreen extends React.Component {
     onLogin = (apiToken, profileData) => {
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
-        this.props.cookies.set('apiToken', apiToken, {path: '/'});
+        this.props.cookies.set("apiToken", apiToken, { path: "/" });
         console.log("profile data ", profileData);
         store.dispatch(actions.setUserDetails(profileData));
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
-        this.props.history.replace("/app");
+        console.log(this.props);
+        const fromURL = this.getFromURL(this.props.location);
+        this.props.history.replace(
+            fromURL === "/login" ? "/app/home" : fromURL
+        );
+    };
+
+    getFromURL = (location) => {
+        if (!location.state) return location.pathname;
+        return this.getFromURL(location.state.from);
     };
 
     onNotConfirmed = (phone) => {
@@ -214,4 +223,8 @@ class LoginScreen extends React.Component {
     }
 }
 
-export default connect(({ apiToken, fbToken, fbPlatform }) => ({ apiToken, fbToken, fbPlatform }))(withCookies(LoginScreen));
+export default connect(({ apiToken, fbToken, fbPlatform }) => ({
+    apiToken,
+    fbToken,
+    fbPlatform,
+}))(withCookies(LoginScreen));

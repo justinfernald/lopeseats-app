@@ -41,7 +41,9 @@ const initialState = {
     fbToken: null,
     fbPlatform: null,
     // Delivery Details
-    address: null
+    address: null,
+    // Delivery Mode
+    deliveryModeActive: false,
 };
 
 const reducers = {
@@ -130,37 +132,53 @@ const reducers = {
         state.currentOrder = null;
     },
     //Item Details
-    setItemDetails: (state: any, {payload: itemDetails}: {payload: object}) => {
-        state.itemDetails = {...state.itemDetails, ...itemDetails};
+    setItemDetails: (
+        state: any,
+        { payload: itemDetails }: { payload: object }
+    ) => {
+        state.itemDetails = { ...state.itemDetails, ...itemDetails };
     },
     unsetItemDetails: (state: any) => {
         state.itemDetails = null;
     },
     //Messaging
-    setMessageOrderId: (state: any, {payload: messageOrderId}: {payload: object}) => {
+    setMessageOrderId: (
+        state: any,
+        { payload: messageOrderId }: { payload: object }
+    ) => {
         state.messageOrderId = messageOrderId;
     },
     unsetMessageOrderId: (state: any) => {
         state.messageOrderId = null;
     },
     // Notifications
-    setFBToken: (state: any, {payload: fbToken}: {payload: string}) => {
+    setFBToken: (state: any, { payload: fbToken }: { payload: string }) => {
         state.fbToken = fbToken;
     },
     unsetFBToken: (state: any) => {
         state.fbToken = null;
     },
-    setFBPlatform: (state: any, {payload: fbPlatform}: {payload: string}) => {
+    setFBPlatform: (
+        state: any,
+        { payload: fbPlatform }: { payload: string }
+    ) => {
         state.fbPlatform = fbPlatform;
     },
     unsetFBPlatform: (state: any) => {
         state.fbPlatform = null;
     },
-    setAddress: (state: any, {payload: address}: {payload: string}) => {
+    setAddress: (state: any, { payload: address }: { payload: string }) => {
         state.address = address;
     },
     unsetAddress: (state: any) => {
         state.address = null;
+    },
+    // Deliverer Mode
+    setDeliveryMode: (
+        state: any,
+        { payload: deliveryModeActive }: { payload: boolean }
+    ) => {
+        state.deliveryModeActive = deliveryModeActive;
     },
 };
 
