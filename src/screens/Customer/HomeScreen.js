@@ -112,15 +112,7 @@ class HomeScreen extends React.Component {
                                     <div
                                         className={"screenTile"}
                                         key={index}
-                                        onClick={() => {
-                                            this.changeScreen(
-                                                this.props.tileNavigation[
-                                                    this.props.deliveryMode
-                                                        ? 0
-                                                        : 1
-                                                ][index]
-                                            );
-                                        }}>
+                                        onClick={() => {}}>
                                         <div className="iconTile">
                                             <i className="material-icons-round">
                                                 {value.icon}

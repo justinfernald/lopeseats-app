@@ -18,7 +18,8 @@ import Profile from "./Customer/Profile";
 import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
-import IncomingOrders from "./Deliverer/IncomingOrders";
+// import IncomingOrders from "./Deliverer/IncomingOrders";
+import StartDelivery from "./Deliverer/StartDelivery";
 
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 
@@ -47,7 +48,7 @@ const MainScreen = (props) =>
                     />
                     <Route
                         path="/app/:tab(deliverer)"
-                        component={IncomingOrders}
+                        component={StartDelivery}
                         exact
                     />
                     <Route

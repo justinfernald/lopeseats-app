@@ -1,9 +1,8 @@
 import React from "react";
 import { getIncomingOrderList, parseDate } from "../../assets/scripts/Util";
-import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
-import { title } from "process";
+import Loading from "../Other/Loading";
 
 class IncomingOrders extends React.Component {
     constructor(props) {
@@ -22,13 +21,14 @@ class IncomingOrders extends React.Component {
 
     render() {
         if (!this.state.orders) {
-            return "Loading...";
+            return <Loading message="Orders loading" />;
         }
+
         return (
             <Screen
                 appBar={{
                     title: "Incoming Orders",
-                    onBack: this.props.onBack,
+                    onBack: this.props.history.goBack,
                 }}>
                 <div className="incomingOrderList">
                     {this.state.orders == null

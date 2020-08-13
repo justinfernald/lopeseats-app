@@ -1,6 +1,9 @@
 import React from "react";
 import ScreenHandler from "./screens/ScreenHandler";
+
 import "./App.css";
+import "./Theme.css";
+
 import firebase from "firebase/app";
 import "firebase/messaging";
 import MessageListener from "./assets/scripts/MessageListener";
