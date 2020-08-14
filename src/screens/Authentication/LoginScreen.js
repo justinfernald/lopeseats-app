@@ -9,6 +9,7 @@ import {
     resendCode,
     updateFBToken,
     postData,
+    cacheProfileImage
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
 import { store, actions } from "../../Redux";
@@ -120,6 +121,7 @@ class LoginScreen extends React.Component {
     onLogin = (apiToken, profileData) => {
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
+        cacheProfileImage(apiToken);
         this.props.cookies.set("apiToken", apiToken, { path: "/" });
         console.log("profile data ", profileData);
         store.dispatch(actions.setUserDetails(profileData));

@@ -17,6 +17,7 @@ const initialState = {
         phoneNumber: null,
         email: null,
         isDeliverer: false,
+        profileImage: "",
     },
     registerDetails: {
         firstName: null,
@@ -25,8 +26,8 @@ const initialState = {
         phoneNumber: null,
         email: null,
         password: null,
-        profileImage: "",
     },
+    profileImage: "",
     // Item Details
     itemDetails: {
         openItem: null,
@@ -90,6 +91,17 @@ const reducers = {
     },
     unsetUserDetails: (state: any) => {
         state.userDetails = initialState.userDetails;
+    },
+    setProfileImage: (
+        state: any,
+        { payload: profileImage }: { payload: string }
+    ) => {
+        state.profileImage = profileImage;
+    },
+    unsetProfileImage: (
+        state: any
+    ) => {
+        state.profileImage = null;
     },
     //registerDetails
     setRegisterDetails: (
