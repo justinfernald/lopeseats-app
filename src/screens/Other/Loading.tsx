@@ -6,10 +6,6 @@ interface PropType {
 }
 
 export default class Screen extends React.Component<PropType> {
-    constructor(props: PropType) {
-        super(props);
-    }
-
     render() {
         return (
             <div className="loadingWrapper">

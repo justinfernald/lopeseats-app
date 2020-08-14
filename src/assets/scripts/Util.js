@@ -365,6 +365,16 @@ export const getOrderPaymentInfo = async (apiToken, orderId) => {
     );
 };
 
+export const getDelivererStats = async (apiToken) => {
+    return await postData("https://lopeseat.com/REST/getDelivererStats.php", {
+        apiToken: apiToken,
+    });
+};
+
+export const getPublicStats = async () => {
+    return await postData("https://lopeseat.com/REST/getPublicStats.php");
+};
+
 export const requestPayout = async (apiToken) => {
     return await postData("https://lopeseat.com/REST/requestPayout.php", {
         apiToken: apiToken,
