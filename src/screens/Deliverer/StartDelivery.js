@@ -53,7 +53,6 @@ class IncomingOrders extends React.Component {
         ) {
             output.push({ t: new Date(t), y: getDataValue(t) });
         }
-        console.log(output);
         return output;
     }
 
@@ -122,13 +121,17 @@ class IncomingOrders extends React.Component {
                                 ],
                             }}
                             options={{
+                                title: {
+                                    display: true,
+                                    text:
+                                        "Deliveries Per 30 Minutes (Past 24 Hours)",
+                                },
                                 maintainAspectRatio: false,
                                 tooltips: {
                                     mode: "index",
                                     intersect: false,
                                     displayColors: false,
                                     callbacks: {
-                                        // fix later to make the AM and PM work for hour 12
                                         title: ([{ label }]) => {
                                             let date = new Date(label);
                                             let dateString =
@@ -136,40 +139,44 @@ class IncomingOrders extends React.Component {
                                                 "\n";
                                             let hours = date.getHours();
                                             let minutes = date.getMinutes();
-                                            let past12 = hours > 12;
-                                            if (past12) hours -= 12;
-                                            if (hours == 0) hours = 12;
-                                            let minutesString = minutes;
-                                            if (minutes < 10)
-                                                minutesString = "0" + minutes;
-                                            let timeStringStart =
-                                                hours +
-                                                ":" +
-                                                minutesString +
-                                                " " +
-                                                (past12 ? "PM" : "AM");
-                                            minutes += 30;
-                                            if (minutes >= 60) {
-                                                minutes -= 60;
-                                                hours++;
-                                            }
-                                            minutesString = minutes;
-                                            if (minutes < 10)
-                                                minutesString = "0" + minutes;
-                                            past12 = hours > 12;
-                                            if (past12) hours -= 12;
-                                            if (hours == 0) hours = 12;
-                                            let timeStringEnd =
-                                                hours +
-                                                ":" +
-                                                minutesString +
-                                                " " +
-                                                (past12 ? "PM" : "AM");
+
+                                            const getTimeString = (
+                                                hours,
+                                                minutes
+                                            ) => {
+                                                if (minutes >= 60) {
+                                                    minutes -= 60;
+                                                    hours++;
+                                                }
+                                                if (hours >= 24) {
+                                                    hours -= 24;
+                                                }
+                                                let hourString = hours;
+                                                let minuteString = minutes + "";
+                                                let midday = "AM";
+                                                // AM: 0-11
+                                                // PM: 12-23
+                                                if (hours >= 12) {
+                                                    if (hours != 12) {
+                                                        hourString = hours - 12;
+                                                    }
+                                                    midday = "PM";
+                                                }
+                                                if (hours == 0) hourString = 12;
+                                                if (minuteString.length < 2)
+                                                    minuteString =
+                                                        "0" + minuteString;
+                                                return `${hourString}:${minuteString} ${midday}`;
+                                            };
+
                                             return (
                                                 dateString +
-                                                timeStringStart +
+                                                getTimeString(hours, minutes) +
                                                 " - " +
-                                                timeStringEnd
+                                                getTimeString(
+                                                    hours,
+                                                    minutes + 30
+                                                )
                                             );
                                         },
                                     },
@@ -183,6 +190,9 @@ class IncomingOrders extends React.Component {
                                             type: "time",
                                             time: {
                                                 unit: "hour",
+                                            },
+                                            gridLines: {
+                                                display: false,
                                             },
                                         },
                                     ],
@@ -229,7 +239,7 @@ class IncomingOrders extends React.Component {
 
 const styles = StyleSheet.create({
     stats: {
-        padding: 30,
+        padding: 10,
         background: "#f0f0f0",
         margin: 10,
         flex: 1,
@@ -239,7 +249,7 @@ const styles = StyleSheet.create({
     },
 
     stat: {
-        marginBottom: 3,
+        margin: "0 10px 3px",
         display: "flex",
         justifyContent: "space-between",
         fontSize: "1.3em",
@@ -253,7 +263,7 @@ const styles = StyleSheet.create({
     chart: {
         flex: 1,
         background: "#fff",
-        margin: 15,
+        margin: "4px 0",
         borderRadius: 7,
     },
     button: {
