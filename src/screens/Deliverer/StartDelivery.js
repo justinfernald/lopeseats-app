@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
 import Button from "../../components/Button";
-import store, { actions } from "../../Redux";
+import { store, actions } from "../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
 
 class IncomingOrders extends React.Component {

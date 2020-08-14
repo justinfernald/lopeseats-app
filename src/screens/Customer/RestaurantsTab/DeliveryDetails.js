@@ -5,7 +5,7 @@ import {
 } from "../../../assets/scripts/Util";
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
-import store, { actions } from "../../../Redux";
+import { store, actions } from "../../../Redux";
 
 class DeliveryDetails extends React.Component {
     buildings = null;

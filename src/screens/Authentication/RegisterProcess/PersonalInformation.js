@@ -7,7 +7,7 @@ import {
 } from "../../../assets/scripts/Util";
 
 import { connect } from "react-redux";
-import store, {actions} from "../../../Redux";
+import {store, actions} from "../../../Redux";
 
 class PersonalInformation extends React.Component {
     constructor(props) {

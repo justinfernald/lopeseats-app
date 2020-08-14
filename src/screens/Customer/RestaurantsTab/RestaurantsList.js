@@ -10,7 +10,7 @@ import { isOpen } from "../../../components/HoursList";
 
 import Screen from "../../../components/Screen";
 
-import store, { actions } from "../../../Redux";
+import { store, actions } from "../../../Redux";
 
 export default class RestaurantsList extends React.Component {
     sortType = {

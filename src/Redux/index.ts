@@ -4,6 +4,9 @@ import {
     // getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 // import logger from "redux-logger";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
 const initialState = {
     apiToken: null,
@@ -188,11 +191,17 @@ const stateSlice = createSlice({
     reducers,
 });
 
+const persistConfig = {
+    key: 'state',
+    storage,
+    stateReconciler: hardSet,
+};
+
 export const { actions } = stateSlice;
 
-export default configureStore({
-    reducer: stateSlice.reducer,
+const reducer = (state: any, action: any) => stateSlice.reducer(state, action);
 
-    // middleware: [...getDefaultMiddleware(), logger],
-    // devTools: false
-});
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+export const store = configureStore({ reducer: persistedReducer, middleware: [], /* devTools: false*/ });
+export const persistor = persistStore(store);

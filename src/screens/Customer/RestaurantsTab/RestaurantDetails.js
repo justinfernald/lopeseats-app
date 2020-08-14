@@ -4,7 +4,7 @@ import HoursList from "../../../components/HoursList";
 import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
-import store, { actions } from "../../../Redux";
+import { store, actions } from "../../../Redux";
 
 class RestaurantDetails extends React.Component {
     constructor(props) {

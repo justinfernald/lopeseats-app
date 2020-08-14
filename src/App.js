@@ -8,7 +8,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 import MessageListener from "./assets/scripts/MessageListener";
 import LopesEatLogo from "./assets/images/icon-384x384.png";
-import store, { actions } from "./Redux";
+import { actions, store } from "./Redux";
 
 import { isPlatform, IonApp } from "@ionic/react";
 import {

@@ -8,7 +8,7 @@ import {
     registerAccount,
 } from "../../../assets/scripts/Util";
 import { connect } from "react-redux";
-import store, { actions } from "../../../Redux";
+import { store, actions } from "../../../Redux";
 
 class VerifyPhone extends React.Component {
     constructor(props) {

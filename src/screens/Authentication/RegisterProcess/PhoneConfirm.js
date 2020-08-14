@@ -6,7 +6,7 @@ import {
     loginAccount,
 } from "../../../assets/scripts/Util";
 import { connect } from "react-redux";
-import store, { actions } from "../../../Redux";
+import { store, actions } from "../../../Redux";
 
 class PhoneConfirm extends React.Component {
     constructor(props) {
