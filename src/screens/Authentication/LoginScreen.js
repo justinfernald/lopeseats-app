@@ -9,9 +9,10 @@ import {
     resendCode,
     updateFBToken,
     postData,
+    cacheProfileImage
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
-import store, { actions } from "../../Redux";
+import { store, actions } from "../../Redux";
 import { IonPage } from "@ionic/react";
 import { withCookies } from "react-cookie";
 
@@ -27,10 +28,6 @@ class LoginScreen extends React.Component {
             showPassword: false,
             loading: !!cookies.get("apiToken"),
         };
-
-        if (cookies.get("apiToken")) {
-            this.checkToken(cookies.get("apiToken"));
-        }
 
         this.phoneNumberRef = React.createRef();
         this.passwordRef = React.createRef();
@@ -124,6 +121,7 @@ class LoginScreen extends React.Component {
     onLogin = (apiToken, profileData) => {
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
+        cacheProfileImage(apiToken);
         this.props.cookies.set("apiToken", apiToken, { path: "/" });
         console.log("profile data ", profileData);
         store.dispatch(actions.setUserDetails(profileData));

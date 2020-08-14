@@ -62,7 +62,8 @@ export default class ImageUploader extends React.Component {
                     );
                     // console.log(canvas.toDataURL('image/jpeg'));
                     this.setState({ image: canvas.toDataURL("image/jpeg") });
-                    this.props.onUpload(canvas.toDataURL("image/jpeg"));
+                    if (this.props.onUpload)
+                        this.props.onUpload(canvas.toDataURL("image/jpeg"));
                 };
             },
             error(err) {

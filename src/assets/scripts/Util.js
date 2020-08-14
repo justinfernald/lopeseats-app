@@ -1,4 +1,5 @@
 import React from "react";
+import { store, actions } from "../../Redux";
 
 export const registerAccount = async (
     phone,
@@ -339,6 +340,21 @@ export const getProfileImage = async (apiToken) => {
             apiToken,
         },
         true
+    );
+};
+
+export const cacheProfileImage = async (apiToken) => {
+    let profileImage = await getProfileImage(apiToken);
+    store.dispatch(actions.setProfileImage(profileImage));
+}
+
+export const setProfileImage = async (apiToken, profileImage) => {
+    return await postData(
+        "https://lopeseat.com/REST/getProfileImage.php",
+        {
+            apiToken,
+            profileImage
+        }
     );
 };
 
