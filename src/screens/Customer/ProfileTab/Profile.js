@@ -21,10 +21,10 @@ class Profile extends React.Component {
                 <div className={css(styles.headerSection)}>
                     <IonGrid>
                         <IonRow>
-                            <IonCol size={4}>
+                            <IonCol size={3}>
                                 <div className={css(styles.imageContainer)}><ImageUploader image={this.props.profileImage} onUpload={image => store.dispatch(actions.setProfileImage(image))}/></div>
                             </IonCol>
-                            <IonCol size={8}>
+                            <IonCol size={9}>
                                 <div className={css(styles.balanceSection)}>
                                     <div className={css(styles.headerText)}>
                                         <span>Dining Dollars:</span>
@@ -39,9 +39,13 @@ class Profile extends React.Component {
                         </IonRow>
                     </IonGrid>
                 </div>
+
+                <div className={css(styles.sectionTitle)}>Account Settings</div>
+                <ClickThrough>Phone Number</ClickThrough>
                 <div className={css(styles.spacer)}/>
-                <div className={css(styles.sectionTitle)}>Account</div>
-                <ClickThrough title="test"/>
+                <ClickThrough>Password</ClickThrough>
+                <div className={css(styles.sectionTitle)}>Delivery</div>
+                <ClickThrough>Become a Runner</ClickThrough>
             </Screen>
         );
     }
@@ -49,16 +53,16 @@ class Profile extends React.Component {
 
 const styles = StyleSheet.create({
 spacer: {
-    width: "calc(100% - 40px)",
+    width: "calc(100% - 20px)",
     height: "1px",
-    marginLeft: "20px",
+    marginLeft: "10px",
     backgroundColor: "#ccc"
 },
 headerSection: {
-    height: "150px"
+    height: "120px"
 },
 imageContainer: {
-    padding: "20px"
+    padding: "5px"
 },
 balanceSection: {
     height: "100%",
