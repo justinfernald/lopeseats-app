@@ -71,19 +71,19 @@ export default class Screen extends React.Component<PropType> {
                 );
             } else {
                 header = (
-                    <div style={{ padding: "10px" }}>
-                        <div className={css(styles.header)}>
-                            {this.props.appBar.onBack ? (
+                    <div className={css(styles.header)}>
+                        {this.props.appBar.onBack ? (
+                            <span className={css(styles.backButton)}>
                                 <i
                                     className="icon material-icons-round"
                                     onClick={this.props.appBar.onBack}>
                                     arrow_back_ios
                                 </i>
-                            ) : null}
-                            <span className={css(styles.screenTitle)}>
-                                {this.props.appBar.title}
                             </span>
-                        </div>
+                        ) : null}
+                        <span className={css(styles.screenTitle)}>
+                            {this.props.appBar.title}
+                        </span>
                     </div>
                 );
             }
@@ -123,13 +123,15 @@ const styles = StyleSheet.create({
         // bottom: 0,
     },
     header: {
-        padding: "5px",
+        padding: "10px",
         fontSize: "1.8em",
         fontWeight: 400,
         fontFamily: '"Rubik", sans-serif',
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        textAlign: "center",
+        boxShadow: "#ccc 0px 0px 6px 0px"
+    },
+    backButton: {
+        float: "left"
     },
     screenTitle: {
         paddingRight: 5,
