@@ -1,8 +1,8 @@
 import React from "react";
-import Screen from "../../components/Screen";
-import ImageUploader from "../Authentication/RegisterProcess/ImageUploader";
+import Screen from "../../../components/Screen";
+import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
-import { store, actions } from "../../Redux";
+import { store, actions } from "../../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { IonGrid, IonRow, IonCol, IonItem, IonList, IonNote, IonLabel } from '@ionic/react';
 
@@ -39,12 +39,20 @@ class Profile extends React.Component {
                         </IonRow>
                     </IonGrid>
                 </div>
+                <div className={css(styles.spacer)}/>
+                
             </Screen>
         );
     }
 }
 
 const styles = StyleSheet.create({
+spacer: {
+    width: "calc(100% - 40px)",
+    height: "1px",
+    marginLeft: "20px",
+    backgroundColor: "#ccc"
+},
 headerSection: {
     height: "150px"
 },

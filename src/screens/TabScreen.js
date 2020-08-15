@@ -14,7 +14,7 @@ import { Route, Redirect } from "react-router-dom";
 import HomeScreen from "./Customer/HomeScreen";
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
 // import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
-import Profile from "./Customer/Profile";
+import Profile from "./Customer/ProfileTab/Profile";
 import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
