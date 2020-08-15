@@ -194,6 +194,9 @@ class IncomingOrders extends React.Component {
                                             gridLines: {
                                                 display: false,
                                             },
+                                            ticks: {
+                                                maxTicksLimit: 6,
+                                            },
                                         },
                                     ],
                                     yAxes: [
@@ -265,6 +268,7 @@ const styles = StyleSheet.create({
         background: "#fff",
         margin: "4px 0",
         borderRadius: 7,
+        border: "1px solid #444",
     },
     button: {
         margin: 15,
