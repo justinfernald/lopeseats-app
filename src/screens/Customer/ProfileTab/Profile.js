@@ -4,7 +4,8 @@ import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { IonGrid, IonRow, IonCol, IonItem, IonList, IonNote, IonLabel } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonContent, IonList, IonNote, IonLabel, IonItemDivider } from '@ionic/react';
+import ClickThrough from "../../../components/Settings/ClickThrough";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -15,8 +16,7 @@ class Profile extends React.Component {
         return (
             <Screen
             appBar={{
-                title: "Profile",
-                onBack: this.props.history.goBack,
+                title: "Profile"
             }}>
                 <div className={css(styles.headerSection)}>
                     <IonGrid>
@@ -40,7 +40,8 @@ class Profile extends React.Component {
                     </IonGrid>
                 </div>
                 <div className={css(styles.spacer)}/>
-                
+                <div className={css(styles.sectionTitle)}>Account</div>
+                <ClickThrough title="test"/>
             </Screen>
         );
     }
@@ -57,7 +58,7 @@ headerSection: {
     height: "150px"
 },
 imageContainer: {
-    padding: "10px"
+    padding: "20px"
 },
 balanceSection: {
     height: "100%",
@@ -66,7 +67,7 @@ balanceSection: {
     justifyContent: "space-evenly"
 },
 headerText: {
-    fontSize: "1.3em",
+    fontSize: "1.4em",
     fontWeight: "500",
     display: "flex",
     flexDirection: "row",
@@ -74,6 +75,16 @@ headerText: {
 },
 balanceAmount: {
     color: "#22aa22"
+},
+sectionTitle: {
+    backgroundColor: "#f2f2f2",
+    fontSize: "1.4em",
+    height: "2em",
+    display: "flex", 
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingLeft: "10px",
+    fontWeight: 500
 }
 });
 

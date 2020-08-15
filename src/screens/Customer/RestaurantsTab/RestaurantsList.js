@@ -118,7 +118,6 @@ export default class RestaurantsList extends React.Component {
             <Screen
                 appBar={{
                     title: "Restaurants",
-                    onBack: this.props.history.goBack,
                 }}>
                 <div className="restaurantTop">
                     <div className="sortControl">
