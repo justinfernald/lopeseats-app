@@ -222,8 +222,7 @@ class OrderTracker extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Order Tracker",
-                    onBack: this.props.history.goBack,
+                    title: "Order Tracker"
                 }}>
                 {content}
                 {footer}

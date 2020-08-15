@@ -4,7 +4,7 @@ import {
     getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 // import logger from "redux-logger";
-import { persistStore, persistReducer } from "redux-persist";
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 import handleStateChange from "./updateHandler";
@@ -231,6 +231,10 @@ const updateHandler = (store: any) => (next: any) => (action: any) => {
 
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: [...getDefaultMiddleware(), updateHandler] /* devTools: false*/,
+    middleware: [...getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+        }
+      }), updateHandler] /* devTools: false*/,
 });
 export const persistor = persistStore(store);
