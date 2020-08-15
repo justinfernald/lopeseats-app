@@ -400,11 +400,11 @@ export const getBuildings = async () => {
 
 // TODO START: Write these server scripts then fill in urls
 export const startDeliveryMode = async () => {
-    return await postData("https://lopeseat.com/REST/");
+    return await postData("https://lopeseat.com/REST/startDeliveryMode.php");
 };
 
 export const stopDeliveryMode = async () => {
-    return await postData("https://lopeseat.com/REST/");
+    return await postData("https://lopeseat.com/REST/stopDeliveryMode.php");
 };
 // TODO END
 
