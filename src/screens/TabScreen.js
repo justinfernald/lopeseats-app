@@ -7,11 +7,11 @@ import {
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
-    IonIcon,
+    IonIcon
 } from "@ionic/react";
 import { Route, Redirect } from "react-router-dom";
 
-import HomeScreen from "./Customer/HomeScreen";
+import HomeScreen from "./Customer/HomeScreen.new";
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
 // import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./Customer/ProfileTab/Profile";
@@ -24,14 +24,14 @@ import StartDelivery from "./Deliverer/StartDelivery";
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
 
-const MainScreen = (props) =>
+const MainScreen = props =>
     !props.apiToken ? (
         <Redirect
             to={{
                 pathname: "/login",
                 state: {
-                    from: props.location,
-                },
+                    from: props.location
+                }
             }}
         />
     ) : (
@@ -100,8 +100,9 @@ const MainScreen = (props) =>
                             style={{
                                 width: "100%",
                                 height: "50%",
-                                fontSize: "1.9em",
-                            }}>
+                                fontSize: "1.9em"
+                            }}
+                        >
                             track_changes
                         </i>
                     </IonTabButton>
@@ -118,7 +119,7 @@ const MainScreen = (props) =>
 
 const mapStateToProps = ({ apiToken, userDetails: { isDeliverer } }) => ({
     apiToken,
-    isDeliverer,
+    isDeliverer
 });
 
 export default connect(mapStateToProps)(MainScreen);
