@@ -4,14 +4,14 @@ import { IonRippleEffect } from "@ionic/react";
 
 export default class ClickThrough extends React.Component<{
     onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-    title: string;
+    children?: JSX.Element;
     disabled?: boolean;
     noRipple?: boolean;
 }> {
     render() {
         return (
             <div className={css(styles.textContent)}>
-                <span style={{lineHeight: "1em"}}>{this.props.title}</span>
+                <span style={{lineHeight: "1em"}}>{this.props.children}</span>
                 <span style={{color: "#888", fontSize: "1.2em"}} className="material-icons">
                     keyboard_arrow_right
                 </span>
@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        fontSize: "1.5em",
-        fontWeight: 400,
+        fontSize: "1.4em",
         margin: "10px"
     }
 });
