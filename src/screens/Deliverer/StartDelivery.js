@@ -6,7 +6,99 @@ import { store, actions } from "../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { getDelivererStats, getPublicStats } from "../../assets/scripts/Util";
 import Loading from "../Other/Loading";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
+
+const chartOptions = {
+    title: {
+        display: true,
+        text: "Deliveries Per 30 Minutes (Past 24 Hours)",
+    },
+    maintainAspectRatio: false,
+    tooltips: {
+        mode: "index",
+        intersect: false,
+        displayColors: false,
+        callbacks: {
+            title: ([{ label }]) => {
+                let date = new Date(label);
+                let dateString = date.toLocaleDateString() + "\n";
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+
+                const getTimeString = (hours, minutes) => {
+                    if (minutes >= 60) {
+                        minutes -= 60;
+                        hours++;
+                    }
+                    if (hours >= 24) {
+                        hours -= 24;
+                    }
+                    let hourString = hours;
+                    let minuteString = minutes + "";
+                    let midday = "AM";
+                    // AM: 0-11
+                    // PM: 12-23
+                    if (hours >= 12) {
+                        if (hours !== 12) {
+                            hourString = hours - 12;
+                        }
+                        midday = "PM";
+                    }
+                    if (hours === 0) hourString = 12;
+                    if (minuteString.length < 2)
+                        minuteString = "0" + minuteString;
+                    return `${hourString}:${minuteString} ${midday}`;
+                };
+
+                return (
+                    dateString +
+                    getTimeString(hours, minutes) +
+                    " - " +
+                    getTimeString(hours, minutes + 30)
+                );
+            },
+        },
+    },
+    legend: {
+        display: false,
+    },
+    scales: {
+        xAxes: [
+            {
+                type: "time",
+                time: {
+                    unit: "hour",
+                },
+                gridLines: {
+                    display: false,
+                },
+                ticks: {
+                    maxTicksLimit: 6,
+                },
+            },
+        ],
+        yAxes: [
+            {
+                ticks: {
+                    beginAtZero: true,
+                    callback: (value) => {
+                        if (value % 1 === 0) {
+                            return value;
+                        }
+                    },
+                },
+            },
+        ],
+    },
+};
+
+const dataFormat = {
+    label: "Deliveries",
+    pointRadius: 0,
+    backgroundColor: "rgba(249, 124, 124, .5)",
+    borderColor: "rgba(237, 51, 72, .5)",
+    steppedLine: "middle",
+};
 
 class IncomingOrders extends React.Component {
     constructor(props) {
@@ -56,9 +148,9 @@ class IncomingOrders extends React.Component {
         return output;
     }
 
-    startDelivering() {
-        store.dispatch(actions.setDeliveryMode(true));
-    }
+    toggleDeliveringState = () => {
+        store.dispatch(actions.setDeliveryMode(!this.props.deliveryModeActive));
+    };
 
     render() {
         if (!this.state.delivererStats || !this.state.publicStats)
@@ -104,11 +196,7 @@ class IncomingOrders extends React.Component {
                             data={{
                                 datasets: [
                                     {
-                                        label: "Deliveries",
-                                        pointRadius: 0,
-                                        backgroundColor:
-                                            "rgba(249, 124, 124, .5)",
-                                        borderColor: "rgba(237, 51, 72, .5)",
+                                        ...dataFormat,
                                         data: this.setupHistogramData(
                                             this.state.publicStats.histogramData.map(
                                                 ({ time, occurances: y }) => ({
@@ -120,99 +208,7 @@ class IncomingOrders extends React.Component {
                                     },
                                 ],
                             }}
-                            options={{
-                                title: {
-                                    display: true,
-                                    text:
-                                        "Deliveries Per 30 Minutes (Past 24 Hours)",
-                                },
-                                maintainAspectRatio: false,
-                                tooltips: {
-                                    mode: "index",
-                                    intersect: false,
-                                    displayColors: false,
-                                    callbacks: {
-                                        title: ([{ label }]) => {
-                                            let date = new Date(label);
-                                            let dateString =
-                                                date.toLocaleDateString() +
-                                                "\n";
-                                            let hours = date.getHours();
-                                            let minutes = date.getMinutes();
-
-                                            const getTimeString = (
-                                                hours,
-                                                minutes
-                                            ) => {
-                                                if (minutes >= 60) {
-                                                    minutes -= 60;
-                                                    hours++;
-                                                }
-                                                if (hours >= 24) {
-                                                    hours -= 24;
-                                                }
-                                                let hourString = hours;
-                                                let minuteString = minutes + "";
-                                                let midday = "AM";
-                                                // AM: 0-11
-                                                // PM: 12-23
-                                                if (hours >= 12) {
-                                                    if (hours != 12) {
-                                                        hourString = hours - 12;
-                                                    }
-                                                    midday = "PM";
-                                                }
-                                                if (hours == 0) hourString = 12;
-                                                if (minuteString.length < 2)
-                                                    minuteString =
-                                                        "0" + minuteString;
-                                                return `${hourString}:${minuteString} ${midday}`;
-                                            };
-
-                                            return (
-                                                dateString +
-                                                getTimeString(hours, minutes) +
-                                                " - " +
-                                                getTimeString(
-                                                    hours,
-                                                    minutes + 30
-                                                )
-                                            );
-                                        },
-                                    },
-                                },
-                                legend: {
-                                    display: false,
-                                },
-                                scales: {
-                                    xAxes: [
-                                        {
-                                            type: "time",
-                                            time: {
-                                                unit: "hour",
-                                            },
-                                            gridLines: {
-                                                display: false,
-                                            },
-                                            ticks: {
-                                                maxTicksLimit: 6,
-                                            },
-                                        },
-                                    ],
-                                    yAxes: [
-                                        {
-                                            ticks: {
-                                                beginAtZero: true,
-                                                callback: (value) => {
-                                                    if (value % 1 === 0) {
-                                                        return value;
-                                                    }
-                                                },
-                                            },
-                                        },
-                                    ],
-                                },
-                            }}
+                            options={chartOptions}
                         />
                     </div>
                     <div className={css(styles.stat)}>
@@ -232,8 +228,23 @@ class IncomingOrders extends React.Component {
                         </div>
                     </div>
                 </div>
-                <Button onClick={this.startDelivering} style={styles.button}>
-                    Start Delivering
+                <div className={css(styles.currentTime)}>
+                    {this.props.deliveryModeActive ? (
+                        <>
+                            <div>Current Time Active</div>
+                            <div className={css(styles.activeTime)}>
+                                2:45:23
+                            </div>
+                        </>
+                    ) : null}
+                </div>
+                <Button
+                    onClick={this.toggleDeliveringState}
+                    style={styles.button}
+                    secondary={!this.props.deliveryModeActive}>
+                    {this.props.deliveryModeActive
+                        ? "Stop Delivering"
+                        : "Start Delivering"}
                 </Button>
             </Screen>
         );
@@ -273,6 +284,17 @@ const styles = StyleSheet.create({
     button: {
         margin: 15,
         marginBottom: 25,
+    },
+    currentTime: {
+        height: 24,
+        display: "flex",
+        justifyContent: "center",
+        fontSize: "1.2em",
+    },
+    activeTime: {
+        marginLeft: 9,
+        width: 70,
+        textAlign: "right",
     },
 });
 

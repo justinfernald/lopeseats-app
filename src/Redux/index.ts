@@ -1,12 +1,13 @@
 import {
     createSlice,
     configureStore,
-    // getDefaultMiddleware,
+    getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 // import logger from "redux-logger";
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import hardSet from "redux-persist/lib/stateReconciler/hardSet";
+import handleStateChange from "./updateHandler";
 
 const initialState = {
     apiToken: null,
@@ -47,6 +48,7 @@ const initialState = {
     // Delivery Details
     address: null,
     // Delivery Mode
+    deliveryStartingTime: null,
     deliveryModeActive: false,
 };
 
@@ -98,9 +100,7 @@ const reducers = {
     ) => {
         state.profileImage = profileImage;
     },
-    unsetProfileImage: (
-        state: any
-    ) => {
+    unsetProfileImage: (state: any) => {
         state.profileImage = null;
     },
     //registerDetails
@@ -195,6 +195,12 @@ const reducers = {
     ) => {
         state.deliveryModeActive = deliveryModeActive;
     },
+    setDeliveryStartingTime: (
+        state: any,
+        { payload: deliveryStartingTime }: { payload: Date }
+    ) => {
+        state.deliveryStartingTime = deliveryStartingTime;
+    },
 };
 
 const stateSlice = createSlice({
@@ -204,7 +210,7 @@ const stateSlice = createSlice({
 });
 
 const persistConfig = {
-    key: 'state',
+    key: "state",
     storage,
     stateReconciler: hardSet,
 };
@@ -215,5 +221,16 @@ const reducer = (state: any, action: any) => stateSlice.reducer(state, action);
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-export const store = configureStore({ reducer: persistedReducer, middleware: [], /* devTools: false*/ });
+const updateHandler = (store: any) => (next: any) => (action: any) => {
+    const previousState = store.getState();
+    const result = next(action);
+    const newState = store.getState();
+    handleStateChange(previousState, newState, action.type);
+    return result;
+};
+
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: [...getDefaultMiddleware(), updateHandler] /* devTools: false*/,
+});
 export const persistor = persistStore(store);

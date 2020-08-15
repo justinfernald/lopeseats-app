@@ -22,6 +22,7 @@ import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 import StartDelivery from "./Deliverer/StartDelivery";
 
 import { restaurant, search, repeatSharp, person } from "ionicons/icons";
+import DelivererRouter from "./Deliverer/DelivererRouter";
 
 const MainScreen = (props) =>
     !props.apiToken ? (
@@ -48,8 +49,7 @@ const MainScreen = (props) =>
                     />
                     <Route
                         path="/app/:tab(deliverer)"
-                        component={StartDelivery}
-                        exact
+                        component={DelivererRouter}
                     />
                     <Route
                         path="/app/:tab(tracker)"
