@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
         width: "auto",
         fontWeight: 700,
         letterSpacing: "0.11em",
+        overflow: "hidden",
     },
     primary: {
         backgroundColor: "#eb1c34",

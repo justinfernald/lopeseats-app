@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { IonPage /*IonContent*/ } from "@ionic/react";
+import { IonPage } from "@ionic/react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import "../App.css";
 
@@ -97,7 +97,7 @@ export default class Screen extends React.Component<PropType> {
                         this.props.dark ? styles.dark : styles.light
                     )}>
                     {header}
-                    {content}
+                    <div className={css(styles.screenContent)}>{content}</div>
                 </div>
             </IonPage>
         );
@@ -127,10 +127,12 @@ const styles = StyleSheet.create({
         fontSize: "1.8em",
         fontWeight: 400,
         fontFamily: '"Rubik", sans-serif',
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
     },
     screenTitle: {
-        float: "right",
-        transform: "translate(-5px, -3px)",
+        paddingRight: 5,
     },
     splash: {
         flex: "0 0 auto",
@@ -151,5 +153,12 @@ const styles = StyleSheet.create({
         fontSize: "1.7em",
         fontWeight: 300,
         right: "10px",
+    },
+    screenContent: {
+        display: "flex",
+        flexDirection: "column",
+        flex: 1,
+        overflowY: "auto",
+        overflowX: "hidden",
     },
 });

@@ -346,16 +346,13 @@ export const getProfileImage = async (apiToken) => {
 export const cacheProfileImage = async (apiToken) => {
     let profileImage = await getProfileImage(apiToken);
     store.dispatch(actions.setProfileImage(profileImage));
-}
+};
 
 export const setProfileImage = async (apiToken, profileImage) => {
-    return await postData(
-        "https://lopeseat.com/REST/getProfileImage.php",
-        {
-            apiToken,
-            profileImage
-        }
-    );
+    return await postData("https://lopeseat.com/REST/getProfileImage.php", {
+        apiToken,
+        profileImage,
+    });
 };
 
 export const getProfileData = async (apiToken) => {
@@ -400,6 +397,16 @@ export const requestPayout = async (apiToken) => {
 export const getBuildings = async () => {
     return await postData("https://lopeseat.com/REST/getBuildings.php");
 };
+
+// TODO START: Write these server scripts then fill in urls
+export const startDeliveryMode = async () => {
+    return await postData("https://lopeseat.com/REST/");
+};
+
+export const stopDeliveryMode = async () => {
+    return await postData("https://lopeseat.com/REST/");
+};
+// TODO END
 
 export const makePHXTime = (date) => {
     return new Date(
