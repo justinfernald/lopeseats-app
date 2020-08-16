@@ -9,13 +9,13 @@ const handleStateChange = async (
     switch (actionType) {
         case actions.setDeliveryMode.type:
             if (newState.deliveryModeActive) {
-                const data = await startDeliveryMode();
-                if (!data.success) {
+                const data = await startDeliveryMode(newState.apiToken);
+                if (data.success) {
                     store.dispatch(
-                        actions.setDeliveryStartingTime(new Date(data.msg))
+                        actions.setDeliveryStartingTime(data.msg.startingTime)
                     );
                 }
-            } else stopDeliveryMode();
+            } else stopDeliveryMode(newState.apiToken);
             break;
     }
 };
