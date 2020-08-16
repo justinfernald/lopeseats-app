@@ -57,6 +57,7 @@ input:-webkit-autofill:active {
     height: 100%;
     width: 100%;
     position: absolute;
+    overflow: "hidden";
 }
 
 /* this might cause errors idk, yet so BEWARE!! */

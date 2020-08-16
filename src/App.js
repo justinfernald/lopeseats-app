@@ -27,6 +27,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             darkTheme: false,
+            bypassToken: false,
             fbToken: null,
             fbPlatform: null,
         };
@@ -43,7 +44,7 @@ class App extends React.Component {
                     className={
                         "App " + (this.state.darkTheme ? "dark" : "light")
                     }>
-                    {this.state.fbToken ? (
+                    {this.state.fbToken || this.state.bypassToken ? (
                         <ScreenHandler
                             fbToken={this.state.fbToken}
                             fbPlatform={this.state.fbPlatform}
@@ -150,6 +151,7 @@ class App extends React.Component {
                 })
                 .catch(function (err) {
                     console.log(err);
+                    app.setState({bypassToken: true});
                 });
 
             messaging.onMessage((payload) => {
