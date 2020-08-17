@@ -7,6 +7,7 @@ import { css, StyleSheet } from "aphrodite/no-important";
 import { getDelivererStats, getPublicStats } from "../../assets/scripts/Util";
 import Loading from "../Other/Loading";
 import { Line } from "react-chartjs-2";
+import { milliSecondsToTimeString } from "../../assets/scripts/Util";
 
 const chartOptions = {
     title: {
@@ -106,7 +107,10 @@ class IncomingOrders extends React.Component {
         this.state = {
             delivererStats: null,
             publicStats: null,
+            timeActive: null,
         };
+
+        this.timeUpdateInterval = null;
 
         this.fetchData();
     }
@@ -118,6 +122,9 @@ class IncomingOrders extends React.Component {
                 getPublicStats(),
             ])
         ).map((data) => data.msg);
+
+        if (!Array.isArray(publicStats.histogramData))
+            publicStats.histogramData = [];
 
         this.setState({ delivererStats, publicStats });
     }
@@ -149,8 +156,46 @@ class IncomingOrders extends React.Component {
     }
 
     toggleDeliveringState = () => {
+        this.setState({
+            timeActive: null,
+        });
         store.dispatch(actions.setDeliveryMode(!this.props.deliveryModeActive));
     };
+
+    componentDidMount() {
+        if (this.props.deliveryModeActive && this.props.deliveryStartingTime) {
+            this.timeUpdateInterval = setInterval(
+                () =>
+                    this.setState({
+                        timeActive: milliSecondsToTimeString(
+                            Date.now() - this.props.deliveryStartingTime
+                        ),
+                    }),
+                1000
+            );
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (
+            prevProps.deliveryStartingTime !== this.props.deliveryStartingTime
+        ) {
+            clearInterval(this.timeUpdateInterval);
+            this.timeUpdateInterval = setInterval(
+                () =>
+                    this.setState({
+                        timeActive: milliSecondsToTimeString(
+                            Date.now() - this.props.deliveryStartingTime
+                        ),
+                    }),
+                1000
+            );
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timeUpdateInterval);
+    }
 
     render() {
         if (!this.state.delivererStats || !this.state.publicStats)
@@ -159,7 +204,6 @@ class IncomingOrders extends React.Component {
             <Screen
                 appBar={{
                     title: "Delivery Mode",
-                    onBack: this.props.history.goBack,
                 }}>
                 <div className={css(styles.stats)}>
                     <div className={css(styles.stat)}>
@@ -231,9 +275,11 @@ class IncomingOrders extends React.Component {
                 <div className={css(styles.currentTime)}>
                     {this.props.deliveryModeActive ? (
                         <>
-                            <div>Current Time Active</div>
+                            <div>Current Time Active:</div>
                             <div className={css(styles.activeTime)}>
-                                2:45:23
+                                {this.state.timeActive
+                                    ? this.state.timeActive
+                                    : null}
                             </div>
                         </>
                     ) : null}
@@ -302,10 +348,12 @@ const mapStateToProps = ({
     apiToken,
     userDetails: { isDeliverer },
     deliveryModeActive,
+    deliveryStartingTime,
 }) => ({
     apiToken,
     isDeliverer,
     deliveryModeActive,
+    deliveryStartingTime,
 });
 
 export default connect(mapStateToProps)(IncomingOrders);

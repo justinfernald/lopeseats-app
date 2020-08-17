@@ -128,13 +128,13 @@ const styles = StyleSheet.create({
         fontWeight: 400,
         fontFamily: '"Rubik", sans-serif',
         textAlign: "center",
-        boxShadow: "#ccc 0px 0px 6px 0px"
+        boxShadow: "#ccc 0px 0px 6px 0px",
     },
     backButton: {
-        float: "left"
+        float: "left",
     },
     screenTitle: {
-        paddingRight: 5,
+        // paddingRight: 5,
     },
     splash: {
         flex: "0 0 auto",

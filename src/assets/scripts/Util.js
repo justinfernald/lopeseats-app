@@ -398,15 +398,17 @@ export const getBuildings = async () => {
     return await postData("https://lopeseat.com/REST/getBuildings.php");
 };
 
-// TODO START: Write these server scripts then fill in urls
-export const startDeliveryMode = async () => {
-    return await postData("https://lopeseat.com/REST/");
+export const startDeliveryMode = async (apiToken) => {
+    return await postData("https://lopeseat.com/REST/startDeliveryMode.php", {
+        apiToken,
+    });
 };
 
-export const stopDeliveryMode = async () => {
-    return await postData("https://lopeseat.com/REST/");
+export const stopDeliveryMode = async (apiToken) => {
+    return await postData("https://lopeseat.com/REST/stopDeliveryMode.php", {
+        apiToken,
+    });
 };
-// TODO END
 
 export const makePHXTime = (date) => {
     return new Date(
@@ -424,13 +426,28 @@ export const parseDate = (dateString) => {
 export const formatTime = (date) => {
     var hours = date.getHours();
     var suffix = hours > 12 ? "PM" : "AM";
-    // eslint-disable-next-line
-    hours = hours == 0 ? 12 : hours > 12 ? hours - 12 : hours;
+    hours = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
     var minutes = date.getMinutes();
     var minuteString =
-        // eslint-disable-next-line
-        minutes == 0 ? "00" : minutes < 10 ? "0" + minutes.toString() : minutes;
+        minutes === 0
+            ? "00"
+            : minutes < 10
+            ? "0" + minutes.toString()
+            : minutes;
     return hours + ":" + minuteString + suffix;
+};
+
+export const milliSecondsToTimeString = (milliseconds) => {
+    let fullSeconds = milliseconds / 1000;
+    const hours = Math.floor(fullSeconds / 3600);
+    fullSeconds %= 3600;
+    const minutes = Math.floor(fullSeconds / 60);
+    fullSeconds %= 60;
+    const seconds = Math.floor(fullSeconds);
+
+    const doubleDigit = (x) => (x < 10 ? "0" + x : x);
+
+    return `${hours}:${doubleDigit(minutes)}:${doubleDigit(seconds)}`;
 };
 
 export const sleep = (ms) => {
