@@ -1,7 +1,6 @@
 import React from "react";
-// import { motion } from "framer-motion"; // animation library
+import { useHistory } from "react-router-dom";
 
-import Screen from "../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 
 const cardStyles = StyleSheet.create({
@@ -61,10 +60,12 @@ const cardStyles = StyleSheet.create({
 });
 
 const Card = ({ title, desc, img, ...props }) => {
+    const history = useHistory();
+
     // other, less important card parameters
     // discount is a number between 0 and 100 and is null by
     // default
-    const { url, discount, history } = props;
+    const { url, discount } = props;
 
     // when the card is clicked
     const handleClick = () => history.push(url);
@@ -89,39 +90,4 @@ const Card = ({ title, desc, img, ...props }) => {
     );
 };
 
-const homeStyles = StyleSheet.create({
-    root: {
-        display: "flex"
-    },
-    cardCaroussel: {
-        flex: 1
-    },
-    cardList: {
-        flex: 2,
-        padding: "0px 16px"
-    }
-});
-
-const exampleCards = Array.from({ length: 10 }, () => ({
-    title: "Example Card Title",
-    desc: "Example card description. Write whatever here",
-    discount: 30, // -> -30%
-    url: "/app/deliverer"
-}));
-
-const HomeScreen = ({ history, ...props }) => {
-    return (
-        <Screen appBar={{ title: "Dining Updates" }}>
-            <div className={css(homeStyles.cardCaroussel)}></div>
-
-            {/* TODO: maybe make this a virtual list later */}
-            <div className={css(homeStyles.cardList)}>
-                {exampleCards.map(card => (
-                    <Card {...card} history={history} />
-                ))}
-            </div>
-        </Screen>
-    );
-};
-
-export default HomeScreen;
+export default Card;
