@@ -11,7 +11,7 @@ import {
 } from "@ionic/react";
 import { Route, Redirect } from "react-router-dom";
 
-import HomeScreen from "./Customer/HomeScreen.new";
+import HomeScreen from "./Customer/HomeScreen/HomeScreen"; // temp import for testing new layout. TODO: change to "./Customer/HomeScreen"
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
 import Profile from "./Customer/ProfileTab/Profile";
 import DelivererOrder from "./Deliverer/DelivererOrder";
