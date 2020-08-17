@@ -7,31 +7,28 @@ import {
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
-    IonIcon
+    IonIcon,
 } from "@ionic/react";
 import { Route, Redirect } from "react-router-dom";
 
 import HomeScreen from "./Customer/HomeScreen.new";
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
-// import OrderScreen from "./screens/DeliveryProcess/OrderScreen";
 import Profile from "./Customer/ProfileTab/Profile";
 import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
-// import IncomingOrders from "./Deliverer/IncomingOrders";
-import StartDelivery from "./Deliverer/StartDelivery";
 
-import { restaurant, search, repeatSharp, person } from "ionicons/icons";
+import { restaurant, search, person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
 
-const MainScreen = props =>
+const MainScreen = (props) =>
     !props.apiToken ? (
         <Redirect
             to={{
                 pathname: "/login",
                 state: {
-                    from: props.location
-                }
+                    from: props.location,
+                },
             }}
         />
     ) : (
@@ -88,10 +85,15 @@ const MainScreen = props =>
                     </IonTabButton>
                     {props.isDeliverer ? (
                         <IonTabButton tab="delivery" href="/app/deliverer">
-                            <IonIcon
-                                icon={repeatSharp}
-                                style={{ width: "100%", height: "65%" }}
-                            />
+                            <i
+                                className="material-icons-round"
+                                style={{
+                                    width: "100%",
+                                    height: "50%",
+                                    fontSize: "1.9em",
+                                }}>
+                                local_shipping
+                            </i>
                         </IonTabButton>
                     ) : null}
                     <IonTabButton tab="tracker" href="/app/tracker">
@@ -100,9 +102,8 @@ const MainScreen = props =>
                             style={{
                                 width: "100%",
                                 height: "50%",
-                                fontSize: "1.9em"
-                            }}
-                        >
+                                fontSize: "1.9em",
+                            }}>
                             track_changes
                         </i>
                     </IonTabButton>
@@ -119,7 +120,7 @@ const MainScreen = props =>
 
 const mapStateToProps = ({ apiToken, userDetails: { isDeliverer } }) => ({
     apiToken,
-    isDeliverer
+    isDeliverer,
 });
 
 export default connect(mapStateToProps)(MainScreen);
