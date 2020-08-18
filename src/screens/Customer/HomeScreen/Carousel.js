@@ -1,25 +1,14 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // animation library
-import { wrap } from "@popmotion/popcorn"; // wraps value back around: https://popmotion.io/popcorn/api/wrap/
+import { motion, useMotionValue } from "framer-motion"; // animation library
+import { Frame, Page } from "framer";
+import Measure from "react-measure";
+import { css, StyleSheet } from "aphrodite/no-important";
 
 import Card from "./Card";
 
-/**
- * Experimenting with distilling swipe offset and velocity into a single variable, so the
- * less distance a user has swiped, the more velocity they need to register as a swipe.
- * Should accomodate longer swipes and short flicks without having binary checks on
- * just distance thresholds and velocity > 0.
- *
- * source: https://codesandbox.io/s/framer-motion-image-gallery-pqvx3?fontsize=14&module=/src/Example.tsx&file=/src/Example.tsx
- */
-const swipeConfidenceThreshold = 10000;
-const swipePower = (offset, velocity) => {
-    return Math.abs(offset) * velocity;
-};
-
 // In framer motion, these are basically the different states of your animation
 // you can play around with these values until you get the animation you want
-const variants = {
+/* const variants = {
     enter: direction => {
         return {
             x: direction > 0 ? 1000 : -1000,
@@ -38,51 +27,53 @@ const variants = {
             opacity: 0
         };
     }
-};
+}; */
+
+const styles = StyleSheet.create({
+    carousel: {
+        display: "flex",
+
+        position: "relative",
+        height: 250
+    },
+    card: {
+        // margin: 10
+    }
+});
 
 const Carousel = ({ cards, ...props }) => {
-    // card index, direction can be -1 or 1 for left or right
-    const [[card, direction], setCard] = useState([0, 0]);
+    const [size, setSize] = useState({ width: -1, height: -1 });
 
-    const handlePaginate = newDirection =>
-        setCard([card + newDirection, newDirection]);
-
-    const cardIndex = wrap(0, cards.length, card);
-
-    const text = cards.map(c => c.title);
+    const { width, height } = size;
 
     return (
-        <div style={{ display: "flex", flexDirection: "row" }}>
-            <AnimatePresence initial={false} custom={direction}>
-                <motion.div
-                    key={card}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{
-                        x: { type: "spring", stiffness: 300, damping: 200 },
-                        opacity: { duration: 0.2 }
-                    }}
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={1}
-                    onDragEnd={(e, { offset, velocity }) => {
-                        const swipe = swipePower(offset.x, velocity.x);
-
-                        if (swipe < -swipeConfidenceThreshold) {
-                            handlePaginate(1);
-                        } else if (swipe > swipeConfidenceThreshold) {
-                            handlePaginate(-1);
-                        }
-                    }}
-                    style={{ width: "100%" }}
-                >
-                    <Card {...cards[cardIndex]} />
-                </motion.div>
-            </AnimatePresence>
-        </div>
+        <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
+            {({ measureRef }) => (
+                <div ref={measureRef} className={css(styles.carousel)}>
+                    <Page
+                        width={width}
+                        height={height}
+                        defaultEffect="coverflow"
+                        gap={16} // controls the gap between the cards
+                        padding={32} // controls the spacingg between the card and the edge of the screen
+                    >
+                        {cards.map((card, i) => (
+                            <Frame style={{ backgroundColor: "transparent" }}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flex: 1,
+                                        height: "100%"
+                                    }}
+                                >
+                                    <Card key={`card=${i}`} motion {...card} />
+                                </div>
+                            </Frame>
+                        ))}
+                    </Page>
+                </div>
+            )}
+        </Measure>
     );
 };
 
