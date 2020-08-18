@@ -15,8 +15,9 @@ import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect } from "react-router-dom";
 import TabScreen from "./TabScreen";
+import { connect } from "react-redux";
 
-export default class ScreenHandler extends React.Component {
+class ScreenHandler extends React.Component {
     constructor(props) {
         super(props);
         this.noBack = false;
@@ -115,7 +116,7 @@ export default class ScreenHandler extends React.Component {
                 }
             }
         } else {
-            var order = await getOrder(this.state.apiToken);
+            var order = await getOrder(this.props.apiToken);
             if (order == null) {
                 return {
                     text: "Place order",
@@ -147,3 +148,9 @@ export default class ScreenHandler extends React.Component {
         );
     }
 }
+
+const mapStateToProps = ({ apiToken }) => ({
+    apiToken,
+});
+
+export default connect(mapStateToProps)(ScreenHandler);

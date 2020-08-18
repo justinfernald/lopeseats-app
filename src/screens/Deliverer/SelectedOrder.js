@@ -1,13 +1,12 @@
 import React from "react";
 import { getActiveOrderList } from "../../assets/scripts/Util";
-import { connect } from "react-redux";
-class ActiveOrders extends React.Component {
+
+export default class ActiveOrders extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             orders: null,
         };
-        console.log(props);
         this.fetchData();
     }
 
@@ -27,7 +26,7 @@ class ActiveOrders extends React.Component {
                             onClick={this.props.onBack}>
                             arrow_back_ios
                         </i>
-                        <span className="screenTitle">Active Orders</span>
+                        <span className="screenTitle">Incoming Orders</span>
                     </div>
                 </div>
 
@@ -56,17 +55,3 @@ class ActiveOrders extends React.Component {
         );
     }
 }
-
-const mapStateToProps = ({
-    apiToken,
-    userDetails: { isDeliverer },
-    deliveryModeActive,
-    deliveryStartingTime,
-}) => ({
-    apiToken,
-    isDeliverer,
-    deliveryModeActive,
-    deliveryStartingTime,
-});
-
-export default connect(mapStateToProps)(ActiveOrders);

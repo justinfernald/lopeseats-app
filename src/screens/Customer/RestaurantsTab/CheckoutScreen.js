@@ -35,6 +35,7 @@ class CheckoutScreen extends React.Component {
     }
 
     async pay() {
+        if (!this.instance) return;
         if (this.instance.isPaymentMethodRequestable()) {
             const { nonce } = await this.instance.requestPaymentMethod();
             await sendPayment(nonce, this.props.address, this.props.apiToken);
@@ -88,4 +89,6 @@ class CheckoutScreen extends React.Component {
     }
 }
 
-export default connect(({apiToken, address}) => ({apiToken, address}))(CheckoutScreen);
+export default connect(({ apiToken, address }) => ({ apiToken, address }))(
+    CheckoutScreen
+);
