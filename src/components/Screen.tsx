@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
         fontWeight: 400,
         fontFamily: '"Rubik", sans-serif',
         textAlign: "center",
+        zIndex: 10,
         boxShadow: "#ccc 0px 0px 6px 0px",
     },
     backButton: {
