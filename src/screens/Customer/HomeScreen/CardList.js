@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { css, StyleSheet } from "aphrodite/no-important";
 
 import Card from "./Card";
@@ -11,19 +10,19 @@ const styles = StyleSheet.create({
         position: "relative",
 
         padding: 16,
-        paddingBottom: 0
+        paddingBottom: 0,
     },
     cardList: {
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
     },
     title: {
         fontFamily: "Rubik",
         fontWeight: 500,
         fontSize: "1.4em",
 
-        marginBottom: 16
-    }
+        marginBottom: 16,
+    },
 });
 
 const CardList = ({ cards, ...props }) => {

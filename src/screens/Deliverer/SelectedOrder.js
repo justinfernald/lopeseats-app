@@ -1,7 +1,8 @@
 import React from "react";
-import { getActiveOrderList } from "../../assets/scripts/Util";
+import {} from "../../assets/scripts/Util";
+import Screen from "../../components/Screen";
 
-export default class ActiveOrders extends React.Component {
+export default class SelectedOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,47 +12,24 @@ export default class ActiveOrders extends React.Component {
     }
 
     async fetchData() {
-        var orders = await getActiveOrderList(this.props.apiToken);
-        console.log(this.props.apiToken + " " + orders);
-        this.setState({ orders });
+        console.log(this.props.match.params.id);
     }
 
     render() {
+        // customer name
+        // all delivery status details
+        // restaurant
+        // drop off location
+        // order items
+        // customer message button
+        // status changer button
+        // final payment screen button
         return (
-            <div className="flexDisplay fillHeight">
-                <div className="restaurantTop">
-                    <div className="header">
-                        <i
-                            className="icon material-icons-round"
-                            onClick={this.props.onBack}>
-                            arrow_back_ios
-                        </i>
-                        <span className="screenTitle">Incoming Orders</span>
-                    </div>
-                </div>
-
-                <div className="incomingOrderList">
-                    {this.state.orders == null
-                        ? "Loading"
-                        : this.state.orders.map((value, index) => {
-                              return (
-                                  <div
-                                      onClick={async () =>
-                                          this.props.openOrderScreen(value)
-                                      }
-                                      key={index}
-                                      className="incomingOrder">
-                                      <div className="orderTitle">
-                                          {value.restaurant_name}
-                                      </div>
-                                      <div className="orderInfo">
-                                          {value.address}
-                                      </div>
-                                  </div>
-                              );
-                          })}
-                </div>
-            </div>
+            <Screen
+                appBar={{
+                    title: "Order",
+                    onBack: this.props.history.goBack,
+                }}></Screen>
         );
     }
 }

@@ -289,12 +289,9 @@ export const getIncomingOrderList = async (apiToken) => {
 };
 
 export const getActiveOrderList = async (apiToken) => {
-    return await postData(
-        "https://lopeseat.com/REST/orders.php?state=!completed&deliverer",
-        {
-            apiToken: apiToken,
-        }
-    );
+    return await postData("https://lopeseat.com/REST/getActiveOrders.php", {
+        apiToken: apiToken,
+    });
 };
 
 export const getCompletedOrderList = async (apiToken) => {
@@ -452,4 +449,25 @@ export const milliSecondsToTimeString = (milliseconds) => {
 
 export const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const timeSince = (date) => {
+    if (typeof date === "string" || typeof date === "number") {
+        date = new Date(date);
+    }
+
+    const seconds = Math.floor((new Date() - date) / 1000);
+
+    let interval = seconds / 31536000;
+
+    if (interval > 1) return Math.floor(interval) + " years";
+    interval = seconds / 2592000;
+    if (interval > 1) return Math.floor(interval) + " months";
+    interval = seconds / 86400;
+    if (interval > 1) return Math.floor(interval) + " days";
+    interval = seconds / 3600;
+    if (interval > 1) return Math.floor(interval) + " hours";
+    interval = seconds / 60;
+    if (interval > 1) return Math.floor(interval) + " minutes";
+    return Math.floor(seconds) + " seconds";
 };

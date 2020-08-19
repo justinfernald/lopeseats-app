@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion, useMotionValue } from "framer-motion"; // animation library
 import { Frame, Page } from "framer";
 import Measure from "react-measure";
 import { css, StyleSheet } from "aphrodite/no-important";
@@ -34,11 +33,11 @@ const styles = StyleSheet.create({
         display: "flex",
 
         position: "relative",
-        height: 250
+        height: 250,
     },
     card: {
         // margin: 10
-    }
+    },
 });
 
 const Carousel = ({ cards, ...props }) => {
@@ -58,15 +57,16 @@ const Carousel = ({ cards, ...props }) => {
                         padding={32} // controls the spacingg between the card and the edge of the screen
                     >
                         {cards.map((card, i) => (
-                            <Frame style={{ backgroundColor: "transparent" }}>
+                            <Frame
+                                key={`card=${i}`}
+                                style={{ backgroundColor: "transparent" }}>
                                 <div
                                     style={{
                                         display: "flex",
                                         flex: 1,
-                                        height: "100%"
-                                    }}
-                                >
-                                    <Card key={`card=${i}`} motion {...card} />
+                                        height: "100%",
+                                    }}>
+                                    <Card motion {...card} />
                                 </div>
                             </Frame>
                         ))}
