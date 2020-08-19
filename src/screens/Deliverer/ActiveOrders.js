@@ -4,7 +4,7 @@ import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
 import Loading from "../Other/Loading";
-import { sleep, timeSince } from "../../assets/scripts/Util";
+import { timeSince } from "../../assets/scripts/Util";
 import { IonRippleEffect } from "@ionic/react";
 
 const OrderListItem = ({ order, onClick }) => (
@@ -57,7 +57,6 @@ class ActiveOrders extends React.Component {
 
     async fetchData() {
         var orders = await getActiveOrderList(this.props.apiToken);
-        await sleep(1000);
         this.setState({ orders });
     }
 
