@@ -17,6 +17,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 import handleStateChange from "./updateHandler";
+import { fetchBalances } from "./Thunks";
 
 const initialState = {
     apiToken: null,
@@ -59,6 +60,8 @@ const initialState = {
     // Delivery Mode
     deliveryStartingTime: null,
     deliveryModeActive: false,
+    //Balances
+    balances: [],
 };
 
 const reducers = {
@@ -216,6 +219,11 @@ const stateSlice = createSlice({
     name: "state",
     initialState,
     reducers,
+    extraReducers: builder => {
+        builder.addCase(fetchBalances.fulfilled, (state, action) => {
+            state.balances = action.payload;
+        })
+    }
 });
 
 const persistConfig = {

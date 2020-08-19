@@ -4,36 +4,36 @@ import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { IonGrid, IonRow, IonCol, IonContent, IonList, IonNote, IonLabel, IonItemDivider } from '@ionic/react';
+import { IonGrid, IonRow, IonCol } from '@ionic/react';
 import ClickThrough from "../../../components/Settings/ClickThrough";
+import BalanceDisplay from "../../../components/Settings/BalanceDisplay";
+import { fetchBalances } from "../../../Redux/Thunks";
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
+
+        store.dispatch(fetchBalances(this.props.apiToken));
     }
 
     render() {
+
         return (
             <Screen
             appBar={{
                 title: "Profile"
             }}>
                 <div className={css(styles.headerSection)}>
-                    <IonGrid>
-                        <IonRow>
-                            <IonCol size={3}>
+                    <IonGrid style={{height: "100%"}}>
+                        <IonRow style={{height: "100%"}}>
+                            <IonCol size={3} style={{height: "100%"}}>
                                 <div className={css(styles.imageContainer)}><ImageUploader image={this.props.profileImage} onUpload={image => store.dispatch(actions.setProfileImage(image))}/></div>
                             </IonCol>
                             <IonCol size={9}>
+
                                 <div className={css(styles.balanceSection)}>
-                                    <div className={css(styles.headerText)}>
-                                        <span>Dining Dollars:</span>
-                                        <span className={css(styles.balanceAmount)}>$420</span>
-                                    </div>
-                                    <div className={css(styles.headerText)}>
-                                        <span>LopesEat Balance:</span>
-                                        <span className={css(styles.balanceAmount)}>$420</span>
-                                    </div>
+                                    <BalanceDisplay title="LopesEat" amount={this.props.balances.length > 0 ? this.props.balances[0] : ""}/>
+                                    <BalanceDisplay title="Delivery" amount={this.props.balances.length > 0 ? this.props.balances[1] : ""}/>
                                 </div>
                             </IonCol>
                         </IonRow>
@@ -62,23 +62,15 @@ headerSection: {
     height: "120px"
 },
 imageContainer: {
-    padding: "5px"
+    padding: "5px",
+    height: "120px",
+    width: "120px"
 },
 balanceSection: {
     height: "100%",
     display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-evenly"
-},
-headerText: {
-    fontSize: "1.4em",
-    fontWeight: "500",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly"
-},
-balanceAmount: {
-    color: "#22aa22"
 },
 sectionTitle: {
     backgroundColor: "#f2f2f2",
@@ -92,4 +84,4 @@ sectionTitle: {
 }
 });
 
-export default connect(({profileImage}) => ({profileImage}))(Profile);
+export default connect(({profileImage, apiToken, balances}) => ({profileImage, apiToken, balances}))(Profile);
