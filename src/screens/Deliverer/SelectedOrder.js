@@ -1,9 +1,15 @@
 import React from "react";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
-import { getActiveOrder, formatPrice } from "../../assets/scripts/Util";
+import {
+    getActiveOrder,
+    formatPrice,
+    timeSince,
+} from "../../assets/scripts/Util";
 import Screen from "../../components/Screen";
 import { IonSpinner } from "@ionic/react";
+import Button from "../../components/Button";
+import MessageIcon from "../../assets/images/message-icon.svg";
 
 const OrderItem = ({ item }) => (
     <div className={css(styles.orderItem)}>
@@ -114,27 +120,71 @@ class SelectedOrder extends React.Component {
                             </div>
                         </div>
                         <div className={css(styles.deliveryStatuses)}>
-                            <div className={css(styles.timeKey)}></div>
-                            <div className={css(styles.timeValue)}></div>
-                            <div className={css(styles.timeKey)}></div>
-                            <div className={css(styles.timeValue)}></div>
-                            <div className={css(styles.timeKey)}></div>
-                            <div className={css(styles.timeValue)}></div>
-                            <div className={css(styles.timeKey)}></div>
-                            <div className={css(styles.timeValue)}></div>
+                            <div className={css(styles.deliveryStatusesTitle)}>
+                                Delivery Status
+                            </div>
+                            <div className={css(styles.timeKeyValuePair)}>
+                                <div className={css(styles.timeKey)}>
+                                    Placed
+                                </div>
+                                <div className={css(styles.timeValue)}>
+                                    {timeSince(order.timeArrived) + " ago"}
+                                </div>
+                            </div>
+                            <div className={css(styles.timeKeyValuePair)}>
+                                <div className={css(styles.timeKey)}>
+                                    Claimed
+                                </div>
+                                <div className={css(styles.timeValue)}>
+                                    {timeSince(order.timeClaimed) + " ago"}
+                                </div>
+                            </div>
+                            <div className={css(styles.timeKeyValuePair)}>
+                                <div className={css(styles.timeKey)}>
+                                    En Route
+                                </div>
+                                <div className={css(styles.timeValue)}>
+                                    {order.timeEnRoute
+                                        ? timeSince(order.timeEnRoute) + " ago"
+                                        : "Pending..."}
+                                </div>
+                            </div>
+                            <div className={css(styles.timeKeyValuePair)}>
+                                <div className={css(styles.timeKey)}>
+                                    Arrived
+                                </div>
+                                <div className={css(styles.timeValue)}>
+                                    {order.timeArrived
+                                        ? timeSince(order.timeArrived) + " ago"
+                                        : "Pending..."}
+                                </div>
+                            </div>
                         </div>
                         <div className={css(styles.orderItems)}>
                             {order.items.map((item, index) => (
                                 <OrderItem item={item} key={index} />
                             ))}
                         </div>
-                        <div>{/* buttons can be container here */}</div>
+                        <div className={css(styles.buttonContainer)}>
+                            <Button style={styles.statusChangeButton}>
+                                Change Status to {nextStatus[order.orderState]}
+                            </Button>
+                            <div
+                                className={css(styles.messageButton)}
+                                onClick={() => {}}></div>
+                        </div>
                     </div>
                 )}
             </Screen>
         );
     }
 }
+
+const nextStatus = {
+    claimed: "En Route",
+    "en route": "Arrived",
+    arrived: "Completed",
+};
 
 const styles = StyleSheet.create({
     spinner: {
@@ -158,7 +208,9 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginBottom: 8,
+        borderBottom: "1.5px solid #bbb",
+        paddingBottom: 10,
+        marginBottom: 14,
     },
     keyValuePair: {
         display: "flex",
@@ -172,7 +224,28 @@ const styles = StyleSheet.create({
     value: {
         marginLeft: 14,
     },
-    deliveryStatuses: {},
+    deliveryStatuses: {
+        borderRadius: 7,
+        boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
+        marginBottom: 10,
+        background: "#fff",
+        overflow: "hidden",
+        fontSize: "1.1em",
+        padding: "7px 30px",
+    },
+    deliveryStatusesTitle: {
+        fontSize: "1.2em",
+        fontWeight: 500,
+        textAlign: "center",
+        borderBottom: "1px solid #ddd",
+        paddingBottom: 6,
+        marginBottom: 6,
+    },
+    timeKeyValuePair: {
+        display: "flex",
+        justifyContent: "space-between",
+        marginBottom: 3,
+    },
     timeKey: {},
     timeValue: {},
     orderItems: {},
@@ -231,6 +304,19 @@ const styles = StyleSheet.create({
     },
     subItemOptionKey: {},
     subItemOptionValue: {},
+    buttonContainer: {
+        display: "flex",
+    },
+    statusChangeButton: {
+        flex: 1,
+    },
+    messageButton: {
+        content: `url(${MessageIcon})`,
+        width: 53.8,
+        height: 53.8,
+        marginTop: 10,
+        marginLeft: 10,
+    },
 });
 
 const mapStateToProps = ({

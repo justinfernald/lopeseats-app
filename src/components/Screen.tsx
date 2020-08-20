@@ -71,7 +71,11 @@ export default class Screen extends React.Component<PropType> {
                 );
             } else {
                 header = (
-                    <div className={css(styles.header)}>
+                    <div
+                        className={css(
+                            styles.header,
+                            this.props.dark ? styles.dark : styles.light
+                        )}>
                         {this.props.appBar.onBack ? (
                             <span className={css(styles.backButton)}>
                                 <i
