@@ -10,12 +10,12 @@ const exampleCards = Array.from({ length: 10 }, () => ({
     title: "Example Card Title",
     desc: "Example card description. Write whatever here",
     discount: 30, // -> -30%
-    url: "/app/deliverer"
+    url: "/app/restaurants",
 }));
 
-const HomeScreen = ({ history, ...props }) => {
+const HomeScreen = () => {
     return (
-        <Screen appBar={{ title: "Dining Updates" }}>
+        <Screen appBar={{ title: "Dining Deals" }}>
             <div>
                 <Carousel cards={exampleCards} />
                 <CardList cards={exampleCards} />
