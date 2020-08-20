@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import { CookiesProvider } from "react-cookie";
 import { store, persistor } from "./Redux";
-import "./Redux/updateHandler";
 import { PersistGate } from "redux-persist/integration/react";
 
 ReactDOM.render(
