@@ -294,6 +294,15 @@ export const getActiveOrderList = async (apiToken) => {
     });
 };
 
+export const getActiveOrder = async (apiToken, orderId) => {
+    return await postData(
+        "https://lopeseat.com/REST/getActiveOrder.php?id=" + orderId,
+        {
+            apiToken: apiToken,
+        }
+    );
+};
+
 export const getCompletedOrderList = async (apiToken) => {
     return await postData(
         "https://lopeseat.com/REST/orders.php?state=completed&deliverer",
