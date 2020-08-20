@@ -9,6 +9,9 @@ import ClickThrough from "../../../components/Settings/ClickThrough";
 import MenuDropdown from "../../../components/Settings/MenuDropdown";
 import BalanceDisplay from "../../../components/Settings/BalanceDisplay";
 import { fetchBalances } from "../../../Redux/Thunks";
+import Input from "../../../components/Input";
+import Phone from "../../../assets/images/phone-icon.png";
+import { TextField } from '@material-ui/core';
 
 class Profile extends React.Component {
     constructor(props) {
@@ -42,7 +45,10 @@ class Profile extends React.Component {
                 </div>
 
                 <div className={css(styles.sectionTitle)}>Account Settings</div>
-                <MenuDropdown title={"Phone Number"}>Phone Number</MenuDropdown>
+                <MenuDropdown title={"Phone Number"} height={"100px"}>
+                    <TextField className={css(styles.dropdownInput)} color="red"
+                    id="oldPhone" label="Current Phone Number"></TextField>
+                </MenuDropdown>
                 <div className={css(styles.spacer)}/>
                 <ClickThrough>Password</ClickThrough>
                 <div className={css(styles.sectionTitle)}>Delivery</div>
@@ -91,6 +97,11 @@ sectionTitle: {
 userName: {
     fontWeight: 500,
     marginLeft: "10px"
+},
+dropdownInput: {
+    width: "calc(100% - 20px)",
+    margin: "10px",
+    color: "red"
 }
 });
 

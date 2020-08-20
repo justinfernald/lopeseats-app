@@ -2,7 +2,7 @@ import React from 'react';
 import GreyEye from '../assets/images/eye-grey.svg';
 import PurpleEye from '../assets/images/eye-purple.svg';
 
-export default class LoginScreen extends React.Component {
+export default class Input extends React.Component {
 
     
     constructor(props) {

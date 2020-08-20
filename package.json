@@ -14,6 +14,7 @@
         "@ionic-native/firebase-messaging": "^5.27.0",
         "@ionic/react": "^5.3.1",
         "@ionic/react-router": "^5.3.1",
+        "@material-ui/core": "^4.11.0",
         "@reduxjs/toolkit": "^1.4.0",
         "@types/jest": "^26.0.9",
         "@types/node": "^14.0.27",
