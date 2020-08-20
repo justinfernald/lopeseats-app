@@ -311,11 +311,15 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     messageButton: {
-        content: `url(${MessageIcon})`,
+        background: `url(${MessageIcon})`,
+        backgroundSize: "cover",
+        boxShadow: "inset white 0 0 0 2px",
+        borderRadius: "50%",
         width: 53.8,
         height: 53.8,
         marginTop: 10,
         marginLeft: 10,
+        border: "2px solid #ddd",
     },
 });
 

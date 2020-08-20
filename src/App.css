@@ -1511,7 +1511,10 @@ input:-webkit-autofill:active {
 }
 
 .messageButton {
-    content: url(assets/images/message-icon.svg);
+    background: url(assets/images/message-icon.svg);
+    background-size: cover;
+    box-shadow: inset white 0 0 0 2px;
+    border-radius: 50%;
     width: 50px;
     height: 50px;
     position: absolute;
