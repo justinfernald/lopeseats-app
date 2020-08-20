@@ -20,14 +20,13 @@ class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
 
-        const { cookies } = props;
-
-        // console.log(cookies.get('apiToken'));
-
         this.state = {
             showPassword: false,
-            loading: !!cookies.get("apiToken"),
+            loading: !!this.props.apiToken,
         };
+
+        if (this.state.loading)
+            this.checkToken(this.props.apiToken);
 
         this.phoneNumberRef = React.createRef();
         this.passwordRef = React.createRef();

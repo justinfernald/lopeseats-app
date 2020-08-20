@@ -3,14 +3,22 @@ import { css, StyleSheet } from "aphrodite/no-important";
 
 export default class BalanceDisplay extends React.Component<{
     title: string,
-    amount: string
+    balances: Array<number>,
+    loading: boolean,
+    index: number
 }> {
     render() {
+        let { balances, loading, index, title } = this.props;
+        var content = loading ? (
+            <span className={css(styles.balanceAmount)}>...</span>
+        ) : (
+            <span className={css(styles.balanceAmount)}>${balances[index]}</span>
+        );
         return (
             <div className={css(styles.headerText)}>
-                <span className={css(styles.balanceTitle)}>{this.props.title}</span>
+                <span className={css(styles.balanceTitle)}>{title}</span>
                 <div className={css(styles.balanceContainer)}>
-                    <span className={css(styles.balanceAmount)}>${this.props.amount}</span>
+                    {content}
                 </div>
             </div>
         );
@@ -26,7 +34,8 @@ const styles = StyleSheet.create({
         fontWeight: 500,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
+        padding: "10px 0",
         margin: "0 10px"
     },
     balanceContainer: {
@@ -36,14 +45,13 @@ const styles = StyleSheet.create({
     },
     balanceAmount: {
         color: "#22aa22",
-        width: "3.7em",
-        height: "3.7em",
+        padding: "1px 7px 2px",
         textAlign: "center",
         verticalAlign: "middle",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        borderRadius: "1.85em",
+        borderRadius: "1.5em",
         backgroundColor: "#eee"
     },
 });

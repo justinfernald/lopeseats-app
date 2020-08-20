@@ -4,8 +4,9 @@ import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonBackdrop } from '@ionic/react';
 import ClickThrough from "../../../components/Settings/ClickThrough";
+import MenuDropdown from "../../../components/Settings/MenuDropdown";
 import BalanceDisplay from "../../../components/Settings/BalanceDisplay";
 import { fetchBalances } from "../../../Redux/Thunks";
 
@@ -17,6 +18,7 @@ class Profile extends React.Component {
     }
 
     render() {
+        var balanceLoaded = this.props.balances && this.props.balances.length > 0;
 
         return (
             <Screen
@@ -26,22 +28,21 @@ class Profile extends React.Component {
                 <div className={css(styles.headerSection)}>
                     <IonGrid style={{height: "100%"}}>
                         <IonRow style={{height: "100%"}}>
-                            <IonCol size={3} style={{height: "100%"}}>
+                            <IonCol size={3} style={{height: "100%"}} style={styles.flexColumn}>
                                 <div className={css(styles.imageContainer)}><ImageUploader image={this.props.profileImage} onUpload={image => store.dispatch(actions.setProfileImage(image))}/></div>
                             </IonCol>
                             <IonCol size={9}>
-
                                 <div className={css(styles.balanceSection)}>
-                                    <BalanceDisplay title="LopesEat" amount={this.props.balances.length > 0 ? this.props.balances[0] : ""}/>
-                                    <BalanceDisplay title="Delivery" amount={this.props.balances.length > 0 ? this.props.balances[1] : ""}/>
-                                </div>
+                                    <BalanceDisplay title="LopesEat Balance" balances={this.props.balances} loading={!balanceLoaded} index={0}/>
+                                    <BalanceDisplay title="Delivery Balance" balances={this.props.balances} loading={!balanceLoaded} index={1}/>
+                                </div> 
                             </IonCol>
                         </IonRow>
                     </IonGrid>
                 </div>
 
                 <div className={css(styles.sectionTitle)}>Account Settings</div>
-                <ClickThrough>Phone Number</ClickThrough>
+                <MenuDropdown title={"Phone Number"}>Phone Number</MenuDropdown>
                 <div className={css(styles.spacer)}/>
                 <ClickThrough>Password</ClickThrough>
                 <div className={css(styles.sectionTitle)}>Delivery</div>
@@ -62,7 +63,7 @@ headerSection: {
     height: "120px"
 },
 imageContainer: {
-    padding: "5px",
+    padding: "10px",
     height: "120px",
     width: "120px"
 },
@@ -70,6 +71,11 @@ balanceSection: {
     height: "100%",
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-evenly"
+},
+flexColumn: {
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "space-evenly"
 },
 sectionTitle: {
@@ -81,6 +87,10 @@ sectionTitle: {
     justifyContent: "center",
     paddingLeft: "10px",
     fontWeight: 500
+},
+userName: {
+    fontWeight: 500,
+    marginLeft: "10px"
 }
 });
 
