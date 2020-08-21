@@ -92,7 +92,7 @@ const Card = ({ title, description, img, ...props }) => {
             {tag ? <h1 className={css(styles.tag)}>{tag}</h1> : null}
             <div className={css(styles.info)}>
                 <h1 className={css(styles.title)}>{title}</h1>
-                <p className={css(styles.description)}>{desc}</p>
+                <p className={css(styles.desc)}>{description}</p>
             </div>
         </div>
     );
