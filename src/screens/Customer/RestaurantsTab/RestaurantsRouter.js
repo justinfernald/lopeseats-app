@@ -27,7 +27,6 @@ export default function RestaurantsRouter() {
                     exact
                     path="/app/restaurants/details/:id"
                     component={RestaurantDetails}
-                    exact
                 />
                 <Route
                     exact

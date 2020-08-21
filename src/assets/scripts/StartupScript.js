@@ -24,6 +24,20 @@ const checkToken = async (apiToken) => {
         store.dispatch(actions.setUserDetails(profileData));
 
         if (profileData.isDeliverer) {
+            const activeOrderCountResponse = await postData(
+                "https://lopeseat.com/REST/getActiveOrderCount.php",
+                {
+                    apiToken,
+                }
+            );
+
+            if (activeOrderCountResponse.success) {
+                store.dispatch(
+                    actions.setActiveOrderCount(activeOrderCountResponse.msg)
+                );
+            } else {
+                store.dispatch(actions.setActiveOrderCount(0));
+            }
         }
     } else {
         store.dispatch(actions.unsetApiToken());
