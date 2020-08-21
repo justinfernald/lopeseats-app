@@ -12,6 +12,20 @@ import { fetchBalances } from "../../../Redux/Thunks";
 import Input from "../../../components/Input";
 import Phone from "../../../assets/images/phone-icon.png";
 import { TextField } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import ChangePassword from "./ChangePassword";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#000",
+    },
+    secondary: {
+      main: "#eb1c34",
+    },
+  },
+});
 
 class Profile extends React.Component {
     constructor(props) {
@@ -28,31 +42,32 @@ class Profile extends React.Component {
             appBar={{
                 title: "Profile"
             }}>
-                <div className={css(styles.headerSection)}>
-                    <IonGrid style={{height: "100%"}}>
-                        <IonRow style={{height: "100%"}}>
-                            <IonCol size={3} style={{height: "100%"}} style={styles.flexColumn}>
-                                <div className={css(styles.imageContainer)}><ImageUploader image={this.props.profileImage} onUpload={image => store.dispatch(actions.setProfileImage(image))}/></div>
-                            </IonCol>
-                            <IonCol size={9}>
-                                <div className={css(styles.balanceSection)}>
-                                    <BalanceDisplay title="LopesEat Balance" balances={this.props.balances} loading={!balanceLoaded} index={0}/>
-                                    <BalanceDisplay title="Delivery Balance" balances={this.props.balances} loading={!balanceLoaded} index={1}/>
-                                </div> 
-                            </IonCol>
-                        </IonRow>
-                    </IonGrid>
-                </div>
+                <ThemeProvider theme={theme}>
+                    <div className={css(styles.headerSection)}>
+                        <IonGrid style={{height: "100%"}}>
+                            <IonRow style={{height: "100%"}}>
+                                <IonCol size={3} style={{height: "100%"}} style={styles.flexColumn}>
+                                    <div className={css(styles.imageContainer)}>
+                                        <ImageUploader image={this.props.profileImage} onUpload={image => store.dispatch(actions.setProfileImage(image))}/>
+                                    </div>
+                                </IonCol>
+                                <IonCol size={9}>
+                                    <div className={css(styles.balanceSection)}>
+                                        <BalanceDisplay title="LopesEat Balance" balances={this.props.balances} loading={!balanceLoaded} index={0}/>
+                                        <BalanceDisplay title="Delivery Balance" balances={this.props.balances} loading={!balanceLoaded} index={1}/>
+                                    </div> 
+                                </IonCol>
+                            </IonRow>
+                        </IonGrid>
+                    </div>
 
-                <div className={css(styles.sectionTitle)}>Account Settings</div>
-                <MenuDropdown title={"Phone Number"} height={"100px"}>
-                    <TextField className={css(styles.dropdownInput)} color="red"
-                    id="oldPhone" label="Current Phone Number"></TextField>
-                </MenuDropdown>
-                <div className={css(styles.spacer)}/>
-                <ClickThrough>Password</ClickThrough>
-                <div className={css(styles.sectionTitle)}>Delivery</div>
-                <ClickThrough>Become a Runner</ClickThrough>
+                    <div className={css(styles.sectionTitle)}>Account Settings</div>
+                    <ChangePassword/>
+                    <div className={css(styles.spacer)}/>
+                    <ClickThrough>Password</ClickThrough>
+                    <div className={css(styles.sectionTitle)}>Delivery</div>
+                    <ClickThrough>Become a Runner</ClickThrough>
+                </ThemeProvider>
             </Screen>
         );
     }
@@ -99,9 +114,8 @@ userName: {
     marginLeft: "10px"
 },
 dropdownInput: {
-    width: "calc(100% - 20px)",
-    margin: "10px",
-    color: "red"
+    width: "100%",
+    // margin: "10px",
 }
 });
 
