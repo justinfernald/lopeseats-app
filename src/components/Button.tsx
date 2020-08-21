@@ -2,7 +2,7 @@ import React from "react";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { IonRippleEffect } from "@ionic/react";
 
-export default class FloatingCartButton extends React.Component<{
+export default class Button extends React.Component<{
     onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
     children: string;
     secondary?: boolean;
