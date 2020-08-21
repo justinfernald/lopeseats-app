@@ -7,8 +7,11 @@ import "./Theme.css";
 import firebase from "firebase/app";
 import "firebase/messaging";
 import MessageListener from "./assets/scripts/MessageListener";
+import startScript from "./assets/scripts/StartupScript";
 import LopesEatLogo from "./assets/images/icon-384x384.png";
 import { actions, store } from "./Redux";
+
+import { connect } from "react-redux";
 
 import { isPlatform, IonApp } from "@ionic/react";
 import {
@@ -25,6 +28,7 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+        startScript(props);
         this.state = {
             darkTheme: false,
             bypassToken: false,
@@ -71,7 +75,7 @@ class App extends React.Component {
     setToken(token, platform) {
         store.dispatch(actions.setFBToken(token));
         store.dispatch(actions.setFBPlatform(platform));
-        this.setState({fbToken: token, fbPlatform: platform});
+        this.setState({ fbToken: token, fbPlatform: platform });
     }
 
     componentDidMount() {
@@ -151,7 +155,7 @@ class App extends React.Component {
                 })
                 .catch(function (err) {
                     console.log(err);
-                    app.setState({bypassToken: true});
+                    app.setState({ bypassToken: true });
                 });
 
             messaging.onMessage((payload) => {
@@ -162,4 +166,6 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default connect(({ apiToken }) => ({
+    apiToken,
+}))(App);

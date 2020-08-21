@@ -131,15 +131,20 @@ const styles = StyleSheet.create({
         fontSize: "1.8em",
         fontWeight: 400,
         fontFamily: '"Rubik", sans-serif',
-        textAlign: "center",
         zIndex: 10,
         boxShadow: "#ccc 0px 0px 6px 0px",
+        position: "relative",
+        height: 54.4,
     },
     backButton: {
         float: "left",
     },
     screenTitle: {
-        // paddingRight: 5,
+        position: "absolute",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%,-50%)",
+        width: "fit-content",
     },
     splash: {
         flex: "0 0 auto",

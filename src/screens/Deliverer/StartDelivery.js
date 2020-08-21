@@ -4,10 +4,16 @@ import Screen from "../../components/Screen";
 import Button from "../../components/Button";
 import { store, actions } from "../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { getDelivererStats, getPublicStats } from "../../assets/scripts/Util";
+import {
+    getDelivererStats,
+    getPublicStats,
+    formatPrice,
+} from "../../assets/scripts/Util";
 import Loading from "../Other/Loading";
 import { Line } from "react-chartjs-2";
 import { milliSecondsToTimeString } from "../../assets/scripts/Util";
+import { IonIcon, IonRippleEffect } from "@ionic/react";
+import { cashOutline } from "ionicons/icons";
 
 const chartOptions = {
     title: {
@@ -205,102 +211,151 @@ class IncomingOrders extends React.Component {
                 appBar={{
                     title: "Delivery Mode",
                 }}>
-                <div className={css(styles.stats)}>
-                    <div className={css(styles.stat)}>
-                        <div className={css(styles.statKey)}>
-                            Delivery Count
-                        </div>
-                        <div className={css(styles.statValue)}>
-                            {this.state.delivererStats.deliveryCount}
-                        </div>
-                    </div>
-                    <div className={css(styles.stat)}>
-                        <div className={css(styles.statKey)}>Rating</div>
-                        <div className={css(styles.statValue)}>
-                            {this.state.delivererStats.averageRating || "N/A"}
-                        </div>
-                    </div>
-                    <div className={css(styles.stat)}>
-                        <div className={css(styles.statKey)}>
-                            Average Delivery Time
-                        </div>
-                        <div className={css(styles.statValue)}>
-                            {this.state.delivererStats.averageDeliveryTime ||
-                                "N/A"}
-                        </div>
-                    </div>
-                    <div className={css(styles.stat)}>
-                        <div className={css(styles.statKey)}>Amount Earned</div>
-                        <div className={css(styles.statValue)}>
-                            {this.state.delivererStats.amountEarned || 0}
-                        </div>
-                    </div>
-                    <div className={css(styles.chart)}>
-                        <Line
-                            data={{
-                                datasets: [
-                                    {
-                                        ...dataFormat,
-                                        data: this.setupHistogramData(
-                                            this.state.publicStats.histogramData.map(
-                                                ({ time, occurances: y }) => ({
-                                                    t: time * 1000,
-                                                    y,
-                                                })
-                                            )
-                                        ),
-                                    },
-                                ],
-                            }}
-                            options={chartOptions}
-                        />
-                    </div>
-                    <div className={css(styles.stat)}>
-                        <div className={css(styles.statKey)}>
-                            Active Deliverers
-                        </div>
-                        <div className={css(styles.statValue)}>
-                            {this.state.publicStats.activeDeliveries}
-                        </div>
-                    </div>
-                    <div className={css(styles.stat)}>
-                        <div className={css(styles.statKey)}>
-                            Orders per Hour
-                        </div>
-                        <div className={css(styles.statValue)}>
-                            {this.state.publicStats.orderInHour}
-                        </div>
-                    </div>
-                </div>
-                <div className={css(styles.currentTime)}>
-                    {this.props.deliveryModeActive ? (
-                        <>
-                            <div>Current Time Active:</div>
-                            <div className={css(styles.activeTime)}>
-                                {this.state.timeActive
-                                    ? this.state.timeActive
-                                    : null}
+                <div className={css(styles.container)}>
+                    <div className={css(styles.stats)}>
+                        <div className={css(styles.stat)}>
+                            <div className={css(styles.statKey)}>
+                                Delivery Count
                             </div>
-                        </>
-                    ) : null}
+                            <div className={css(styles.statValue)}>
+                                {this.state.delivererStats.deliveryCount}
+                            </div>
+                        </div>
+                        <div className={css(styles.stat)}>
+                            <div className={css(styles.statKey)}>Rating</div>
+                            <div className={css(styles.statValue)}>
+                                {this.state.delivererStats.averageRating
+                                    ? Math.round(
+                                          this.state.delivererStats
+                                              .averageRating * 100
+                                      ) / 100
+                                    : "N/A"}
+                            </div>
+                        </div>
+                        <div className={css(styles.stat)}>
+                            <div className={css(styles.statKey)}>
+                                Average Delivery Time
+                            </div>
+                            <div className={css(styles.statValue)}>
+                                {this.state.delivererStats
+                                    .averageDeliveryTime || "N/A"}
+                            </div>
+                        </div>
+                        <div className={css(styles.stat)}>
+                            <div className={css(styles.statKey)}>
+                                Amount Earned
+                            </div>
+                            <div className={css(styles.statValue)}>
+                                $
+                                {this.state.delivererStats.amountEarned
+                                    ? formatPrice(
+                                          this.state.delivererStats
+                                              .amountEarned,
+                                          false
+                                      )
+                                    : "0.00"}
+                            </div>
+                        </div>
+                        <div className={css(styles.chart)}>
+                            <Line
+                                data={{
+                                    datasets: [
+                                        {
+                                            ...dataFormat,
+                                            data: this.setupHistogramData(
+                                                this.state.publicStats.histogramData.map(
+                                                    ({
+                                                        time,
+                                                        occurances: y,
+                                                    }) => ({
+                                                        t: time * 1000,
+                                                        y,
+                                                    })
+                                                )
+                                            ),
+                                        },
+                                    ],
+                                }}
+                                options={chartOptions}
+                            />
+                        </div>
+                        <div className={css(styles.stat)}>
+                            <div className={css(styles.statKey)}>
+                                Active Deliverers
+                            </div>
+                            <div className={css(styles.statValue)}>
+                                {this.state.publicStats.activeDeliveries}
+                            </div>
+                        </div>
+                        <div className={css(styles.stat)}>
+                            <div className={css(styles.statKey)}>
+                                Orders per Hour
+                            </div>
+                            <div className={css(styles.statValue)}>
+                                {this.state.publicStats.orderInHour}
+                            </div>
+                        </div>
+                    </div>
+                    <div className={css(styles.currentTime)}>
+                        {this.props.deliveryModeActive ? (
+                            <>
+                                <div>Current Time Active:</div>
+                                <div className={css(styles.activeTime)}>
+                                    {this.state.timeActive
+                                        ? this.state.timeActive
+                                        : null}
+                                </div>
+                            </>
+                        ) : null}
+                    </div>
+                    <div className={css(styles.buttons)}>
+                        <Button
+                            onClick={this.toggleDeliveringState}
+                            style={styles.button}
+                            secondary={!this.props.deliveryModeActive}>
+                            {this.props.deliveryModeActive
+                                ? "Stop Delivering"
+                                : "Start Delivering"}
+                        </Button>
+                        {this.props.deliveryModeActive ? null : (
+                            <div
+                                onClick={() =>
+                                    this.props.history.push(
+                                        "/app/deliverer/payout"
+                                    )
+                                }
+                                className={
+                                    "ion-activatable " +
+                                    css(styles.cashOutButton)
+                                }>
+                                <IonIcon
+                                    icon={cashOutline}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        color: "#fff",
+                                    }}
+                                />
+                                <IonRippleEffect />
+                            </div>
+                        )}
+                    </div>
                 </div>
-                <Button
-                    onClick={this.toggleDeliveringState}
-                    style={styles.button}
-                    secondary={!this.props.deliveryModeActive}>
-                    {this.props.deliveryModeActive
-                        ? "Stop Delivering"
-                        : "Start Delivering"}
-                </Button>
             </Screen>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        background: "#f3f3f3",
+        display: "flex",
+        flexDirection: "column",
+        flex: 1,
+    },
     stats: {
         padding: 10,
-        background: "#f0f0f0",
+        background: "#fff",
         margin: 10,
         flex: 1,
         borderRadius: 7,
@@ -327,10 +382,7 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         border: "1px solid #444",
     },
-    button: {
-        margin: 15,
-        marginBottom: 25,
-    },
+
     currentTime: {
         height: 24,
         display: "flex",
@@ -341,6 +393,24 @@ const styles = StyleSheet.create({
         marginLeft: 9,
         width: 70,
         textAlign: "right",
+    },
+    buttons: {
+        display: "flex",
+    },
+    button: {
+        margin: 15,
+        marginBottom: 25,
+        flex: 1,
+    },
+    cashOutButton: {
+        height: 53.8,
+        width: 53.8,
+        padding: 11,
+        margin: "15px 15px 25px 0",
+        borderRadius: "50%",
+        background: "#32ba36",
+        position: "relative",
+        overflow: "hidden",
     },
 });
 

@@ -48,7 +48,10 @@ class MessageScreen extends React.Component {
     }
 
     async fetchData() {
-        var data = await getMessages(this.props.apiToken, this.props.orderId);
+        var data = await getMessages(
+            this.props.apiToken,
+            this.props.messageOrderId
+        );
         console.log(data);
 
         if (data.success !== false) {
@@ -85,13 +88,11 @@ class MessageScreen extends React.Component {
     formatDate(date) {
         var hours = date.getHours();
         var suffix = hours > 12 ? "PM" : "AM";
-        // eslint-disable-next-line eqeqeq
-        hours = hours == 0 ? 12 : hours > 12 ? hours - 12 : hours;
+        hours = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
         var minutes = date.getMinutes();
 
         var minuteString =
-            // eslint-disable-next-line eqeqeq
-            minutes == 0
+            minutes === 0
                 ? "00"
                 : minutes < 10
                 ? "0" + minutes.toString()
@@ -189,4 +190,7 @@ class MessageScreen extends React.Component {
     }
 }
 
-export default connect(({messageOrderId, apiToken}) => ({messageOrderId, apiToken}))(MessageScreen);
+export default connect(({ messageOrderId, apiToken }) => ({
+    messageOrderId,
+    apiToken,
+}))(MessageScreen);

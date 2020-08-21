@@ -6,6 +6,8 @@ import StartDelivery from "./StartDelivery";
 import DeliveryAccept from "./DeliveryAccept";
 import ActiveOrders from "./ActiveOrders";
 import SelectedOrder from "./SelectedOrder";
+import Payout from "./Payout";
+import MessageScreen from "../Customer/TrackerTab/MessageScreen";
 
 export default function DelivererRouter() {
     return (
@@ -15,6 +17,16 @@ export default function DelivererRouter() {
                     exact
                     path="/app/:tab(deliverer)"
                     component={StartDelivery}
+                />
+                <Route
+                    exact
+                    path="/app/:tab(deliverer)/payout"
+                    component={Payout}
+                />
+                <Route
+                    exact
+                    path="/app/:tab(deliverer)/message"
+                    component={MessageScreen}
                 />
                 <Route
                     exact

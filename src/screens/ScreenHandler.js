@@ -6,7 +6,6 @@ import LoginScreen from "./Authentication/LoginScreen";
 import RegisterRouter from "./Authentication/RegisterProcess/RegisterRouter";
 
 import {
-    storeState,
     // updateFBToken,
     getOrder,
     getActiveOrderList,
@@ -133,7 +132,6 @@ class ScreenHandler extends React.Component {
     };
 
     render() {
-        if (this.state.apiToken) storeState(this.state, "screenHandler");
         if (!this.state.actionBtnUpdated) this.loadActionBtnData();
 
         return (

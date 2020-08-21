@@ -10,6 +10,7 @@ import Screen from "../../components/Screen";
 import { IonSpinner } from "@ionic/react";
 import Button from "../../components/Button";
 import MessageIcon from "../../assets/images/message-icon.svg";
+import { store, actions } from "../../Redux";
 
 const OrderItem = ({ item }) => (
     <div className={css(styles.orderItem)}>
@@ -171,7 +172,16 @@ class SelectedOrder extends React.Component {
                             </Button>
                             <div
                                 className={css(styles.messageButton)}
-                                onClick={() => {}}></div>
+                                onClick={() => {
+                                    store.dispatch(
+                                        actions.setMessageOrderId(
+                                            this.state.order.orderId
+                                        )
+                                    );
+                                    this.props.history.push(
+                                        "/app/deliverer/message"
+                                    );
+                                }}></div>
                         </div>
                     </div>
                 )}
