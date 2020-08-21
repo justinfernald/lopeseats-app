@@ -8,9 +8,11 @@ import Carousel from "./Carousel";
 // generate some dummy data to display cards
 const exampleCards = Array.from({ length: 10 }, () => ({
     title: "Example Card Title",
-    desc: "Example card description. Write whatever here",
-    discount: 30, // -> -30%
+    description: "Example card description. Write whatever here",
+    tag: "how are you",
     url: "/app/restaurants",
+    image: "https://source.unsplash.com/random",
+    onClick: () => console.log("hi there"),
 }));
 
 const HomeScreen = () => {

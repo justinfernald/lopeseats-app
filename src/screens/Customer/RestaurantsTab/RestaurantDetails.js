@@ -5,6 +5,7 @@ import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
+import { getRestaurant, getMenu } from "../../../assets/scripts/Util";
 
 class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -23,11 +24,30 @@ class RestaurantDetails extends React.Component {
             instructions: null,
         };
 
-        this.restaurantData.hours = props.selectedRestaurant.hours;
-        this.restaurantData.food = props.selectedMenu;
+        if (props.match.params.id) {
+            this.fetchData(props.match.params.id);
+        } else {
+            this.state.restaurantData.hours = props.selectedRestaurant.hours;
+            this.state.restaurantData.food = props.selectedMenu;
+        }
     }
 
-    restaurantData = {};
+    async fetchData(id) {
+        const restaurant = await getRestaurant(id);
+        if (restaurant.success === false) {
+            this.setState({ redirect: "/app/restaurants" });
+            return;
+        }
+        const menu = await getMenu(id);
+        this.setState({
+            restaurantData: {
+                hours: restaurant.hours,
+                food: menu,
+            },
+        });
+        store.dispatch(actions.setSelectedRestaurant(restaurant));
+        store.dispatch(actions.setSelectedMenu(menu));
+    }
 
     componentDidMount() {}
 
@@ -53,11 +73,14 @@ class RestaurantDetails extends React.Component {
         // this.setState({
         //     selectedItem: item
         // });
-        store.dispatch(actions.setItemDetails({openItem: item, editingItem: false}));
+        store.dispatch(
+            actions.setItemDetails({ openItem: item, editingItem: false })
+        );
         this.props.history.push("/app/restaurants/item");
     };
 
     render() {
+        if (!this.state.restaurantData) return null;
         return (
             <Screen
                 appBar={{
@@ -77,7 +100,7 @@ class RestaurantDetails extends React.Component {
                             <div className="title">Popular Options</div>
                             <div className="scrollArea">
                                 <div className="scrollCapFill"></div>
-                                {this.restaurantData.food
+                                {this.state.restaurantData.food
                                     .filter((x) => x.featured)
                                     .map((x, index) => (
                                         <div
@@ -127,7 +150,7 @@ class RestaurantDetails extends React.Component {
                             ))}
                         </div>
 
-                        <HoursList restaurantData={this.restaurantData} />
+                        <HoursList restaurantData={this.state.restaurantData} />
                     </div>
                 </div>
             </Screen>
@@ -141,4 +164,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default connect(({selectedRestaurant, selectedMenu}) => ({selectedRestaurant, selectedMenu}))(RestaurantDetails);
+export default connect(({ selectedRestaurant, selectedMenu }) => ({
+    selectedRestaurant,
+    selectedMenu,
+}))(RestaurantDetails);

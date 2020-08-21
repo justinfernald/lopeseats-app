@@ -142,6 +142,16 @@ export const getRestaurants = async () => {
     }
 };
 
+export const getRestaurant = async (id) => {
+    try {
+        return await postData(
+            "https://lopeseat.com/REST/restaurant.php?id=" + id
+        );
+    } catch (e) {
+        console.error(e);
+    }
+};
+
 export const getMenu = async (restaurantID) => {
     try {
         return await postData(

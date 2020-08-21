@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
         minHeight: 200,
         maxHeight: 330,
         minWidth: 270,
-        maxWidth: 450
+        maxWidth: 450,
     },
     // if the card is animated
     motion: {
-        flex: 1
+        flex: 1,
         // margin: "16px auto"
         // margin: 30
     },
@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
 
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
     },
     img: {
         position: "absolute",
 
-        overflow: "hidden"
+        overflow: "hidden",
     },
     info: {
         display: "flex",
@@ -45,15 +45,15 @@ const styles = StyleSheet.create({
 
         padding: 8,
         backdropFilter: "blur(10px) grayscale(0.2) contrast(0.7)",
-        color: "var(--ion-color-primary-contrast)"
+        color: "var(--ion-color-primary-contrast)",
     },
     title: {
         fontFamily: "Rubik",
         fontSize: "2em",
 
-        marginBottom: 4
+        marginBottom: 4,
     },
-    discount: {
+    tag: {
         display: "inline-block",
 
         margin: 16,
@@ -63,24 +63,20 @@ const styles = StyleSheet.create({
         fontSize: "1.2em",
         fontWeight: 600,
         background: "var(--ion-color-primary)",
-        color: "var(--ion-color-primary-contrast)"
-    }
+        color: "var(--ion-color-primary-contrast)",
+    },
 });
 
-const Card = ({ title, desc, img, ...props }) => {
+const Card = ({ title, description, img, ...props }) => {
     const history = useHistory();
 
     // other, less important card parameters
     // discount is a number between 0 and 100 and is null by
     // default
-    const { url, discount, motion = false } = props;
+    const { url, tag, motion = false, image, onClick } = props;
 
     // when the card is clicked
     const handleClick = () => history.push(url);
-    // const handleClick = () => {};
-
-    // comment this out when the api returns the image
-    img = "https://source.unsplash.com/random";
 
     return (
         <div
@@ -88,13 +84,15 @@ const Card = ({ title, desc, img, ...props }) => {
                 !motion ? styles.card : styles.motion,
                 styles.content
             )}
-            style={{ background: `url('${img}')` }}
-            onClick={handleClick}
-        >
-            {discount && <h1 className={css(styles.discount)}>-{discount}%</h1>}
+            style={{ background: `url('${image}')` }}
+            onClick={() => {
+                if (onClick) onClick(history);
+                if (url) handleClick();
+            }}>
+            {tag ? <h1 className={css(styles.tag)}>{tag}</h1> : null}
             <div className={css(styles.info)}>
                 <h1 className={css(styles.title)}>{title}</h1>
-                <p className={css(styles.desc)}>{desc}</p>
+                <p className={css(styles.description)}>{desc}</p>
             </div>
         </div>
     );

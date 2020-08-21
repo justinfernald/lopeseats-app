@@ -22,6 +22,9 @@ const checkToken = async (apiToken) => {
 
         store.dispatch(actions.setApiToken(apiToken));
         store.dispatch(actions.setUserDetails(profileData));
+
+        if (profileData.isDeliverer) {
+        }
     } else {
         store.dispatch(actions.unsetApiToken());
     }

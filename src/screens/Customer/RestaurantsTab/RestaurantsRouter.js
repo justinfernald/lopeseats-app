@@ -23,12 +23,12 @@ export default function RestaurantsRouter() {
                     path="/app/:tab(restaurants)/details"
                     component={RestaurantDetails}
                 />
-                {/* <Route
+                <Route
                     exact
                     path="/app/restaurants/details/:id"
                     component={RestaurantDetails}
                     exact
-                /> */}
+                />
                 <Route
                     exact
                     path="/app/:tab(restaurants)/item"
