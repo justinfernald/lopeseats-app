@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
-import Button from "../../components/Button";
+// import Button from "../../components/Button";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { formatPrice, getPayoutTotal } from "../../assets/scripts/Util";
 

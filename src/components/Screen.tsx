@@ -8,6 +8,10 @@ interface PropType {
         splash: string;
         title: string | JSX.Element;
         onBack?: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+        icon?: JSX.Element;
+        onIconClick?: (
+            event?: React.MouseEvent<HTMLElement, MouseEvent>
+        ) => void;
     };
     children?: JSX.Element;
     id?: string;
@@ -88,6 +92,13 @@ export default class Screen extends React.Component<PropType> {
                         <span className={css(styles.screenTitle)}>
                             {this.props.appBar.title}
                         </span>
+                        {this.props.appBar.icon ? (
+                            <div
+                                className={css(styles.iconButton)}
+                                onClick={this.props.appBar.onIconClick}>
+                                {this.props.appBar.icon}
+                            </div>
+                        ) : null}
                     </div>
                 );
             }
@@ -138,6 +149,16 @@ const styles = StyleSheet.create({
     },
     backButton: {
         float: "left",
+    },
+    iconButton: {
+        position: "absolute",
+        right: 10,
+        top: 0,
+        bottom: 0,
+        width: 54.4,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     screenTitle: {
         position: "absolute",

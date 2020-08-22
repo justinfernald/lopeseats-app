@@ -107,9 +107,15 @@ const dataFormat = {
     steppedLine: "middle",
 };
 
-class IncomingOrders extends React.Component {
+class StartDelivery extends React.Component {
     constructor(props) {
         super(props);
+
+        if (props.activeOrderCount > 0) {
+            props.history.replace("/app/deliverer/activeOrders");
+            return;
+        }
+
         this.state = {
             delivererStats: null,
             publicStats: null,
@@ -169,6 +175,9 @@ class IncomingOrders extends React.Component {
     };
 
     componentDidMount() {
+        if (this.props.activeOrderCount > 0) {
+            return;
+        }
         if (this.props.deliveryModeActive && this.props.deliveryStartingTime) {
             this.timeUpdateInterval = setInterval(
                 () =>
@@ -183,6 +192,11 @@ class IncomingOrders extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (this.props.activeOrderCount > 0) {
+            this.props.history.replace("/app/deliverer/activeOrders");
+            return;
+        }
+
         if (
             prevProps.deliveryStartingTime !== this.props.deliveryStartingTime
         ) {
@@ -204,6 +218,7 @@ class IncomingOrders extends React.Component {
     }
 
     render() {
+        if (!this.state) return null;
         if (!this.state.delivererStats || !this.state.publicStats)
             return <Loading message="Delivery report loading. Please Wait." />;
         return (
@@ -237,8 +252,11 @@ class IncomingOrders extends React.Component {
                                 Average Delivery Time
                             </div>
                             <div className={css(styles.statValue)}>
-                                {this.state.delivererStats
-                                    .averageDeliveryTime || "N/A"}
+                                {this.state.delivererStats.averageDeliveryTime
+                                    ? this.state.delivererStats.averageDeliveryTime.split(
+                                          "."
+                                      )[0]
+                                    : "N/A"}
                             </div>
                         </div>
                         <div className={css(styles.stat)}>
@@ -419,11 +437,13 @@ const mapStateToProps = ({
     userDetails: { isDeliverer },
     deliveryModeActive,
     deliveryStartingTime,
+    activeOrderCount,
 }) => ({
     apiToken,
     isDeliverer,
     deliveryModeActive,
     deliveryStartingTime,
+    activeOrderCount,
 });
 
-export default connect(mapStateToProps)(IncomingOrders);
+export default connect(mapStateToProps)(StartDelivery);
