@@ -60,6 +60,7 @@ const initialState = {
     // Delivery Mode
     deliveryStartingTime: null,
     deliveryModeActive: false,
+    activeOrderCount: 0,
     // Balances
     balances: [],
     // Overlay
@@ -226,6 +227,12 @@ const reducers = {
     },
     closeOverlay: (state:any) => {
         state.overlayEnabled = false;
+    },
+    setActiveOrderCount: (
+        state: any,
+        { payload: activeOrderCount }: { payload: number }
+    ) => {
+        state.activeOrderCount = activeOrderCount;
     }
 };
 

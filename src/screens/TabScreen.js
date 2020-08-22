@@ -85,6 +85,42 @@ const MainScreen = (props) =>
                     </IonTabButton>
                     {props.isDeliverer ? (
                         <IonTabButton tab="delivery" href="/app/deliverer">
+                            {props.activeOrderCount ? (
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        background: "var(--secondary)",
+                                        padding: "0px 6px",
+                                        textAlign: "center",
+                                        borderRadius: "50%",
+                                        color: "white",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        top: "3px",
+                                        right: "3px",
+                                    }}>
+                                    {props.activeOrderCount}
+                                </div>
+                            ) : null}
+                            <div
+                                style={{
+                                    ...{
+                                        border: "2px solid transparent",
+                                        position: "absolute",
+                                        width: "40px",
+                                        height: "40px",
+                                        borderRadius: "50%",
+                                        transform: "translateY(1px)",
+                                        transition: "0.4s ease-in-out",
+                                    },
+                                    ...(props.deliveryModeActive
+                                        ? {
+                                              border:
+                                                  "2px solid var(--secondary)",
+                                          }
+                                        : null),
+                                }}></div>
                             <i
                                 className="material-icons-round"
                                 style={{
@@ -118,9 +154,16 @@ const MainScreen = (props) =>
         </IonPage>
     );
 
-const mapStateToProps = ({ apiToken, userDetails: { isDeliverer } }) => ({
+const mapStateToProps = ({
+    apiToken,
+    userDetails: { isDeliverer },
+    deliveryModeActive,
+    activeOrderCount,
+}) => ({
     apiToken,
     isDeliverer,
+    deliveryModeActive,
+    activeOrderCount,
 });
 
 export default connect(mapStateToProps)(MainScreen);

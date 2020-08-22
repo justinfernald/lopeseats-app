@@ -7,6 +7,7 @@ import DeliveryAccept from "./DeliveryAccept";
 import ActiveOrders from "./ActiveOrders";
 import SelectedOrder from "./SelectedOrder";
 import Payout from "./Payout";
+import DelivererPayment from "./DelivererPayment";
 import MessageScreen from "../Customer/TrackerTab/MessageScreen";
 
 export default function DelivererRouter() {
@@ -27,6 +28,11 @@ export default function DelivererRouter() {
                     exact
                     path="/app/:tab(deliverer)/message"
                     component={MessageScreen}
+                />
+                <Route
+                    exact
+                    path="/app/:tab(deliverer)/payment/:id"
+                    component={DelivererPayment}
                 />
                 <Route
                     exact

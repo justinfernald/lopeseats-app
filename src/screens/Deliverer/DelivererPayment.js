@@ -2,32 +2,65 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import {
     getProfileImage,
-    getProfileData,
     getBarcodeData,
+    getActiveOrder,
+    formatPrice,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
+import Screen from "../../components/Screen";
 
 class DelivererPayment extends React.Component {
     constructor(props) {
         super(props);
-        getProfileImage(this.props.apiToken).then((profileImage) => {
-            this.setState({ profileImage });
-        });
-        getProfileData(this.props.apiToken).then((profileData) => {
-            this.setState({ ...profileData });
-        });
-        getBarcodeData("20552343").then((barcodeData) => {
-            this.setState({ barcodeData });
-        });
+
         this.barcodeContainerRef = React.createRef();
-        this.state = { profileImage: null, barcodeData: null };
+        this.state = {
+            profileImage: null,
+            barcodeData: null,
+            order: null,
+            showBarcode: false,
+        };
+
+        console.log(props);
+        if (this.props.history.state && this.props.history.state.order) {
+            this.state.order = this.props.history.state.order;
+            this.fetchData();
+        } else {
+            this.fetchData(this.props.match.params.id);
+        }
+    }
+
+    async fetchData(id) {
+        if (id) {
+            const [profileImage, barcodeData, order] = await Promise.all([
+                getProfileImage(this.props.apiToken),
+                getBarcodeData("20552343"),
+                getActiveOrder(this.props.apiToken, id),
+            ]);
+
+            if (order.success)
+                this.setState({ profileImage, barcodeData, order: order.msg });
+            else this.props.history.goBack();
+        } else {
+            const [profileImage, barcodeData] = await Promise.all([
+                getProfileImage(this.props.apiToken),
+                getBarcodeData("20552343"),
+            ]);
+
+            this.setState({ profileImage, barcodeData });
+        }
     }
 
     updateDimensions() {
-        let parent = this.barcodeContainerRef.current.firstElementChild;
-        let child = parent.firstElementChild;
-        if (!child) return;
-        child.style.transform = `scaleX(calc(${parent.clientWidth} / ${child.clientWidth})) scaleY(calc(${parent.clientHeight} / ${child.clientHeight}))`;
+        if (!this.state.showBarcode) return;
+        const updateSize = () => {
+            let parent = this.barcodeContainerRef.current.firstElementChild;
+            let child = parent.firstElementChild;
+            if (!child) return;
+            child.style.transform = `scaleX(calc(${parent.clientWidth} / ${child.clientWidth})) scaleY(calc(${parent.clientHeight} / ${child.clientHeight}))`;
+        };
+        updateSize();
+        setTimeout(updateSize, 1);
     }
 
     componentDidMount() {
@@ -36,6 +69,7 @@ class DelivererPayment extends React.Component {
 
         // let rects = document.querySelector("#barcode > g").children;
         let animation = () => {
+            if (!this.state.showBarcode) return;
             let parent = this.barcodeContainerRef.current.firstElementChild;
             let child = parent.firstElementChild;
             if (!child) return;
@@ -60,6 +94,7 @@ class DelivererPayment extends React.Component {
 
     componentDidUpdate() {
         this.updateDimensions();
+        console.log("didupdate");
     }
 
     componentWillUnmount() {
@@ -68,22 +103,15 @@ class DelivererPayment extends React.Component {
     }
 
     render() {
+        console.log(this.state);
+        console.log("didrender");
         return (
-            <div className="flexDisplay fillHeight">
-                <div className={"restaurantTop " + css(styles.white)}>
-                    <div className="header">
-                        <i
-                            className="icon material-icons-round"
-                            onClick={this.props.onBack}>
-                            arrow_back_ios
-                        </i>
-                        <span className="screenTitle">Check Out</span>
-                    </div>
-                </div>
+            <Screen
+                appBar={{
+                    title: "Check Out",
+                    onBack: this.props.history.goBack,
+                }}>
                 <div className={css(styles.content)}>
-                    <div className={css(styles.screenMessage)}>
-                        Align Barcode to Reader
-                    </div>
                     <div className={css(styles.informationBox)}>
                         <div className={css(styles.profileImageWrap)}>
                             {this.state.profileImage ? (
@@ -96,22 +124,42 @@ class DelivererPayment extends React.Component {
                         </div>
                         <div
                             ref={this.barcodeContainerRef}
-                            className={css(styles.barcodeContainer)}>
-                            <div
-                                className={"barcode " + css(styles.barcode)}
-                                dangerouslySetInnerHTML={{
-                                    __html: this.state.barcodeData,
-                                }}></div>
+                            className={css(styles.barcodeContainer)}
+                            style={
+                                this.state.showBarcode
+                                    ? null
+                                    : { background: "transparent" }
+                            }>
+                            {this.state.showBarcode ? (
+                                <div
+                                    className={"barcode " + css(styles.barcode)}
+                                    dangerouslySetInnerHTML={{
+                                        __html: this.state.barcodeData,
+                                    }}></div>
+                            ) : null}
                         </div>
                         <div>
                             <span className={css(styles.delivererName)}>
-                                {this.state.name}
+                                {this.props.userDetails.name}
                             </span>
                         </div>
-                        {/* <div>
-                            Customer
-                            <span className="customerName">Will Garrett</span>
-                        </div> */}
+                        <div
+                            className={css(
+                                styles.holdDownZone,
+                                this.state.showBarcode
+                                    ? styles.holdDownZoneActive
+                                    : null
+                            )}
+                            onTouchStart={() =>
+                                this.setState({ showBarcode: true })
+                            }
+                            onTouchEnd={() =>
+                                this.setState({ showBarcode: false })
+                            }>
+                            <span className={css(styles.holdDownText)}>
+                                Hold down to show Barcode
+                            </span>
+                        </div>
                     </div>
                     <div className={css(styles.paymentBox)}>
                         <div>
@@ -120,20 +168,36 @@ class DelivererPayment extends React.Component {
                                     Customer
                                 </span>
                                 <span className={css(styles.value)}>
-                                    John Doe
+                                    {this.state.order
+                                        ? this.state.order.customerName
+                                        : null}
                                 </span>
                             </div>
                             <div className={css(styles.row)}>
                                 <span className={css(styles.label)}>
                                     Subtotal
                                 </span>
-                                <span className={css(styles.value)}>$5.54</span>
+                                <span className={css(styles.value)}>
+                                    {this.state.order
+                                        ? "$" +
+                                          formatPrice(
+                                              this.state.order.totalPrice,
+                                              false
+                                          )
+                                        : null}
+                                </span>
                             </div>
                             <div className={css(styles.row)}>
-                                <span className={css(styles.label)}>
-                                    Tax & Fees
+                                <span className={css(styles.label)}>Tax</span>
+                                <span className={css(styles.value)}>
+                                    {this.state.order
+                                        ? "$" +
+                                          formatPrice(
+                                              this.state.order.totalPrice,
+                                              false
+                                          )
+                                        : null}
                                 </span>
-                                <span className={css(styles.value)}>$0.56</span>
                             </div>
                             <div className={css(styles.row)}>
                                 <span
@@ -148,21 +212,22 @@ class DelivererPayment extends React.Component {
                                         styles.value,
                                         styles.emphasis
                                     )}>
-                                    $6.10
+                                    {this.state.order
+                                        ? "$" +
+                                          formatPrice(
+                                              this.state.order.totalPrice,
+                                              false
+                                          )
+                                        : null}
                                 </span>
                             </div>
                         </div>
-                        <div className={css(styles.completeButton)}>
-                            Finish Button
-                        </div>
                     </div>
                 </div>
-            </div>
+            </Screen>
         );
     }
 }
-
-export default connect(({registerDetails}) => ({registerDetails}))(DelivererPayment);
 
 const styles = StyleSheet.create({
     content: {
@@ -170,11 +235,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         flex: 1,
         overflow: "auto",
-    },
-    screenMessage: {
-        color: "black",
-        fontSize: "1.5em",
-        textAlign: "center",
+        paddingTop: 3,
     },
 
     dark: {
@@ -186,7 +247,7 @@ const styles = StyleSheet.create({
         background: "#fff",
         margin: 10,
         borderRadius: 10,
-        // flex: 1,
+        flex: 1,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -230,13 +291,36 @@ const styles = StyleSheet.create({
         color: "black",
     },
 
+    holdDownZone: {
+        marginTop: 10,
+        flex: 1,
+        minHeight: 100,
+        width: "100%",
+        borderRadius: 5,
+        background: "var(--secondary)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: "#00000075 0px 0px 10px 0px",
+        transition: "0.4s ease-in-out",
+    },
+
+    holdDownZoneActive: {
+        boxShadow: "#000000cc 0px 0px 10px 0px",
+        transform: "scale(1.1)",
+    },
+
+    holdDownText: {
+        fontSize: "1.2em",
+        fontWeight: 500,
+    },
+
     paymentBox: {
         background: "#fff",
         margin: 10,
         marginBottom: 0,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-        flex: 1,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -261,22 +345,9 @@ const styles = StyleSheet.create({
     emphasis: {
         fontWeight: 500,
     },
-
-    completeButton: {
-        position: "relative",
-        background: "var(--primary)",
-        textAlign: "center",
-        height: 56,
-        width: "80%",
-        left: "50%",
-        marginTop: 10,
-        paddingTop: 13,
-        transform: "translateX(-50%)",
-        borderRadius: 28,
-        color: "white",
-    },
-
-    completeButtonDark: {
-        color: "black",
-    },
 });
+
+export default connect(({ apiToken, userDetails }) => ({
+    apiToken,
+    userDetails,
+}))(DelivererPayment);

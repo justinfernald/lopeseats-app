@@ -22,6 +22,7 @@ class RestaurantDetails extends React.Component {
             selectedItem: null,
             optionsChosen: [],
             instructions: null,
+            restaurantData: {},
         };
 
         if (props.match.params.id) {

@@ -5,11 +5,15 @@ import {
     getActiveOrder,
     formatPrice,
     timeSince,
+    updateOrderState,
 } from "../../assets/scripts/Util";
 import Screen from "../../components/Screen";
-import { IonSpinner } from "@ionic/react";
+import { IonIcon, IonSpinner, IonRippleEffect } from "@ionic/react";
+import { cardOutline } from "ionicons/icons";
 import Button from "../../components/Button";
-import MessageIcon from "../../assets/images/message-icon.svg";
+import BlackMessageIcon from "../../assets/images/messages-black.svg";
+// import CardIcon from "../../assets/images/card-outline.svg";
+
 import { store, actions } from "../../Redux";
 
 const OrderItem = ({ item }) => (
@@ -57,6 +61,15 @@ const SubItem = ({ options, subItem, meal }) => (
         </div>
     </div>
 );
+
+const orderStates = [
+    "unclaimed",
+    "claimed",
+    "en route",
+    "arrived",
+    "completed",
+    "cancelled",
+];
 class SelectedOrder extends React.Component {
     constructor(props) {
         super(props);
@@ -67,15 +80,35 @@ class SelectedOrder extends React.Component {
     }
 
     async fetchData() {
-        var order = (
-            await getActiveOrder(
-                this.props.apiToken,
-                this.props.match.params.id
-            )
-        ).msg;
-        this.setState({ order });
-        console.log(order);
+        var order = await getActiveOrder(
+            this.props.apiToken,
+            this.props.match.params.id
+        );
+        if (!order.success) {
+            this.props.history.goBack();
+            return;
+        }
+        this.setState({ order: order.msg });
     }
+
+    changeStatus = async () => {
+        const nextState =
+            orderStates[orderStates.indexOf(this.state.order.orderState) + 1];
+        if (
+            (
+                await updateOrderState(
+                    this.props.apiToken,
+                    this.state.order.orderId,
+                    nextState
+                )
+            ).success
+        ) {
+            this.setState({
+                order: { ...this.state.order, orderState: nextState },
+            });
+            this.fetchData();
+        }
+    };
 
     render() {
         // customer name
@@ -92,6 +125,13 @@ class SelectedOrder extends React.Component {
                 appBar={{
                     title: "Order",
                     onBack: this.props.history.goBack,
+                    icon: <div className={css(styles.messageButton)} />,
+                    onIconClick: () => {
+                        store.dispatch(
+                            actions.setMessageOrderId(this.state.order.orderId)
+                        );
+                        this.props.history.push("/app/deliverer/message");
+                    },
                 }}>
                 {!this.state.order ? (
                     <div className={css(styles.spinner)}>
@@ -129,7 +169,7 @@ class SelectedOrder extends React.Component {
                                     Placed
                                 </div>
                                 <div className={css(styles.timeValue)}>
-                                    {timeSince(order.timeArrived) + " ago"}
+                                    {timeSince(order.timePlaced) + " ago"}
                                 </div>
                             </div>
                             <div className={css(styles.timeKeyValuePair)}>
@@ -147,7 +187,7 @@ class SelectedOrder extends React.Component {
                                 <div className={css(styles.timeValue)}>
                                     {order.timeEnRoute
                                         ? timeSince(order.timeEnRoute) + " ago"
-                                        : "Pending..."}
+                                        : "Pending"}
                                 </div>
                             </div>
                             <div className={css(styles.timeKeyValuePair)}>
@@ -157,7 +197,7 @@ class SelectedOrder extends React.Component {
                                 <div className={css(styles.timeValue)}>
                                     {order.timeArrived
                                         ? timeSince(order.timeArrived) + " ago"
-                                        : "Pending..."}
+                                        : "Pending"}
                                 </div>
                             </div>
                         </div>
@@ -167,11 +207,12 @@ class SelectedOrder extends React.Component {
                             ))}
                         </div>
                         <div className={css(styles.buttonContainer)}>
-                            <Button style={styles.statusChangeButton}>
+                            <Button
+                                style={styles.statusChangeButton}
+                                onClick={this.changeStatus}>
                                 Change Status to {nextStatus[order.orderState]}
                             </Button>
                             <div
-                                className={css(styles.messageButton)}
                                 onClick={() => {
                                     store.dispatch(
                                         actions.setMessageOrderId(
@@ -179,9 +220,25 @@ class SelectedOrder extends React.Component {
                                         )
                                     );
                                     this.props.history.push(
-                                        "/app/deliverer/message"
+                                        "/app/deliverer/payment/" +
+                                            this.state.order.orderId,
+                                        { order: this.state.order }
                                     );
-                                }}></div>
+                                }}
+                                className={
+                                    "ion-activatable " +
+                                    css(styles.paymentButton)
+                                }>
+                                <IonIcon
+                                    icon={cardOutline}
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        color: "#fff",
+                                    }}
+                                />
+                                <IonRippleEffect />
+                            </div>
                         </div>
                     </div>
                 )}
@@ -316,20 +373,26 @@ const styles = StyleSheet.create({
     subItemOptionValue: {},
     buttonContainer: {
         display: "flex",
+        alignItems: "center",
     },
     statusChangeButton: {
         flex: 1,
     },
     messageButton: {
-        background: `url(${MessageIcon})`,
+        background: `url(${BlackMessageIcon})`,
         backgroundSize: "cover",
-        boxShadow: "inset white 0 0 0 2px",
-        borderRadius: "50%",
-        width: 53.8,
-        height: 53.8,
-        marginTop: 10,
+        width: 30,
+        height: 28,
+    },
+    paymentButton: {
         marginLeft: 10,
-        border: "2px solid #ddd",
+        height: 53.8,
+        width: 53.8,
+        padding: 11,
+        borderRadius: "50%",
+        background: "#32ba36",
+        position: "relative",
+        overflow: "hidden",
     },
 });
 
