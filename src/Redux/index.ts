@@ -60,8 +60,11 @@ const initialState = {
     // Delivery Mode
     deliveryStartingTime: null,
     deliveryModeActive: false,
-    //Balances
+    // Balances
     balances: [],
+    // Overlay
+    overlayEnabled: null,
+    overlay: null
 };
 
 const reducers = {
@@ -101,7 +104,10 @@ const reducers = {
         state: any,
         { payload: newUserDetails }: { payload: object }
     ) => {
-        state.userDetails = newUserDetails;
+        state.userDetails = {
+            ...state.userDetails,
+            ...newUserDetails
+        };
     },
     unsetUserDetails: (state: any) => {
         state.userDetails = initialState.userDetails;
@@ -213,6 +219,14 @@ const reducers = {
     ) => {
         state.deliveryStartingTime = deliveryStartingTime;
     },
+    openOverlay: (
+        state: any
+    ) => {
+        state.overlayEnabled = true;
+    },
+    closeOverlay: (state:any) => {
+        state.overlayEnabled = false;
+    }
 };
 
 const stateSlice = createSlice({
@@ -257,7 +271,7 @@ export const store = configureStore({
                     PAUSE,
                     PERSIST,
                     PURGE,
-                    REGISTER,
+                    REGISTER
                 ],
             },
         }),

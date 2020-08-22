@@ -82,8 +82,8 @@ class PersonalInformation extends React.Component {
                     onBackStep={this.props.history.goBack}
                 />
                 <div className="registerStepBanner">Personal Information</div>
-                <div className="registerFormContainer flex alignCenter">
-                    <div className="flex flexDisplay alignCenter uploaderContainer">
+                <div className="registerFormContainer flex alignCenter" style={{justifyContent: "space-evenly"}}>
+                    <div className="uploaderContainer">
                         <ImageUploader
                             image={this.state.profileImage}
                             onUpload={this.onUpload}

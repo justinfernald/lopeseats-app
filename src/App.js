@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ScreenHandler from "./screens/ScreenHandler";
 
 import "./App.css";
@@ -12,6 +12,8 @@ import LopesEatLogo from "./assets/images/icon-384x384.png";
 import { actions, store } from "./Redux";
 
 import { connect } from "react-redux";
+
+import Overlay from "./components/Overlay";
 
 import { isPlatform, IonApp } from "@ionic/react";
 import {
@@ -49,12 +51,15 @@ class App extends React.Component {
                         "App " + (this.state.darkTheme ? "dark" : "light")
                     }>
                     {this.state.fbToken || this.state.bypassToken ? (
-                        <ScreenHandler
-                            fbToken={this.state.fbToken}
-                            fbPlatform={this.state.fbPlatform}
-                            messageListener={this.messageListener}
-                            setTheme={(theme) => this.setTheme(theme)}
-                        />
+                        <Fragment>
+                            <Overlay/>
+                            <ScreenHandler
+                                fbToken={this.state.fbToken}
+                                fbPlatform={this.state.fbPlatform}
+                                messageListener={this.messageListener}
+                                setTheme={(theme) => this.setTheme(theme)}
+                            />
+                        </Fragment>
                     ) : (
                         <div className="loadingWrapper">
                             <img
@@ -166,6 +171,4 @@ class App extends React.Component {
     }
 }
 
-export default connect(({ apiToken }) => ({
-    apiToken,
-}))(App);
+export default connect(({ apiToken, overlay, overlayEnabled }) => ({ apiToken, overlay, overlayEnabled }))(App);

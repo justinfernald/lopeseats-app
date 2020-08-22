@@ -3,18 +3,14 @@ import Screen from "../../../components/Screen";
 import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
+import { setProfileImage } from "../../../Redux/Thunks";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { IonGrid, IonRow, IonCol, IonBackdrop } from '@ionic/react';
+import { IonGrid, IonRow, IonCol } from '@ionic/react';
 import ClickThrough from "../../../components/Settings/ClickThrough";
-import MenuDropdown from "../../../components/Settings/MenuDropdown";
 import BalanceDisplay from "../../../components/Settings/BalanceDisplay";
 import { fetchBalances } from "../../../Redux/Thunks";
-import Input from "../../../components/Input";
-import Phone from "../../../assets/images/phone-icon.png";
-import { TextField } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import ChangePassword from "./ChangePassword";
+import ChangePhoneNumber from "./ChangePhoneNumber";
 
 const theme = createMuiTheme({
   palette: {
@@ -37,6 +33,8 @@ class Profile extends React.Component {
     render() {
         var balanceLoaded = this.props.balances && this.props.balances.length > 0;
 
+        var { balances, profileImage, apiToken } = this.props;
+
         return (
             <Screen
             appBar={{
@@ -48,13 +46,13 @@ class Profile extends React.Component {
                             <IonRow style={{height: "100%"}}>
                                 <IonCol size={3} style={{height: "100%"}} style={styles.flexColumn}>
                                     <div className={css(styles.imageContainer)}>
-                                        <ImageUploader image={this.props.profileImage} onUpload={image => store.dispatch(actions.setProfileImage(image))}/>
+                                        <ImageUploader image={profileImage} onUpload={image => store.dispatch(setProfileImage({apiToken, image}))}/>
                                     </div>
                                 </IonCol>
                                 <IonCol size={9}>
                                     <div className={css(styles.balanceSection)}>
-                                        <BalanceDisplay title="LopesEat Balance" balances={this.props.balances} loading={!balanceLoaded} index={0}/>
-                                        <BalanceDisplay title="Delivery Balance" balances={this.props.balances} loading={!balanceLoaded} index={1}/>
+                                        <BalanceDisplay title="LopesEat Balance" balances={balances} loading={!balanceLoaded} index={0}/>
+                                        <BalanceDisplay title="Delivery Balance" balances={balances} loading={!balanceLoaded} index={1}/>
                                     </div> 
                                 </IonCol>
                             </IonRow>
@@ -62,7 +60,7 @@ class Profile extends React.Component {
                     </div>
 
                     <div className={css(styles.sectionTitle)}>Account Settings</div>
-                    <ChangePassword/>
+                    <ChangePhoneNumber/>
                     <div className={css(styles.spacer)}/>
                     <ClickThrough>Password</ClickThrough>
                     <div className={css(styles.sectionTitle)}>Delivery</div>
