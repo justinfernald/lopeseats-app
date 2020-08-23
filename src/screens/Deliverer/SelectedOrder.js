@@ -6,14 +6,13 @@ import {
     formatPrice,
     timeSince,
     updateOrderState,
+    postData,
 } from "../../assets/scripts/Util";
 import Screen from "../../components/Screen";
 import { IonIcon, IonSpinner, IonRippleEffect } from "@ionic/react";
 import { cardOutline } from "ionicons/icons";
 import Button from "../../components/Button";
 import BlackMessageIcon from "../../assets/images/messages-black.svg";
-// import CardIcon from "../../assets/images/card-outline.svg";
-
 import { store, actions } from "../../Redux";
 
 const OrderItem = ({ item }) => (
@@ -107,6 +106,21 @@ class SelectedOrder extends React.Component {
                 order: { ...this.state.order, orderState: nextState },
             });
             this.fetchData();
+
+            const activeOrderCountResponse = await postData(
+                "https://lopeseat.com/REST/getActiveOrderCount.php",
+                {
+                    apiToken: this.props.apiToken,
+                }
+            );
+
+            if (activeOrderCountResponse.success) {
+                store.dispatch(
+                    actions.setActiveOrderCount(activeOrderCountResponse.msg)
+                );
+            } else {
+                store.dispatch(actions.setActiveOrderCount(0));
+            }
         }
     };
 
@@ -139,72 +153,79 @@ class SelectedOrder extends React.Component {
                     </div>
                 ) : (
                     <div className={css(styles.container)}>
-                        <div className={css(styles.customerName)}>
-                            {order.customerName}
-                        </div>
-                        <div className={css(styles.locationContainer)}>
-                            <div className={css(styles.keyValuePair)}>
-                                <div className={css(styles.key)}>
-                                    Destination
+                        <div className={css(styles.content)}>
+                            <div className={css(styles.customerName)}>
+                                {order.customerName}
+                            </div>
+                            <div className={css(styles.locationContainer)}>
+                                <div className={css(styles.keyValuePair)}>
+                                    <div className={css(styles.key)}>
+                                        Destination
+                                    </div>
+                                    <div className={css(styles.value)}>
+                                        {order.address}
+                                    </div>
                                 </div>
-                                <div className={css(styles.value)}>
-                                    {order.address}
+                                <div className={css(styles.keyValuePair)}>
+                                    <div className={css(styles.key)}>
+                                        Restaurant
+                                    </div>
+                                    <div className={css(styles.value)}>
+                                        {order.restaurantName}
+                                    </div>
                                 </div>
                             </div>
-                            <div className={css(styles.keyValuePair)}>
-                                <div className={css(styles.key)}>
-                                    Restaurant
+                            <div className={css(styles.deliveryStatuses)}>
+                                <div
+                                    className={css(
+                                        styles.deliveryStatusesTitle
+                                    )}>
+                                    Delivery Status
                                 </div>
-                                <div className={css(styles.value)}>
-                                    {order.restaurantName}
+                                <div className={css(styles.timeKeyValuePair)}>
+                                    <div className={css(styles.timeKey)}>
+                                        Placed
+                                    </div>
+                                    <div className={css(styles.timeValue)}>
+                                        {timeSince(order.timePlaced) + " ago"}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div className={css(styles.deliveryStatuses)}>
-                            <div className={css(styles.deliveryStatusesTitle)}>
-                                Delivery Status
-                            </div>
-                            <div className={css(styles.timeKeyValuePair)}>
-                                <div className={css(styles.timeKey)}>
-                                    Placed
+                                <div className={css(styles.timeKeyValuePair)}>
+                                    <div className={css(styles.timeKey)}>
+                                        Claimed
+                                    </div>
+                                    <div className={css(styles.timeValue)}>
+                                        {timeSince(order.timeClaimed) + " ago"}
+                                    </div>
                                 </div>
-                                <div className={css(styles.timeValue)}>
-                                    {timeSince(order.timePlaced) + " ago"}
+                                <div className={css(styles.timeKeyValuePair)}>
+                                    <div className={css(styles.timeKey)}>
+                                        En Route
+                                    </div>
+                                    <div className={css(styles.timeValue)}>
+                                        {order.timeEnRoute
+                                            ? timeSince(order.timeEnRoute) +
+                                              " ago"
+                                            : "Pending"}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={css(styles.timeKeyValuePair)}>
-                                <div className={css(styles.timeKey)}>
-                                    Claimed
-                                </div>
-                                <div className={css(styles.timeValue)}>
-                                    {timeSince(order.timeClaimed) + " ago"}
-                                </div>
-                            </div>
-                            <div className={css(styles.timeKeyValuePair)}>
-                                <div className={css(styles.timeKey)}>
-                                    En Route
-                                </div>
-                                <div className={css(styles.timeValue)}>
-                                    {order.timeEnRoute
-                                        ? timeSince(order.timeEnRoute) + " ago"
-                                        : "Pending"}
-                                </div>
-                            </div>
-                            <div className={css(styles.timeKeyValuePair)}>
-                                <div className={css(styles.timeKey)}>
-                                    Arrived
-                                </div>
-                                <div className={css(styles.timeValue)}>
-                                    {order.timeArrived
-                                        ? timeSince(order.timeArrived) + " ago"
-                                        : "Pending"}
+                                <div className={css(styles.timeKeyValuePair)}>
+                                    <div className={css(styles.timeKey)}>
+                                        Arrived
+                                    </div>
+                                    <div className={css(styles.timeValue)}>
+                                        {order.timeArrived
+                                            ? timeSince(order.timeArrived) +
+                                              " ago"
+                                            : "Pending"}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className={css(styles.orderItems)}>
-                            {order.items.map((item, index) => (
-                                <OrderItem item={item} key={index} />
-                            ))}
+                            <div className={css(styles.orderItems)}>
+                                {order.items.map((item, index) => (
+                                    <OrderItem item={item} key={index} />
+                                ))}
+                            </div>
                         </div>
                         <div className={css(styles.buttonContainer)}>
                             <Button
@@ -265,6 +286,9 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         flex: 1,
         padding: 10,
+    },
+    content: {
+        flex: 1,
     },
     customerName: {
         fontSize: "1.3em",

@@ -81,7 +81,7 @@ class RestaurantDetails extends React.Component {
     };
 
     render() {
-        if (!this.state.restaurantData) return null;
+        if (!this.state.restaurantData.food) return null;
         return (
             <Screen
                 appBar={{

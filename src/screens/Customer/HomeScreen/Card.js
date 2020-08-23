@@ -76,7 +76,10 @@ const Card = ({ title, description, img, ...props }) => {
     const { url, tag, motion = false, image, onClick } = props;
 
     // when the card is clicked
-    const handleClick = () => history.push(url);
+    const handleClick = () => {
+        if (url.startsWith("https://")) window.location.href = url;
+        else history.push(url);
+    };
 
     return (
         <div
@@ -84,7 +87,7 @@ const Card = ({ title, description, img, ...props }) => {
                 !motion ? styles.card : styles.motion,
                 styles.content
             )}
-            style={{ background: `url('${image}')` }}
+            style={{ background: `url('${image}')`, backgroundSize: "cover" }}
             onClick={() => {
                 if (onClick) onClick(history);
                 if (url) handleClick();

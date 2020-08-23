@@ -5,6 +5,7 @@ import {
     getBarcodeData,
     getActiveOrder,
     formatPrice,
+    postData,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
@@ -19,9 +20,10 @@ class DelivererPayment extends React.Component {
             barcodeData: null,
             order: null,
             showBarcode: false,
+            timeLeft: 0,
+            timeStarted: null,
         };
 
-        console.log(props);
         if (this.props.history.state && this.props.history.state.order) {
             this.state.order = this.props.history.state.order;
             this.fetchData();
@@ -29,6 +31,8 @@ class DelivererPayment extends React.Component {
             this.fetchData(this.props.match.params.id);
         }
     }
+
+    exiting = false;
 
     async fetchData(id) {
         if (id) {
@@ -94,17 +98,39 @@ class DelivererPayment extends React.Component {
 
     componentDidUpdate() {
         this.updateDimensions();
-        console.log("didupdate");
     }
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions.bind(this));
         clearInterval(this.interval);
+        clearInterval(this.timer);
+    }
+
+    startTimer() {
+        this.timer = setInterval(() => {
+            this.setState({ timeLeft: this.state.timeLeft - 1 });
+            if (this.state.timeLeft <= 0) this.exitPage();
+        }, 1000);
+    }
+
+    exitPage() {
+        if (this.exiting) return;
+        this.exiting = true;
+
+        postData("https://lopeseat.com/REST/barcodeAccess.php", {
+            apiToken: this.props.apiToken,
+            orderId: this.state.order.orderId,
+            timeShown: Date.now() - this.state.timeStarted,
+        });
+
+        clearInterval(this.timer);
+        this.props.history.replace(
+            "/app/deliverer/orders/" + this.state.order.orderId
+        );
+        this.props.history.goBack();
     }
 
     render() {
-        console.log(this.state);
-        console.log("didrender");
         return (
             <Screen
                 appBar={{
@@ -150,14 +176,34 @@ class DelivererPayment extends React.Component {
                                     ? styles.holdDownZoneActive
                                     : null
                             )}
-                            onTouchStart={() =>
-                                this.setState({ showBarcode: true })
-                            }
-                            onTouchEnd={() =>
-                                this.setState({ showBarcode: false })
-                            }>
+                            onTouchStart={() => {
+                                if (this.state.showBarcode) {
+                                    this.exitPage();
+                                    return;
+                                }
+                                this.setState({
+                                    showBarcode: true,
+                                    timeLeft: 30,
+                                    timeStarted: Date.now(),
+                                });
+                                this.startTimer();
+                            }}
+                            onTouchCancel={() => this.exitPage()}
+                            onTouchEnd={() => this.exitPage()}>
                             <span className={css(styles.holdDownText)}>
-                                Hold down to show Barcode
+                                {this.state.timeLeft ? (
+                                    <div>{this.state.timeLeft}</div>
+                                ) : (
+                                    <>
+                                        <div>Hold down to show Barcode</div>
+                                        <div
+                                            className={css(
+                                                styles.holdDownSubText
+                                            )}>
+                                            Letting go leads back to Order Page
+                                        </div>
+                                    </>
+                                )}
                             </span>
                         </div>
                     </div>
@@ -313,6 +359,11 @@ const styles = StyleSheet.create({
     holdDownText: {
         fontSize: "1.2em",
         fontWeight: 500,
+        textAlign: "center",
+    },
+    holdDownSubText: {
+        fontSize: "0.8em",
+        color: "#bbb",
     },
 
     paymentBox: {

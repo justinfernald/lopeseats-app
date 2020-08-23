@@ -426,6 +426,18 @@ export const stopDeliveryMode = async (apiToken) => {
     });
 };
 
+export const getCarouselCards = async () => {
+    return await postData(
+        "https://lopeseat.com/REST/getCardList.php?cardLocation=carousel"
+    );
+};
+
+export const getScrollCards = async () => {
+    return await postData(
+        "https://lopeseat.com/REST/getCardList.php?cardLocation=cardlist"
+    );
+};
+
 export const makePHXTime = (date) => {
     return new Date(
         date.toLocaleString("en-US", { timeZone: "America/Phoenix" })

@@ -6,6 +6,7 @@ import Screen from "../../components/Screen";
 import Loading from "../Other/Loading";
 import { timeSince } from "../../assets/scripts/Util";
 import { IonRippleEffect } from "@ionic/react";
+import { store, actions } from "../../Redux";
 
 const OrderListItem = ({ order, onClick }) => (
     <div className={"ion-activatable " + css(styles.order)} onClick={onClick}>
@@ -57,6 +58,9 @@ class ActiveOrders extends React.Component {
 
     async fetchData() {
         var orders = await getActiveOrderList(this.props.apiToken);
+        store.dispatch(actions.setActiveOrderCount(orders.length));
+        if (orders.length === 0) this.props.history.replace("/app/deliverer");
+
         this.setState({ orders });
     }
 
