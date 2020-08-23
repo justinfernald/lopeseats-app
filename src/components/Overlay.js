@@ -14,12 +14,9 @@ class Overlay extends React.Component {
         store.dispatch(actions.closeOverlay());
     }
 
-    componentDidUpdate() {
-        var { overlayEnabled } = this.props;
-
-        if (!overlayEnabled) {
-
-        }
+    onNextStep = () => {
+        this.closeOverlay();
+        store.dispatch(actions.closeAllMenus());
     }
 
     render() {
@@ -31,7 +28,7 @@ class Overlay extends React.Component {
                     <div className={css(styles.centerDiv)}>
                         <div className={css(styles.contentWrapper,!overlayEnabled ? styles.contentWrapperDisabled : null)}>
                             We sent a code to your new phone number. Please enter it below.
-                            <ConfirmPhone phoneNumber="5052397396"/>
+                            <ConfirmPhone phoneNumber="5052397396" onNextStep={this.onNextStep}/>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,7 @@ class ChangePhoneNumber extends React.Component {
 
     render() {
         return (
-            <MenuDropdown title={"Phone Number"} height={"152px"}>
+            <MenuDropdown id="phone" title={"Phone Number"} height={"152px"}>
                 <TextField 
                     fullWidth
                     variant="filled" 

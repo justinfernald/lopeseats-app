@@ -30,11 +30,11 @@ class OrderTracker extends React.Component {
             arrived: null,
             wait: 45,
         };
-
-        this.fetchData();
     }
 
     componentDidMount() {
+
+        this.fetchData();
         this.listenerId = getMessageListener().addListener(() => {
             this.fetchData();
         });

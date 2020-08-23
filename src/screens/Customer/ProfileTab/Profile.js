@@ -11,6 +11,7 @@ import BalanceDisplay from "../../../components/Settings/BalanceDisplay";
 import { fetchBalances } from "../../../Redux/Thunks";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ChangePhoneNumber from "./ChangePhoneNumber";
+import ChangePassword from "./ChangePassword";
 
 const theme = createMuiTheme({
   palette: {
@@ -62,7 +63,7 @@ class Profile extends React.Component {
                     <div className={css(styles.sectionTitle)}>Account Settings</div>
                     <ChangePhoneNumber/>
                     <div className={css(styles.spacer)}/>
-                    <ClickThrough>Password</ClickThrough>
+                    <ChangePassword/>
                     <div className={css(styles.sectionTitle)}>Delivery</div>
                     <ClickThrough>Become a Runner</ClickThrough>
                 </ThemeProvider>

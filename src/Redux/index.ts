@@ -65,7 +65,9 @@ const initialState = {
     balances: [],
     // Overlay
     overlayEnabled: null,
-    overlay: null
+    overlay: null,
+    // Dropdown Menus
+    openMenus: []
 };
 
 const reducers = {
@@ -233,6 +235,27 @@ const reducers = {
         { payload: activeOrderCount }: { payload: number }
     ) => {
         state.activeOrderCount = activeOrderCount;
+    },
+    openMenu: (
+        state: any,
+        { payload: menuId }: {payload: string}
+    ) => {
+        if (!state.openMenus.includes(menuId))
+            state.openMenus.push(menuId);
+    },
+    closeMenu: (
+        state: any,
+        { payload: menuId }: {payload: string}
+    ) => {
+        if (state.openMenus.includes(menuId)) {
+            var index = state.openMenus.indexOf(menuId);
+            state.openMenus.splice(index, 1);
+        }
+    },
+    closeAllMenus: (
+        state: any
+    ) => {
+        state.openMenus = [];
     }
 };
 

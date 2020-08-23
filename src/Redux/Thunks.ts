@@ -55,3 +55,21 @@ export const changePhoneNumber = createAsyncThunk(
         return false;
     }
 );
+
+export const changePassword = createAsyncThunk(
+    'users/changePasswordStatus',
+    async (payload: { currPassword: string, newPassword: string }, thunkAPI) => {
+        try {
+            var state:any = thunkAPI.getState();
+            const response = await postData("https://lopeseat.com/REST/changePassword.php",
+            {
+                apiToken: state.apiToken,
+                ...payload
+           });
+            return response;
+        } catch (e) {
+            console.error(e);
+        }
+        return false;
+    }
+);

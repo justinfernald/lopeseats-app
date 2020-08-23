@@ -1,19 +1,26 @@
 import React from "react";
+import { connect, ConnectedProps } from 'react-redux';
 import { css, StyleSheet } from "aphrodite/no-important";
+import { store, actions } from "../../Redux";
 
-type MenuDropProps = {
+const mapState = (state: any) => ({
+    openMenus: state.openMenus
+});
+
+const connector = connect(mapState);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type MenuDropProps = PropsFromRedux &{
     title: string;
+    id: string;
     children: JSX.Element;
     height: string;
     disabled?: boolean;
     noRipple?: boolean;
 }
 
-type MenuDropState = {
-    open: boolean;
-}
-
-export default class MenuDropdown extends React.Component<MenuDropProps, MenuDropState> {
+class MenuDropdown extends React.Component<MenuDropProps> {
 
     dropdownRef:any;
     arrowRef:any;
@@ -21,24 +28,31 @@ export default class MenuDropdown extends React.Component<MenuDropProps, MenuDro
     constructor(props:Readonly<MenuDropProps>) {
         super(props);
 
-        this.state = {
-            open: false
-        };
-
         this.dropdownRef = React.createRef();
         this.arrowRef = React.createRef();
     }
 
-    toggleDropdown() {
-        let open = !this.state.open;
-        if (open) {
+    isOpen() {
+        return this.props.openMenus.includes(this.props.id);
+    }
+
+    componentDidUpdate() {
+        if (this.isOpen()) {
             this.dropdownRef.current.style.height = this.props.height;
             this.arrowRef.current.style.transform = "rotate(180deg)";
         } else {
             this.dropdownRef.current.style.height = "0px";
             this.arrowRef.current.style.transform = null;
         }
-        this.setState({open});
+    }
+
+    toggleDropdown() {
+        let open = !this.isOpen();
+        if (open) {
+            store.dispatch(actions.openMenu(this.props.id));
+        } else {
+            store.dispatch(actions.closeMenu(this.props.id));
+        }
     }
 
     render() {
@@ -57,6 +71,8 @@ export default class MenuDropdown extends React.Component<MenuDropProps, MenuDro
         );
     }
 }
+
+export default connector(MenuDropdown);
 
 const styles = StyleSheet.create({
     spacer: {

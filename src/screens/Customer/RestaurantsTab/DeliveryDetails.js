@@ -62,8 +62,7 @@ class DeliveryDetails extends React.Component {
                     onBack: this.props.history.goBack,
                 }}>
                 <div
-                    className="deliveryFormContainer flex alignCenter"
-                    style={{ paddingTop: 0 }}>
+                    className="deliveryFormContainer flex alignCenter">
                     <div className="addressInput">
                         <Input
                             passedRef={this.addressRef}
