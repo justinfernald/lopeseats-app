@@ -23,7 +23,7 @@ import {
     // PushNotificationToken,
     // PushNotificationActionPerformed,
 } from "@capacitor/core";
-const { PushNotifications } = Plugins;
+const { PushNotifications, App: PApp } = Plugins;
 
 class App extends React.Component {
     messageListener = new MessageListener();
@@ -52,7 +52,7 @@ class App extends React.Component {
                     }>
                     {this.state.fbToken || this.state.bypassToken ? (
                         <Fragment>
-                            <Overlay/>
+                            <Overlay />
                             <ScreenHandler
                                 fbToken={this.state.fbToken}
                                 fbPlatform={this.state.fbPlatform}
@@ -85,6 +85,28 @@ class App extends React.Component {
 
     componentDidMount() {
         console.log("mount");
+
+        if (Capacitor.isNative) {
+            PApp.addListener("backButton", (e) => {
+                console.log(e);
+                const exitPaths = [
+                    "/app/home",
+                    "/app/restaurants",
+                    "/app/deliverer",
+                    "/app/tracker",
+                    "/app/profile",
+                    "/app/login",
+                ];
+                if (exitPaths.includes(window.location.pathname)) {
+                    // e.preventDefault();
+                    // e.stopPropagation();
+                    if (navigator.app) navigator.app.exitApp();
+                    else if (navigator.device) navigator.device.exitApp();
+                    else PApp.exitApp();
+                }
+            });
+        }
+
         if (Capacitor.isPluginAvailable("PushNotifications")) {
             PushNotifications.register();
             PushNotifications.addListener("registration", async (token) => {
@@ -171,4 +193,8 @@ class App extends React.Component {
     }
 }
 
-export default connect(({ apiToken, overlay, overlayEnabled }) => ({ apiToken, overlay, overlayEnabled }))(App);
+export default connect(({ apiToken, overlay, overlayEnabled }) => ({
+    apiToken,
+    overlay,
+    overlayEnabled,
+}))(App);

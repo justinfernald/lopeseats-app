@@ -2,6 +2,7 @@
   "appId": "com.lopeseat.app",
   "appName": "LopesEat",
   "bundledWebRuntime": false,
+  "windowsAndroidStudioPath": "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
   "npmClient": "npm",
   "webDir": "build",
   "server": {
@@ -9,12 +10,18 @@
       "lopeseat.com",
       "*.lopeseat.com"
     ],
-    "url": "http://localhost:8100"
+    "comment": {
+      "url": "http://192.168.1.4:8100"
+    }
   },
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0
     }
+  },
+  "backgroundColor": "#ffffffff",
+  "android": {
+    "webContentsDebuggingEnabled": true
   },
   "cordova": {}
 }
