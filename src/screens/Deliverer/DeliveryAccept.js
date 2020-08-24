@@ -5,7 +5,7 @@ import Screen from "../../components/Screen";
 // import { store, actions } from "../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { getAcceptableOrder } from "../../assets/scripts/Util";
-import { IonIcon } from "@ionic/react";
+import { IonIcon, IonRippleEffect } from "@ionic/react";
 import { checkmarkCircleOutline, closeCircleOutline } from "ionicons/icons";
 // import Loading from "../Other/Loading";
 
@@ -40,25 +40,35 @@ class IncomingOrders extends React.Component {
                         Information about order here
                     </div>
                     <div className={css(styles.choiceArea)}>
-                        <div className={css(styles.choice, styles.accept)}>
+                        <div
+                            className={
+                                "ion-activatable " +
+                                css(styles.choice, styles.accept)
+                            }>
                             <IonIcon
                                 icon={checkmarkCircleOutline}
                                 style={{
                                     width: "100%",
                                     height: "100%",
-                                    color: "#fff",
+                                    color: "#5cbd5c",
                                 }}
                             />
+                            <IonRippleEffect />
                         </div>
-                        <div className={css(styles.choice, styles.decline)}>
+                        <div
+                            className={
+                                "ion-activatable " +
+                                css(styles.choice, styles.decline)
+                            }>
                             <IonIcon
                                 icon={closeCircleOutline}
                                 style={{
                                     width: "100%",
                                     height: "100%",
-                                    color: "#fff",
+                                    color: "#fc3a3a",
                                 }}
                             />
+                            <IonRippleEffect />
                         </div>
                     </div>
                 </div>
@@ -97,12 +107,14 @@ const styles = StyleSheet.create({
         height: 80,
         width: 80,
         borderRadius: "50%",
+        position: "relative",
+        overflow: "hidden",
     },
     accept: {
-        background: "green",
+        // background: "green",
     },
     decline: {
-        background: "red",
+        // background: "red",
     },
 });
 

@@ -138,7 +138,9 @@ const styles = StyleSheet.create({
         // bottom: 0,
     },
     header: {
-        padding: "10px",
+        "--safe-area-inset-top": "env(safe-area-inset-top)",
+        padding: 10,
+        paddingTop: "calc(10px + var(--safe-area-inset-top))",
         fontSize: "1.8em",
         fontWeight: 400,
         fontFamily: '"Rubik", sans-serif',
