@@ -48,7 +48,10 @@ const Carousel = ({ cards, ...props }) => {
     return (
         <Measure bounds onResize={({ bounds }) => setSize(bounds)}>
             {({ measureRef }) => (
-                <div ref={measureRef} className={css(styles.carousel)}>
+                <div
+                    ref={measureRef}
+                    className={css(styles.carousel)}
+                    style={{ opacity: cards.length ? 1 : 0 }}>
                     <Page
                         width={width}
                         height={height}

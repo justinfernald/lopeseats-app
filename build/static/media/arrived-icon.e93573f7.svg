@@ -1,9 +1,0 @@
-<svg id="Icon" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
-  <rect id="Bg" width="60" height="60" rx="30" fill="#e1f0fb"/>
-  <g id="food-course" transform="translate(18 18)">
-    <path id="Path" d="M22.949,22a11.013,11.013,0,0,0-8.28-9.659A2.958,2.958,0,0,0,15,11a3,3,0,0,0-6,0,2.958,2.958,0,0,0,.331,1.341A11.013,11.013,0,0,0,1.051,22H0v2H23.833V22Z" fill="#1395af" fill-rule="evenodd"/>
-    <rect id="Rectangle" width="2" height="5" transform="translate(6 2)" fill="#1395af"/>
-    <rect id="Rectangle-2" data-name="Rectangle" width="2" height="5" transform="translate(16 2)" fill="#1395af"/>
-    <rect id="Rectangle-3" data-name="Rectangle" width="2" height="5" transform="translate(11)" fill="#1395af"/>
-  </g>
-</svg>

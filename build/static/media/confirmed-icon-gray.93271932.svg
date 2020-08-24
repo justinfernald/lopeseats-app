@@ -1,7 +1,0 @@
-<svg id="Group_15" data-name="Group 15" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
-  <rect id="Bg" width="60" height="60" rx="30" fill="#f1f3f8"/>
-  <g id="check-double" transform="translate(18 23)">
-    <path id="Path" d="M21.872.592,11.933,12.519,10.79,11.376,9.505,12.919l1.788,1.788A1,1,0,0,0,12,15h.045a1,1,0,0,0,.723-.358l10.64-12.77Z" fill="#8d92a3" fill-rule="evenodd"/>
-    <path id="Path-2" data-name="Path" d="M6,15a1,1,0,0,1-.707-.293L.586,10,2,8.586l3.933,3.933L15.872.592l1.536,1.28L6.768,14.641A1,1,0,0,1,6.045,15Z" fill="#8d92a3" fill-rule="evenodd"/>
-  </g>
-</svg>

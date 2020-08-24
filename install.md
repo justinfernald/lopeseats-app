@@ -7,3 +7,5 @@ run `npm run android` or `npm run ios`
 For Simple Build run `npm run build`
 
 For quick start with live server do `npm start`
+
+https://developer.apple.com/forums/thread/115475
