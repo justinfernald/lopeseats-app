@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import Screen from "../../components/Screen";
 // import Button from "../../components/Button";
 // import { store, actions } from "../../Redux";
-// import { css, StyleSheet } from "aphrodite/no-important";
-// import { getDelivererStats, getPublicStats } from "../../assets/scripts/Util";
+import { css, StyleSheet } from "aphrodite/no-important";
+import { getAcceptableOrder } from "../../assets/scripts/Util";
+import { IonIcon } from "@ionic/react";
+import { checkmarkCircleOutline, closeCircleOutline } from "ionicons/icons";
 // import Loading from "../Other/Loading";
 
 class IncomingOrders extends React.Component {
@@ -15,11 +17,12 @@ class IncomingOrders extends React.Component {
             publicStats: null,
         };
 
-        this.fetchData();
-        console.log("id: " + props.match.params.id);
+        this.fetchData(props.match.params.id);
     }
 
-    async fetchData() {}
+    async fetchData(id) {
+        getAcceptableOrder(id);
+    }
 
     acceptOrder() {}
 
@@ -31,12 +34,77 @@ class IncomingOrders extends React.Component {
                 appBar={{
                     title: "Delivery Accept",
                     onBack: this.props.history.goBack,
-                }}></Screen>
+                }}>
+                <div className={css(styles.container)}>
+                    <div className={css(styles.orderDetails)}>
+                        Information about order here
+                    </div>
+                    <div className={css(styles.choiceArea)}>
+                        <div className={css(styles.choice, styles.accept)}>
+                            <IonIcon
+                                icon={checkmarkCircleOutline}
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    color: "#fff",
+                                }}
+                            />
+                        </div>
+                        <div className={css(styles.choice, styles.decline)}>
+                            <IonIcon
+                                icon={closeCircleOutline}
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    color: "#fff",
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </Screen>
         );
     }
 }
 
-// const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        padding: 10,
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        background: "#f3f3f3",
+        alignItems: "center",
+    },
+    orderDetails: {
+        flex: 1,
+        background: "#fff",
+        borderRadius: 10,
+        marginBottom: 15,
+        width: "100%",
+    },
+    choiceArea: {
+        minWidth: 300,
+        height: 100,
+        borderRadius: 50,
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        background: "#fff",
+        padding: "0px 10px",
+    },
+    choice: {
+        height: 80,
+        width: 80,
+        borderRadius: "50%",
+    },
+    accept: {
+        background: "green",
+    },
+    decline: {
+        background: "red",
+    },
+});
 
 const mapStateToProps = ({
     apiToken,

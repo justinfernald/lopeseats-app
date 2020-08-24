@@ -8,7 +8,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 import MessageListener from "./assets/scripts/MessageListener";
 import startScript from "./assets/scripts/StartupScript";
-import LopesEatLogo from "./assets/images/icon-384x384.png";
+// import LopesEatLogo from "./assets/images/icon-384x384.png";
 import { actions, store } from "./Redux";
 
 import { connect } from "react-redux";

@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button } from "@material-ui/core";
 import MenuDropdown from "../../../components/Settings/MenuDropdown";
 import { StyleSheet } from "aphrodite/no-important";
 import { store, actions } from "../../../Redux";
@@ -8,12 +8,11 @@ import { showErrors } from "../../../assets/scripts/Util";
 import { changePassword } from "../../../Redux/Thunks";
 
 class ChangePassword extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
-            errors: [false, false, false]
+            errors: [false, false, false],
         };
 
         this.currPassRef = React.createRef();
@@ -22,26 +21,28 @@ class ChangePassword extends React.Component {
     }
 
     async save() {
-        if (this.newPassRef1.current.value != this.newPassRef2.current.value) {
+        if (this.newPassRef1.current.value !== this.newPassRef2.current.value) {
             showErrors(["New passwords do no match"]);
-            this.setState({errors: [false, true, true]});
+            this.setState({ errors: [false, true, true] });
             return;
         }
 
-        var { payload } = await store.dispatch(changePassword({ 
-            currPassword: this.currPassRef.current.value,
-            newPassword: this.newPassRef1.current.value
-         }));
+        var { payload } = await store.dispatch(
+            changePassword({
+                currPassword: this.currPassRef.current.value,
+                newPassword: this.newPassRef1.current.value,
+            })
+        );
 
         var { success, msg } = payload;
 
         if (!success) {
             showErrors([msg]);
-            this.setState({errors: [true, false, false]});
+            this.setState({ errors: [true, false, false] });
             return;
         }
 
-        this.setState({errors: [false, false, false]});
+        this.setState({ errors: [false, false, false] });
         this.currPassRef.current.value = "";
         this.newPassRef1.current.value = "";
         this.newPassRef2.current.value = "";
@@ -52,19 +53,19 @@ class ChangePassword extends React.Component {
     render() {
         return (
             <MenuDropdown id="password" title={"Password"} height={"208px"}>
-                <TextField 
+                <TextField
                     fullWidth
-                    variant="filled" 
+                    variant="filled"
                     color="primary"
-                    id="currPass" 
+                    id="currPass"
                     label="Current Password"
                     type="password"
                     error={this.state.errors[0]}
                     inputRef={this.currPassRef}
                 />
-                <TextField 
+                <TextField
                     fullWidth
-                    variant="filled" 
+                    variant="filled"
                     color="primary"
                     id="newPass1"
                     label="New Password"
@@ -72,9 +73,9 @@ class ChangePassword extends React.Component {
                     error={this.state.errors[1]}
                     inputRef={this.newPassRef1}
                 />
-                <TextField 
+                <TextField
                     fullWidth
-                    variant="filled" 
+                    variant="filled"
                     color="primary"
                     id="newPass2"
                     label="Confirm New Password"
@@ -82,22 +83,26 @@ class ChangePassword extends React.Component {
                     error={this.state.errors[2]}
                     inputRef={this.newPassRef2}
                 />
-                <Button onClick={() => this.save()} style={{height: "40px", borderRadius: 0}} variant="contained" color="secondary" fullWidth>
+                <Button
+                    onClick={() => this.save()}
+                    style={{ height: "40px", borderRadius: 0 }}
+                    variant="contained"
+                    color="secondary"
+                    fullWidth>
                     Save
                 </Button>
             </MenuDropdown>
         );
     }
-
 }
 
-export default connect(({userDetails}) => ({userDetails}))(ChangePassword);
+export default connect(({ userDetails }) => ({ userDetails }))(ChangePassword);
 
-const styles = StyleSheet.create({
-    button: {
-        margin: "5px",
-        width: "calc(100% - 10px)",
-        height: "46px",
-        padding: "0.5em 0"
-    }
-});
+// const styles = StyleSheet.create({
+//     button: {
+//         margin: "5px",
+//         width: "calc(100% - 10px)",
+//         height: "46px",
+//         padding: "0.5em 0",
+//     },
+// });
