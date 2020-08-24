@@ -69,7 +69,7 @@ class VerifyPhone extends React.Component {
         return (
             <div className="flexDisplay fillHeight">
                 <RegisterStep
-                    step={{ part: 2, total: 3 }}
+                    step={{ part: 3, total: 4 }}
                     onNextStep={this.onNextStep}
                     onBackStep={this.props.history.goBack}
                 />
@@ -79,7 +79,7 @@ class VerifyPhone extends React.Component {
                         <div className="label">Confirm Phone Number</div>
                         <Input
                             passedRef={this.phoneNumberRef}
-                            passedProps={{ defaultValue: this.state.phone }}
+                            defaultValue= {this.state.phone}
                             icon={Phone}
                             autoComplete="current-phone"
                             placeholder="Phone Number"

@@ -45,12 +45,12 @@ class Profile extends React.Component {
                     <div className={css(styles.headerSection)}>
                         <IonGrid style={{height: "100%"}}>
                             <IonRow style={{height: "100%"}}>
-                                <IonCol size={3} style={{height: "100%"}} style={styles.flexColumn}>
+                                <IonCol size={4} style={{height: "100%"}} style={styles.flexColumn}>
                                     <div className={css(styles.imageContainer)}>
                                         <ImageUploader image={profileImage} onUpload={image => store.dispatch(setProfileImage({apiToken, image}))}/>
                                     </div>
                                 </IonCol>
-                                <IonCol size={9}>
+                                <IonCol size={8}>
                                     <div className={css(styles.balanceSection)}>
                                         <BalanceDisplay title="LopesEat Balance" balances={balances} loading={!balanceLoaded} index={0}/>
                                         <BalanceDisplay title="Delivery Balance" balances={balances} loading={!balanceLoaded} index={1}/>

@@ -37,6 +37,7 @@ const initialState = {
         phoneNumber: null,
         email: null,
         password: null,
+        profileImage: "",
     },
     profileImage: "",
     // Item Details

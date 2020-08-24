@@ -13,13 +13,13 @@ import { Route, Redirect } from "react-router-dom";
 
 import HomeScreen from "./Customer/HomeScreen/HomeScreen"; // temp import for testing new layout. TODO: change to "./Customer/HomeScreen"
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
-import Profile from "./Customer/ProfileTab/Profile";
 import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 
 import { restaurant, search, person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
+import ProfileRouter from "./Customer/ProfileTab/ProfileRouter";
 
 const MainScreen = (props) =>
     !props.apiToken ? (
@@ -54,8 +54,7 @@ const MainScreen = (props) =>
                     />
                     <Route
                         path="/app/:tab(profile)"
-                        component={Profile}
-                        exact
+                        component={ProfileRouter}
                     />
                     <Route
                         path="/app/deliverer/order"

@@ -44,6 +44,10 @@ class App extends React.Component {
     }
 
     render() {
+        if (this.state.bypassToken)
+            console.log(
+                "if fbtoken is not loading make sure to reset bypass token to false"
+            );
         return (
             <IonApp>
                 <div

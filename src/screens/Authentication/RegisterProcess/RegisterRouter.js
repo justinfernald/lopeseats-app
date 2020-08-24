@@ -7,6 +7,7 @@ import PersonalInformation from "./PersonalInformation";
 import VerifyPhone from "./VerifyPhone";
 import PhoneComirm from "./PhoneConfirm";
 import { IonPage } from "@ionic/react";
+import AgreeToTerms from "./AgreeToTerms";
 
 export default function RegisterRouter() {
     return (
@@ -19,6 +20,7 @@ export default function RegisterRouter() {
                     component={PersonalInformation}
                 />
                 <Route exact path="/register/verify" component={VerifyPhone} />
+                <Route exact path="/register/agree" component={AgreeToTerms} />
                 <Route exact path="/register/confirm" component={PhoneComirm} />
             </IonRouterOutlet>
         </IonPage>

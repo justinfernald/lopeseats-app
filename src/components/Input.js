@@ -48,6 +48,7 @@ export default class Input extends React.Component {
                     }
                 }
 
+                defaultValue={this.props.defaultValue}
                  />:
                 <input {...this.props.passedProps} onChange={this.props.onChange} ref={this.props.passedRef} type={this.props.type} placeholder={this.props.placeholder} defaultValue={this.props.defaultValue}/>}
                 {this.props.showHidden &&
