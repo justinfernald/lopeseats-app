@@ -5,8 +5,10 @@
     "npmClient": "npm",
     "webDir": "build",
     "server": {
-        "allowNavigation": ["lopeseat.com", "*.lopeseat.com"],
-        "url": "http://192.168.1.4:8100"
+        "allowNavigation": [
+            "lopeseat.com",
+            "*.lopeseat.com"
+        ]
     },
     "plugins": {
         "SplashScreen": {

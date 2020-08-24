@@ -1,17 +1,20 @@
 {
-    "appId": "com.lopeseat.app",
-    "appName": "LopesEat",
-    "bundledWebRuntime": false,
-    "npmClient": "npm",
-    "webDir": "build",
-    "server": {
-        "allowNavigation": ["lopeseat.com", "*.lopeseat.com"],
-        "url": "http://192.168.1.4:8100"
-    },
-    "plugins": {
-        "SplashScreen": {
-            "launchShowDuration": 0
-        }
-    },
-    "cordova": {}
+  "appId": "com.lopeseat.app",
+  "appName": "LopesEat",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "server": {
+    "allowNavigation": [
+      "lopeseat.com",
+      "*.lopeseat.com"
+    ],
+    "url": "http://localhost:8100"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
 }
