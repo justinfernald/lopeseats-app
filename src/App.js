@@ -33,6 +33,8 @@ class App extends React.Component {
         startScript(props);
         this.state = {
             darkTheme: false,
+            // set bypassToken to true when using mac
+            // bypassToken: true, // bypass for mac
             bypassToken: false,
             fbToken: null,
             fbPlatform: null,
@@ -44,6 +46,8 @@ class App extends React.Component {
     }
 
     render() {
+        if (this.state.bypassToken)
+            console.log("if fbtoken is not loading make sure to reset bypass token to false");
         return (
             <IonApp>
                 <div
@@ -61,17 +65,17 @@ class App extends React.Component {
                             />
                         </Fragment>
                     ) : (
-                        <div className="loadingWrapper">
-                            <img
-                                className="lopeImage"
-                                src={LopesEatLogo}
-                                alt="Logo"
-                            />
-                            <div className="loadingText">
-                                App loading. One moment please.
+                            <div className="loadingWrapper">
+                                <img
+                                    className="lopeImage"
+                                    src={LopesEatLogo}
+                                    alt="Logo"
+                                />
+                                <div className="loadingText">
+                                    App loading. One moment please.
                             </div>
-                        </div>
-                    )}
+                            </div>
+                        )}
                 </div>
             </IonApp>
         );
