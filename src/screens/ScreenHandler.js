@@ -48,7 +48,6 @@ class ScreenHandler extends React.Component {
                 instructions: null,
                 actionBtn: null,
                 actionBtnUpdated: false,
-                fbToken: props.fbToken,
                 redirectTo: null,
             };
         }

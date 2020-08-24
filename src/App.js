@@ -33,9 +33,9 @@ class App extends React.Component {
         startScript(props);
         this.state = {
             darkTheme: false,
-            bypassToken: false,
-            fbToken: null,
-            fbPlatform: null,
+            // bypassToken: false,
+            // fbToken: null,
+            // fbPlatform: null,
         };
     }
 
@@ -50,28 +50,13 @@ class App extends React.Component {
                     className={
                         "App " + (this.state.darkTheme ? "dark" : "light")
                     }>
-                    {this.state.fbToken || this.state.bypassToken ? (
-                        <Fragment>
-                            <Overlay />
-                            <ScreenHandler
-                                fbToken={this.state.fbToken}
-                                fbPlatform={this.state.fbPlatform}
-                                messageListener={this.messageListener}
-                                setTheme={(theme) => this.setTheme(theme)}
-                            />
-                        </Fragment>
-                    ) : (
-                        <div className="loadingWrapper">
-                            <img
-                                className="lopeImage"
-                                src={LopesEatLogo}
-                                alt="Logo"
-                            />
-                            <div className="loadingText">
-                                App loading. One moment please.
-                            </div>
-                        </div>
-                    )}
+                    <Fragment>
+                        <Overlay />
+                        <ScreenHandler
+                            messageListener={this.messageListener}
+                            setTheme={(theme) => this.setTheme(theme)}
+                        />
+                    </Fragment>
                 </div>
             </IonApp>
         );
@@ -80,7 +65,7 @@ class App extends React.Component {
     setToken(token, platform) {
         store.dispatch(actions.setFBToken(token));
         store.dispatch(actions.setFBPlatform(platform));
-        this.setState({ fbToken: token, fbPlatform: platform });
+        // this.setState({ fbToken: token, fbPlatform: platform });
     }
 
     componentDidMount() {
