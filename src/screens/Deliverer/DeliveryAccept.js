@@ -21,7 +21,7 @@ class IncomingOrders extends React.Component {
     }
 
     async fetchData(id) {
-        getAcceptableOrder(id);
+        getAcceptableOrder(this.props.apiToken, id);
     }
 
     acceptOrder() {}
