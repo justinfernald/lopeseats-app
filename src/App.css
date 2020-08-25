@@ -19,6 +19,11 @@
     --secondary: #fc3232;
     --light-grey: #ddd;
     --placeholder: #f97c7c;
+
+    --sat: env(safe-area-inset-top);
+    --sar: env(safe-area-inset-right);
+    --sab: env(safe-area-inset-bottom);
+    --sal: env(safe-area-inset-left);
 }
 
 body {
@@ -64,6 +69,24 @@ input:-webkit-autofill:active {
 .App > div {
     width: 100%;
     height: 100%;
+}
+
+.screen-component {
+    /* padding-top: env(safe-area-inset-top);
+    padding-top: 30px;
+    margin-top: 30px; */
+    /* top: env(safe-area-inset-top) !important; */
+    /* top: 50px !important; */
+    height: calc(-56px - env(safe-area-inset-bottom) + 100vh) !important;
+}
+
+.screen-header {
+    padding: calc(10px + env(safe-area-inset-top)) 10px 10px 10px !important;
+    height: calc(54.4px + env(safe-area-inset-top)) !important;
+}
+
+.screen-splash-back {
+    padding-top: env(safe-area-inset-top) !important;
 }
 
 .dark {
@@ -1327,7 +1350,7 @@ input:-webkit-autofill:active {
 }
 
 .floatingCartButton {
-    position: fixed;
+    position: absolute;
     width: 60px;
     height: 60px;
     bottom: 15px;

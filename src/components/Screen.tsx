@@ -26,10 +26,11 @@ export default class Screen extends React.Component<PropType> {
     }
 
     onContentScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+        const sat: number = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat"));
         const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
         let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
-        let bannerHeight = 175 - scrollLevel;
-        bannerHeight = bannerHeight > 54 ? bannerHeight : 54;
+        let bannerHeight = (175 + sat) - scrollLevel;
+        bannerHeight = bannerHeight > (54 + sat) ? bannerHeight : (54 + sat);
         this.splashRef.current.style.height = bannerHeight + "px";
         scrollLevel = scrollLevel > 121 ? 121 : scrollLevel;
         target.style.paddingTop = scrollLevel + "px";
@@ -39,13 +40,15 @@ export default class Screen extends React.Component<PropType> {
         var header: any;
         var content: any = this.props.children;
 
+
+
         if (this.props.appBar) {
             if (this.props.appBar.splash != null) {
                 header = (
                     <Fragment>
                         <div
                             ref={this.splashRef}
-                            className={css(styles.splash)}
+                            className={"screen-splash " + css(styles.splash)}
                             style={{ height: "175px" }}>
                             <img
                                 alt=""
@@ -56,7 +59,7 @@ export default class Screen extends React.Component<PropType> {
                             </div>
                         </div>
                         {this.props.appBar.onBack ? (
-                            <div className="backIcon">
+                            <div className="backIcon screen-splash-back">
                                 <i
                                     className="material-icons-round"
                                     onClick={this.props.appBar.onBack}>
@@ -76,29 +79,31 @@ export default class Screen extends React.Component<PropType> {
             } else {
                 header = (
                     <div
-                        className={css(
+                        className={"screen-header " + css(
                             styles.header,
                             this.props.dark ? styles.dark : styles.light
                         )}>
-                        {this.props.appBar.onBack ? (
-                            <span className={css(styles.backButton)}>
-                                <i
-                                    className="icon material-icons-round"
-                                    onClick={this.props.appBar.onBack}>
-                                    arrow_back_ios
+                        <div className={css(styles.headerContent)}>
+                            {this.props.appBar.onBack ? (
+                                <span className={css(styles.backButton)}>
+                                    <i
+                                        className="icon material-icons-round"
+                                        onClick={this.props.appBar.onBack}>
+                                        arrow_back_ios
                                 </i>
+                                </span>
+                            ) : null}
+                            <span className={css(styles.screenTitle)}>
+                                {this.props.appBar.title}
                             </span>
-                        ) : null}
-                        <span className={css(styles.screenTitle)}>
-                            {this.props.appBar.title}
-                        </span>
-                        {this.props.appBar.icon ? (
-                            <div
-                                className={css(styles.iconButton)}
-                                onClick={this.props.appBar.onIconClick}>
-                                {this.props.appBar.icon}
-                            </div>
-                        ) : null}
+                            {this.props.appBar.icon ? (
+                                <div
+                                    className={css(styles.iconButton)}
+                                    onClick={this.props.appBar.onIconClick}>
+                                    {this.props.appBar.icon}
+                                </div>
+                            ) : null}
+                        </div>
                     </div>
                 );
             }
@@ -107,7 +112,7 @@ export default class Screen extends React.Component<PropType> {
         return (
             <IonPage id={this.props.id}>
                 <div
-                    className={css(
+                    className={"screen-component " + css(
                         styles.screen,
                         this.props.dark ? styles.dark : styles.light
                     )}>
@@ -138,16 +143,19 @@ const styles = StyleSheet.create({
         // bottom: 0,
     },
     header: {
-        "--safe-area-inset-top": "env(safe-area-inset-top)",
         padding: 10,
-        paddingTop: "calc(10px + var(--safe-area-inset-top))",
-        fontSize: "1.8em",
-        fontWeight: 400,
-        fontFamily: '"Rubik", sans-serif',
         zIndex: 10,
         boxShadow: "#ccc 0px 0px 6px 0px",
         position: "relative",
         height: 54.4,
+    },
+    headerContent: {
+        fontSize: "1.8em",
+        fontWeight: 400,
+        fontFamily: '"Rubik", sans-serif',
+        position: "relative",
+        width: "100%",
+        height: "100%"
     },
     backButton: {
         float: "left",

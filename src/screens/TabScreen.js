@@ -32,94 +32,106 @@ const MainScreen = (props) =>
             }}
         />
     ) : (
-        <IonPage id="app">
-            <IonTabs>
-                <IonRouterOutlet>
-                    <Route
-                        path="/app/:tab(home)"
-                        component={HomeScreen}
-                        exact
-                    />
-                    <Route
-                        path="/app/:tab(restaurants)"
-                        component={RestaurantsRouter}
-                    />
-                    <Route
-                        path="/app/:tab(deliverer)"
-                        component={DelivererRouter}
-                    />
-                    <Route
-                        path="/app/:tab(tracker)"
-                        component={TrackerRouter}
-                    />
-                    <Route
-                        path="/app/:tab(profile)"
-                        component={ProfileRouter}
-                    />
-                    <Route
-                        path="/app/deliverer/order"
-                        component={DelivererOrder}
-                        exact
-                    />
-                    <Route
-                        path="/app/deliverer/payment"
-                        component={DelivererPayment}
-                        exact
-                    />
-                    <Redirect from="/app" to="/app/home" exact />
-                </IonRouterOutlet>
+            <IonPage id="app">
+                <IonTabs>
+                    <IonRouterOutlet>
+                        <Route
+                            path="/app/:tab(home)"
+                            component={HomeScreen}
+                            exact
+                        />
+                        <Route
+                            path="/app/:tab(restaurants)"
+                            component={RestaurantsRouter}
+                        />
+                        <Route
+                            path="/app/:tab(deliverer)"
+                            component={DelivererRouter}
+                        />
+                        <Route
+                            path="/app/:tab(tracker)"
+                            component={TrackerRouter}
+                        />
+                        <Route
+                            path="/app/:tab(profile)"
+                            component={ProfileRouter}
+                        />
+                        <Route
+                            path="/app/deliverer/order"
+                            component={DelivererOrder}
+                            exact
+                        />
+                        <Route
+                            path="/app/deliverer/payment"
+                            component={DelivererPayment}
+                            exact
+                        />
+                        <Redirect from="/app" to="/app/home" exact />
+                    </IonRouterOutlet>
 
-                <IonTabBar slot="bottom">
-                    <IonTabButton tab="home" href="/app/home">
-                        <IonIcon
-                            icon={restaurant}
-                            style={{ width: "100%", height: "50%" }}
-                        />
-                    </IonTabButton>
-                    <IonTabButton tab="restaurants" href="/app/restaurants">
-                        <IonIcon
-                            icon={search}
-                            style={{ width: "100%", height: "53%" }}
-                        />
-                    </IonTabButton>
-                    {props.isDeliverer ? (
-                        <IonTabButton tab="delivery" href="/app/deliverer">
-                            {props.activeOrderCount ? (
+                    <IonTabBar slot="bottom" mode="md">
+                        <IonTabButton tab="home" href="/app/home">
+                            <IonIcon
+                                icon={restaurant}
+                                style={{ width: "100%", height: "50%" }}
+                            />
+                        </IonTabButton>
+                        <IonTabButton tab="restaurants" href="/app/restaurants">
+                            <IonIcon
+                                icon={search}
+                                style={{ width: "100%", height: "53%" }}
+                            />
+                        </IonTabButton>
+                        {props.isDeliverer ? (
+                            <IonTabButton tab="delivery" href="/app/deliverer">
+                                {props.activeOrderCount ? (
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            background: "var(--secondary)",
+                                            padding: "0px 6px",
+                                            textAlign: "center",
+                                            borderRadius: "50%",
+                                            color: "white",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            top: "3px",
+                                            right: "3px",
+                                        }}>
+                                        {props.activeOrderCount}
+                                    </div>
+                                ) : null}
                                 <div
                                     style={{
-                                        position: "absolute",
-                                        background: "var(--secondary)",
-                                        padding: "0px 6px",
-                                        textAlign: "center",
-                                        borderRadius: "50%",
-                                        color: "white",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        top: "3px",
-                                        right: "3px",
+                                        ...{
+                                            border: "2px solid transparent",
+                                            position: "absolute",
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%",
+                                            transform: "translateY(1px)",
+                                            transition: "0.4s ease-in-out",
+                                        },
+                                        ...(props.deliveryModeActive
+                                            ? {
+                                                border:
+                                                    "2px solid var(--secondary)",
+                                            }
+                                            : null),
+                                    }}></div>
+                                <i
+                                    className="material-icons-round"
+                                    style={{
+                                        width: "100%",
+                                        height: "50%",
+                                        fontSize: "1.9em",
                                     }}>
-                                    {props.activeOrderCount}
-                                </div>
-                            ) : null}
-                            <div
-                                style={{
-                                    ...{
-                                        border: "2px solid transparent",
-                                        position: "absolute",
-                                        width: "40px",
-                                        height: "40px",
-                                        borderRadius: "50%",
-                                        transform: "translateY(1px)",
-                                        transition: "0.4s ease-in-out",
-                                    },
-                                    ...(props.deliveryModeActive
-                                        ? {
-                                              border:
-                                                  "2px solid var(--secondary)",
-                                          }
-                                        : null),
-                                }}></div>
+                                    local_shipping
+                            </i>
+                            </IonTabButton>
+                        ) : null}
+                        <IonTabButton tab="tracker" href="/app/tracker">
                             <i
                                 className="material-icons-round"
                                 style={{
@@ -127,31 +139,19 @@ const MainScreen = (props) =>
                                     height: "50%",
                                     fontSize: "1.9em",
                                 }}>
-                                local_shipping
-                            </i>
-                        </IonTabButton>
-                    ) : null}
-                    <IonTabButton tab="tracker" href="/app/tracker">
-                        <i
-                            className="material-icons-round"
-                            style={{
-                                width: "100%",
-                                height: "50%",
-                                fontSize: "1.9em",
-                            }}>
-                            track_changes
+                                track_changes
                         </i>
-                    </IonTabButton>
-                    <IonTabButton tab="profile" href="/app/profile">
-                        <IonIcon
-                            icon={person}
-                            style={{ width: "100%", height: "50%" }}
-                        />
-                    </IonTabButton>
-                </IonTabBar>
-            </IonTabs>
-        </IonPage>
-    );
+                        </IonTabButton>
+                        <IonTabButton tab="profile" href="/app/profile">
+                            <IonIcon
+                                icon={person}
+                                style={{ width: "100%", height: "50%" }}
+                            />
+                        </IonTabButton>
+                    </IonTabBar>
+                </IonTabs>
+            </IonPage>
+        );
 
 const mapStateToProps = ({
     apiToken,
