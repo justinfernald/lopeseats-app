@@ -108,7 +108,7 @@ class SelectedOrder extends React.Component {
             this.fetchData();
 
             const activeOrderCountResponse = await postData(
-                "https://lopeseat.com/REST/getActiveOrderCount.php",
+                "https://lopeseat.com/REST/order/getActiveOrderCount.php",
                 {
                     apiToken: this.props.apiToken,
                 }

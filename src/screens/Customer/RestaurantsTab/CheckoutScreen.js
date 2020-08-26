@@ -19,7 +19,7 @@ class CheckoutScreen extends React.Component {
 
     async componentDidMount() {
         const response = await fetch(
-            "https://lopeseat.com/REST/requestToken.php"
+            "https://lopeseat.com/REST/order/requestBraintreeToken.php"
         );
         const clientToken = await response.json();
 

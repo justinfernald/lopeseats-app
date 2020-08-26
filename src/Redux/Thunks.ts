@@ -6,7 +6,7 @@ export const fetchBalances = createAsyncThunk(
     'users/fetchBalanceStatus',
     async (apiToken, thunkAPI) => {
         try {
-            const response = await postData("https://lopeseat.com/REST/getBalances.php", {
+            const response = await postData("https://lopeseat.com/REST/user/getBalances.php", {
                 apiToken: apiToken,
             });
             return response;
@@ -21,7 +21,7 @@ export const setProfileImage = createAsyncThunk(
     'users/setProfileImageStatus',
     async (data:{apiToken: string, image: string}, thunkAPI) => {
         try {
-            const response = await postData("https://lopeseat.com/REST/setProfileImage.php",
+            const response = await postData("https://lopeseat.com/REST/user/setProfileImage.php",
             {
                 apiToken: data.apiToken,
                 profileImage: data.image
@@ -40,7 +40,7 @@ export const changePhoneNumber = createAsyncThunk(
     async (phoneNumber: string, thunkAPI) => {
         try {
             var state:any = thunkAPI.getState();
-            const response = await postData("https://lopeseat.com/REST/changePhone.php",
+            const response = await postData("https://lopeseat.com/REST/user/changePhone.php",
             {
                 apiToken: state.apiToken,
                 phone: phoneNumber
@@ -61,7 +61,7 @@ export const changePassword = createAsyncThunk(
     async (payload: { currPassword: string, newPassword: string }, thunkAPI) => {
         try {
             var state:any = thunkAPI.getState();
-            const response = await postData("https://lopeseat.com/REST/changePassword.php",
+            const response = await postData("https://lopeseat.com/REST/user/changePassword.php",
             {
                 apiToken: state.apiToken,
                 ...payload

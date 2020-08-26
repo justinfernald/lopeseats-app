@@ -33,12 +33,12 @@ class LoginScreen extends React.Component {
 
     async checkToken(apiToken) {
         if (
-            await postData("https://lopeseat.com/REST/validToken.php", {
+            await postData("https://lopeseat.com/REST/user/validToken.php", {
                 apiToken,
             })
         ) {
             const profileData = await postData(
-                "https://lopeseat.com/REST/getProfileData.php",
+                "https://lopeseat.com/REST/user/getProfileData.php",
                 {
                     apiToken,
                 }
@@ -103,7 +103,7 @@ class LoginScreen extends React.Component {
         if (errors.length === 0) {
             // updateFBToken(this.props.fbToken, loginData.msg);
             const profileData = await postData(
-                "https://lopeseat.com/REST/getProfileData.php",
+                "https://lopeseat.com/REST/user/getProfileData.php",
                 {
                     apiToken: loginData.msg,
                 }

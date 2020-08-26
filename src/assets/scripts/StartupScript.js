@@ -8,13 +8,13 @@ const StartUp = ({ apiToken }) => {
 const checkToken = async (apiToken) => {
     if (
         (
-            await postData("https://lopeseat.com/REST/validToken.php", {
+            await postData("https://lopeseat.com/REST/user/validToken.php", {
                 apiToken,
             })
         ).success
     ) {
         const profileData = await postData(
-            "https://lopeseat.com/REST/getProfileData.php",
+            "https://lopeseat.com/REST/user/getProfileData.php",
             {
                 apiToken,
             }
@@ -25,7 +25,7 @@ const checkToken = async (apiToken) => {
 
         if (profileData.isDeliverer) {
             const activeOrderCountResponse = await postData(
-                "https://lopeseat.com/REST/getActiveOrderCount.php",
+                "https://lopeseat.com/REST/order/getActiveOrderCount.php",
                 {
                     apiToken,
                 }
