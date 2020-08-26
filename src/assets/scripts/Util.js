@@ -115,13 +115,9 @@ export const postData = async (
 };
 
 export const phoneNumberTaken = async (phoneNumber) => {
-    try {
-        return await postData(
-            "https://lopeseat.com/REST/user/checkNumber.php?phone=" + phoneNumber
-        );
-    } catch (e) {
-        return true;
-    }
+    return await postData(
+        "https://lopeseat.com/REST/user/checkNumber.php?phone=" + phoneNumber
+    );
 };
 
 export const addBackStep = () => {
@@ -446,6 +442,15 @@ export const getScrollCards = async () => {
         "https://lopeseat.com/REST/menu/getCardList.php?cardLocation=cardlist"
     );
 };
+
+export const sendDepositPayment = async (nonce, amount, to, apiToken) => {
+    return await postData("https://lopeseat.com/REST/ledger/deposit.php",{
+        apiToken,
+        nonce,
+        amount,
+        to
+    });
+}
 
 export const makePHXTime = (date) => {
     return new Date(

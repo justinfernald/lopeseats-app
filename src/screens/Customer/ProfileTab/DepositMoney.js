@@ -2,6 +2,7 @@ import React from 'react';
 import Screen from '../../../components/Screen';
 import { css, StyleSheet } from "aphrodite/no-important";
 import Button from '../../../components/Button';
+import { store, actions } from "../../../Redux";
 
 export default class DepositMoney extends React.Component {
 
@@ -13,8 +14,6 @@ export default class DepositMoney extends React.Component {
             selectedOption: 0,
             customVal: "1"
         };
-
-        this.customRef = React.createRef();
     }
     
     generateMoneyBtn(amount) {
@@ -36,6 +35,20 @@ export default class DepositMoney extends React.Component {
         }
     }
 
+    onNextStep = () => {
+        var { selectedOption, selectedMoney, customVal } = this.state;
+        store.dispatch(actions.setDepositData({
+            amount: selectedMoney == -1 ? parseInt(customVal) : selectedMoney,
+            toFriend: selectedOption == 1
+        }));
+
+        if (selectedOption == 1) {
+            this.props.history.push("/app/profile/friendsInfo");
+        } else {
+            this.props.history.push("/app/profile/depositCheckout");
+        }
+    }
+
     render() {
         var { selectedMoney } = this.state;
         return (
@@ -52,7 +65,7 @@ export default class DepositMoney extends React.Component {
                 <div className={css(styles.topSection)}>
                     <div style={{color: "#7B7B7B", marginBottom: "5px"}}>Add</div>
                     <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedMoney == -1 ? 
-                    <input type="number" onChange={this.onInputChange} className={css(styles.input)} ref={this.customRef} defaultValue={1}/>
+                    <input type="number" onChange={this.onInputChange} className={css(styles.input)} defaultValue={1}/>
                     :
                     selectedMoney
                     }</div>
@@ -79,7 +92,7 @@ export default class DepositMoney extends React.Component {
                 </div>
 
                 <div className={css(styles.btnContainer)}>
-                    <Button>Continue</Button>
+                    <Button onClick={this.onNextStep}>Continue</Button>
                 </div>
             </Screen>
         );
@@ -90,17 +103,21 @@ export default class DepositMoney extends React.Component {
 const styles = StyleSheet.create({
     btnContainer: {
         margin: "0px 10px",
-        height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        height: "auto",
+        position: "absolute",
+        width: "calc(100% - 20px)",
+        bottom: 0
     },
     label: {
         textAlign: "center",
         marginBottom: "30px"
     },
     balance: {
-        height: "5em",
+        height: "50px",
+        fontSize: "1.1em",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
