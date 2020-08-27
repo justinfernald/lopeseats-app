@@ -1,9 +1,6 @@
 import React from "react";
 import DropIn from "braintree-web-drop-in-react";
 import {
-    sendPayment,
-    getCartPrices,
-    formatPrice,
     sendDepositPayment,
 } from "../../../assets/scripts/Util";
 import LopesEatLogo from "../../../assets/images/icon-384x384.png";

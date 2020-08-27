@@ -2,7 +2,7 @@ import React from 'react';
 import MenuDropdown from "../../../components/Settings/MenuDropdown";
 import { StyleSheet, css } from "aphrodite/no-important";
 import { store, actions } from "../../../Redux";
-import { TextField, Button } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { applyToDeliver, showErrors } from '../../../assets/scripts/Util';
 import { connect } from "react-redux";
 

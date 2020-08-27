@@ -107,7 +107,8 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        fontSize: "1.7em"
+        fontSize: "1.7em",
+        color: "#de8500"
     },
     payoutInfo: {
         display: "flex",

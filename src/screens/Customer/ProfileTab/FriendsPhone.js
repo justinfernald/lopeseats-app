@@ -17,7 +17,7 @@ export default class FriendsPhone extends React.Component {
     onNextStep = () => {
         var phone = this.phoneRef.current.value;
         console.log(phone);
-        if (phone.length != 10) {
+        if (phone.length !== 10) {
             showErrors(["Phone number not valid. Make sure you include the area code"]);
             return;
         }

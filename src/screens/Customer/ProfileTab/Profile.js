@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Screen from "../../../components/Screen";
 import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { setProfileImage } from "../../../Redux/Thunks";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonIcon } from '@ionic/react';
 import ClickThrough from "../../../components/Settings/ClickThrough";
 import BalanceDisplay from "../../../components/Settings/BalanceDisplay";
 import { fetchBalances } from "../../../Redux/Thunks";
@@ -13,6 +13,8 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ChangePhoneNumber from "./ChangePhoneNumber";
 import ChangePassword from "./ChangePassword";
 import ApplyToDeliver from "./ApplyToDeliver";
+
+import { logOutOutline } from "ionicons/icons";
 
 const theme = createMuiTheme({
   palette: {
@@ -32,15 +34,45 @@ class Profile extends React.Component {
         store.dispatch(fetchBalances(this.props.apiToken));
     }
 
+    logout() {
+        this.props.history.push("/");
+        store.dispatch(actions.reset());
+    }
+
     render() {
         var balanceLoaded = this.props.balances && this.props.balances.length > 0;
 
-        var { balances, profileImage, apiToken } = this.props;
+        var { userDetails, balances, profileImage, apiToken } = this.props;
+
+        var { isDeliverer } = userDetails;
+
+        var earnings = (
+            isDeliverer ? (
+                <Fragment>
+                    <div className={css(styles.vSpacer)}/>
+                    <BalanceDisplay title="Earnings" balances={balances} loading={!balanceLoaded} index={1}/>
+                </Fragment>
+            ):null
+        );
+
+        var deliverySection = (
+            isDeliverer ? (
+                <Fragment>
+                    <ClickThrough>Withdraw earnings</ClickThrough>
+                </Fragment>
+            ):(
+                <Fragment>
+                    <ApplyToDeliver/>
+                </Fragment>
+            )
+        );
 
         return (
             <Screen
             appBar={{
-                title: "Profile"
+                title: "Profile",
+                icon: (<IonIcon icon={logOutOutline}/>),
+                onIconClick: () => this.logout()
             }}>
                 <ThemeProvider theme={theme}>
                     <div className={css(styles.headerSection)}>
@@ -50,8 +82,7 @@ class Profile extends React.Component {
                         <div className={css(styles.vSpacer)}/>
                         <div className={css(styles.balanceSection)}>
                             <BalanceDisplay title="Balance" balances={balances} loading={!balanceLoaded} index={0}/>
-                            <div className={css(styles.vSpacer)}/>
-                            <BalanceDisplay title="Earnings" balances={balances} loading={!balanceLoaded} index={1}/>
+                            {earnings}
                         </div>
                     </div>
 
@@ -60,8 +91,10 @@ class Profile extends React.Component {
                         <ChangePhoneNumber/>
                         <div className={css(styles.spacer)}/>
                         <ChangePassword/>
+                        <div className={css(styles.spacer)}/>
+                        <ClickThrough>Add money or send gift</ClickThrough>
                         <div className={css(styles.sectionTitle)}>Delivery</div>
-                        <ApplyToDeliver/>
+                        {deliverySection}
                         {/* <ClickThrough>Become a Runner</ClickThrough> */}
                     </div>
                 </ThemeProvider>
@@ -127,4 +160,4 @@ dropdownInput: {
 }
 });
 
-export default connect(({profileImage, apiToken, balances}) => ({profileImage, apiToken, balances}))(Profile);
+export default connect(({userDetails, profileImage, apiToken, balances}) => ({userDetails, profileImage, apiToken, balances}))(Profile);

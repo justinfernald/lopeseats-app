@@ -9,7 +9,7 @@ import {
     IonTabButton,
     IonIcon,
 } from "@ionic/react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 import HomeScreen from "./Customer/HomeScreen/HomeScreen"; // temp import for testing new layout. TODO: change to "./Customer/HomeScreen"
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";
@@ -35,38 +35,40 @@ const MainScreen = (props) =>
             <IonPage id="app">
                 <IonTabs>
                     <IonRouterOutlet>
-                        <Route
-                            path="/app/:tab(home)"
-                            component={HomeScreen}
-                            exact
-                        />
-                        <Route
-                            path="/app/:tab(restaurants)"
-                            component={RestaurantsRouter}
-                        />
-                        <Route
-                            path="/app/:tab(deliverer)"
-                            component={DelivererRouter}
-                        />
-                        <Route
-                            path="/app/:tab(tracker)"
-                            component={TrackerRouter}
-                        />
-                        <Route
-                            path="/app/:tab(profile)"
-                            component={ProfileRouter}
-                        />
-                        <Route
-                            path="/app/deliverer/order"
-                            component={DelivererOrder}
-                            exact
-                        />
-                        <Route
-                            path="/app/deliverer/payment"
-                            component={DelivererPayment}
-                            exact
-                        />
-                        <Redirect from="/app" to="/app/home" exact />
+                        <Switch>
+                            <Route
+                                path="/app/:tab(home)"
+                                component={HomeScreen}
+                                exact
+                            />
+                            <Route
+                                path="/app/:tab(restaurants)"
+                                component={RestaurantsRouter}
+                            />
+                            <Route
+                                path="/app/:tab(deliverer)"
+                                component={DelivererRouter}
+                            />
+                            <Route
+                                path="/app/:tab(tracker)"
+                                component={TrackerRouter}
+                            />
+                            <Route
+                                path="/app/:tab(profile)"
+                                component={ProfileRouter}
+                            />
+                            <Route
+                                path="/app/deliverer/order"
+                                component={DelivererOrder}
+                                exact
+                            />
+                            <Route
+                                path="/app/deliverer/payment"
+                                component={DelivererPayment}
+                                exact
+                            />
+                            <Redirect from="/app" to="/app/home" exact />
+                        </Switch>
                     </IonRouterOutlet>
 
                     <IonTabBar slot="bottom" mode="md">

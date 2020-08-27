@@ -18,12 +18,12 @@ export default class DepositMoney extends React.Component {
     
     generateMoneyBtn(amount) {
         var { selectedMoney } = this.state;
-        return <div className={css(styles.moneyBtn, (amount == selectedMoney ? styles.moneyBtnSelected : null))} onClick={() => this.setState({selectedMoney: amount})}>{amount != -1 ? "$" + amount : "Custom"}</div>;
+        return <div className={css(styles.moneyBtn, (amount === selectedMoney ? styles.moneyBtnSelected : null))} onClick={() => this.setState({selectedMoney: amount})}>{amount !== -1 ? "$" + amount : "Custom"}</div>;
     }
 
     generateBtn(title, id) {
         var { selectedOption } = this.state;
-        return <div className={css(styles.optionBtn, (id == selectedOption ? styles.optionBtnSelected : null))} onClick={() => this.setState({selectedOption: id})}>{title}</div>;
+        return <div className={css(styles.optionBtn, (id === selectedOption ? styles.optionBtnSelected : null))} onClick={() => this.setState({selectedOption: id})}>{title}</div>;
     }
 
     onInputChange = (e) => {
@@ -38,11 +38,11 @@ export default class DepositMoney extends React.Component {
     onNextStep = () => {
         var { selectedOption, selectedMoney, customVal } = this.state;
         store.dispatch(actions.setDepositData({
-            amount: selectedMoney == -1 ? parseInt(customVal) : selectedMoney,
-            toFriend: selectedOption == 1
+            amount: selectedMoney === -1 ? parseInt(customVal) : selectedMoney,
+            toFriend: selectedOption === 1
         }));
 
-        if (selectedOption == 1) {
+        if (selectedOption === 1) {
             this.props.history.push("/app/profile/friendsInfo");
         } else {
             this.props.history.push("/app/profile/depositCheckout");
@@ -64,7 +64,7 @@ export default class DepositMoney extends React.Component {
 
                 <div className={css(styles.topSection)}>
                     <div style={{color: "#7B7B7B", marginBottom: "5px"}}>Add</div>
-                    <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedMoney == -1 ? 
+                    <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedMoney === -1 ? 
                     <input type="number" onChange={this.onInputChange} className={css(styles.input)} defaultValue={1}/>
                     :
                     selectedMoney
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         textAlign: "center",
-        fontSize: "1.1em",
         borderBottom: "solid 1px #707070"
     },
     topSection: {    

@@ -272,7 +272,8 @@ const reducers = {
             ...state.depositData,
             ...data
         }
-    }
+    },
+    reset: (state:any) => initialState
 };
 
 const stateSlice = createSlice({

@@ -2,9 +2,7 @@ import React from 'react';
 import {
     verifyCode,
     showErrors,
-    loginAccount,
 } from "../../assets/scripts/Util";
-import { store, actions } from "../../Redux";
 
 type propType = {
     phoneNumber: string,

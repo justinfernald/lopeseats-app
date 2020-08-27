@@ -1,6 +1,6 @@
 import React from "react";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { IonRippleEffect } from "@ionic/react";
+// import { IonRippleEffect } from "@ionic/react";
 
 export default class ClickThrough extends React.Component<{
     onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
