@@ -333,9 +333,9 @@ export const getPayoutTotal = async (apiToken) => {
     });
 };
 
-export const getPayoutStatus = async (apiToken, orderId) => {
+export const getPayoutStatus = async (apiToken, payoutId) => {
     return await postData(
-        "https://lopeseat.com/REST/delivery/getPayoutStatus.php?order=" + orderId,
+        "https://lopeseat.com/REST/delivery/getPayoutStatus.php?payoutId=" + payoutId,
         {
             apiToken: apiToken,
         }
@@ -450,6 +450,12 @@ export const sendDepositPayment = async (nonce, amount, to, apiToken) => {
         amount,
         to
     });
+}
+
+export const applyToDeliver = async (apiToken) => {
+    return await postData("https://lopeseat.com/REST/delivery/applyToDeliver.php",{
+        apiToken
+    })
 }
 
 export const makePHXTime = (date) => {

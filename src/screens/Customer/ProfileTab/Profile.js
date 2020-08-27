@@ -12,6 +12,7 @@ import { fetchBalances } from "../../../Redux/Thunks";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import ChangePhoneNumber from "./ChangePhoneNumber";
 import ChangePassword from "./ChangePassword";
+import ApplyToDeliver from "./ApplyToDeliver";
 
 const theme = createMuiTheme({
   palette: {
@@ -43,29 +44,26 @@ class Profile extends React.Component {
             }}>
                 <ThemeProvider theme={theme}>
                     <div className={css(styles.headerSection)}>
-                        <IonGrid style={{height: "100%"}}>
-                            <IonRow style={{height: "100%"}}>
-                                <IonCol size={4} style={{height: "100%"}} style={styles.flexColumn}>
-                                    <div className={css(styles.imageContainer)}>
-                                        <ImageUploader image={profileImage} onUpload={image => store.dispatch(setProfileImage({apiToken, image}))}/>
-                                    </div>
-                                </IonCol>
-                                <IonCol size={8}>
-                                    <div className={css(styles.balanceSection)}>
-                                        <BalanceDisplay title="LopesEat Balance" balances={balances} loading={!balanceLoaded} index={0}/>
-                                        <BalanceDisplay title="Delivery Balance" balances={balances} loading={!balanceLoaded} index={1}/>
-                                    </div> 
-                                </IonCol>
-                            </IonRow>
-                        </IonGrid>
+                        <div className={css(styles.imageContainer)}>
+                            <ImageUploader image={profileImage} onUpload={image => store.dispatch(setProfileImage({apiToken, image}))}/>
+                        </div>
+                        <div className={css(styles.vSpacer)}/>
+                        <div className={css(styles.balanceSection)}>
+                            <BalanceDisplay title="Balance" balances={balances} loading={!balanceLoaded} index={0}/>
+                            <div className={css(styles.vSpacer)}/>
+                            <BalanceDisplay title="Earnings" balances={balances} loading={!balanceLoaded} index={1}/>
+                        </div>
                     </div>
 
-                    <div className={css(styles.sectionTitle)}>Account Settings</div>
-                    <ChangePhoneNumber/>
-                    <div className={css(styles.spacer)}/>
-                    <ChangePassword/>
-                    <div className={css(styles.sectionTitle)}>Delivery</div>
-                    <ClickThrough>Become a Runner</ClickThrough>
+                    <div className={css(styles.settingsSection)}>
+                        <div className={css(styles.sectionTitle)}>Account Settings</div>
+                        <ChangePhoneNumber/>
+                        <div className={css(styles.spacer)}/>
+                        <ChangePassword/>
+                        <div className={css(styles.sectionTitle)}>Delivery</div>
+                        <ApplyToDeliver/>
+                        {/* <ClickThrough>Become a Runner</ClickThrough> */}
+                    </div>
                 </ThemeProvider>
             </Screen>
         );
@@ -79,8 +77,18 @@ spacer: {
     marginLeft: "10px",
     backgroundColor: "#ccc"
 },
+vSpacer: {
+    width: "1px",
+    height: "100%",
+    backgroundColor: "#cccccc"
+},
 headerSection: {
-    height: "120px"
+    height: "120px",
+    display: "flex",
+    flexDirection: "row"
+},
+settingsSection: {
+    width: "100%"
 },
 imageContainer: {
     padding: "10px",
@@ -91,7 +99,8 @@ balanceSection: {
     height: "100%",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
+    width: "calc(100% - 120px)",
 },
 flexColumn: {
     display: "flex",
