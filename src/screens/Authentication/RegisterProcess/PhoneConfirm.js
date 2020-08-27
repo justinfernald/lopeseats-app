@@ -1,8 +1,6 @@
 import React from "react";
 import RegisterStep from "./RegisterStep";
 import {
-    verifyCode,
-    showErrors,
     loginAccount,
 } from "../../../assets/scripts/Util";
 import { connect } from "react-redux";

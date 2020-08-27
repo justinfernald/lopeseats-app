@@ -112,7 +112,7 @@ class StartDelivery extends React.Component {
         super(props);
 
         if (props.activeOrderCount > 0) {
-            props.history.replace("/app/deliverer/activeOrders");
+            props.history.push("/app/deliverer/activeOrders");
             return;
         }
 
@@ -193,7 +193,7 @@ class StartDelivery extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.activeOrderCount > 0) {
-            this.props.history.replace("/app/deliverer/activeOrders");
+            this.props.history.push("/app/deliverer/activeOrders");
             return;
         }
 

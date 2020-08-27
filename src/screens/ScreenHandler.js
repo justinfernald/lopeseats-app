@@ -12,7 +12,7 @@ import {
 } from "../assets/scripts/Util";
 import { IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
 
@@ -136,10 +136,12 @@ class ScreenHandler extends React.Component {
         return (
             <IonReactRouter>
                 <IonRouterOutlet>
-                    <Route exact path="/login" component={LoginScreen} />
-                    <Route path="/register" component={RegisterRouter} />
-                    <Route path="/app" component={TabScreen} />
-                    <Redirect exact from="/" to="/login" />
+                    <Switch>
+                        <Route exact path="/login" component={LoginScreen} />
+                        <Route path="/register" component={RegisterRouter} />
+                        <Route path="/app" component={TabScreen} />
+                        <Redirect exact from="/" to="/login" />
+                    </Switch>
                 </IonRouterOutlet>
             </IonReactRouter>
         );

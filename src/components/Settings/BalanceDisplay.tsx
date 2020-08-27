@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
         fontWeight: 500,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "10px 0",
-        margin: "0 10px"
+        justifyContent: "space-evenly",
+        padding: "10px",
+        width: "50%",
     },
     balanceContainer: {
         display: "flex",

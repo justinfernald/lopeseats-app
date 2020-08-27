@@ -68,7 +68,13 @@ const initialState = {
     overlayEnabled: null,
     overlay: null,
     // Dropdown Menus
-    openMenus: []
+    openMenus: [],
+    // Depositing
+    depositData: {
+        amount: 5,
+        toFriend: false,
+        friendsPhone: ""
+    }
 };
 
 const reducers = {
@@ -257,7 +263,17 @@ const reducers = {
         state: any
     ) => {
         state.openMenus = [];
-    }
+    },
+    setDepositData: (
+        state: any,
+        { payload: data }: { payload: { amount:number, toFriend:boolean, friendsPhone:string } }
+    ) => {
+        state.depositData = {
+            ...state.depositData,
+            ...data
+        }
+    },
+    reset: (state:any) => initialState
 };
 
 const stateSlice = createSlice({

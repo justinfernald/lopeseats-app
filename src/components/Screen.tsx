@@ -162,13 +162,13 @@ const styles = StyleSheet.create({
     },
     iconButton: {
         position: "absolute",
-        right: 10,
+        right: 0,
         top: 0,
         bottom: 0,
         width: 54.4,
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-end",
     },
     screenTitle: {
         position: "absolute",

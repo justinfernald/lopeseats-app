@@ -1,7 +1,6 @@
 import React from "react";
 import { TextField, Button } from "@material-ui/core";
 import MenuDropdown from "../../../components/Settings/MenuDropdown";
-import { StyleSheet } from "aphrodite/no-important";
 import { store, actions } from "../../../Redux";
 import { connect } from "react-redux";
 import { showErrors } from "../../../assets/scripts/Util";

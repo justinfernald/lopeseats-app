@@ -1,21 +1,22 @@
 import React from "react";
 import DropIn from "braintree-web-drop-in-react";
 import {
-    sendPayment,
-    getCartPrices,
-    formatPrice,
+    sendDepositPayment,
 } from "../../../assets/scripts/Util";
 import LopesEatLogo from "../../../assets/images/icon-384x384.png";
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
 
-class CheckoutScreen extends React.Component {
+class DepositCheckout extends React.Component {
     instance;
-    fee = 0;
 
-    state = {
-        clientToken: null,
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            clientToken: null
+        };
+    }
 
     async componentDidMount() {
         const response = await fetch(
@@ -25,20 +26,19 @@ class CheckoutScreen extends React.Component {
 
         console.log(clientToken);
 
-        var prices = await getCartPrices(this.props.apiToken);
-        this.fee = prices.delivery_fee;
-
         this.setState({
-            clientToken,
+            clientToken
         });
     }
 
     async pay() {
+        var { amount, toFriend, friendsPhone } = this.props.depositData;
         if (!this.instance) return;
         if (this.instance.isPaymentMethodRequestable()) {
             const { nonce } = await this.instance.requestPaymentMethod();
-            await sendPayment(nonce, this.props.address, this.props.apiToken);
-            this.props.history.go(-(this.props.history.length - 2));
+            await sendDepositPayment(nonce, amount, toFriend ? friendsPhone : null, this.props.apiToken);
+            this.props.history.push("/app/home");
+            // this.props.history.go(-(this.props.history.length - 2));
         }
     }
 
@@ -66,7 +66,9 @@ class CheckoutScreen extends React.Component {
                     title: "Checkout",
                     onBack: this.props.history.goBack,
                 }}>
-                {dropin}
+                <div style={{padding: "20px 10px 0 10px"}}>
+                    {dropin}
+                </div>
                 <div
                     className="cartFooter"
                     style={{
@@ -74,8 +76,8 @@ class CheckoutScreen extends React.Component {
                         bottom: 0,
                     }}>
                     <div className="total">
-                        Delivery Fee
-                        <span className="price">${formatPrice(this.fee)}</span>
+                        Total
+                        <span className="price">${this.props.depositData.amount}</span>
                     </div>
                     <button
                         className="checkoutButton"
@@ -88,6 +90,6 @@ class CheckoutScreen extends React.Component {
     }
 }
 
-export default connect(({ apiToken, address }) => ({ apiToken, address }))(
-    CheckoutScreen
+export default connect(({ apiToken, depositData }) => ({ apiToken, depositData }))(
+    DepositCheckout
 );
