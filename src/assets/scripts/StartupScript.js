@@ -1,11 +1,11 @@
-import { postData } from "./Util";
+import { postData, updateFBToken } from "./Util";
 import { store, actions } from "../../Redux";
 
-const StartUp = ({ apiToken }) => {
-    checkToken(apiToken);
+const StartUp = ({ apiToken, fbToken, fbPlatform }) => {
+    checkToken(apiToken, fbToken, fbPlatform);
 };
 
-const checkToken = async (apiToken) => {
+const checkToken = async (apiToken, fbToken, fbPlatform) => {
     if (
         (
             await postData("https://lopeseat.com/REST/user/validToken.php", {
@@ -19,6 +19,9 @@ const checkToken = async (apiToken) => {
                 apiToken,
             }
         );
+
+        if (fbToken && fbPlatform)
+            updateFBToken(fbToken, fbPlatform, apiToken);
 
         store.dispatch(actions.setApiToken(apiToken));
         store.dispatch(actions.setUserDetails(profileData));

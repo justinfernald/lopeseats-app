@@ -91,9 +91,10 @@ const MainScreen = (props) =>
                                         style={{
                                             position: "absolute",
                                             background: "var(--secondary)",
-                                            padding: "0px 6px",
+                                            padding: "0px 4px",
+                                            minWidth: 24,
                                             textAlign: "center",
-                                            borderRadius: "50%",
+                                            borderRadius: "30px",
                                             color: "white",
                                             display: "flex",
                                             justifyContent: "center",
