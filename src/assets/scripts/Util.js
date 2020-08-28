@@ -37,9 +37,9 @@ export const verifyCode = async (phone, code) => {
     return (
         await postData(
             "https://lopeseat.com/REST/user/confirmPhone.php?phone=" +
-                phone +
-                "&token=" +
-                code
+            phone +
+            "&token=" +
+            code
         )
     ).success;
 };
@@ -253,7 +253,7 @@ export const sendPayment = async (nonce, address, apiToken) => {
 export const getOrder = async (apiToken, id = -1) => {
     return await postData(
         "https://lopeseat.com/REST/order/getOrder.php" +
-            (id !== -1 ? "?id=" + id : ""),
+        (id !== -1 ? "?id=" + id : ""),
         {
             apiToken: apiToken,
         }
@@ -344,10 +344,10 @@ export const getPayoutStatus = async (apiToken, payoutId) => {
 
 export const updateOrderState = async (apiToken, orderId, state) => {
     return await postData(
-        "https://lopeseat.com/REST/delivery/updateOrderState.php?id=" +
-            orderId +
-            "&state=" +
-            state,
+        "https://lopeseat.com/REST/order/updateOrderState.php?id=" +
+        orderId +
+        "&state=" +
+        state,
         {
             apiToken: apiToken,
         }
@@ -444,7 +444,7 @@ export const getScrollCards = async () => {
 };
 
 export const sendDepositPayment = async (nonce, amount, to, apiToken) => {
-    return await postData("https://lopeseat.com/REST/ledger/deposit.php",{
+    return await postData("https://lopeseat.com/REST/ledger/deposit.php", {
         apiToken,
         nonce,
         amount,
@@ -453,7 +453,7 @@ export const sendDepositPayment = async (nonce, amount, to, apiToken) => {
 }
 
 export const applyToDeliver = async (apiToken) => {
-    return await postData("https://lopeseat.com/REST/delivery/applyToDeliver.php",{
+    return await postData("https://lopeseat.com/REST/delivery/applyToDeliver.php", {
         apiToken
     })
 }
@@ -489,8 +489,8 @@ export const formatTime = (date) => {
         minutes === 0
             ? "00"
             : minutes < 10
-            ? "0" + minutes.toString()
-            : minutes;
+                ? "0" + minutes.toString()
+                : minutes;
     return hours + ":" + minuteString + suffix;
 };
 
