@@ -81,6 +81,7 @@ export default class ImageUploader extends React.Component {
                         src={this.props.image || BlankImage}
                         alt=""></img>
                     {!this.props.image && <div className="crossHair"></div>}
+                    {this.props.editBar ? <div className="editBar">Edit</div> : null}
                     <input
                         onChange={this.onImageUpload}
                         className="imageUpload"

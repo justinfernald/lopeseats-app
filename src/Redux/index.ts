@@ -1,4 +1,3 @@
-import history from "../history";
 import {
     createSlice,
     configureStore,
@@ -287,7 +286,7 @@ const reducers = {
         state: any,
         { payload:size } : { payload:number }
     ) => {
-        if (state.historySize == undefined || state.historySize == null) {
+        if (state.historySize === undefined || state.historySize === null) {
             state.historySize = size;
         } else {
             state.historySize = state.historySize+size;

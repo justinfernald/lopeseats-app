@@ -246,8 +246,7 @@ export default class RestaurantsList extends React.Component {
                         );
                     })}
                 </div>
-                <FloatingCartButton
-                    history={this.props.history}></FloatingCartButton>
+                <FloatingCartButton/>
             </Screen>
         );
     }

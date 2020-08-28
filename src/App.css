@@ -359,6 +359,8 @@ input:-webkit-autofill:active {
 }
 
 .uploaderCircle .imageWrapper {
+    border-radius: 50%;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     position: relative;
@@ -416,6 +418,19 @@ input:-webkit-autofill:active {
     width: 100%;
     opacity: 0;
     top: 0;
+}
+
+.uploaderCircle .imageWrapper .editBar {
+    position: relative;
+    width: 100%;
+    height: 30%;
+    background-color: #000000c7;
+    margin-top: -30%;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .labeledInput {

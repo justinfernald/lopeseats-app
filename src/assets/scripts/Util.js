@@ -1,6 +1,5 @@
 import React from "react";
 import { store, actions } from "../../Redux";
-import { useHistory } from "react-router-dom";
 
 export const registerAccount = async (
     phone,
@@ -459,17 +458,26 @@ export const applyToDeliver = async (apiToken) => {
     })
 }
 
+export const getPreviousPayouts = async (apiToken) => {
+    return await postData("https://lopeseat.com/REST/delivery/getPreviousPayouts.php", {
+        apiToken
+    });
+}
+
 export const makePHXTime = (date) => {
     return new Date(
         date.toLocaleString("en-US", { timeZone: "America/Phoenix" })
     );
 };
 
-export const parseDate = (dateString) => {
+export const parseDate = (dateString, format = true) => {
     if (dateString == null) return null;
     var t = dateString.split(/[- :]/);
     var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
-    return formatTime(makePHXTime(d));
+    if (format) {
+        return formatTime(makePHXTime(d));
+    }
+    return makePHXTime(d);
 };
 
 export const formatTime = (date) => {

@@ -6,6 +6,7 @@ import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { getRestaurant, getMenu } from "../../../assets/scripts/Util";
+import FloatingCartButton from "../../../components/FloatingCartButton";
 
 class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -154,6 +155,7 @@ class RestaurantDetails extends React.Component {
                         <HoursList restaurantData={this.state.restaurantData} />
                     </div>
                 </div>
+                <FloatingCartButton/>
             </Screen>
         );
     }
