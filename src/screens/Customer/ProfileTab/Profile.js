@@ -40,10 +40,7 @@ class Profile extends React.Component {
     }
 
     goTo(page) {
-        return () => {
-            console.log("goto " + page);
-            this.props.history.push(page);
-        };
+        return () => this.props.history.push(page);
     }
 
     render() {
@@ -65,7 +62,7 @@ class Profile extends React.Component {
         var deliverySection = (
             isDeliverer ? (
                 <Fragment>
-                    <ClickThrough>Withdraw earnings</ClickThrough>
+                    <ClickThrough onClick={this.goTo("/app/deliverer/payout")}>Withdraw earnings</ClickThrough>
                 </Fragment>
             ):(
                 <Fragment>
@@ -84,7 +81,7 @@ class Profile extends React.Component {
                 <ThemeProvider theme={theme}>
                     <div className={css(styles.headerSection)}>
                         <div className={css(styles.imageContainer)}>
-                            <ImageUploader image={profileImage} onUpload={image => store.dispatch(setProfileImage({apiToken, image}))}/>
+                            <ImageUploader editBar image={profileImage} onUpload={image => store.dispatch(setProfileImage({apiToken, image}))}/>
                         </div>
                         <div className={css(styles.vSpacer)}/>
                         <div className={css(styles.balanceSection)}>

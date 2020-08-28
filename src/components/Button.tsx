@@ -26,7 +26,7 @@ export default class Button extends React.Component<{
                         this.props.style
                     )
                 }
-                onClick={this.props.onClick}>
+                onClick={this.props.disabled ? () => {} : this.props.onClick}>
                 {this.props.children}
                 {this.props.noRipple ? null : (
                     <IonRippleEffect></IonRippleEffect>

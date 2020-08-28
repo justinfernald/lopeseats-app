@@ -102,9 +102,9 @@ class App extends React.Component {
         }
 
         history.listen((_location, action) => {
-            if (action == "PUSH") {
+            if (action === "PUSH") {
                 store.dispatch(actions.addHistorySize(1));
-            } else if (action == "POP") {
+            } else if (action === "POP") {
                 store.dispatch(actions.addHistorySize(-1));
             }
         })

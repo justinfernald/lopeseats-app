@@ -9,7 +9,7 @@ import {
     IonTabButton,
     IonIcon,
 } from "@ionic/react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import HomeScreen from "./Customer/HomeScreen/HomeScreen"; // temp import for testing new layout. TODO: change to "./Customer/HomeScreen"
 import RestaurantsRouter from "./Customer/RestaurantsTab/RestaurantsRouter";

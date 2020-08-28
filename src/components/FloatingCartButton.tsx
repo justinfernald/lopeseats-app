@@ -1,14 +1,13 @@
 import React from "react";
+import history from "../history";
 
-export default class FloatingCartButton extends React.Component<{
-    history: any;
-}> {
+export default class FloatingCartButton extends React.Component {
     render() {
         return (
             <button
                 className="floatingCartButton"
                 onClick={() => {
-                    this.props.history.push("/app/restaurants/cart");
+                    history.push("/app/restaurants/cart");
                 }}>
                 <i className="material-icons-round">shopping_cart</i>
             </button>
