@@ -39,7 +39,7 @@ body {
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 input,
@@ -1064,7 +1064,7 @@ input:-webkit-autofill:active {
 }
 
 .hoursList .hourOpen .weekDay {
-    width: 90px;
+    width: 105px;
 }
 
 .hoursList .hourOpen.sameDay.isOpen .weekDay {

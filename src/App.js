@@ -16,6 +16,8 @@ import { connect } from "react-redux";
 
 import Overlay from "./components/Overlay";
 
+import { updateFBToken } from "./assets/scripts/Util";
+
 import { isPlatform, IonApp } from "@ionic/react";
 import {
     Capacitor,
@@ -70,7 +72,8 @@ class App extends React.Component {
     setToken(token, platform) {
         store.dispatch(actions.setFBToken(token));
         store.dispatch(actions.setFBPlatform(platform));
-        // this.setState({ fbToken: token, fbPlatform: platform });
+        if (this.props.apiToken)
+            updateFBToken(token, platform, this.props.apiToken);
     }
 
     componentDidMount() {
@@ -177,6 +180,7 @@ class App extends React.Component {
                     return token;
                 })
                 .then(function (token) {
+                    console.log(token);
                     app.setToken(token, "web");
                 })
                 .catch(function (err) {
