@@ -137,7 +137,7 @@ class SelectedOrder extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Order", 
+                    title: "Order",
                     backBtn: true,
                     icon: <div className={css(styles.messageButton)} />,
                     onIconClick: () => {
@@ -152,117 +152,117 @@ class SelectedOrder extends React.Component {
                         <IonSpinner color="primary" />
                     </div>
                 ) : (
-                    <div className={css(styles.container)}>
-                        <div className={css(styles.content)}>
-                            <div className={css(styles.customerName)}>
-                                {order.customerName}
-                            </div>
-                            <div className={css(styles.locationContainer)}>
-                                <div className={css(styles.keyValuePair)}>
-                                    <div className={css(styles.key)}>
-                                        Destination
+                        <div className={css(styles.container)}>
+                            <div className={css(styles.content)}>
+                                <div className={css(styles.customerName)}>
+                                    {order.customerName}
+                                </div>
+                                <div className={css(styles.locationContainer)}>
+                                    <div className={css(styles.keyValuePair)}>
+                                        <div className={css(styles.key)}>
+                                            Destination
                                     </div>
-                                    <div className={css(styles.value)}>
-                                        {order.address}
+                                        <div className={css(styles.value)}>
+                                            {order.address}
+                                        </div>
+                                    </div>
+                                    <div className={css(styles.keyValuePair)}>
+                                        <div className={css(styles.key)}>
+                                            Restaurant
+                                    </div>
+                                        <div className={css(styles.value)}>
+                                            {order.restaurantName}
+                                        </div>
                                     </div>
                                 </div>
-                                <div className={css(styles.keyValuePair)}>
-                                    <div className={css(styles.key)}>
-                                        Restaurant
+                                <div className={css(styles.deliveryStatuses)}>
+                                    <div
+                                        className={css(
+                                            styles.deliveryStatusesTitle
+                                        )}>
+                                        Delivery Status
+                                </div>
+                                    <div className={css(styles.timeKeyValuePair)}>
+                                        <div className={css(styles.timeKey)}>
+                                            Placed
                                     </div>
-                                    <div className={css(styles.value)}>
-                                        {order.restaurantName}
+                                        <div className={css(styles.timeValue)}>
+                                            {timeSince(order.timePlaced) + " ago"}
+                                        </div>
+                                    </div>
+                                    <div className={css(styles.timeKeyValuePair)}>
+                                        <div className={css(styles.timeKey)}>
+                                            Claimed
+                                    </div>
+                                        <div className={css(styles.timeValue)}>
+                                            {timeSince(order.timeClaimed) + " ago"}
+                                        </div>
+                                    </div>
+                                    <div className={css(styles.timeKeyValuePair)}>
+                                        <div className={css(styles.timeKey)}>
+                                            En Route
+                                    </div>
+                                        <div className={css(styles.timeValue)}>
+                                            {order.timeEnRoute
+                                                ? timeSince(order.timeEnRoute) +
+                                                " ago"
+                                                : "Pending"}
+                                        </div>
+                                    </div>
+                                    <div className={css(styles.timeKeyValuePair)}>
+                                        <div className={css(styles.timeKey)}>
+                                            Arrived
+                                    </div>
+                                        <div className={css(styles.timeValue)}>
+                                            {order.timeArrived
+                                                ? timeSince(order.timeArrived) +
+                                                " ago"
+                                                : "Pending"}
+                                        </div>
                                     </div>
                                 </div>
+                                <div className={css(styles.orderItems)}>
+                                    {order.items.map((item, index) => (
+                                        <OrderItem item={item} key={index} />
+                                    ))}
+                                </div>
                             </div>
-                            <div className={css(styles.deliveryStatuses)}>
+                            <div className={css(styles.buttonContainer)}>
+                                <Button
+                                    style={styles.statusChangeButton}
+                                    onClick={this.changeStatus}>
+                                    Change Status to {nextStatus[order.orderState]}
+                                </Button>
                                 <div
-                                    className={css(
-                                        styles.deliveryStatusesTitle
-                                    )}>
-                                    Delivery Status
-                                </div>
-                                <div className={css(styles.timeKeyValuePair)}>
-                                    <div className={css(styles.timeKey)}>
-                                        Placed
-                                    </div>
-                                    <div className={css(styles.timeValue)}>
-                                        {timeSince(order.timePlaced) + " ago"}
-                                    </div>
-                                </div>
-                                <div className={css(styles.timeKeyValuePair)}>
-                                    <div className={css(styles.timeKey)}>
-                                        Claimed
-                                    </div>
-                                    <div className={css(styles.timeValue)}>
-                                        {timeSince(order.timeClaimed) + " ago"}
-                                    </div>
-                                </div>
-                                <div className={css(styles.timeKeyValuePair)}>
-                                    <div className={css(styles.timeKey)}>
-                                        En Route
-                                    </div>
-                                    <div className={css(styles.timeValue)}>
-                                        {order.timeEnRoute
-                                            ? timeSince(order.timeEnRoute) +
-                                              " ago"
-                                            : "Pending"}
-                                    </div>
-                                </div>
-                                <div className={css(styles.timeKeyValuePair)}>
-                                    <div className={css(styles.timeKey)}>
-                                        Arrived
-                                    </div>
-                                    <div className={css(styles.timeValue)}>
-                                        {order.timeArrived
-                                            ? timeSince(order.timeArrived) +
-                                              " ago"
-                                            : "Pending"}
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={css(styles.orderItems)}>
-                                {order.items.map((item, index) => (
-                                    <OrderItem item={item} key={index} />
-                                ))}
-                            </div>
-                        </div>
-                        <div className={css(styles.buttonContainer)}>
-                            <Button
-                                style={styles.statusChangeButton}
-                                onClick={this.changeStatus}>
-                                Change Status to {nextStatus[order.orderState]}
-                            </Button>
-                            <div
-                                onClick={() => {
-                                    store.dispatch(
-                                        actions.setMessageOrderId(
-                                            this.state.order.orderId
-                                        )
-                                    );
-                                    this.props.history.push(
-                                        "/app/deliverer/payment/" +
+                                    onClick={() => {
+                                        store.dispatch(
+                                            actions.setMessageOrderId(
+                                                this.state.order.orderId
+                                            )
+                                        );
+                                        this.props.history.push(
+                                            "/app/deliverer/payment/" +
                                             this.state.order.orderId,
-                                        { order: this.state.order }
-                                    );
-                                }}
-                                className={
-                                    "ion-activatable " +
-                                    css(styles.paymentButton)
-                                }>
-                                <IonIcon
-                                    icon={cardOutline}
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        color: "#fff",
+                                            { order: this.state.order }
+                                        );
                                     }}
-                                />
-                                <IonRippleEffect />
+                                    className={
+                                        "ion-activatable " +
+                                        css(styles.paymentButton)
+                                    }>
+                                    <IonIcon
+                                        icon={cardOutline}
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            color: "#fff",
+                                        }}
+                                    />
+                                    <IonRippleEffect />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
             </Screen>
         );
     }
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     keyValuePair: {
         display: "flex",
         justifyContent: "space-between",
-        minWidth: 240,
+        minWidth: 272,
         fontSize: "1.2em",
     },
     key: {

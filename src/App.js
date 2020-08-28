@@ -26,7 +26,7 @@ import {
     // PushNotificationToken,
     // PushNotificationActionPerformed,
 } from "@capacitor/core";
-const { PushNotifications, App: PApp } = Plugins;
+const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
 
 class App extends React.Component {
     messageListener = new MessageListener();
@@ -188,9 +188,33 @@ class App extends React.Component {
                     app.setState({ bypassToken: true });
                 });
 
-            messaging.onMessage((payload) => {
-                console.log("Message received. ", payload);
-                this.messageListener.messageReceived(payload.data);
+            messaging.onMessage(function (payload) {
+                console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
+
+                // this.messageListener.messageReceived(payload.data);
+
+                // Customize notification here
+                // const notificationTitle = payload.data.title;
+                // const notificationOptions = {
+                //     body: payload.data.body,
+                // }
+
+                LocalNotifications.schedule({
+                    notifications: [
+                        {
+                            ...payload.data,
+                            id: 1,
+                            schedule: { at: new Date(Date.now() + 1) },
+                            sound: null,
+                            attachments: null,
+                            actionTypeId: "",
+                            extra: null
+                        }
+                    ]
+                });
+
+                // return self.registration.showNotification(notificationTitle,
+                //     notificationOptions);
             });
         }
     }
