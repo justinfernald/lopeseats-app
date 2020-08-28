@@ -3,8 +3,10 @@ import Screen from '../../../components/Screen';
 import { css, StyleSheet } from "aphrodite/no-important";
 import Button from '../../../components/Button';
 import { store, actions } from "../../../Redux";
+import { connect } from 'react-redux';
+import { fetchBalances } from "../../../Redux/Thunks";
 
-export default class DepositMoney extends React.Component {
+class DepositMoney extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,6 +16,8 @@ export default class DepositMoney extends React.Component {
             selectedOption: 0,
             customVal: "1"
         };
+
+        store.dispatch(fetchBalances(this.props.apiToken));
     }
     
     generateMoneyBtn(amount) {
@@ -50,49 +54,52 @@ export default class DepositMoney extends React.Component {
     }
 
     render() {
+        var balanceLoaded = this.props.balances && this.props.balances.length > 0;
         var { selectedMoney } = this.state;
         return (
             <Screen
                 appBar={{
                     title: "Deposit",
-                    onBack: this.props.history.goBack
+                    backBtn: true
                 }}
             >
-                <div className={css(styles.balance)}>
-                    Balance: $15.23
-                </div>
-
-                <div className={css(styles.topSection)}>
-                    <div style={{color: "#7B7B7B", marginBottom: "5px"}}>Add</div>
-                    <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedMoney === -1 ? 
-                    <input type="number" onChange={this.onInputChange} className={css(styles.input)} defaultValue={1}/>
-                    :
-                    selectedMoney
-                    }</div>
-                </div>
-                <div className={css(styles.inputSection)}>
-                    <div className={css(styles.optionContainer)}>
-                        {this.generateMoneyBtn(5)}
-                        {this.generateMoneyBtn(10)}
-                        {this.generateMoneyBtn(25)}
+                <div className={css(styles.content)}>
+                    <div className={css(styles.balance)}>
+                        Balance: ${balanceLoaded ? this.props.balances[0] : "loading"}
                     </div>
 
-                    <div className="flexDisplayRow">
-                        {this.generateMoneyBtn(-1)}
+                    <div className={css(styles.topSection)}>
+                        <div style={{color: "#7B7B7B", marginBottom: "5px"}}>Add</div>
+                        <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedMoney === -1 ? 
+                        <input type="number" onChange={this.onInputChange} className={css(styles.input)} defaultValue={1}/>
+                        :
+                        selectedMoney
+                        }</div>
                     </div>
-                </div>
+                    <div className={css(styles.inputSection)}>
+                        <div className={css(styles.optionContainer)}>
+                            {this.generateMoneyBtn(5)}
+                            {this.generateMoneyBtn(10)}
+                            {this.generateMoneyBtn(25)}
+                        </div>
 
-                <div className={css(styles.inputSection)}>
-                    <span className={css(styles.label)}>Send money to</span>
-
-                    <div className={css(styles.optionContainer)}>
-                        {this.generateBtn("My account", 0)}
-                        {this.generateBtn("A friend", 1)}
+                        <div className="flexDisplayRow">
+                            {this.generateMoneyBtn(-1)}
+                        </div>
                     </div>
-                </div>
 
-                <div className={css(styles.btnContainer)}>
-                    <Button onClick={this.onNextStep}>Continue</Button>
+                    <div className={css(styles.inputSection)}>
+                        <span className={css(styles.label)}>Send money to</span>
+
+                        <div className={css(styles.optionContainer)}>
+                            {this.generateBtn("My account", 0)}
+                            {this.generateBtn("A friend", 1)}
+                        </div>
+                    </div>
+
+                    <div className={css(styles.btnContainer)}>
+                        <Button onClick={this.onNextStep}>Continue</Button>
+                    </div>
                 </div>
             </Screen>
         );
@@ -100,16 +107,22 @@ export default class DepositMoney extends React.Component {
 
 }
 
+export default connect(({ apiToken, balances }) => ({ apiToken, balances }))(DepositMoney);
+
 const styles = StyleSheet.create({
+    content: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%"
+    },
     btnContainer: {
         margin: "0px 10px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-end",
         height: "auto",
-        position: "absolute",
         width: "calc(100% - 20px)",
-        bottom: 0
     },
     label: {
         textAlign: "center",
@@ -133,7 +146,7 @@ const styles = StyleSheet.create({
         padding: "15px 0"
     },
     inputSection: {
-        padding: "30px 10px 0 10px",
+        padding: "10px 10px 10px 10px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",

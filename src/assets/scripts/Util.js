@@ -1,5 +1,6 @@
 import React from "react";
 import { store, actions } from "../../Redux";
+import { useHistory } from "react-router-dom";
 
 export const registerAccount = async (
     phone,

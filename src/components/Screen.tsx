@@ -2,12 +2,38 @@ import React, { Fragment } from "react";
 import { IonPage } from "@ionic/react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import "../App.css";
+import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom';
+
+function BackButtonUnconnected(props:{icon?: boolean, historySize: number}) {
+
+    let history = useHistory();
+
+    function goBack() {
+        if (props.historySize > 0) {
+            history.goBack();
+        }
+    }
+
+    return (
+    <i
+        className={"material-icons-round" + (props.icon ? " icon" : "")}
+        onClick={goBack}>
+        arrow_back_ios
+    </i>);
+}
+
+const mapStateToProps = (state:any) => ({
+    historySize: state.historySize
+});
+
+let BackButton = connect(mapStateToProps)(BackButtonUnconnected);
 
 interface PropType {
     appBar?: {
         splash: string;
         title: string | JSX.Element;
-        onBack?: (event?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+        backBtn?: boolean;
         icon?: JSX.Element;
         onIconClick?: (
             event?: React.MouseEvent<HTMLElement, MouseEvent>
@@ -23,6 +49,10 @@ export default class Screen extends React.Component<PropType> {
     constructor(props: PropType) {
         super(props);
         this.splashRef = React.createRef();
+    }
+
+    goBack = () => {
+        console.log("Custom back is working");
     }
 
     onContentScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -58,13 +88,9 @@ export default class Screen extends React.Component<PropType> {
                                 {this.props.appBar.title}
                             </div>
                         </div>
-                        {this.props.appBar.onBack ? (
+                        {this.props.appBar.backBtn ? (
                             <div className="backIcon screen-splash-back">
-                                <i
-                                    className="material-icons-round"
-                                    onClick={this.props.appBar.onBack}>
-                                    arrow_back_ios
-                                </i>
+                                <BackButton />
                             </div>
                         ) : null}
                     </Fragment>
@@ -84,13 +110,9 @@ export default class Screen extends React.Component<PropType> {
                             this.props.dark ? styles.dark : styles.light
                         )}>
                         <div className={css(styles.headerContent)}>
-                            {this.props.appBar.onBack ? (
+                            {this.props.appBar.backBtn ? (
                                 <span className={css(styles.backButton)}>
-                                    <i
-                                        className="icon material-icons-round"
-                                        onClick={this.props.appBar.onBack}>
-                                        arrow_back_ios
-                                </i>
+                                    <BackButton icon/>
                                 </span>
                             ) : null}
                             <span className={css(styles.screenTitle)}>

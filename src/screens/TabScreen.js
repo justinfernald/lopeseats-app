@@ -35,40 +35,38 @@ const MainScreen = (props) =>
             <IonPage id="app">
                 <IonTabs>
                     <IonRouterOutlet>
-                        <Switch>
-                            <Route
-                                path="/app/:tab(home)"
-                                component={HomeScreen}
-                                exact
-                            />
-                            <Route
-                                path="/app/:tab(restaurants)"
-                                component={RestaurantsRouter}
-                            />
-                            <Route
-                                path="/app/:tab(deliverer)"
-                                component={DelivererRouter}
-                            />
-                            <Route
-                                path="/app/:tab(tracker)"
-                                component={TrackerRouter}
-                            />
-                            <Route
-                                path="/app/:tab(profile)"
-                                component={ProfileRouter}
-                            />
-                            <Route
-                                path="/app/deliverer/order"
-                                component={DelivererOrder}
-                                exact
-                            />
-                            <Route
-                                path="/app/deliverer/payment"
-                                component={DelivererPayment}
-                                exact
-                            />
-                            <Redirect from="/app" to="/app/home" exact />
-                        </Switch>
+                        <Route
+                            path="/app/:tab(home)"
+                            component={HomeScreen}
+                            exact
+                        />
+                        <Route
+                            path="/app/:tab(restaurants)"
+                            component={RestaurantsRouter}
+                        />
+                        <Route
+                            path="/app/:tab(deliverer)"
+                            component={DelivererRouter}
+                        />
+                        <Route
+                            path="/app/:tab(tracker)"
+                            component={TrackerRouter}
+                        />
+                        <Route
+                            path="/app/:tab(profile)"
+                            component={ProfileRouter}
+                        />
+                        <Route
+                            path="/app/deliverer/order"
+                            component={DelivererOrder}
+                            exact
+                        />
+                        <Route
+                            path="/app/deliverer/payment"
+                            component={DelivererPayment}
+                            exact
+                        />
+                        <Redirect from="/app" to="/app/home" exact />
                     </IonRouterOutlet>
 
                     <IonTabBar slot="bottom" mode="md">

@@ -33,8 +33,7 @@ class Payout extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Delivery Payout",
-                    onBack: this.props.history.goBack,
+                    title: "Delivery Payout", backBtn: true
                 }}>
                 <div className={css(styles.container)}>
                     {/* 

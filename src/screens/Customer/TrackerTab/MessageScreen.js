@@ -151,8 +151,7 @@ class MessageScreen extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: this.state.otherName,
-                    onBack: this.props.history.goBack,
+                    title: this.state.otherName, backBtn: true
                 }}>
                 <span className="horizontalLine"></span>
 

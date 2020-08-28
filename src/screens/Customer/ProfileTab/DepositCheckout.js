@@ -63,8 +63,7 @@ class DepositCheckout extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Checkout",
-                    onBack: this.props.history.goBack,
+                    title: "Checkout", backBtn: true
                 }}>
                 <div style={{padding: "20px 10px 0 10px"}}>
                     {dropin}

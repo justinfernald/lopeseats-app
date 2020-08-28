@@ -134,8 +134,7 @@ class DelivererPayment extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Check Out",
-                    onBack: this.props.history.goBack,
+                    title: "Check Out", backBtn: true
                 }}>
                 <div className={css(styles.content)}>
                     <div className={css(styles.informationBox)}>

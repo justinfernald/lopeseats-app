@@ -8,6 +8,7 @@ import {
 import LopesEatLogo from "../../../assets/images/icon-384x384.png";
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
+import { store, actions } from "../../../Redux";
 
 class CheckoutScreen extends React.Component {
     instance;
@@ -38,7 +39,8 @@ class CheckoutScreen extends React.Component {
         if (this.instance.isPaymentMethodRequestable()) {
             const { nonce } = await this.instance.requestPaymentMethod();
             await sendPayment(nonce, this.props.address, this.props.apiToken);
-            this.props.history.go(-(this.props.history.length - 2));
+            this.props.history.push("/app/restaurants");
+            store.dispatch(actions.setHistorySize(0));
         }
     }
 
@@ -63,8 +65,7 @@ class CheckoutScreen extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Checkout",
-                    onBack: this.props.history.goBack,
+                    title: "Checkout", backBtn: true
                 }}>
                 {dropin}
                 <div

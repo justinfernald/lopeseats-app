@@ -137,8 +137,8 @@ class SelectedOrder extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Order",
-                    onBack: this.props.history.goBack,
+                    title: "Order", 
+                    backBtn: true,
                     icon: <div className={css(styles.messageButton)} />,
                     onIconClick: () => {
                         store.dispatch(

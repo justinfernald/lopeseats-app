@@ -32,8 +32,7 @@ class IncomingOrders extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Delivery Accept",
-                    onBack: this.props.history.goBack,
+                    title: "Delivery Accept", backBtn: true
                 }}>
                 <div className={css(styles.container)}>
                     <div className={css(styles.orderDetails)}>

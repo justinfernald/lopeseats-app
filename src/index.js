@@ -7,6 +7,11 @@ import * as serviceWorker from "./serviceWorker";
 import { CookiesProvider } from "react-cookie";
 import { store, persistor } from "./Redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { setupConfig } from "@ionic/react";
+
+setupConfig({
+    hardwareBackButton: false
+});
 
 ReactDOM.render(
     <Provider store={store}>

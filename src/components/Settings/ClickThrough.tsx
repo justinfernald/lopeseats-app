@@ -1,6 +1,5 @@
 import React from "react";
 import { css, StyleSheet } from "aphrodite/no-important";
-// import { IonRippleEffect } from "@ionic/react";
 
 export default class ClickThrough extends React.Component<{
     onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
@@ -10,7 +9,7 @@ export default class ClickThrough extends React.Component<{
 }> {
     render() {
         return (
-            <div className={css(styles.textContent)}>
+            <div className={css(styles.textContent)} onClick={this.props.onClick}>
                 <span style={{lineHeight: "1em"}}>{this.props.children}</span>
                 <span style={{color: "#888", fontSize: "1.2em"}} className="material-icons">
                     keyboard_arrow_right

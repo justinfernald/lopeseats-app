@@ -36,8 +36,7 @@ export default class FriendsPhone extends React.Component {
     render() {
         return (
             <Screen appBar={{
-                title: "Friends Info",
-                onBack: this.props.history.goBack
+                title: "Friends Info", backBtn: true
             }}>
                 <div className={css(styles.container)}>
                     <div style={{marginBottom: "40px"}}>

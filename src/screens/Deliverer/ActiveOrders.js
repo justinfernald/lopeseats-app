@@ -76,8 +76,7 @@ class ActiveOrders extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Active Orders",
-                    onBack: this.props.history.goBack,
+                    title: "Active Orders", backBtn: true
                 }}>
                 <div className={css(styles.orderList)}>
                     {this.state.orders.map((order, index) => (

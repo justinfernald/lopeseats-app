@@ -1,3 +1,4 @@
+import history from "../history";
 import {
     createSlice,
     configureStore,
@@ -74,7 +75,9 @@ const initialState = {
         amount: 5,
         toFriend: false,
         friendsPhone: ""
-    }
+    },
+    // History
+    historySize: 0
 };
 
 const reducers = {
@@ -273,7 +276,23 @@ const reducers = {
             ...data
         }
     },
-    reset: (state:any) => initialState
+    reset: (state:any) => initialState,
+    setHistorySize: (
+        state:any,
+        { payload: size } : { payload:number }
+    ) => {
+        state.historySize = size;
+    },
+    addHistorySize: (
+        state: any,
+        { payload:size } : { payload:number }
+    ) => {
+        if (state.historySize == undefined || state.historySize == null) {
+            state.historySize = size;
+        } else {
+            state.historySize = state.historySize+size;
+        }
+    }
 };
 
 const stateSlice = createSlice({
@@ -291,6 +310,7 @@ const persistConfig = {
     key: "state",
     storage,
     stateReconciler: hardSet,
+    blacklist: ['historySize']
 };
 
 export const { actions } = stateSlice;

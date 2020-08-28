@@ -84,7 +84,7 @@ class ItemOptions extends React.Component {
         return (
             <Screen
                 appBar={{
-                    onBack: this.props.history.goBack,
+                    backBtn: true,
                     splash: this.props.selectedRestaurant.banner,
                 }}>
                 <div className="itemOptionMenu" onScroll={this.onContentScroll}>

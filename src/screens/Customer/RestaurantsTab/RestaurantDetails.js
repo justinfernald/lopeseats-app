@@ -86,8 +86,8 @@ class RestaurantDetails extends React.Component {
             <Screen
                 appBar={{
                     title: this.props.selectedRestaurant.name,
-                    splash: this.props.selectedRestaurant.banner,
-                    onBack: this.props.history.goBack,
+                    splash: this.props.selectedRestaurant.banner, 
+                    backBtn: true
                 }}
                 ionPage>
                 <div className={css(styles.contentWrapper)}>

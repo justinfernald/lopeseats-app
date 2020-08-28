@@ -75,7 +75,7 @@ class Cart extends React.Component {
     render() {
         return (
             <Screen
-                appBar={{ title: "Cart", onBack: this.props.history.goBack }}>
+                appBar={{ title: "Cart", backBtn: true }}>
                 <div className="cartList">
                     {this.state.items.map((value, index) => {
                         var options = JSON.parse(value.options);

@@ -1,3 +1,4 @@
+import history from "./history";
 import React, { Fragment } from "react";
 import ScreenHandler from "./screens/ScreenHandler";
 
@@ -77,7 +78,8 @@ class App extends React.Component {
 
         if (Capacitor.isNative) {
             PApp.addListener("backButton", (e) => {
-                console.log(e);
+                history.goBack();
+
                 const exitPaths = [
                     "/app/home",
                     "/app/restaurants",
@@ -95,6 +97,14 @@ class App extends React.Component {
                 }
             });
         }
+
+        history.listen((_location, action) => {
+            if (action == "PUSH") {
+                store.dispatch(actions.addHistorySize(1));
+            } else if (action == "POP") {
+                store.dispatch(actions.addHistorySize(-1));
+            }
+        })
 
         if (Capacitor.isPluginAvailable("PushNotifications")) {
             PushNotifications.register();
@@ -185,5 +195,5 @@ class App extends React.Component {
 export default connect(({ apiToken, overlay, overlayEnabled }) => ({
     apiToken,
     overlay,
-    overlayEnabled,
+    overlayEnabled
 }))(App);

@@ -27,8 +27,7 @@ class IncomingOrders extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Incoming Orders",
-                    onBack: this.props.history.goBack,
+                    title: "Incoming Orders", backBtn: true
                 }}>
                 <div className="incomingOrderList">
                     {this.state.orders == null

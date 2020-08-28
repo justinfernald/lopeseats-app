@@ -15,6 +15,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { Route, Redirect, Switch } from "react-router-dom";
 import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
+import history from "../history";
 
 class ScreenHandler extends React.Component {
     constructor(props) {
@@ -134,7 +135,7 @@ class ScreenHandler extends React.Component {
         if (!this.state.actionBtnUpdated) this.loadActionBtnData();
 
         return (
-            <IonReactRouter>
+            <IonReactRouter history={history}>
                 <IonRouterOutlet>
                     <Switch>
                         <Route exact path="/login" component={LoginScreen} />

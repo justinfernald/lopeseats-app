@@ -39,6 +39,13 @@ class Profile extends React.Component {
         store.dispatch(actions.reset());
     }
 
+    goTo(page) {
+        return () => {
+            console.log("goto " + page);
+            this.props.history.push(page);
+        };
+    }
+
     render() {
         var balanceLoaded = this.props.balances && this.props.balances.length > 0;
 
@@ -92,7 +99,7 @@ class Profile extends React.Component {
                         <div className={css(styles.spacer)}/>
                         <ChangePassword/>
                         <div className={css(styles.spacer)}/>
-                        <ClickThrough>Add money or send gift</ClickThrough>
+                        <ClickThrough onClick={this.goTo("/app/profile/deposit")}>Add money or send gift</ClickThrough>
                         <div className={css(styles.sectionTitle)}>Delivery</div>
                         {deliverySection}
                         {/* <ClickThrough>Become a Runner</ClickThrough> */}

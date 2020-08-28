@@ -58,8 +58,7 @@ class DeliveryDetails extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: "Delivery Details",
-                    onBack: this.props.history.goBack,
+                    title: "Delivery Details", backBtn: true
                 }}>
                 <div
                     className="deliveryFormContainer flex alignCenter">
