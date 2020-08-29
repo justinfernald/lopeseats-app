@@ -7,6 +7,7 @@ import LopesEatLogo from "../../../assets/images/icon-384x384.png";
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
+import { fetchBalances } from "../../../Redux/Thunks";
 
 class DepositCheckout extends React.Component {
     instance;
@@ -38,7 +39,8 @@ class DepositCheckout extends React.Component {
         if (this.instance.isPaymentMethodRequestable()) {
             const { nonce } = await this.instance.requestPaymentMethod();
             await sendDepositPayment(nonce, amount, toFriend ? friendsPhone : null, this.props.apiToken);
-            this.props.history.push("/app/home");
+            store.dispatch(fetchBalances(this.props.apiToken));
+            this.props.history.push("/app/profile");
             store.dispatch(actions.setHistorySize(0));
         }
     }

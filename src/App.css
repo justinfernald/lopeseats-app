@@ -1393,15 +1393,23 @@ input:-webkit-autofill:active {
 
 .addressInput {
     width: 100%;
+    flex: 0 1 auto;
 }
 
 .addrResults {
-    position: absolute;
-    top: 130px;
-    left: 7%;
-    width: 86%;
-    bottom: 75px;
+    padding: 10px 0;
+    width: 100%;
     overflow: scroll;
+    flex: 1 1 auto;
+}
+
+.addrDoneBtn {
+    flex: 0 1 74px;
+    width: 100%;
+}
+
+.addressInput .appInput {
+    margin: 0;
 }
 
 .deliveryFormContainer .appInput {
@@ -1913,6 +1921,7 @@ span.moneyCents {
     display: inline;
     color: #00cc00;
     font-weight: 600;
+    padding-top: 3px;
 }
 
 .barcode > div {

@@ -10,7 +10,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { setupConfig } from "@ionic/react";
 
 setupConfig({
-    hardwareBackButton: false
+    hardwareBackButton: false,
+    animated: false
 });
 
 ReactDOM.render(
