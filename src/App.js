@@ -131,13 +131,10 @@ class App extends React.Component {
                             {
                                 id: Math.floor(Math.random() * 1000000),
                                 schedule: { at: new Date(Date.now() + 100) },
-                                sound: null,
-                                attachments: null,
-                                actionTypeId: "",
-                                extra: null,
                                 title: notification.title,
                                 body: notification.body,
-                                iconColor: "#eb1c34"
+                                iconColor: "#eb1c34",
+                                // channelId: 4
                             }
                         ]
                     });
@@ -147,6 +144,18 @@ class App extends React.Component {
                     console.log("----04:13----");
                 }
             );
+
+            // LocalNotifications.createChannel({
+            //     description: "Importnt LopesEat Notification Channel",
+            //     id: 4,
+            //     importance: 4,
+            //     lightColor: "#FF0000",
+            //     lights: true,
+            //     name: "LopesEat",
+            //     // sound?: string,
+            //     vibration: true,
+            //     // visibility?: any,
+            // });
 
             PushNotifications.addListener(
                 "pushNotificationActionPerformed",
