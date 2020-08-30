@@ -36,9 +36,6 @@ class App extends React.Component {
         startScript(props);
         this.state = {
             darkTheme: false,
-            // bypassToken: false,
-            // fbToken: null,
-            // fbPlatform: null,
         };
     }
 
@@ -47,10 +44,6 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.state.bypassToken)
-            console.log(
-                "if fbtoken is not loading make sure to reset bypass token to false"
-            );
         return (
             <IonApp>
                 <div
@@ -77,8 +70,15 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log("mount");
+        history.listen((_location, action) => {
+            if (action === "PUSH") {
+                store.dispatch(actions.addHistorySize(1));
+            } else if (action === "POP") {
+                store.dispatch(actions.addHistorySize(-1));
+            }
+        })
 
+        // Native START
         if (Capacitor.isNative) {
             PApp.addListener("backButton", (e) => {
                 history.goBack();
@@ -92,22 +92,12 @@ class App extends React.Component {
                     "/app/login",
                 ];
                 if (exitPaths.includes(window.location.pathname)) {
-                    // e.preventDefault();
-                    // e.stopPropagation();
                     if (navigator.app) navigator.app.exitApp();
                     else if (navigator.device) navigator.device.exitApp();
                     else PApp.exitApp();
                 }
             });
         }
-
-        history.listen((_location, action) => {
-            if (action === "PUSH") {
-                store.dispatch(actions.addHistorySize(1));
-            } else if (action === "POP") {
-                store.dispatch(actions.addHistorySize(-1));
-            }
-        })
 
         if (Capacitor.isPluginAvailable("PushNotifications")) {
             PushNotifications.register();
@@ -122,37 +112,69 @@ class App extends React.Component {
                 );
             });
 
+            // For notifications in the foreground
             PushNotifications.addListener(
                 "pushNotificationReceived",
                 (notification) => {
-                    let notif = this.state.notifications;
-                    notif.push({
-                        id: notification.id,
-                        title: notification.title,
-                        body: notification.body,
+                    // let notif = this.state.notifications || [];
+                    // notif.push({
+                    //     id: notification.id,
+                    //     title: notification.title,
+                    //     body: notification.body,
+                    // });
+                    // this.setState({
+                    //     notifications: notif,
+                    // });
+
+                    LocalNotifications.schedule({ // From capacitor
+                        notifications: [
+                            {
+                                id: Math.floor(Math.random() * 1000000),
+                                schedule: { at: new Date(Date.now() + 100) },
+                                sound: null,
+                                attachments: null,
+                                actionTypeId: "",
+                                extra: null,
+                                title: notification.title,
+                                body: notification.body,
+                                iconColor: "#eb1c34"
+                            }
+                        ]
                     });
-                    this.setState({
-                        notifications: notif,
-                    });
+
+                    // notification.
+                    console.log("recieved: " + JSON.stringify(notification, null, 4));
+                    console.log("----04:13----");
                 }
             );
 
             PushNotifications.addListener(
                 "pushNotificationActionPerformed",
                 (notification) => {
-                    let notif = this.state.notifications;
-                    notif.push({
-                        id: notification.notification.data.id,
-                        title: notification.notification.data.title,
-                        body: notification.notification.data.body,
-                    });
-                    this.setState({
-                        notifications: notif,
-                    });
+                    // let notif = this.state.notifications;
+                    // notif.push({
+                    //     id: notification.notification.data.id,
+                    //     title: notification.notification.data.title,
+                    //     body: notification.notification.data.body,
+                    // });
+                    // this.setState({
+                    //     notifications: notif,
+                    // });
+
+                    console.log("push action: " + JSON.stringify(notification, null, 4));
+                }
+            );
+
+            LocalNotifications.addListener(
+                "localNotificationActionPerformed",
+                (notification) => {
+                    console.log("local action: " + JSON.stringify(notification, null, 4));
                 }
             );
         }
+        // Native END
 
+        // PWA START
         if (firebase.messaging.isSupported()) {
             var firebaseConfig = {
                 apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
@@ -171,7 +193,8 @@ class App extends React.Component {
             messaging.usePublicVapidKey(
                 "BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784"
             );
-            console.log("Requesting permission");
+
+
             Notification.requestPermission()
                 .then(function () {
                     console.log("Permission " + Notification.permission);
@@ -191,15 +214,7 @@ class App extends React.Component {
             messaging.onMessage(function (payload) {
                 console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
-                // this.messageListener.messageReceived(payload.data);
-
-                // Customize notification here
-                // const notificationTitle = payload.data.title;
-                // const notificationOptions = {
-                //     body: payload.data.body,
-                // }
-
-                LocalNotifications.schedule({
+                LocalNotifications.schedule({ // From capacitor
                     notifications: [
                         {
                             ...payload.data,
@@ -212,10 +227,8 @@ class App extends React.Component {
                         }
                     ]
                 });
-
-                // return self.registration.showNotification(notificationTitle,
-                //     notificationOptions);
             });
+            // PWA END
         }
     }
 }
