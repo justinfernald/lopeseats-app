@@ -1,29 +1,37 @@
 {
-    "appId": "com.lopeseat.app",
-    "appName": "LopesEat",
-    "bundledWebRuntime": false,
-    "windowsAndroidStudioPath": "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
-    "npmClient": "npm",
-    "webDir": "build",
-    "server": {
-        "allowNavigation": ["lopeseat.com", "*.lopeseat.com"],
-        "url": "http://192.168.1.11:8100"
+  "appId": "com.lopeseat.app",
+  "appName": "LopesEat",
+  "bundledWebRuntime": false,
+  "windowsAndroidStudioPath": "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe",
+  "npmClient": "npm",
+  "webDir": "build",
+  "server": {
+    "allowNavigation": [
+      "lopeseat.com",
+      "*.lopeseat.com"
+    ],
+    "url": "http://192.168.1.11:8100",
+    "originalUrl": "http://192.168.1.11:8100"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
     },
-    "plugins": {
-        "SplashScreen": {
-            "launchShowDuration": 0
-        },
-        "PushNotifications": {
-            "presentationOptions": ["badge", "sound", "alert"]
-        },
-        "<IGNORE THIS IS FOR REFERENCE LATER>LocalNotifications": {
-            "smallIcon": "ic_stat_icon_config_sample",
-            "iconColor": "#eb1c34"
-        }
+    "PushNotifications": {
+      "presentationOptions": [
+        "badge",
+        "sound",
+        "alert"
+      ]
     },
-    "backgroundColor": "#ffffffff",
-    "android": {
-        "webContentsDebuggingEnabled": true
-    },
-    "cordova": {}
+    "<IGNORE THIS IS FOR REFERENCE LATER>LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#eb1c34"
+    }
+  },
+  "backgroundColor": "#ffffffff",
+  "android": {
+    "webContentsDebuggingEnabled": true
+  },
+  "cordova": {}
 }
