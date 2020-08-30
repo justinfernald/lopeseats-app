@@ -2,28 +2,33 @@ import React from 'react';
 import Screen from '../../../components/Screen';
 import { css, StyleSheet } from "aphrodite/no-important";
 import Button from '../../../components/Button';
-import { store, actions } from "../../../Redux";
+import { store } from "../../../Redux";
 import { connect } from 'react-redux';
 import { fetchBalances } from "../../../Redux/Thunks";
-import { formatPrice } from '../../../assets/scripts/Util';
+import { formatPrice, sendTip } from '../../../assets/scripts/Util';
+import history from "../../../history";
 
-class DepositMoney extends React.Component {
+class SendTip extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedMoney: 5,
-            selectedOption: 0,
-            customVal: "1"
+            selectedTip: 10,
+            customVal: "5"
         };
 
         store.dispatch(fetchBalances(this.props.apiToken));
     }
     
     generateMoneyBtn(amount) {
-        var { selectedMoney } = this.state;
-        return <div className={css(styles.moneyBtn, (amount === selectedMoney ? styles.moneyBtnSelected : null))} onClick={() => this.setState({selectedMoney: amount})}>{amount !== -1 ? "$" + amount : "Custom"}</div>;
+        var { selectedTip } = this.state;
+        return (
+        <div 
+            className={css(styles.moneyBtn, (amount === selectedTip ? styles.moneyBtnSelected : null))} 
+            onClick={() => this.setState({selectedTip: amount})}>
+            {amount !== -1 ? amount + "%" : "Custom"}
+        </div>);
     }
 
     generateBtn(title, id) {
@@ -41,47 +46,41 @@ class DepositMoney extends React.Component {
     }
 
     onNextStep = () => {
-        var { selectedOption, selectedMoney, customVal } = this.state;
-        store.dispatch(actions.setDepositData({
-            amount: selectedMoney === -1 ? parseInt(customVal) : selectedMoney,
-            toFriend: selectedOption === 1
-        }));
+        var { selectedTip, customVal } = this.state;
 
-        if (selectedOption === 1) {
-            this.props.history.push("/app/profile/friendsInfo");
-        } else {
-            this.props.history.push("/app/profile/depositCheckout");
-        }
+        var tip = selectedTip === -1 ? parseInt(customVal) : (selectedTip / 100) * this.props.order.total;
+
+        sendTip(tip, this.props.apiToken);
+        this.props.onNextStep();
     }
 
     render() {
-        var balanceLoaded = this.props.balances && this.props.balances.length > 0;
-        var { selectedMoney } = this.state;
+        var { selectedTip } = this.state;
         return (
             <Screen
                 appBar={{
-                    title: "Deposit",
-                    backBtn: true
+                    title: "Add a tip"
                 }}
             >
                 <div className={css(styles.content)}>
                     <div className={css(styles.balance)}>
-                        Balance: ${balanceLoaded ? formatPrice(this.props.balances[0], false) : "loading"}
+                        Order total
+                        <span style={{fontSize: "1.6em"}}>${formatPrice(this.props.order.total, false)}</span>
                     </div>
 
                     <div className={css(styles.topSection)}>
-                        <div style={{color: "#7B7B7B", marginBottom: "5px"}}>Add</div>
-                        <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedMoney === -1 ? 
+                        <div style={{color: "#7B7B7B", marginBottom: "5px"}}>Tip</div>
+                        <div style={{color: "#3CA140", fontSize: "1.4em"}}>${selectedTip === -1 ? 
                         <input type="number" onChange={this.onInputChange} className={css(styles.input)} defaultValue={1}/>
                         :
-                        selectedMoney
+                        formatPrice(((selectedTip / 100) * this.props.order.total), false)
                         }</div>
                     </div>
                     <div className={css(styles.inputSection)}>
                         <div className={css(styles.optionContainer)}>
-                            {this.generateMoneyBtn(5)}
                             {this.generateMoneyBtn(10)}
-                            {this.generateMoneyBtn(25)}
+                            {this.generateMoneyBtn(15)}
+                            {this.generateMoneyBtn(20)}
                         </div>
 
                         <div className="flexDisplayRow">
@@ -89,17 +88,8 @@ class DepositMoney extends React.Component {
                         </div>
                     </div>
 
-                    <div className={css(styles.inputSection)}>
-                        <span className={css(styles.label)}>Send money to</span>
-
-                        <div className={css(styles.optionContainer)}>
-                            {this.generateBtn("My account", 0)}
-                            {this.generateBtn("A friend", 1)}
-                        </div>
-                    </div>
-
                     <div className={css(styles.btnContainer)}>
-                        <Button onClick={this.onNextStep}>Continue</Button>
+                        <Button onClick={this.onNextStep}>Add tip</Button>
                     </div>
                 </div>
             </Screen>
@@ -108,7 +98,7 @@ class DepositMoney extends React.Component {
 
 }
 
-export default connect(({ apiToken, balances }) => ({ apiToken, balances }))(DepositMoney);
+export default connect(({ apiToken, balances }) => ({ apiToken, balances }))(SendTip);
 
 const styles = StyleSheet.create({
     content: {
@@ -130,8 +120,9 @@ const styles = StyleSheet.create({
         marginBottom: "30px"
     },
     balance: {
-        height: "50px",
-        fontSize: "1.1em",
+        height: "auto",
+        padding: "5px 0",
+        fontSize: "1.2em",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -143,7 +134,6 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         textAlign: "center",
         fontSize: "3em",
-        borderBottom: "solid 1px #707070",
         padding: "15px 0"
     },
     inputSection: {
@@ -151,7 +141,6 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
-        borderBottom: "solid 1px #707070",
     },
     moneyBtn: {
         border: "solid 1px #3CA140",

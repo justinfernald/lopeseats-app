@@ -28,9 +28,6 @@ const theme = createMuiTheme({
 });
 
 class Profile extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentDidMount() {
         store.dispatch(fetchBalances(this.props.apiToken));

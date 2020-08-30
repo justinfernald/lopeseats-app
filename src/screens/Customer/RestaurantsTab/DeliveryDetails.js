@@ -10,45 +10,44 @@ import Button from "../../../components/Button";
 import { css, StyleSheet } from "aphrodite/no-important";
 
 class DeliveryDetails extends React.Component {
-    buildings = null;
 
     constructor(props) {
         super(props);
         this.addressRef = React.createRef(props.address);
         this.state = {
-            search: "",
+            search: this.props.address,
             searchResults: [],
+            buildings: null
         };
+
+        this.updateValue(this.props.address);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
-    async updateValue(e) {
-        console.log(e);
-        var search = e.target.value;
+    async updateValue(value) {
+        var search = value;
         var searchResults = [];
 
-        if (this.buildings == null) {
-            this.buildings = await getBuildings();
+        var { buildings } = this.state;
+
+        if (buildings == null) {
+            buildings = await getBuildings();
         }
 
-        for (var i = 0; i < this.buildings.length; i++) {
-            if (
-                this.buildings[i].name
-                    .toLowerCase()
-                    .includes(search.toLowerCase())
-            ) {
-                searchResults.push(this.buildings[i]);
+        for (var i = 0; i < buildings.length; i++) {
+            if ( buildings[i].name.toLowerCase().includes(search.toLowerCase()) ) {
+                searchResults.push(buildings[i]);
             }
         }
 
-        this.setState({ search, searchResults });
+        this.setState({ search, searchResults, buildings });
     }
 
     setValue(value) {
         this.addressRef.current.value = value;
-        var obj = { target: { value } };
-        this.updateValue(obj);
+        this.updateValue(value);
     }
 
     onNextStep = (address) => {
@@ -62,48 +61,48 @@ class DeliveryDetails extends React.Component {
                 appBar={{
                     title: "Delivery Details", backBtn: true
                 }}>
-                <div
-                    className={"deliveryFormContainer " + css(styles.container)} style={{height: "100%"}}>
-                    <div className="addressInput">
-                        <Input
-                            passedRef={this.addressRef}
-                            placeholder="Address"
-                            onChange={(e) => this.updateValue(e)}
-                            defaultValue={this.props.address}
-                        />
-                    </div>
+                    <div
+                        className={"deliveryFormContainer " + css(styles.container)} style={{height: "100%"}}>
+                        <div className="addressInput">
+                            <Input
+                                passedRef={this.addressRef}
+                                placeholder="Address"
+                                onChange={(e) => this.updateValue(e.target.value)}
+                                defaultValue={this.props.address}
+                            />
+                        </div>
 
-                    <div className="addrResults">
-                        {this.state.searchResults.map((value, index) => {
-                            return (
-                                <div
-                                    onClick={() => this.setValue(value.name)}
-                                    key={index}
-                                    className={
-                                        "addrItem" +
-                                        (value.name.toLowerCase() ===
-                                        this.state.search.toLowerCase()
-                                            ? " selected"
-                                            : "")
-                                    }>
-                                    <span className="addrTitle">
-                                        {value.name}
-                                    </span>
-                                    <span className="material-icons check">
-                                        done
-                                    </span>
-                                </div>
-                            );
-                        })}
+                        <div className="addrResults">
+                            {this.state.searchResults.map((value, index) => {
+                                return (
+                                    <div
+                                        onClick={() => this.setValue(value.name)}
+                                        key={index}
+                                        className={
+                                            "addrItem" +
+                                            (value.name.toLowerCase() ===
+                                            this.state.search.toLowerCase()
+                                                ? " selected"
+                                                : "")
+                                        }>
+                                        <span className="addrTitle">
+                                            {value.name}
+                                        </span>
+                                        <span className="material-icons check">
+                                            done
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className="addrDoneBtn">
+                            <Button onClick={() =>
+                                    this.onNextStep(this.addressRef.current.value)
+                                }>
+                                Done
+                            </Button>
+                        </div>
                     </div>
-                    <div className="addrDoneBtn">
-                        <Button onClick={() =>
-                                this.onNextStep(this.addressRef.current.value)
-                            }>
-                            Done
-                        </Button>
-                    </div>
-                </div>
             </Screen>
         );
     }
