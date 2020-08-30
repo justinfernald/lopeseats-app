@@ -175,6 +175,7 @@ class StartDelivery extends React.Component {
     };
 
     componentDidMount() {
+        this._isMounted = true;
         if (this.props.activeOrderCount > 0) {
             return;
         }
@@ -192,6 +193,10 @@ class StartDelivery extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (!this._isMounted) {
+            clearInterval(this.timeUpdateInterval);
+            return;
+        }
         if (this.props.activeOrderCount > 0) {
             this.props.history.push("/app/deliverer/activeOrders");
             return;
@@ -214,6 +219,7 @@ class StartDelivery extends React.Component {
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         clearInterval(this.timeUpdateInterval);
     }
 
@@ -241,9 +247,9 @@ class StartDelivery extends React.Component {
                             <div className={css(styles.statValue)}>
                                 {this.state.delivererStats.averageRating
                                     ? Math.round(
-                                          this.state.delivererStats
-                                              .averageRating * 100
-                                      ) / 100
+                                        this.state.delivererStats
+                                            .averageRating * 100
+                                    ) / 100
                                     : "N/A"}
                             </div>
                         </div>
@@ -254,8 +260,8 @@ class StartDelivery extends React.Component {
                             <div className={css(styles.statValue)}>
                                 {this.state.delivererStats.averageDeliveryTime
                                     ? this.state.delivererStats.averageDeliveryTime.split(
-                                          "."
-                                      )[0]
+                                        "."
+                                    )[0]
                                     : "N/A"}
                             </div>
                         </div>
@@ -267,10 +273,10 @@ class StartDelivery extends React.Component {
                                 $
                                 {this.state.delivererStats.amountEarned
                                     ? formatPrice(
-                                          this.state.delivererStats
-                                              .amountEarned,
-                                          false
-                                      )
+                                        this.state.delivererStats
+                                            .amountEarned,
+                                        false
+                                    )
                                     : "0.00"}
                             </div>
                         </div>

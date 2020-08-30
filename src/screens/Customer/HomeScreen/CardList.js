@@ -29,7 +29,7 @@ const CardList = ({ cards, ...props }) => {
     return (
         <div className={css(styles.list)}>
             {/* TODO: maybe make this a virtual list later */}
-            <h1 className={css(styles.title)}>NEAR YOU</h1>
+            <h1 className={css(styles.title)}>GIVE THIS A BETTER NAME</h1>
             <div className={css(styles.cardList)}>
                 {cards.map((card, i) => (
                     <Card {...card} key={`cardlist-${i}`} />

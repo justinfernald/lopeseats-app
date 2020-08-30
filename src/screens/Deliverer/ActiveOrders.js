@@ -1,5 +1,5 @@
 import React from "react";
-import { getActiveOrderList } from "../../assets/scripts/Util";
+import { getActiveOrderList, getAcceptableOrderWaiting } from "../../assets/scripts/Util";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
@@ -51,17 +51,31 @@ class ActiveOrders extends React.Component {
         super(props);
         this.state = {
             orders: null,
+            acceptableOrders: null
         };
 
         this.fetchData();
     }
 
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
     async fetchData() {
         var orders = await getActiveOrderList(this.props.apiToken);
-        store.dispatch(actions.setActiveOrderCount(orders.length));
-        if (orders.length === 0) this.props.history.replace("/app/deliverer");
-
-        this.setState({ orders });
+        var acceptableOrders = await getAcceptableOrderWaiting(this.props.apiToken);
+        if (!acceptableOrders) return;
+        if (!orders.length) orders.length = 0;
+        if (!acceptableOrders.length) acceptableOrders.length = 0;
+        let totalCount = orders.length + acceptableOrders.length;
+        store.dispatch(actions.setActiveOrderCount(totalCount));
+        if (totalCount === 0) this.props.history.replace("/app/deliverer");
+        if (!this._isMounted) return;
+        this.setState({ orders, acceptableOrders });
     }
 
     openOrder(orderId, history) {
