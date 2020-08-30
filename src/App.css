@@ -1397,7 +1397,7 @@ input:-webkit-autofill:active {
 }
 
 .addrResults {
-    padding: 10px 0;
+    padding: 10px;
     width: 100%;
     overflow: scroll;
     flex: 1 1 auto;
@@ -1537,6 +1537,7 @@ input:-webkit-autofill:active {
 
 .orderTrackerFooter {
     height: 65px;
+    flex: 0 1 65px;
     background-color: #3b55f3;
     width: 88%;
     margin: 0 6%;

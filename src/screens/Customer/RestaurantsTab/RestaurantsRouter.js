@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IonRouterOutlet, IonPage } from "@ionic/react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import RestaurantsList from "./RestaurantsList";
 import RestaurantDetails from "./RestaurantDetails";
 import ItemOptions from "./ItemOptions";
@@ -13,41 +13,43 @@ export default function RestaurantsRouter() {
     return (
         <IonPage id="restaurants">
             <IonRouterOutlet>
-                <Route
-                    exact
-                    path="/app/:tab(restaurants)"
-                    component={RestaurantsList}
-                />
-                <Route
-                    exact
-                    path="/app/:tab(restaurants)/details"
-                    component={RestaurantDetails}
-                />
-                <Route
-                    exact
-                    path="/app/restaurants/details/:id"
-                    component={RestaurantDetails}
-                />
-                <Route
-                    exact
-                    path="/app/:tab(restaurants)/item"
-                    component={ItemOptions}
-                />
-                <Route
-                    exact
-                    path="/app/:tab(restaurants)/cart"
-                    component={Cart}
-                />
-                <Route
-                    exact
-                    path="/app/:tab(restaurants)/address"
-                    component={DeliveryDetails}
-                />
-                <Route
-                    exact
-                    path="/app/:tab(restaurants)/checkout"
-                    component={CheckoutScreen}
-                />
+                <Switch>
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)"
+                        component={RestaurantsList}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/details"
+                        component={RestaurantDetails}
+                    />
+                    <Route
+                        exact
+                        path="/app/restaurants/details/:id"
+                        component={RestaurantDetails}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/item"
+                        component={ItemOptions}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/cart"
+                        component={Cart}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/address"
+                        component={DeliveryDetails}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/checkout"
+                        component={CheckoutScreen}
+                    />
+                </Switch>
             </IonRouterOutlet>
         </IonPage>
     );

@@ -2,10 +2,12 @@ import React from "react";
 import {
     getOrder,
     getMessageListener,
+    getTippableOrder,
 } from "../../../assets/scripts/Util";
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
+import SendTip from "./SendTip";
 
 class OrderTracker extends React.Component {
     listenerId;
@@ -29,11 +31,12 @@ class OrderTracker extends React.Component {
             enroute: null,
             arrived: null,
             wait: 45,
+            tippableOrder: null,
+            tipped: false
         };
     }
 
     componentDidMount() {
-
         this.fetchData();
         this.listenerId = getMessageListener().addListener(() => {
             this.fetchData();
@@ -96,9 +99,14 @@ class OrderTracker extends React.Component {
                 arrived,
                 wait,
             });
+        } else {
+            var tippableOrder = await getTippableOrder(this.props.apiToken);
+            if (tippableOrder !== null) {
+                this.setState({
+                    tippableOrder
+                });
+            }
         }
-
-        this.forceUpdate();
     }
 
     onMessageClick = (orderId) => {
@@ -114,7 +122,7 @@ class OrderTracker extends React.Component {
 
         if (this.order != null) {
             content = (
-                <div className="flexDisplayRow" style={{ height: "90%" }}>
+                <div className="flexDisplayRow" style={{ height: "90%", flex: "1 1 auto" }}>
                     <div className="flexDisplay trackerItems">
                         <div className="trackerText">
                             Sent Request
@@ -216,6 +224,10 @@ class OrderTracker extends React.Component {
                         }></div>
                 </div>
             );
+        } else if (this.state.tippableOrder !== null) {
+            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({tippableOrder: null, tipped: true})}/>
+        } else if (this.state.tipped) {
+            content = <div className="noCurrentOrder">Thank you for tipping your runner! Enjoy your food</div>;
         } else {
             content = <div className="noCurrentOrder">No active order</div>;
         }

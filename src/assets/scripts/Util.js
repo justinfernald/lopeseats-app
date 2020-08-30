@@ -215,6 +215,7 @@ export const formatPrice = (price, asSpan = true) => {
     if (priceS.length - priceS.indexOf(".") <= 2) {
         priceS = priceS + "0".repeat(priceS.length - priceS.indexOf(".") - 1);
     }
+    priceS = priceS.substring(0,priceS.indexOf(".")+3);
     if (!asSpan) return priceS;
     return (
         <span className="priceFormat">
@@ -242,13 +243,23 @@ export const updateFBToken = async (token, platform, apiToken) => {
     });
 };
 
-export const sendPayment = async (nonce, address, apiToken) => {
-    return await postData("https://lopeseat.com/REST/order/sendOrder.php", {
-        nonce: nonce,
-        address: address,
-        apiToken: apiToken,
-    });
+export const sendPayment = async (nonce, address, apiToken, useBal = null) => {
+    var data = {
+        nonce,
+        address,
+        apiToken
+    };
+    if (useBal != null) {
+        data.useBal = useBal;
+    }
+    return await postData("https://lopeseat.com/REST/order/sendOrder.php", data);
 };
+
+export const sendTip = async (amount, apiToken) => {
+    return await postData("https://lopeseat.com/REST/order/sendTip.php?amount="+amount,{
+        apiToken
+    });
+}
 
 export const getOrder = async (apiToken, id = -1) => {
     return await postData(
@@ -259,6 +270,15 @@ export const getOrder = async (apiToken, id = -1) => {
         }
     );
 };
+
+export const getTippableOrder = async (apiToken) => {
+    return await postData(
+        "https://lopeseat.com/REST/order/getTippableOrder.php",
+        {
+            apiToken
+        }
+    )
+}
 
 export const getOrderItems = async (apiToken, id) => {
     return await postData("https://lopeseat.com/REST/order/orderItems.php?id=" + id, {
