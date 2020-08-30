@@ -291,7 +291,13 @@ const reducers = {
         } else {
             state.historySize = state.historySize+size;
         }
-    }
+    },
+    setBalances: (
+        state: any,
+        { payload:balances } : { payload:Array<number> }
+    ) => {
+        state.balances = balances;
+    },
 };
 
 const stateSlice = createSlice({

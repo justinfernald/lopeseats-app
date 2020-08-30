@@ -5,6 +5,7 @@ import { actions } from "../Redux";
 export const fetchBalances = createAsyncThunk(
     'users/fetchBalanceStatus',
     async (apiToken, thunkAPI) => {
+        thunkAPI.dispatch(actions.setBalances([]));
         try {
             const response = await postData("https://lopeseat.com/REST/user/getBalances.php", {
                 apiToken: apiToken,

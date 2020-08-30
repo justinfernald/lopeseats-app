@@ -70,8 +70,6 @@ export default class Screen extends React.Component<PropType> {
         var header: any;
         var content: any = this.props.children;
 
-
-
         if (this.props.appBar) {
             if (this.props.appBar.splash != null) {
                 header = (
@@ -166,7 +164,6 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 10,
-        zIndex: 10,
         boxShadow: "#ccc 0px 0px 6px 0px",
         position: "relative",
         height: 54.4,

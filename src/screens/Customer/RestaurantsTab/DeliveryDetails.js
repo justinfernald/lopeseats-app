@@ -6,6 +6,8 @@ import {
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
+import Button from "../../../components/Button";
+import { css, StyleSheet } from "aphrodite/no-important";
 
 class DeliveryDetails extends React.Component {
     buildings = null;
@@ -61,7 +63,7 @@ class DeliveryDetails extends React.Component {
                     title: "Delivery Details", backBtn: true
                 }}>
                 <div
-                    className="deliveryFormContainer flex alignCenter">
+                    className={"deliveryFormContainer " + css(styles.container)} style={{height: "100%"}}>
                     <div className="addressInput">
                         <Input
                             passedRef={this.addressRef}
@@ -94,13 +96,13 @@ class DeliveryDetails extends React.Component {
                             );
                         })}
                     </div>
-                    <button
-                        className="doneButton"
-                        onClick={() =>
-                            this.onNextStep(this.addressRef.current.value)
-                        }>
-                        DONE
-                    </button>
+                    <div className="addrDoneBtn">
+                        <Button onClick={() =>
+                                this.onNextStep(this.addressRef.current.value)
+                            }>
+                            Done
+                        </Button>
+                    </div>
                 </div>
             </Screen>
         );
@@ -108,3 +110,13 @@ class DeliveryDetails extends React.Component {
 }
 
 export default connect(({address}) => ({address}))(DeliveryDetails)
+
+const styles = StyleSheet.create({
+    container: {
+        padding: "10px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100%"
+    }
+});
