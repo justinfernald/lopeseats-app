@@ -20,10 +20,21 @@ messaging.setBackgroundMessageHandler(function (payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
   const notificationTitle = payload.data.title;
+
+  const [state, id] = payload.data.state.split("/");
+
+  const stateToURL = {
+    "deliverer_request": "app/deliverer/accept/",
+    "expired_request": "app/deliverer",
+    "order_update": "app/tracker/",
+  }
+
+  const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+
   const notificationOptions = {
     body: payload.data.body,
     title: payload.data.title,
-    data: { state: payload.data.state },
+    data: { url },
     icon: '/images/icon-384.png'
   };
 
@@ -33,12 +44,13 @@ messaging.setBackgroundMessageHandler(function (payload) {
 });
 
 self.addEventListener('notificationclick', event => {
-  console.log("notification click: ", event);
-  const direction = "app/restaurants/details/19";
-  const rootUrl = new URL('/', location).href + direction;
+  const url = event.notification.data.url;
+  console.log("notification click: ", url);
+  const rootUrl = new URL('/', location).href;
   event.notification.close();
 
-  console.log(rootUrl)
+  console.log("url: " + rootUrl);
+
   // Enumerate windows, and call window.focus(), or open a new one.
   event.waitUntil(
     clients.matchAll().then(matchedClients => {
@@ -49,7 +61,7 @@ self.addEventListener('notificationclick', event => {
           return client.focus();
         }
       }
-      return clients.openWindow("/" + direction);
+      return clients.openWindow("/" + url);
     })
   );
 });
