@@ -7,7 +7,7 @@ import {
 } from "../../../assets/scripts/Util";
 
 import { connect } from "react-redux";
-import {store, actions} from "../../../Redux";
+import { store, actions } from "../../../Redux";
 
 class PersonalInformation extends React.Component {
     constructor(props) {
@@ -21,9 +21,9 @@ class PersonalInformation extends React.Component {
         this.studentNumberRef = React.createRef();
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     onNextStep = () => {
         let errors = [];
@@ -76,14 +76,14 @@ class PersonalInformation extends React.Component {
     render() {
         var { firstName, lastName, studentNumber, email } = this.props.registerDetails;
         return (
-            <div className="flexDisplay fillHeight">
+            <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
                     step={{ part: 1, total: 4 }}
                     onNextStep={this.onNextStep}
                     onBackStep={this.props.history.goBack}
                 />
                 <div className="registerStepBanner">Personal Information</div>
-                <div className="registerFormContainer flex alignCenter" style={{justifyContent: "space-evenly"}}>
+                <div className="registerFormContainer flex alignCenter" style={{ justifyContent: "space-evenly" }}>
                     <div className="uploaderContainer">
                         <ImageUploader
                             image={this.state.profileImage}
@@ -130,4 +130,4 @@ class PersonalInformation extends React.Component {
     }
 }
 
-export default connect(({registerDetails}) => ({registerDetails}))(PersonalInformation);
+export default connect(({ registerDetails }) => ({ registerDetails }))(PersonalInformation);

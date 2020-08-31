@@ -29,7 +29,7 @@ class PhoneConfirm extends React.Component {
 
     render() {
         return (
-            <div className="flexDisplay fillHeight">
+            <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
                     step={{ part: 3, total: 3 }}
                     noBack
@@ -49,4 +49,4 @@ class PhoneConfirm extends React.Component {
     }
 }
 
-export default connect(({registerDetails}) => ({registerDetails}))(PhoneConfirm);
+export default connect(({ registerDetails }) => ({ registerDetails }))(PhoneConfirm);

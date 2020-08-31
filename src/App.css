@@ -103,6 +103,14 @@ input:-webkit-autofill:active {
     background-color: #f7f8fc;
 }
 
+.margin-fix-top {
+    margin-top: calc(var(--sat) / 2);
+}
+
+.padding-fix-bottom {
+    padding-bottom: calc(var(--sab));
+}
+
 .loginWrapper {
     display: flex;
     flex-direction: column;
@@ -133,7 +141,7 @@ input:-webkit-autofill:active {
 .formSwitchButton {
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: calc(10px + var(--sat));
     color: var(--primary);
     font-size: 1.2em;
     font-weight: 500;
@@ -141,7 +149,7 @@ input:-webkit-autofill:active {
 
 .loginImage {
     position: absolute;
-    top: 50px;
+    top: calc(50px + var(--sat));
     left: 50%;
     transform: translateX(-50%);
     max-width: 200px;

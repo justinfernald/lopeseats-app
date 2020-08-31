@@ -7,7 +7,7 @@ import {
     showErrors,
 } from "../../assets/scripts/Util";
 
-import {store, actions} from "../../Redux";
+import { store, actions } from "../../Redux";
 
 export default class RegisterScreen extends React.Component {
     constructor(props) {
@@ -20,9 +20,9 @@ export default class RegisterScreen extends React.Component {
         this.passwordConfirmRef = React.createRef();
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     toggleShowPassword = () => {
         this.setState({ showPassword: !this.state.showPassword });

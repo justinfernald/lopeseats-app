@@ -7,14 +7,14 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { showErrors } from '../../../assets/scripts/Util';
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#000",
+    palette: {
+        primary: {
+            main: "#000",
+        },
+        secondary: {
+            main: "#eb1c34",
+        },
     },
-    secondary: {
-      main: "#eb1c34",
-    },
-  },
 });
 
 export default class AgreeToTerms extends React.Component {
@@ -36,7 +36,7 @@ export default class AgreeToTerms extends React.Component {
     render() {
         return (
             <ThemeProvider theme={theme}>
-                <div className="flexDisplay fillHeight">
+                <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                     <RegisterStep
                         step={{ part: 2, total: 4 }}
                         onNextStep={this.onNextStep}
@@ -44,11 +44,11 @@ export default class AgreeToTerms extends React.Component {
                     />
                     <div className="registerStepBanner">Agree to Terms</div>
                     <div className="registerFormContainer flex alignCenter">
-                        <span style={{textAlign: "center", marginBottom: "40px"}}>
-                            Please read and agree to our terms and conditions: <a style={{color: "blue"}} href="http://lopeseat.com/files/terms.pdf">Terms and Conditions</a>
+                        <span style={{ textAlign: "center", marginBottom: "40px" }}>
+                            Please read and agree to our terms and conditions: <a style={{ color: "blue" }} href="http://lopeseat.com/files/terms.pdf">Terms and Conditions</a>
                         </span>
                         <span>
-                            <Checkbox color="secondary" inputRef={this.checkRef}/>
+                            <Checkbox color="secondary" inputRef={this.checkRef} />
                             I agree to the terms listed above.
                         </span>
                     </div>
