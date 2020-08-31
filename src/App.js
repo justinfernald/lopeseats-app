@@ -134,7 +134,7 @@ class App extends React.Component {
                                 title: notification.title,
                                 body: notification.body,
                                 iconColor: "#eb1c34",
-                                // channelId: 4
+                                channelId: "pop-notifications"
                             }
                         ]
                     });
@@ -145,17 +145,30 @@ class App extends React.Component {
                 }
             );
 
-            // LocalNotifications.createChannel({
-            //     description: "Importnt LopesEat Notification Channel",
-            //     id: 4,
-            //     importance: 4,
-            //     lightColor: "#FF0000",
-            //     lights: true,
-            //     name: "LopesEat",
-            //     // sound?: string,
-            //     vibration: true,
-            //     // visibility?: any,
-            // });
+            // This is here to make it so the notification will pop on screen to local notifications
+            LocalNotifications.createChannel({
+                description: "LopesEat Notification Channel",
+                id: 'pop-notifications',
+                importance: 5,
+                lightColor: "#FF0000",
+                lights: true,
+                name: "LopesEat",
+                // sound?: string,
+                vibration: true,
+                visibility: 1,
+            });
+
+            PushNotifications.createChannel({
+                description: "LopesEat Notification Channel",
+                id: 'pop-notifications',
+                importance: 5,
+                lightColor: "#FF0000",
+                lights: true,
+                name: "LopesEat",
+                // sound?: string,
+                vibration: true,
+                visibility: 1,
+            });
 
             PushNotifications.addListener(
                 "pushNotificationActionPerformed",
