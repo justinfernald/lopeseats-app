@@ -69,7 +69,9 @@ class Cart extends React.Component {
     };
 
     onNextStep = () => {
-        this.props.history.push("/app/restaurants/address");
+        if (this.state.items.length !== 0) {
+            this.props.history.push("/app/restaurants/address");
+        }
     };
 
     render() {
@@ -156,6 +158,7 @@ class Cart extends React.Component {
                     </div>
                     <button
                         className="checkoutButton"
+                        style={this.state.items.length == 0 ? {opacity: "0.5"} : null}
                         onClick={() => this.onNextStep()}>
                         Checkout
                     </button>

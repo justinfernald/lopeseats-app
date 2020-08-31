@@ -31,8 +31,7 @@ class OrderTracker extends React.Component {
             enroute: null,
             arrived: null,
             wait: 45,
-            tippableOrder: null,
-            tipped: false
+            tippableOrder: null
         };
     }
 
@@ -225,8 +224,8 @@ class OrderTracker extends React.Component {
                 </div>
             );
         } else if (this.state.tippableOrder !== null) {
-            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({tippableOrder: null, tipped: true})}/>
-        } else if (this.state.tipped) {
+            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({tippableOrder: null})}/>
+        } else if (this.props.tipped) {
             content = <div className="noCurrentOrder">Thank you for tipping your runner! Enjoy your food</div>;
         } else {
             content = <div className="noCurrentOrder">No active order</div>;
@@ -243,4 +242,4 @@ class OrderTracker extends React.Component {
     }
 }
 
-export default connect(({apiToken}) => ({apiToken}))(OrderTracker);
+export default connect(({apiToken, tipped}) => ({apiToken, tipped}))(OrderTracker);

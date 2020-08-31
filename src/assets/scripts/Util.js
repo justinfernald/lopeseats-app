@@ -243,11 +243,13 @@ export const updateFBToken = async (token, platform, apiToken) => {
     });
 };
 
-export const sendPayment = async (nonce, address, apiToken, useBal = null) => {
+export const sendPayment = async (nonce, address, apiToken, useBal = null, type, cardType) => {
     var data = {
         nonce,
         address,
-        apiToken
+        apiToken,
+        type,
+        cardType
     };
     if (useBal != null) {
         data.useBal = useBal;
@@ -255,10 +257,15 @@ export const sendPayment = async (nonce, address, apiToken, useBal = null) => {
     return await postData("https://lopeseat.com/REST/order/sendOrder.php", data);
 };
 
-export const sendTip = async (amount, apiToken) => {
-    return await postData("https://lopeseat.com/REST/order/sendTip.php?amount="+amount,{
-        apiToken
-    });
+export const sendTip = async (amount, apiToken, nonce, useBal = null) => {
+    var data = {
+        apiToken,
+        nonce
+    };
+    if (useBal != null) {
+        data.useBal = useBal;
+    }
+    return await postData("https://lopeseat.com/REST/order/sendTip.php?amount="+amount,data);
 }
 
 export const getOrder = async (apiToken, id = -1) => {
@@ -305,15 +312,6 @@ export const sendMessage = async (apiToken, orderId, message) => {
     );
 };
 
-export const getIncomingOrderList = async (apiToken) => {
-    return await postData(
-        "https://lopeseat.com/REST/order/getOrders.php?state=unclaimed",
-        {
-            apiToken: apiToken,
-        }
-    );
-};
-
 export const getActiveOrderList = async (apiToken) => {
     return await postData("https://lopeseat.com/REST/order/getActiveOrders.php", {
         apiToken: apiToken,
@@ -356,15 +354,6 @@ export const acceptDelivery = async (apiToken, orderId) => {
 export const declineDelivery = async (apiToken, orderId) => {
     return await postData(
         "https://lopeseat.com/REST/delivery/declineOrder.php?order=" + orderId,
-        {
-            apiToken: apiToken,
-        }
-    );
-};
-
-export const getCompletedOrderList = async (apiToken) => {
-    return await postData(
-        "https://lopeseat.com/REST/order/getOrders.php?state=completed&deliverer",
         {
             apiToken: apiToken,
         }

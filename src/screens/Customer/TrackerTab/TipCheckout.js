@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import DropIn from "braintree-web-drop-in-react";
 import {
-    sendPayment,
-    getCartPrices,
+    sendTip,
     formatPrice,
     showErrors,
 } from "../../../assets/scripts/Util";
@@ -26,7 +25,7 @@ const theme = createMuiTheme({
   },
 });
 
-class CheckoutScreen extends React.Component {
+class TipCheckout extends React.Component {
     instance;
 
     constructor(props) {
@@ -34,7 +33,6 @@ class CheckoutScreen extends React.Component {
 
         this.state = {
             clientToken: null,
-            fee: 0,
             useBalance: false,
             useEarnings: false
         };
@@ -51,34 +49,35 @@ class CheckoutScreen extends React.Component {
         const clientToken = await response.json();
 
         console.log(clientToken);
-
-        var prices = await getCartPrices(this.props.apiToken);
         this.setState({
-            clientToken,
-            fee: prices.delivery_fee
+            clientToken
         });
     }
 
     async pay() {
-        var { balances } = this.props;
-        var { useEarnings, useBalance, fee } = this.state;
-        var needPayment = useBalance ? (balances[0] < fee) : (useEarnings ? (balances[1] < fee) : true);
+        var { balances, tip } = this.props;
+        var { useBalance } = this.state;
 
         var result = null;
 
-        if (needPayment) {
+        if (!useBalance) {
             if (!this.instance) return;
             if (this.instance.isPaymentMethodRequestable()) {
                 const { nonce, type, details } = await this.instance.requestPaymentMethod();
                 console.log(type);
                 console.log(details.cardType);
-                result = await sendPayment(nonce, this.props.address, this.props.apiToken, useBalance ? 1 : (useEarnings ? 2 : null), type, (type==="CreditCard") ? details.cardType : null);
+                result = await sendTip(tip, this.props.apiToken, nonce);
             }
         } else {
-            result = await sendPayment(null, this.props.address, this.props.apiToken, useBalance ? 1 : 2);
+            if (balances[useBalance ? 0 : 1] >= tip) {
+                result = await sendTip(tip, this.props.apiToken, null, useBalance ? 1 : 2);
+            } else {
+                result = {success: false, msg: "Not enough money in balance"};
+            }
         }
         if (result && result.success) {
-            this.props.history.push("/app/restaurants");
+            store.dispatch(actions.setTipped(true));
+            this.props.history.push("/app/tracker");
             store.dispatch(actions.setHistorySize(0));
         } else {
             showErrors([result.msg]);
@@ -93,14 +92,13 @@ class CheckoutScreen extends React.Component {
     }
 
     render() {
-        var { balances } = this.props;
-        var { useEarnings, useBalance, fee } = this.state;
+        var { balances, tip } = this.props;
+        var { useEarnings, useBalance } = this.state;
 
         var balance = balances[0] === undefined ? 0 : balances[0];
         var earnings = balances[1] === undefined ? 0 : balances[1];
 
-        // If balance being used covers the payment, needPayment = false
-        var needPayment = useBalance ? (balances[0] < fee) : (useEarnings ? (balances[1] < fee) : true);
+        var needPayment = !(useBalance || useEarnings);
 
         var dropin = (
             needPayment ? 
@@ -153,35 +151,6 @@ class CheckoutScreen extends React.Component {
             </Fragment>
         );
 
-        var prices = (
-        (useEarnings || useBalance) ? 
-            needPayment ?
-            <Fragment>
-                <div className="total">
-                    From {useEarnings ? "earnings" : "balance"}
-                    <span className="price">${formatPrice(balances[useBalance ? 0 : 1])}</span>
-                </div>
-                <div className="total">
-                    Through payment method
-                    <span className="price">${formatPrice(fee - balances[useBalance ? 0 : 1])}</span>
-                </div>
-            </Fragment>
-            :
-            <Fragment>
-                <div className="total">
-                    From {useEarnings ? "earnings" : "balance"}
-                    <span className="price">${formatPrice(fee)}</span>
-                </div>
-            </Fragment>
-        :
-            <Fragment>
-                <div className="total">
-                    Delivery Fee
-                    <span className="price">${formatPrice(fee)}</span>
-                </div>
-            </Fragment>
-        );
-
         return (
             <Screen
                 appBar={{
@@ -192,7 +161,10 @@ class CheckoutScreen extends React.Component {
                         {content}
                     </div>
                     <div className={css(styles.footer)}>
-                        {prices}
+                        <div className="total">
+                            Tip
+                            <span className="price">${formatPrice(tip)}</span>
+                        </div>
                         <button
                             className="checkoutButton"
                             onClick={this.pay.bind(this)}>
@@ -205,9 +177,7 @@ class CheckoutScreen extends React.Component {
     }
 }
 
-export default connect(({ apiToken, address, balances }) => ({ apiToken, address, balances }))(
-    CheckoutScreen
-);
+export default connect(({ apiToken, balances, tip }) => ({ apiToken, balances, tip }))(TipCheckout);
 
 const styles = StyleSheet.create({
     container: {

@@ -76,7 +76,10 @@ const initialState = {
         friendsPhone: ""
     },
     // History
-    historySize: 0
+    historySize: 0,
+
+    tip: 0,
+    tipped: false
 };
 
 const reducers = {
@@ -298,6 +301,18 @@ const reducers = {
     ) => {
         state.balances = balances;
     },
+    setTip: (
+        state: any,
+        { payload:tip } : {payload:number}
+    ) => {
+        state.tip = tip;
+    },
+    setTipped: (
+        state: any,
+        { payload:tipped } : {payload:boolean}
+    ) => {
+        state.tipped = tipped;
+    }
 };
 
 const stateSlice = createSlice({

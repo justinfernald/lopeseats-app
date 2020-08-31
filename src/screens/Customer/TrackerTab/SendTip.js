@@ -2,10 +2,10 @@ import React from 'react';
 import Screen from '../../../components/Screen';
 import { css, StyleSheet } from "aphrodite/no-important";
 import Button from '../../../components/Button';
-import { store } from "../../../Redux";
+import { store, actions } from "../../../Redux";
 import { connect } from 'react-redux';
 import { fetchBalances } from "../../../Redux/Thunks";
-import { formatPrice, sendTip } from '../../../assets/scripts/Util';
+import { formatPrice, sendTip, showErrors } from '../../../assets/scripts/Util';
 import history from "../../../history";
 
 class SendTip extends React.Component {
@@ -45,13 +45,22 @@ class SendTip extends React.Component {
         }
     }
 
-    onNextStep = () => {
+    onNextStep = async () => {
         var { selectedTip, customVal } = this.state;
 
         var tip = selectedTip === -1 ? parseInt(customVal) : (selectedTip / 100) * this.props.order.total;
 
-        sendTip(tip, this.props.apiToken);
-        this.props.onNextStep();
+        if (this.props.order.submitted === 1) {
+            store.dispatch(actions.setTip(tip));
+            history.push("/app/tracker/tipCheckout");
+        } else {
+            var result = await sendTip(tip, this.props.apiToken);
+            if (!result.success) {
+                showErrors([result.msg]);
+            }
+            store.dispatch(actions.setTipped(true));
+            this.props.onNextStep();
+        }
     }
 
     render() {

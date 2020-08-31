@@ -106,30 +106,24 @@ class ItemOptions extends React.Component {
                                             option.name
                                         ];
                                 }
+
+                                let populate = (choiceIndex) => {
+                                    let choices = Array.from(this.state.optionsChosen);
+                                    if (!choices[i]) choices[i] = {};
+                                    var choice = Object.assign({}, choices[i]);
+                                    choice[
+                                        option.name
+                                    ] = choiceIndex;
+                                    choices[i] = choice;
+                                    this.setState({
+                                        optionsChosen: choices,
+                                    });
+                                };
+
                                 return (
                                     <Selector
-                                        populate={(choiceIndex) => {
-                                            let choices = this.state
-                                                .optionsChosen;
-                                            if (!choices[i]) choices[i] = {};
-                                            choices[i][
-                                                option.name
-                                            ] = choiceIndex;
-                                            this.setState({
-                                                optionsChosen: choices,
-                                            });
-                                        }}
-                                        onSelection={(choiceIndex) => {
-                                            let choices = this.state
-                                                .optionsChosen;
-                                            if (!choices[i]) choices[i] = {};
-                                            choices[i][
-                                                option.name
-                                            ] = choiceIndex;
-                                            this.setState({
-                                                optionsChosen: choices,
-                                            });
-                                        }}
+                                        populate={populate}
+                                        onSelection={populate}
                                         key={j}
                                         option={option}
                                     />
