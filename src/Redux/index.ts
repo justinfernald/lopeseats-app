@@ -330,7 +330,7 @@ const persistConfig = {
     key: "state",
     storage,
     stateReconciler: hardSet,
-    blacklist: ['historySize']
+    blacklist: ['tipped']
 };
 
 export const { actions } = stateSlice;
