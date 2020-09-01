@@ -241,20 +241,20 @@ class App extends React.Component {
             messaging.onMessage((payload) => {
                 console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
-                LocalNotifications.schedule({ // From capacitor
-                    notifications: [
-                        {
-                            title: payload.notification.title,
-                            body: payload.notification.body,
-                            id,
-                            schedule: { at: new Date(Date.now() + 100) },
-                            sound: null,
-                            attachments: null,
-                            actionTypeId: "",
-                            extra: null
-                        }
-                    ]
-                });
+                // LocalNotifications.schedule({ // From capacitor
+                //     notifications: [
+                //         {
+                //             title: payload.notification.title,
+                //             body: payload.notification.body,
+                //             id,
+                //             schedule: { at: new Date(Date.now() + 100) },
+                //             sound: null,
+                //             attachments: null,
+                //             actionTypeId: "",
+                //             extra: null
+                //         }
+                //     ]
+                // });
 
                 const notification = new Notification(payload.notification.title, {
                     body: payload.notification.body,
