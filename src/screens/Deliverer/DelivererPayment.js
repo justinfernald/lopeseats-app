@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, css } from "aphrodite/no-important";
 import {
     getProfileImage,
-    getBarcodeData,
+    getActiveOrderBarcode,
     getActiveOrder,
     formatPrice,
     postData,
@@ -38,7 +38,7 @@ class DelivererPayment extends React.Component {
         if (id) {
             const [profileImage, barcodeData, order] = await Promise.all([
                 getProfileImage(this.props.apiToken),
-                getBarcodeData("20552343"),
+                getActiveOrderBarcode(this.props.apiToken, id),
                 getActiveOrder(this.props.apiToken, id),
             ]);
 
@@ -48,7 +48,7 @@ class DelivererPayment extends React.Component {
         } else {
             const [profileImage, barcodeData] = await Promise.all([
                 getProfileImage(this.props.apiToken),
-                getBarcodeData("20552343"),
+                getActiveOrderBarcode(this.props.apiToken, this.props.match.params.id),
             ]);
 
             this.setState({ profileImage, barcodeData });
@@ -58,6 +58,7 @@ class DelivererPayment extends React.Component {
     updateDimensions() {
         if (!this.state.showBarcode) return;
         const updateSize = () => {
+            if (!this.barcodeContainerRef.current) return;
             let parent = this.barcodeContainerRef.current.firstElementChild;
             let child = parent.firstElementChild;
             if (!child) return;
@@ -123,6 +124,7 @@ class DelivererPayment extends React.Component {
             timeShown: Date.now() - this.state.timeStarted,
         });
 
+        clearInterval(this.interval);
         clearInterval(this.timer);
         this.props.history.replace(
             "/app/deliverer/orders/" + this.state.order.orderId
@@ -193,16 +195,16 @@ class DelivererPayment extends React.Component {
                                 {this.state.timeLeft ? (
                                     <div>{this.state.timeLeft}</div>
                                 ) : (
-                                    <>
-                                        <div>Hold down to show Barcode</div>
-                                        <div
-                                            className={css(
-                                                styles.holdDownSubText
-                                            )}>
-                                            Letting go leads back to Order Page
+                                        <>
+                                            <div>Hold down to show Barcode</div>
+                                            <div
+                                                className={css(
+                                                    styles.holdDownSubText
+                                                )}>
+                                                Letting go leads back to Order Page
                                         </div>
-                                    </>
-                                )}
+                                        </>
+                                    )}
                             </span>
                         </div>
                     </div>
@@ -218,6 +220,7 @@ class DelivererPayment extends React.Component {
                                         : null}
                                 </span>
                             </div>
+                            <div className={css(styles.row, styles.estimateWarning)}>These totals are just estimates</div>
                             <div className={css(styles.row)}>
                                 <span className={css(styles.label)}>
                                     Subtotal
@@ -225,10 +228,10 @@ class DelivererPayment extends React.Component {
                                 <span className={css(styles.value)}>
                                     {this.state.order
                                         ? "$" +
-                                          formatPrice(
-                                              this.state.order.totalPrice,
-                                              false
-                                          )
+                                        formatPrice(
+                                            this.state.order.totalPrice,
+                                            false
+                                        )
                                         : null}
                                 </span>
                             </div>
@@ -237,10 +240,10 @@ class DelivererPayment extends React.Component {
                                 <span className={css(styles.value)}>
                                     {this.state.order
                                         ? "$" +
-                                          formatPrice(
-                                              this.state.order.totalPrice,
-                                              false
-                                          )
+                                        formatPrice(
+                                            this.state.order.tax,
+                                            false
+                                        )
                                         : null}
                                 </span>
                             </div>
@@ -259,10 +262,10 @@ class DelivererPayment extends React.Component {
                                     )}>
                                     {this.state.order
                                         ? "$" +
-                                          formatPrice(
-                                              this.state.order.totalPrice,
-                                              false
-                                          )
+                                        formatPrice(
+                                            this.state.order.totalPrice + this.state.order.tax,
+                                            false
+                                        )
                                         : null}
                                 </span>
                             </div>
@@ -381,6 +384,14 @@ const styles = StyleSheet.create({
     },
 
     row: { display: "flex", justifyContent: "space-between" },
+
+    estimateWarning: {
+        textAlign: "center",
+        fontSize: ".8em",
+        color: "#bbb",
+        width: "100%",
+        display: "block"
+    },
 
     label: {},
 
