@@ -31,6 +31,8 @@ const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
 class App extends React.Component {
     messageListener = new MessageListener();
 
+    notificationList = {};
+
     constructor(props) {
         super(props);
         startScript(props);
@@ -126,15 +128,18 @@ class App extends React.Component {
                     //     notifications: notif,
                     // });
 
+                    const id = Math.floor(Math.random() * 100000000);
+                    this.notificationList[id] = notification.data.state;
+
                     LocalNotifications.schedule({ // From capacitor
                         notifications: [
                             {
-                                id: Math.floor(Math.random() * 1000000),
+                                id,
                                 schedule: { at: new Date(Date.now() + 100) },
                                 title: notification.title,
                                 body: notification.body,
                                 iconColor: "#eb1c34",
-                                channelId: "pop-notifications"
+                                channelId: "pop-notifications",
                             }
                         ]
                     });
@@ -218,30 +223,31 @@ class App extends React.Component {
 
 
             Notification.requestPermission()
-                .then(function () {
+                .then(() => {
                     console.log("Permission " + Notification.permission);
                     var token = messaging.getToken();
 
                     return token;
                 })
-                .then(function (token) {
+                .then((token) => {
                     console.log(token);
                     app.setToken(token, "web");
                 })
-                .catch(function (err) {
+                .catch((err) => {
                     console.log(err);
                     app.setState({ bypassToken: true });
                 });
 
-            messaging.onMessage(function (payload) {
+            messaging.onMessage((payload) => {
                 console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
                 LocalNotifications.schedule({ // From capacitor
                     notifications: [
                         {
-                            ...payload.data,
-                            id: 1,
-                            schedule: { at: new Date(Date.now() + 1) },
+                            title: payload.notification.title,
+                            body: payload.notification.body,
+                            id,
+                            schedule: { at: new Date(Date.now() + 100) },
                             sound: null,
                             attachments: null,
                             actionTypeId: "",
@@ -249,7 +255,25 @@ class App extends React.Component {
                         }
                     ]
                 });
+
+                const notification = new Notification(payload.notification.title, {
+                    body: payload.notification.body,
+                    requireInteraction: true,
+                });
+
+                notification.onclick = () => {
+
+                }
             });
+
+            Notification.onclick = (e) => console.log(e);
+
+            LocalNotifications.addListener(
+                "localNotificationActionPerformed",
+                (notification) => {
+                    console.log("local action: " + JSON.stringify(notification, null, 4));
+                }
+            );
             // PWA END
         }
     }
