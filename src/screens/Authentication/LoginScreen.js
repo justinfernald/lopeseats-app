@@ -52,7 +52,7 @@ class LoginScreen extends React.Component {
         this.setState({ showPassword: !this.state.showPassword });
     };
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onSignIn = async () => {
         let phoneNumber = this.phoneNumberRef.current.value;

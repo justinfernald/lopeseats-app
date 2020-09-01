@@ -19,9 +19,9 @@ class VerifyPhone extends React.Component {
         this.phoneNumberRef = React.createRef();
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     onNextStep = async () => {
         let errors = [];
@@ -44,7 +44,7 @@ class VerifyPhone extends React.Component {
         }
 
         if (errors.length === 0) {
-            store.dispatch(actions.setRegisterDetails({phoneNumber}));
+            store.dispatch(actions.setRegisterDetails({ phoneNumber }));
             let result = await registerAccount(
                 phoneNumber,
                 this.props.registerDetails.firstName,
@@ -67,7 +67,7 @@ class VerifyPhone extends React.Component {
 
     render() {
         return (
-            <div className="flexDisplay fillHeight">
+            <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
                     step={{ part: 3, total: 4 }}
                     onNextStep={this.onNextStep}
@@ -79,7 +79,7 @@ class VerifyPhone extends React.Component {
                         <div className="label">Confirm Phone Number</div>
                         <Input
                             passedRef={this.phoneNumberRef}
-                            defaultValue= {this.state.phone}
+                            defaultValue={this.state.phone}
                             icon={Phone}
                             autoComplete="current-phone"
                             placeholder="Phone Number"
@@ -92,4 +92,4 @@ class VerifyPhone extends React.Component {
     }
 }
 
-export default connect(({registerDetails}) => ({registerDetails}))(VerifyPhone);
+export default connect(({ registerDetails }) => ({ registerDetails }))(VerifyPhone);
