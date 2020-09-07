@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { postData } from "../assets/scripts/Util";
+import { postData, showErrors } from "../assets/scripts/Util";
 import { actions } from "../Redux";
+import { startDeliveryMode, stopDeliveryMode } from "../assets/scripts/Util";
 
 export const fetchBalances = createAsyncThunk(
     'users/fetchBalanceStatus',
@@ -72,5 +73,32 @@ export const changePassword = createAsyncThunk(
             console.error(e);
         }
         return false;
+    }
+);
+
+export const toggleDeliveryMode = createAsyncThunk(
+    'delivery/toggleDeliveryMode',
+    async (_p, thunkAPI) => {
+        try {
+            var state:any = thunkAPI.getState();
+            if (state.deliveryModeActive) {
+                await stopDeliveryMode(state.apiToken);
+                thunkAPI.dispatch(actions.setDeliveryMode(false));
+            } else {
+                const data = await startDeliveryMode(state.apiToken);
+                if (data.success) {
+                    thunkAPI.dispatch(
+                        actions.setDeliveryStartingTime(data.msg.startingTime)
+                    );
+                    thunkAPI.dispatch(actions.setDeliveryMode(true));
+                } else {
+                    showErrors([data.msg]);
+                    return false;
+                }
+            }
+            return true;
+        } catch (e) {
+            console.error(e);
+        }
     }
 );
