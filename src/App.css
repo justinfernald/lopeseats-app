@@ -8,6 +8,8 @@
     color: inherit;
     box-sizing: border-box;
     background-color: transparent;
+    overscroll-behavior-y: none !important;
+    -webkit-overflow-scrolling: touch;
 }
 
 *:focus {
@@ -63,7 +65,7 @@ input:-webkit-autofill:active {
 .App {
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     overflow: "hidden";
 }
 
@@ -79,7 +81,8 @@ input:-webkit-autofill:active {
     margin-top: 30px; */
     /* top: env(safe-area-inset-top) !important; */
     /* top: 50px !important; */
-    height: calc(-56px - env(safe-area-inset-bottom) + 100vh) !important;
+    /* height: calc(-56px - env(safe-area-inset-bottom) + 100vh) !important; */
+    height: calc(-56px - var(--sab) - var(--sab) + 100vh) !important;
     -webkit-overflow-scrolling: touch;
     overflow: auto;
 }
@@ -1388,7 +1391,7 @@ input:-webkit-autofill:active {
     position: absolute;
     width: 60px;
     height: 60px;
-    bottom: 15px;
+    bottom: calc(15px + var(--sab));
     right: 15px;
     color: white;
     background-color: var(--primary);
