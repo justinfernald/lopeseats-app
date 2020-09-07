@@ -108,8 +108,8 @@ class Cart extends React.Component {
                                         <span className="cartItemPrice">
                                             $
                                             {formatPrice(
-                                                value.price * value.amount
-                                            )}
+                                            value.price * value.amount
+                                        )}
                                         </span>
                                     </div>
                                     <div className="cartItemDescription">
@@ -137,10 +137,10 @@ class Cart extends React.Component {
 
                 <div className="cartFooter">
                     <div className={css(styles.discl)}>
-                        <span class="material-icons-outlined" style={{marginRight: "10px"}}>
+                        <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
                             info
                         </span>
-                        <span style={{textAlign: "left"}}>
+                        <span style={{ textAlign: "left" }}>
                             Total is only an estimate. The restaurants prices may vary slightly.
                         </span>
                     </div>
@@ -161,14 +161,14 @@ class Cart extends React.Component {
                             ${formatPrice(this.total)}
                         </span>
                     </div>
-                
+
                     <div className="total">
                         Delivery Fee
                         <span className="price">${formatPrice(this.fee)}</span>
                     </div>
                     <button
                         className="checkoutButton"
-                        style={this.state.items.length == 0 ? {opacity: "0.5"} : null}
+                        style={this.state.items.length == 0 ? { opacity: "0.5" } : null}
                         onClick={() => this.onNextStep()}>
                         Checkout
                     </button>
@@ -178,7 +178,7 @@ class Cart extends React.Component {
     }
 }
 
-export default connect(({apiToken}) => ({apiToken}))(Cart);
+export default connect(({ apiToken }) => ({ apiToken }))(Cart);
 
 const styles = StyleSheet.create({
     discl: {

@@ -17,9 +17,9 @@ export default class Selector extends React.Component {
         this.props.populate(this.props.option.default);
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     onSelection = (i) => {
         this.setState({
@@ -44,7 +44,7 @@ export default class Selector extends React.Component {
                                 onClick={() => this.onSelection(i)}>
                                 {i}
                                 {/*This needs fixing*/}
-                                {x.cost !== 0 &&
+                                {x.cost && x.cost !== 0 &&
                                     " (+$" + formatPrice(x.cost, false) + ")"}
                                 {
                                     /* eslint-disable-next-line eqeqeq */

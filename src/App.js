@@ -101,6 +101,16 @@ class App extends React.Component {
             });
         }
 
+        // // Notifications // //
+
+
+
+        const stateToURL = {
+            "deliverer_request": "app/deliverer/accept/",
+            "expired_request": "app/deliverer",
+            "order_update": "app/tracker/",
+        }
+
         if (Capacitor.isPluginAvailable("PushNotifications")) {
             PushNotifications.register();
             PushNotifications.addListener("registration", async (token) => {
@@ -177,7 +187,7 @@ class App extends React.Component {
 
             PushNotifications.addListener(
                 "pushNotificationActionPerformed",
-                (notification) => {
+                ({ notification }) => {
                     // let notif = this.state.notifications;
                     // notif.push({
                     //     id: notification.notification.data.id,
@@ -189,13 +199,29 @@ class App extends React.Component {
                     // });
 
                     console.log("push action: " + JSON.stringify(notification, null, 4));
+                    console.log(JSON.stringify(this.notificationList[notification.id], null, 4));
+
+                    const [state, id] = this.notificationList[notification.id].split("/");
+                    const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+
+                    console.log(url);
+                    // this.setState({location: "/" + url})
+                    window.history.pushState(null, state, url)
                 }
             );
 
             LocalNotifications.addListener(
                 "localNotificationActionPerformed",
-                (notification) => {
+                ({ notification }) => {
                     console.log("local action: " + JSON.stringify(notification, null, 4));
+                    console.log(JSON.stringify(this.notificationList[notification.id], null, 4));
+
+                    const [state, id] = this.notificationList[notification.id].split("/");
+                    const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+
+                    console.log(url);
+                    // this.setState({location: "/" + url})
+                    window.history.pushState(null, state, url)
                 }
             );
         }
@@ -241,39 +267,21 @@ class App extends React.Component {
             messaging.onMessage((payload) => {
                 console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
-                // LocalNotifications.schedule({ // From capacitor
-                //     notifications: [
-                //         {
-                //             title: payload.notification.title,
-                //             body: payload.notification.body,
-                //             id,
-                //             schedule: { at: new Date(Date.now() + 100) },
-                //             sound: null,
-                //             attachments: null,
-                //             actionTypeId: "",
-                //             extra: null
-                //         }
-                //     ]
-                // });
-
                 const notification = new Notification(payload.notification.title, {
                     body: payload.notification.body,
                     requireInteraction: true,
                 });
 
                 notification.onclick = () => {
+                    console.log("pwa notification click: ", payload)
 
+                    const [state, id] = payload.data.state.split("/");
+                    const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+                    console.log(url);
+                    this.props.history.push("/" + url);
                 }
             });
 
-            Notification.onclick = (e) => console.log(e);
-
-            LocalNotifications.addListener(
-                "localNotificationActionPerformed",
-                (notification) => {
-                    console.log("local action: " + JSON.stringify(notification, null, 4));
-                }
-            );
             // PWA END
         }
     }
