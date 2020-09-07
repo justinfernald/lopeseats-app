@@ -4,6 +4,7 @@ import {
     addCartItem,
     formatPrice,
     removeCartItem,
+    showErrors,
 } from "../../../assets/scripts/Util";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
@@ -65,11 +66,10 @@ class ItemOptions extends React.Component {
     };
 
     closeItem = () => {
-        if (this.state.editingItem) this.props.history.goBack();
-        else this.props.history.push("/app/restaurants/cart");
+        this.props.history.goBack();
     };
 
-    addToCart = () => {
+    addToCart = async () => {
         // var chosenOptionMap = {};
         // for (var i = 0; i < this.state.optionsChosen.length; i++) {
         //     chosenOptionMap[this.state.optionKeys[i]] = this.state.optionsChosen[i];
@@ -80,15 +80,18 @@ class ItemOptions extends React.Component {
             removeCartItem(this.props.apiToken, this.state.selectedItem.id);
             itemId = this.state.selectedItem.item_id;
         }
-
-        store.dispatch(actions.addCartItem(itemId));
-        addCartItem(
+        var result = await addCartItem(
             this.props.apiToken,
             itemId,
             1,
             this.state.instructions ? this.state.instructions : "",
             this.state.optionsChosen
-        ).then(() => this.closeItem());
+        );
+        if (result.success) {
+            this.closeItem();
+        } else {
+            showErrors([result.msg]);
+        }
     };
 
     calculatePrice = () => {
