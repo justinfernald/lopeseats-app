@@ -6,6 +6,7 @@ export default class Selector extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.option)
         this.state = {
             name: this.props.option.name,
             choice: this.props.option.default,
@@ -44,7 +45,7 @@ export default class Selector extends React.Component {
                                 onClick={() => this.onSelection(i)}>
                                 {i}
                                 {/*This needs fixing*/}
-                                {x.cost && x.cost !== 0 &&
+                                {x.cost !== 0 &&
                                     " (+$" + formatPrice(x.cost, false) + ")"}
                                 {
                                     /* eslint-disable-next-line eqeqeq */

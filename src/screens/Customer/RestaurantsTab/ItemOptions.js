@@ -24,13 +24,20 @@ class ItemOptions extends React.Component {
         var selectedItem = JSON.parse(JSON.stringify(props.itemDetails.openItem));
         var fixedItems = JSON.parse(selectedItem.items).map((item) => {
             let fixedItem = ({ ...item, options: item.options ? (Array.isArray(item.options) ? item.options : [item.options]) : undefined })
-            fixedItem.options.choices = Array.isArray(fixedItem.options.choices) ? arrayToObject(fixedItem.options.choices) : fixedItem.options.choices;
-            console.log(fixedItem.options)
+            if (fixedItem.options)
+                fixedItem.options = fixedItem.options.map((option) => {
+                    if (!option.choices) return;
+                    console.log(option);
+                    option.choices = Array.isArray(option.choices) ? arrayToObject(option.choices) : option.choices;
+                    return option;
+                })
+
+            console.log(fixedItem)
             return fixedItem;
         });
-        console.log(fixedItems)
         selectedItem.items = JSON.stringify(fixedItems);
 
+        console.log(selectedItem)
 
         this.state = {
             selectedItem,
@@ -41,8 +48,6 @@ class ItemOptions extends React.Component {
                 ? props.itemDetails.instructions
                 : null,
         };
-
-        console.log(this.state.selectedItem)
 
     }
 
@@ -87,11 +92,10 @@ class ItemOptions extends React.Component {
         let c = this.state.optionsChosen;
         if (!c) return 0;
         let output = 0;
-        console.log(c);
         JSON.parse(this.state.selectedItem.items).forEach((item, i) => {
             if (item.options)
                 item.options.forEach((option, j) => {
-                    console.log(option, i + " : " + j);
+                    // console.log(option, i + " : " + j);
                     if (
                         c[i] &&
                         c[i][option.name] &&
@@ -120,12 +124,14 @@ class ItemOptions extends React.Component {
                         </div>
                     </div>
 
+                    {console.log(this.state.selectedItem.items)}
+
                     {JSON.parse(this.state.selectedItem.items).map((x, i) => (
                         <div key={i}>
-                            {console.log(x.options)}
                             {x.options ?
                                 x.options.map((option, j) => {
                                     if (!option) return;
+                                    console.log("options: ", option);
                                     if (this.props.itemDetails.editingItem) {
                                         option.default =
                                             this.props.itemDetails.optionsChosen[i][
@@ -145,8 +151,6 @@ class ItemOptions extends React.Component {
                                             optionsChosen: choices,
                                         });
                                     };
-
-                                    console.log(option)
 
                                     return (
                                         <Selector
