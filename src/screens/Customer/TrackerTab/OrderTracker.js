@@ -70,8 +70,8 @@ class OrderTracker extends React.Component {
             minutes == 0
                 ? "00"
                 : minutes < 10
-                ? "0" + minutes.toString()
-                : minutes;
+                    ? "0" + minutes.toString()
+                    : minutes;
         return hours + ":" + minuteString + suffix;
     }
 
@@ -215,7 +215,7 @@ class OrderTracker extends React.Component {
 
             footer = (
                 <div className="orderTrackerFooter">
-                    Arriving in {this.state.wait} minutes
+                    {this.state.wait > 1 ? `Arriving in ${this.state.wait} minutes` : "Arriving soon"}
                     <div
                         className="messageButton"
                         onClick={() =>
@@ -224,7 +224,7 @@ class OrderTracker extends React.Component {
                 </div>
             );
         } else if (this.state.tippableOrder !== null) {
-            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({tippableOrder: null})}/>
+            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({ tippableOrder: null })} />
         } else if (this.props.tipped) {
             content = <div className="noCurrentOrder">Thank you for tipping your runner! Enjoy your food</div>;
         } else {
@@ -242,4 +242,4 @@ class OrderTracker extends React.Component {
     }
 }
 
-export default connect(({apiToken, tipped}) => ({apiToken, tipped}))(OrderTracker);
+export default connect(({ apiToken, tipped }) => ({ apiToken, tipped }))(OrderTracker);
