@@ -234,7 +234,11 @@ class StartDelivery extends React.Component {
                     title: "Delivery Mode",
                 }}>
                 <div className={css(styles.container)}>
+
                     <div className={css(styles.stats)}>
+                        <div className={css(styles.disclaimer)}>
+                            Understand all terms and conditions before starting delivery. If you do not deliver you will be banned from the service. It is also recommended to not go into delivery mode if you don't accept orders as it will hurt your ratings.
+                    </div>
                         <div className={css(styles.stat)}>
                             <div className={css(styles.statKey)}>
                                 Delivery Count
@@ -387,7 +391,10 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
     },
-
+    disclaimer: {
+        color: "#666",
+        fontSize: ".8em"
+    },
     stat: {
         margin: "0 10px 3px",
         display: "flex",

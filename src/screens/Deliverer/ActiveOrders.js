@@ -8,44 +8,62 @@ import { timeSince } from "../../assets/scripts/Util";
 import { IonRippleEffect } from "@ionic/react";
 import { store, actions } from "../../Redux";
 
-const OrderListItem = ({ order, onClick }) => (
-    <div className={"ion-activatable " + css(styles.order)} onClick={onClick}>
-        <div className={css(styles.customerName)}>{order.customerName}</div>
-        <div className={css(styles.orderInformation)}>
-            <div>
-                <div className={css(styles.keyValuePair)}>
-                    <div className={css(styles.key)}>Order Status</div>
-                    <div className={css(styles.value)}>
-                        {statusToString(order.orderState)}
-                    </div>
-                </div>
-                <div className={css(styles.keyValuePair)}>
-                    <div className={css(styles.key)}></div>
-                    <div className={css(styles.value)}>
-                        {timeSince(order[statusToTime(order.orderState)])} ago
-                    </div>
-                </div>
-                <div className={css(styles.keyValuePair)}>
-                    <div className={css(styles.key)}>Claimed Time</div>
-                    <div className={css(styles.value)}>
-                        {timeSince(order.timeClaimed)} ago
-                    </div>
-                </div>
-                <div className={css(styles.keyValuePair)}>
-                    <div className={css(styles.key)}>Destination</div>
-                    <div className={css(styles.value)}>{order.address}</div>
-                </div>
-                <div className={css(styles.keyValuePair)}>
-                    <div className={css(styles.key)}>Restaurant</div>
-                    <div className={css(styles.value)}>
-                        {order.restaurantName}
+const OrderListItem = ({ order, onClick, acceptable }) => {
+    if (acceptable) {
+        return <div className={"ion-activatable " + css(styles.order)} onClick={onClick}>
+            <div className={css(styles.customerName)}>{order.customerName}</div>
+            <div className={css(styles.orderInformation)}>
+                <div>
+                    <div className={css(styles.keyValuePair)}>
+                        <div className={css(styles.key)}>Restaurant</div>
+                        <div className={css(styles.value)}>
+                            {order.restaurantName}
+                        </div>
                     </div>
                 </div>
             </div>
+            <IonRippleEffect />
         </div>
-        <IonRippleEffect />
-    </div>
-);
+    }
+    return (
+        <div className={"ion-activatable " + css(styles.order)} onClick={onClick}>
+            <div className={css(styles.customerName)}>{order.customerName}</div>
+            <div className={css(styles.orderInformation)}>
+                <div>
+                    <div className={css(styles.keyValuePair)}>
+                        <div className={css(styles.key)}>Order Status</div>
+                        <div className={css(styles.value)}>
+                            {statusToString(order.orderState)}
+                        </div>
+                    </div>
+                    <div className={css(styles.keyValuePair)}>
+                        <div className={css(styles.key)}></div>
+                        <div className={css(styles.value)}>
+                            {timeSince(order[statusToTime(order.orderState)])} ago
+                    </div>
+                    </div>
+                    <div className={css(styles.keyValuePair)}>
+                        <div className={css(styles.key)}>Claimed Time</div>
+                        <div className={css(styles.value)}>
+                            {timeSince(order.timeClaimed)} ago
+                    </div>
+                    </div>
+                    <div className={css(styles.keyValuePair)}>
+                        <div className={css(styles.key)}>Destination</div>
+                        <div className={css(styles.value)}>{order.address}</div>
+                    </div>
+                    <div className={css(styles.keyValuePair)}>
+                        <div className={css(styles.key)}>Restaurant</div>
+                        <div className={css(styles.value)}>
+                            {order.restaurantName}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <IonRippleEffect />
+        </div>
+    )
+};
 class ActiveOrders extends React.Component {
     constructor(props) {
         super(props);
@@ -93,6 +111,19 @@ class ActiveOrders extends React.Component {
                     title: "Active Orders", backBtn: true
                 }}>
                 <div className={css(styles.orderList)}>
+                    {this.state.acceptableOrders && this.state.acceptableOrders.length > 0 ? this.state.acceptableOrders.map((order, index) => (
+                        <OrderListItem
+                            key={index}
+                            order={order}
+                            acceptable
+                            onClick={() => {
+                                this.openOrder(
+                                    order.orderId,
+                                    this.props.history
+                                );
+                            }}
+                        />
+                    )) : null}
                     {this.state.orders.map((order, index) => (
                         <OrderListItem
                             key={index}
