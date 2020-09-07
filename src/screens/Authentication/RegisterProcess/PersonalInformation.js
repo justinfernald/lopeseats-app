@@ -111,7 +111,7 @@ class PersonalInformation extends React.Component {
                         <Input
                             passedRef={this.emailRef}
                             defaultValue={email}
-                            placeholder="LopesEat@lopeseat.com"
+                            placeholder="JThornburg1@my.gcu.edu"
                         />
                     </div>
                     <div className="labeledInput">

@@ -73,6 +73,7 @@ input:-webkit-autofill:active {
 .App > div {
     width: 100%;
     height: 100%;
+    overflow: "hidden";
 }
 
 .screen-component {
@@ -84,7 +85,8 @@ input:-webkit-autofill:active {
     /* height: calc(-56px - env(safe-area-inset-bottom) + 100vh) !important; */
     height: calc(-56px - var(--sab) - var(--sab) + 100vh) !important;
     -webkit-overflow-scrolling: touch;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .screen-header {
@@ -701,6 +703,7 @@ input:-webkit-autofill:active {
 }
 
 .cartFooter {
+    margin-bottom: var(--sab);
     background-color: var(--primary);
     width: 100%;
     padding: 15px 20px;
