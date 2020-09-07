@@ -12,18 +12,18 @@ import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
-import { fetchBalances} from "../../../Redux/Thunks";
+import { fetchBalances } from "../../../Redux/Thunks";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#000",
+    palette: {
+        primary: {
+            main: "#000",
+        },
+        secondary: {
+            main: "#eb1c34",
+        },
     },
-    secondary: {
-      main: "#eb1c34",
-    },
-  },
 });
 
 class CheckoutScreen extends React.Component {
@@ -72,13 +72,13 @@ class CheckoutScreen extends React.Component {
                 const { nonce, type, details } = await this.instance.requestPaymentMethod();
                 console.log(type);
                 console.log(details.cardType);
-                result = await sendPayment(nonce, this.props.address, this.props.apiToken, useBalance ? 1 : (useEarnings ? 2 : null), type, (type==="CreditCard") ? details.cardType : null);
+                result = await sendPayment(nonce, this.props.address, this.props.apiToken, useBalance ? 1 : (useEarnings ? 2 : null), type, (type === "CreditCard") ? details.cardType : null);
             }
         } else {
             result = await sendPayment(null, this.props.address, this.props.apiToken, useBalance ? 1 : 2);
         }
         if (result && result.success) {
-            this.props.history.push("/app/restaurants");
+            this.props.history.push("/app/tracker");
             store.dispatch(actions.setHistorySize(0));
         } else {
             showErrors([result.msg]);
@@ -103,17 +103,17 @@ class CheckoutScreen extends React.Component {
         var needPayment = useBalance ? (balances[0] < fee) : (useEarnings ? (balances[1] < fee) : true);
 
         var dropin = (
-            needPayment ? 
-            <DropIn
-                options={{
-                    authorization: this.state.clientToken,
-                    paypal: true,
-                    venmo: true,
-                }}
-                onInstance={(instance) => (this.instance = instance)}
-            />
-            :
-            <div className={css(styles.rowFlex)} style={{margin: "20px"}}>All covered!</div>
+            needPayment ?
+                <DropIn
+                    options={{
+                        authorization: this.state.clientToken,
+                        paypal: true,
+                        venmo: true,
+                    }}
+                    onInstance={(instance) => (this.instance = instance)}
+                />
+                :
+                <div className={css(styles.rowFlex)} style={{ margin: "20px" }}>All covered!</div>
         );
 
         var content = !this.state.clientToken ? (
@@ -124,62 +124,62 @@ class CheckoutScreen extends React.Component {
                 </div>
             </div>
         ) : (
-            <Fragment>
-                <div className={css(styles.dropinContainer)}>
-                    {dropin}
-                </div>
-                <div>
-                    <div className={css(styles.useBalance)} style={{display: balance === 0 ? "none" : "flex"}}>
-                        <FormControlLabel
-                        control={<Checkbox inputRef={this.balanceRef}/>}
-                        label="Use LopesEat balance to pay:"
-                        labelPlacement="end"
-                        onChange={this.checkboxChange}
-                        disabled={useEarnings}
-                        />
-                        <span className={css(styles.vertAlign, useEarnings ? styles.disabled : null)}>{"$" + formatPrice(balance, false)}</span>
+                <Fragment>
+                    <div className={css(styles.dropinContainer)}>
+                        {dropin}
                     </div>
-                    <div className={css(styles.useBalance)} style={{display: earnings === 0 ? "none" : "flex"}}>
-                        <FormControlLabel
-                        control={<Checkbox inputRef={this.earningsRef}/>}
-                        label="Use Delivery earnings to pay:"
-                        labelPlacement="end"
-                        onChange={this.checkboxChange}
-                        disabled={useBalance}
-                        />
-                        <span className={css(styles.vertAlign, useBalance ? styles.disabled : null)}>{"$" + formatPrice(earnings, false)}</span>
+                    <div>
+                        <div className={css(styles.useBalance)} style={{ display: balance === 0 ? "none" : "flex" }}>
+                            <FormControlLabel
+                                control={<Checkbox inputRef={this.balanceRef} />}
+                                label="Use LopesEat balance to pay:"
+                                labelPlacement="end"
+                                onChange={this.checkboxChange}
+                                disabled={useEarnings}
+                            />
+                            <span className={css(styles.vertAlign, useEarnings ? styles.disabled : null)}>{"$" + formatPrice(balance, false)}</span>
+                        </div>
+                        <div className={css(styles.useBalance)} style={{ display: earnings === 0 ? "none" : "flex" }}>
+                            <FormControlLabel
+                                control={<Checkbox inputRef={this.earningsRef} />}
+                                label="Use Delivery earnings to pay:"
+                                labelPlacement="end"
+                                onChange={this.checkboxChange}
+                                disabled={useBalance}
+                            />
+                            <span className={css(styles.vertAlign, useBalance ? styles.disabled : null)}>{"$" + formatPrice(earnings, false)}</span>
+                        </div>
                     </div>
-                </div>
-            </Fragment>
-        );
+                </Fragment>
+            );
 
         var prices = (
-        (useEarnings || useBalance) ? 
-            needPayment ?
-            <Fragment>
-                <div className="total">
-                    From {useEarnings ? "earnings" : "balance"}
-                    <span className="price">${formatPrice(balances[useBalance ? 0 : 1])}</span>
-                </div>
-                <div className="total">
-                    Through payment method
+            (useEarnings || useBalance) ?
+                needPayment ?
+                    <Fragment>
+                        <div className="total">
+                            From {useEarnings ? "earnings" : "balance"}
+                            <span className="price">${formatPrice(balances[useBalance ? 0 : 1])}</span>
+                        </div>
+                        <div className="total">
+                            Through payment method
                     <span className="price">${formatPrice(fee - balances[useBalance ? 0 : 1])}</span>
-                </div>
-            </Fragment>
-            :
-            <Fragment>
-                <div className="total">
-                    From {useEarnings ? "earnings" : "balance"}
+                        </div>
+                    </Fragment>
+                    :
+                    <Fragment>
+                        <div className="total">
+                            From {useEarnings ? "earnings" : "balance"}
+                            <span className="price">${formatPrice(fee)}</span>
+                        </div>
+                    </Fragment>
+                :
+                <Fragment>
+                    <div className="total">
+                        Delivery Fee
                     <span className="price">${formatPrice(fee)}</span>
-                </div>
-            </Fragment>
-        :
-            <Fragment>
-                <div className="total">
-                    Delivery Fee
-                    <span className="price">${formatPrice(fee)}</span>
-                </div>
-            </Fragment>
+                    </div>
+                </Fragment>
         );
 
         return (
@@ -201,7 +201,7 @@ class CheckoutScreen extends React.Component {
                     </div>
                 </ThemeProvider>
             </Screen>
-        ); 
+        );
     }
 }
 
