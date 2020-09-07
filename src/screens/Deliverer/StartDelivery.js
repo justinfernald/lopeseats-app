@@ -14,6 +14,7 @@ import { Line } from "react-chartjs-2";
 import { milliSecondsToTimeString } from "../../assets/scripts/Util";
 import { IonIcon, IonRippleEffect } from "@ionic/react";
 import { cashOutline } from "ionicons/icons";
+import { toggleDeliveryMode } from "../../Redux/Thunks";
 
 const chartOptions = {
     title: {
@@ -171,7 +172,7 @@ class StartDelivery extends React.Component {
         this.setState({
             timeActive: null,
         });
-        store.dispatch(actions.setDeliveryMode(!this.props.deliveryModeActive));
+        store.dispatch(toggleDeliveryMode());
     };
 
     componentDidMount() {

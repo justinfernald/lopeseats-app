@@ -5,7 +5,7 @@ import "../App.css";
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
-function BackButtonUnconnected(props:{icon?: boolean, historySize: number}) {
+function BackButtonUnconnected(props: { icon?: boolean, historySize: number }) {
 
     let history = useHistory();
 
@@ -16,14 +16,14 @@ function BackButtonUnconnected(props:{icon?: boolean, historySize: number}) {
     }
 
     return (
-    <i
-        className={"material-icons-round" + (props.icon ? " icon" : "")}
-        onClick={goBack}>
-        arrow_back_ios
-    </i>);
+        <i
+            className={"material-icons-round" + (props.icon ? " icon" : "")}
+            onClick={goBack}>
+            arrow_back_ios
+        </i>);
 }
 
-const mapStateToProps = (state:any) => ({
+const mapStateToProps = (state: any) => ({
     historySize: state.historySize
 });
 
@@ -56,14 +56,14 @@ export default class Screen extends React.Component<PropType> {
     }
 
     onContentScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-        const sat: number = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat"));
-        const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
-        let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
-        let bannerHeight = (175 + sat) - scrollLevel;
-        bannerHeight = bannerHeight > (54 + sat) ? bannerHeight : (54 + sat);
-        this.splashRef.current.style.height = bannerHeight + "px";
-        scrollLevel = scrollLevel > 121 ? 121 : scrollLevel;
-        target.style.paddingTop = scrollLevel + "px";
+        // const sat: number = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat"));
+        // const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
+        // let scrollLevel = target.scrollTop; //Math.floor(target.scrollTop);
+        // let bannerHeight = (175 + sat) - scrollLevel;
+        // bannerHeight = bannerHeight > (54 + sat) ? bannerHeight : (54 + sat);
+        // this.splashRef.current.style.height = bannerHeight + "px";
+        // scrollLevel = scrollLevel > 121 ? 121 : scrollLevel;
+        // target.style.paddingTop = scrollLevel + "px";
     };
 
     render() {
@@ -110,7 +110,7 @@ export default class Screen extends React.Component<PropType> {
                         <div className={css(styles.headerContent)}>
                             {this.props.appBar.backBtn ? (
                                 <span className={css(styles.backButton)}>
-                                    <BackButton icon/>
+                                    <BackButton icon />
                                 </span>
                             ) : null}
                             <span className={css(styles.screenTitle)}>
@@ -199,6 +199,7 @@ const styles = StyleSheet.create({
     splash: {
         flex: "0 0 auto",
         position: "relative",
+        height: "calc(54px + var(--sat)) !important"
     },
     splashImg: {
         objectPosition: "50% 30%",

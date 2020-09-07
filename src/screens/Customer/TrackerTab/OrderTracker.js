@@ -216,11 +216,15 @@ class OrderTracker extends React.Component {
             footer = (
                 <div className="orderTrackerFooter">
                     {this.state.wait > 1 ? `Arriving in ${this.state.wait} minutes` : "Arriving soon"}
-                    <div
-                        className="messageButton"
-                        onClick={() =>
-                            this.onMessageClick(this.state.order)
-                        }></div>
+                    {
+                        this.state.orderState === "unclaimed"
+                            ?
+                            "" :
+                            <div
+                                className="messageButton"
+                                onClick={() => this.onMessageClick(this.state.order)}
+                            ></div>
+                    }
                 </div>
             );
         } else if (this.state.tippableOrder !== null) {

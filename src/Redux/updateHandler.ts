@@ -6,18 +6,18 @@ const handleStateChange = async (
     newState: any,
     actionType: any
 ) => {
-    switch (actionType) {
-        case actions.setDeliveryMode.type:
-            if (newState.deliveryModeActive) {
-                const data = await startDeliveryMode(newState.apiToken);
-                if (data.success) {
-                    store.dispatch(
-                        actions.setDeliveryStartingTime(data.msg.startingTime)
-                    );
-                }
-            } else stopDeliveryMode(newState.apiToken);
-            break;
-    }
+    // switch (actionType) {
+    //     case actions.setDeliveryMode.type:
+    //         if (newState.deliveryModeActive) {
+    //             const data = await startDeliveryMode(newState.apiToken);
+    //             if (data.success) {
+    //                 store.dispatch(
+    //                     actions.setDeliveryStartingTime(data.msg.startingTime)
+    //                 );
+    //             }
+    //         } else stopDeliveryMode(newState.apiToken);
+    //         break;
+    // }
 };
 
 export default handleStateChange;
