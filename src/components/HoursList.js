@@ -3,7 +3,7 @@ import React from 'react';
 export const isOpen = (restaurantData) => {
     let order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     //current time in relation to Phoenix time zone
-    let currentTime = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+    let currentTime = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Phoenix" }));
     let pastDay = order[(currentTime.getDay() + 6) % 7];
     let open = false;
     let weekDay = order[currentTime.getDay()];
@@ -14,7 +14,7 @@ export const isOpen = (restaurantData) => {
             let splitStartTime = times.start.split(":").map(x => parseInt(x));
             let startTime = new Date(new Date().setHours(splitStartTime[0], splitStartTime[1]));
             let endTimeString = times.end;
-            if (endTimeString.includes(".")) 
+            if (endTimeString.includes("."))
                 endTimeString = endTimeString.split(".")[1];
             let splitEndTime = endTimeString.split(":").map(x => parseInt(x));
             let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
@@ -36,7 +36,7 @@ export const isOpen = (restaurantData) => {
                     return true;
                 }
             }
-        }   
+        }
     }
     return false;
 }
@@ -44,7 +44,7 @@ export const isOpen = (restaurantData) => {
 export default class HoursList extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
 
         };
@@ -69,7 +69,7 @@ export default class HoursList extends React.Component {
     }
 
     makePHXTime(date) {
-        return new Date(date.toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+        return new Date(date.toLocaleString("en-US", { timeZone: "America/Phoenix" }));
     }
 
     render() {
@@ -80,7 +80,7 @@ export default class HoursList extends React.Component {
                 {(() => {
                     let order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                     //current time in relation to Phoenix time zone
-                    let currentTime = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Phoenix"}));
+                    let currentTime = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Phoenix" }));
                     let output = [];
                     let pastDay = order[(currentTime.getDay() + 6) % 7];
                     for (let weekDay of order) {
@@ -96,10 +96,10 @@ export default class HoursList extends React.Component {
                                 let splitStartTime = times.start.split(":").map(x => parseInt(x));
                                 let startTime = new Date(new Date().setHours(splitStartTime[0], splitStartTime[1]));
                                 let endTimeString = times.end;
-                                if (endTimeString.includes(".")) 
+                                if (endTimeString.includes("."))
                                     endTimeString = endTimeString.split(".")[1];
                                 let splitEndTime = endTimeString.split(":").map(x => parseInt(x));
-                                
+
                                 let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
 
                                 if (startTime > endTime) {
@@ -126,22 +126,23 @@ export default class HoursList extends React.Component {
                                 }
                             }
                         }
-                        output.push(
-                            <div key={weekDay} className={"hourOpen" + (currentlyOpen.open ? " isOpen" : "") + (sameDay ? " sameDay" : "")}>
-                                <div className="weekDay">{weekDay}</div>
-                                <div className="openTimeList">
-                                    {(() => {
-                                        if (!this.restaurantData.hours[weekDay])
-                                            return <div className="noTime">Closed</div>;
-                                        
-                                        return this.restaurantData.hours[weekDay].hours.map((value, index) => <div key={index} className={"openTimeItem" + (index === currentlyOpen.timeSlot ? " isOpen" : "")}>
-                                            <div className="openTime">{this.formatTime(value.start)}</div>
-                                            <div className="closingTime">{this.formatTime(value.end)}</div>
-                                        </div>);
-                                    })()}
+                        if (sameDay)
+                            output.push(
+                                <div key={weekDay} className={"hourOpen" + (currentlyOpen.open ? " isOpen" : "") + (sameDay ? " sameDay" : "")}>
+                                    <div className="weekDay">{weekDay}</div>
+                                    <div className="openTimeList">
+                                        {(() => {
+                                            if (!this.restaurantData.hours[weekDay])
+                                                return <div className="noTime">Closed</div>;
+
+                                            return this.restaurantData.hours[weekDay].hours.map((value, index) => <div key={index} className={"openTimeItem" + (index === currentlyOpen.timeSlot ? " isOpen" : "")}>
+                                                <div className="openTime">{this.formatTime(value.start)}</div>
+                                                <div className="closingTime">{this.formatTime(value.end)}</div>
+                                            </div>);
+                                        })()}
+                                    </div>
                                 </div>
-                            </div>
-                        )
+                            )
                     }
                     return output;
                 })()}

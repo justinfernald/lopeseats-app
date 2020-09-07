@@ -13,8 +13,34 @@ class ItemOptions extends React.Component {
     constructor(props) {
         super(props);
 
+        function arrayToObject(array) {
+            let output = {};
+            for (let obj of array) {
+                output = { ...output, ...obj }
+            }
+            return output;
+        }
+
+        var selectedItem = JSON.parse(JSON.stringify(props.itemDetails.openItem));
+        var fixedItems = JSON.parse(selectedItem.items).map((item) => {
+            let fixedItem = ({ ...item, options: item.options ? (Array.isArray(item.options) ? item.options : [item.options]) : undefined })
+            if (fixedItem.options)
+                fixedItem.options = fixedItem.options.map((option) => {
+                    if (!option.choices) return;
+                    console.log(option);
+                    option.choices = Array.isArray(option.choices) ? arrayToObject(option.choices) : option.choices;
+                    return option;
+                })
+
+            console.log(fixedItem)
+            return fixedItem;
+        });
+        selectedItem.items = JSON.stringify(fixedItems);
+
+        console.log(selectedItem)
+
         this.state = {
-            selectedItem: props.itemDetails.openItem,
+            selectedItem,
             optionsChosen: props.itemDetails.editingItem
                 ? props.itemDetails.optionsChosen
                 : [],
@@ -22,9 +48,10 @@ class ItemOptions extends React.Component {
                 ? props.itemDetails.instructions
                 : null,
         };
+
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     onContentScroll = (e) => {
         const target = e.currentTarget; //using currentTarget instead of target because of event bubbling
@@ -65,17 +92,17 @@ class ItemOptions extends React.Component {
         let c = this.state.optionsChosen;
         if (!c) return 0;
         let output = 0;
-        console.log(c);
         JSON.parse(this.state.selectedItem.items).forEach((item, i) => {
-            item.options.forEach((option, j) => {
-                console.log(option, i + " : " + j);
-                if (
-                    c[i] &&
-                    c[i][option.name] &&
-                    option.choices[c[i][option.name]]
-                )
-                    output += option.choices[c[i][option.name]].cost;
-            });
+            if (item.options)
+                item.options.forEach((option, j) => {
+                    // console.log(option, i + " : " + j);
+                    if (
+                        c[i] &&
+                        c[i][option.name] &&
+                        option.choices[c[i][option.name]]
+                    )
+                        output += option.choices[c[i][option.name]].cost;
+                });
         });
         return output;
     };
@@ -97,38 +124,43 @@ class ItemOptions extends React.Component {
                         </div>
                     </div>
 
+                    {console.log(this.state.selectedItem.items)}
+
                     {JSON.parse(this.state.selectedItem.items).map((x, i) => (
                         <div key={i}>
-                            {x.options.map((option, j) => {
-                                if (this.props.itemDetails.editingItem) {
-                                    option.default =
-                                        this.props.itemDetails.optionsChosen[i][
+                            {x.options ?
+                                x.options.map((option, j) => {
+                                    if (!option) return;
+                                    console.log("options: ", option);
+                                    if (this.props.itemDetails.editingItem) {
+                                        option.default =
+                                            this.props.itemDetails.optionsChosen[i][
                                             option.name
-                                        ];
-                                }
+                                            ];
+                                    }
 
-                                let populate = (choiceIndex) => {
-                                    let choices = Array.from(this.state.optionsChosen);
-                                    if (!choices[i]) choices[i] = {};
-                                    var choice = Object.assign({}, choices[i]);
-                                    choice[
-                                        option.name
-                                    ] = choiceIndex;
-                                    choices[i] = choice;
-                                    this.setState({
-                                        optionsChosen: choices,
-                                    });
-                                };
+                                    let populate = (choiceIndex) => {
+                                        let choices = Array.from(this.state.optionsChosen);
+                                        if (!choices[i]) choices[i] = {};
+                                        var choice = Object.assign({}, choices[i]);
+                                        choice[
+                                            option.name
+                                        ] = choiceIndex;
+                                        choices[i] = choice;
+                                        this.setState({
+                                            optionsChosen: choices,
+                                        });
+                                    };
 
-                                return (
-                                    <Selector
-                                        populate={populate}
-                                        onSelection={populate}
-                                        key={j}
-                                        option={option}
-                                    />
-                                );
-                            })}
+                                    return (
+                                        <Selector
+                                            populate={populate}
+                                            onSelection={populate}
+                                            key={j}
+                                            option={option}
+                                        />
+                                    );
+                                }) : null}
                         </div>
                     ))}
 
@@ -156,9 +188,9 @@ class ItemOptions extends React.Component {
                             <span>
                                 $
                                 {formatPrice(
-                                    this.state.selectedItem.price +
-                                        this.calculatePrice()
-                                )}
+                            this.state.selectedItem.price +
+                            this.calculatePrice()
+                        )}
                             </span>
                         </div>
                         <div
@@ -174,4 +206,4 @@ class ItemOptions extends React.Component {
     }
 }
 
-export default connect(({itemDetails, apiToken, selectedRestaurant}) => ({itemDetails, apiToken, selectedRestaurant}))(ItemOptions);
+export default connect(({ itemDetails, apiToken, selectedRestaurant }) => ({ itemDetails, apiToken, selectedRestaurant }))(ItemOptions);

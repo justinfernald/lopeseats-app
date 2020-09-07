@@ -6,6 +6,7 @@ export default class Selector extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props.option)
         this.state = {
             name: this.props.option.name,
             choice: this.props.option.default,
@@ -17,9 +18,9 @@ export default class Selector extends React.Component {
         this.props.populate(this.props.option.default);
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     onSelection = (i) => {
         this.setState({

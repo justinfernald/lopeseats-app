@@ -99,6 +99,7 @@ const MainScreen = (props) =>
                                             alignItems: "center",
                                             top: "3px",
                                             right: "3px",
+                                            zIndex: 1
                                         }}>
                                         {props.activeOrderCount}
                                     </div>

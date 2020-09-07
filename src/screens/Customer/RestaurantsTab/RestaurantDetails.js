@@ -5,7 +5,7 @@ import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { getRestaurant, getMenu } from "../../../assets/scripts/Util";
+import { getRestaurant, getMenu, formatPrice } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
 
 class RestaurantDetails extends React.Component {
@@ -51,9 +51,9 @@ class RestaurantDetails extends React.Component {
         store.dispatch(actions.setSelectedMenu(menu));
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     formatTime(time) {
         let splitTime = time.split(":");
@@ -87,7 +87,7 @@ class RestaurantDetails extends React.Component {
             <Screen
                 appBar={{
                     title: this.props.selectedRestaurant.name,
-                    splash: this.props.selectedRestaurant.banner, 
+                    splash: this.props.selectedRestaurant.banner,
                     backBtn: true
                 }}
                 ionPage>
@@ -96,8 +96,12 @@ class RestaurantDetails extends React.Component {
                         <div className="restaurantDescription">
                             {this.props.selectedRestaurant.description}
                         </div>
+
+                        {/* <HoursList restaurantData={this.state.restaurantData} /> */}
                     </div>
                     <div className="restaurantFood">
+
+                        <HoursList restaurantData={this.state.restaurantData} />
                         <div className="featuredMenu">
                             <div className="title">Popular Options</div>
                             <div className="scrollArea">
@@ -118,7 +122,7 @@ class RestaurantDetails extends React.Component {
                                                         {x.name}
                                                     </div>
                                                     <div className="itemPrice">
-                                                        ${x.price}
+                                                        ${formatPrice(x.price)}
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,17 +149,17 @@ class RestaurantDetails extends React.Component {
                                     <div className="itemContent">
                                         <div className="name">{item.name}</div>
                                         <div className="price">
-                                            ${item.price}
+                                            ${formatPrice(item.price)}
                                         </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
 
-                        <HoursList restaurantData={this.state.restaurantData} />
+
                     </div>
                 </div>
-                <FloatingCartButton/>
+                <FloatingCartButton />
             </Screen>
         );
     }

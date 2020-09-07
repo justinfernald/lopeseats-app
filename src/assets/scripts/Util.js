@@ -215,7 +215,7 @@ export const formatPrice = (price, asSpan = true) => {
     if (priceS.length - priceS.indexOf(".") <= 2) {
         priceS = priceS + "0".repeat(priceS.length - priceS.indexOf(".") - 1);
     }
-    priceS = priceS.substring(0,priceS.indexOf(".")+3);
+    priceS = priceS.substring(0, priceS.indexOf(".") + 3);
     if (!asSpan) return priceS;
     return (
         <span className="priceFormat">
@@ -265,7 +265,7 @@ export const sendTip = async (amount, apiToken, nonce, useBal = null) => {
     if (useBal != null) {
         data.useBal = useBal;
     }
-    return await postData("https://lopeseat.com/REST/order/sendTip.php?amount="+amount,data);
+    return await postData("https://lopeseat.com/REST/order/sendTip.php?amount=" + amount, data);
 }
 
 export const getOrder = async (apiToken, id = -1) => {
@@ -332,6 +332,17 @@ export const getActiveOrder = async (apiToken, orderId) => {
         }
     );
 };
+
+export const getActiveOrderBarcode = async (apiToken, orderId) => {
+    return await postData(
+        "https://lopeseat.com/REST/order/getActiveOrderBarcode.php?id=" + orderId,
+        {
+            apiToken: apiToken,
+        },
+        true
+    );
+};
+
 
 export const getAcceptableOrder = async (apiToken, orderId) => {
     return await postData(
@@ -413,14 +424,6 @@ export const getProfileData = async (apiToken) => {
     return await postData("https://lopeseat.com/REST/user/getProfileData.php", {
         apiToken,
     });
-};
-
-export const getBarcodeData = async (key) => {
-    return await postData(
-        "https://lopeseat.com/REST/barcodeTest.php?key=" + key,
-        null,
-        true
-    );
 };
 
 export const getOrderPaymentInfo = async (apiToken, orderId) => {

@@ -37,7 +37,9 @@ class DeliveryDetails extends React.Component {
         }
 
         for (var i = 0; i < buildings.length; i++) {
-            if ( buildings[i].name.toLowerCase().includes(search.toLowerCase()) ) {
+            if (!buildings[i].name) continue;
+            if (!search) continue;
+            if (buildings[i].name.toLowerCase().includes(search.toLowerCase())) {
                 searchResults.push(buildings[i]);
             }
         }
@@ -61,54 +63,54 @@ class DeliveryDetails extends React.Component {
                 appBar={{
                     title: "Delivery Details", backBtn: true
                 }}>
-                    <div
-                        className={"deliveryFormContainer " + css(styles.container)} style={{height: "100%"}}>
-                        <div className="addressInput">
-                            <Input
-                                passedRef={this.addressRef}
-                                placeholder="Address"
-                                onChange={(e) => this.updateValue(e.target.value)}
-                                defaultValue={this.props.address}
-                            />
-                        </div>
-
-                        <div className="addrResults">
-                            {this.state.searchResults.map((value, index) => {
-                                return (
-                                    <div
-                                        onClick={() => this.setValue(value.name)}
-                                        key={index}
-                                        className={
-                                            "addrItem" +
-                                            (value.name.toLowerCase() ===
-                                            this.state.search.toLowerCase()
-                                                ? " selected"
-                                                : "")
-                                        }>
-                                        <span className="addrTitle">
-                                            {value.name}
-                                        </span>
-                                        <span className="material-icons check">
-                                            done
-                                        </span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        <div className="addrDoneBtn">
-                            <Button onClick={() =>
-                                    this.onNextStep(this.addressRef.current.value)
-                                }>
-                                Done
-                            </Button>
-                        </div>
+                <div
+                    className={"deliveryFormContainer " + css(styles.container)} style={{ height: "100%" }}>
+                    <div className="addressInput">
+                        <Input
+                            passedRef={this.addressRef}
+                            placeholder="Address"
+                            onChange={(e) => this.updateValue(e.target.value)}
+                            defaultValue={this.props.address}
+                        />
                     </div>
+
+                    <div className="addrResults">
+                        {this.state.searchResults.map((value, index) => {
+                            return (
+                                <div
+                                    onClick={() => this.setValue(value.name)}
+                                    key={index}
+                                    className={
+                                        "addrItem" +
+                                        (value.name.toLowerCase() ===
+                                            this.state.search.toLowerCase()
+                                            ? " selected"
+                                            : "")
+                                    }>
+                                    <span className="addrTitle">
+                                        {value.name}
+                                    </span>
+                                    <span className="material-icons check">
+                                        done
+                                        </span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                    <div className="addrDoneBtn">
+                        <Button onClick={() =>
+                            this.onNextStep(this.addressRef.current.value)
+                        }>
+                            Done
+                            </Button>
+                    </div>
+                </div>
             </Screen>
         );
     }
 }
 
-export default connect(({address}) => ({address}))(DeliveryDetails)
+export default connect(({ address }) => ({ address }))(DeliveryDetails)
 
 const styles = StyleSheet.create({
     container: {
