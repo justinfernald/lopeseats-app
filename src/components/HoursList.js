@@ -28,6 +28,10 @@ export const isOpen = (restaurantData) => {
 
         if (!open && restaurantData.hours[pastDay]) {
             let pastHours = restaurantData.hours[pastDay].hours;
+            
+            if (pastHours.length === 0)
+                return false;
+
             let lastHour = pastHours[pastHours.length - 1];
             if (lastHour.end.includes(".")) {
                 let splitEndTime = lastHour.end.split(":").map(x => parseInt(x));
@@ -116,12 +120,17 @@ export default class HoursList extends React.Component {
 
                             if (!currentlyOpen.open && this.restaurantData.hours[pastDay]) {
                                 let pastHours = this.restaurantData.hours[pastDay].hours;
-                                let lastHour = pastHours[pastHours.length - 1];
-                                if (lastHour.end.includes(".")) {
-                                    let splitEndTime = lastHour.end.split(":").map(x => parseInt(x));
-                                    let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
-                                    if (endTime.getTime() >= currentTime.getTime()) {
-                                        currentlyOpen.open = true;
+
+                                if (pastHours.length === 0) {
+                                    currentlyOpen.open = false;
+                                } else {
+                                    let lastHour = pastHours[pastHours.length - 1];
+                                    if (lastHour.end.includes(".")) {
+                                        let splitEndTime = lastHour.end.split(":").map(x => parseInt(x));
+                                        let endTime = new Date(new Date().setHours(splitEndTime[0], splitEndTime[1]));
+                                        if (endTime.getTime() >= currentTime.getTime()) {
+                                            currentlyOpen.open = true;
+                                        }
                                     }
                                 }
                             }
