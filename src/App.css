@@ -83,7 +83,8 @@ input:-webkit-autofill:active {
     /* top: env(safe-area-inset-top) !important; */
     /* top: 50px !important; */
     /* height: calc(-56px - env(safe-area-inset-bottom) + 100vh) !important; */
-    height: calc(-56px - var(--sab) - var(--sab) + 100vh) !important;
+    /* height: calc(-56px - var(--sab) - var(--sab) + 100vh) !important; */
+    height: 100% !important;
     -webkit-overflow-scrolling: touch;
     overflow-y: auto;
     overflow-x: hidden;
