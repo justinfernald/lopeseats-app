@@ -6,6 +6,7 @@ import Profile from "./Profile";
 import DepositMoney from "./DepositMoney";
 import FriendsPhone from "./FriendsPhone";
 import DepositCheckout from "./DepositCheckout";
+import ContactUs from "./ContactUs"
 
 export default function ProfileRouter() {
     return (
@@ -31,6 +32,11 @@ export default function ProfileRouter() {
                         exact
                         path="/app/:tab(profile)/depositCheckout"
                         component={DepositCheckout}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(profile)/contact"
+                        component={ContactUs}
                     />
                 </Switch>
             </IonRouterOutlet>

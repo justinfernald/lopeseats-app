@@ -32,6 +32,9 @@ const HomeScreen = () => {
                 <div className={css(styles.disclaimer)}>
                     This app is currently in Beta. If you run into any issue contact (lopeseat@lopeseat.com) and we try solve any problems. If there is detected misuse of this app your access of the app will be removed.
                 </div>
+                <div className={css(styles.disclaimer)}>
+                    Security is also a big priority for us, so we track everytime your barcode gets used, so if you suspect a fraudlent use of your dining dollars, let us know and we will be on the case.
+                </div>
             </div>
         </Screen>
     );
