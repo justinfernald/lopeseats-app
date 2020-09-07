@@ -6,7 +6,7 @@ import {
     removeCartItem,
 } from "../../../assets/scripts/Util";
 import { connect } from "react-redux";
-
+import { store, actions } from "../../../Redux";
 import Screen from "../../../components/Screen";
 
 class ItemOptions extends React.Component {
@@ -74,11 +74,14 @@ class ItemOptions extends React.Component {
         // for (var i = 0; i < this.state.optionsChosen.length; i++) {
         //     chosenOptionMap[this.state.optionKeys[i]] = this.state.optionsChosen[i];
         // }
+
         var itemId = this.state.selectedItem.id;
         if (this.props.itemDetails.editingItem) {
             removeCartItem(this.props.apiToken, this.state.selectedItem.id);
             itemId = this.state.selectedItem.item_id;
         }
+
+        store.dispatch(actions.addCartItem(itemId));
         addCartItem(
             this.props.apiToken,
             itemId,

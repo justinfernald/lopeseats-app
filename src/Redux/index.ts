@@ -73,13 +73,13 @@ const initialState = {
     depositData: {
         amount: 5,
         toFriend: false,
-        friendsPhone: ""
+        friendsPhone: "",
     },
     // History
     historySize: 0,
 
     tip: 0,
-    tipped: false
+    tipped: false,
 };
 
 const reducers = {
@@ -97,13 +97,10 @@ const reducers = {
     setCartItem: (state: any, { payload: newCartItems }: { payload: [{}] }) => {
         state.cartItems = newCartItems;
     },
-    addCartItemCartItemCartItem: (
-        state: any,
-        { payload: cartItem }: { payload: {} }
-    ) => {
+    addCartItem: (state: any, { payload: cartItem }: { payload: {} }) => {
         state.cartItems = [...state.cartItems, cartItem];
     },
-    removeCartItemCartItem: (
+    removeCartItem: (
         state: any,
         { payload: cartItemId }: { payload: number }
     ) => {
@@ -121,7 +118,7 @@ const reducers = {
     ) => {
         state.userDetails = {
             ...state.userDetails,
-            ...newUserDetails
+            ...newUserDetails,
         };
     },
     unsetUserDetails: (state: any) => {
@@ -234,12 +231,10 @@ const reducers = {
     ) => {
         state.deliveryStartingTime = deliveryStartingTime;
     },
-    openOverlay: (
-        state: any
-    ) => {
+    openOverlay: (state: any) => {
         state.overlayEnabled = true;
     },
-    closeOverlay: (state:any) => {
+    closeOverlay: (state: any) => {
         state.overlayEnabled = false;
     },
     setActiveOrderCount: (
@@ -248,89 +243,76 @@ const reducers = {
     ) => {
         state.activeOrderCount = activeOrderCount;
     },
-    openMenu: (
-        state: any,
-        { payload: menuId }: {payload: string}
-    ) => {
-        if (!state.openMenus.includes(menuId))
-            state.openMenus.push(menuId);
+    openMenu: (state: any, { payload: menuId }: { payload: string }) => {
+        if (!state.openMenus.includes(menuId)) state.openMenus.push(menuId);
     },
-    closeMenu: (
-        state: any,
-        { payload: menuId }: {payload: string}
-    ) => {
+    closeMenu: (state: any, { payload: menuId }: { payload: string }) => {
         if (state.openMenus.includes(menuId)) {
             var index = state.openMenus.indexOf(menuId);
             state.openMenus.splice(index, 1);
         }
     },
-    closeAllMenus: (
-        state: any
-    ) => {
+    closeAllMenus: (state: any) => {
         state.openMenus = [];
     },
     setDepositData: (
         state: any,
-        { payload: data }: { payload: { amount:number, toFriend:boolean, friendsPhone:string } }
+        {
+            payload: data,
+        }: {
+            payload: {
+                amount: number;
+                toFriend: boolean;
+                friendsPhone: string;
+            };
+        }
     ) => {
         state.depositData = {
             ...state.depositData,
-            ...data
-        }
+            ...data,
+        };
     },
-    reset: (state:any) => initialState,
-    setHistorySize: (
-        state:any,
-        { payload: size } : { payload:number }
-    ) => {
+    reset: (state: any) => initialState,
+    setHistorySize: (state: any, { payload: size }: { payload: number }) => {
         state.historySize = size;
     },
-    addHistorySize: (
-        state: any,
-        { payload:size } : { payload:number }
-    ) => {
+    addHistorySize: (state: any, { payload: size }: { payload: number }) => {
         if (state.historySize === undefined || state.historySize === null) {
             state.historySize = size;
         } else {
-            state.historySize = state.historySize+size;
+            state.historySize = state.historySize + size;
         }
     },
     setBalances: (
         state: any,
-        { payload:balances } : { payload:Array<number> }
+        { payload: balances }: { payload: Array<number> }
     ) => {
         state.balances = balances;
     },
-    setTip: (
-        state: any,
-        { payload:tip } : {payload:number}
-    ) => {
+    setTip: (state: any, { payload: tip }: { payload: number }) => {
         state.tip = tip;
     },
-    setTipped: (
-        state: any,
-        { payload:tipped } : {payload:boolean}
-    ) => {
+    setTipped: (state: any, { payload: tipped }: { payload: boolean }) => {
         state.tipped = tipped;
-    }
+    },
 };
 
 const stateSlice = createSlice({
     name: "state",
     initialState,
     reducers,
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder.addCase(fetchBalances.fulfilled, (state, action) => {
             state.balances = action.payload;
-        })
-    }
+        });
+    },
 });
 
 const persistConfig = {
     key: "state",
     storage,
     stateReconciler: hardSet,
-    blacklist: ['tipped']
+    blacklist: ["tipped"],
 };
 
 export const { actions } = stateSlice;
@@ -358,7 +340,7 @@ export const store = configureStore({
                     PAUSE,
                     PERSIST,
                     PURGE,
-                    REGISTER
+                    REGISTER,
                 ],
             },
         }),

@@ -159,6 +159,8 @@ export const getMenu = async (restaurantID) => {
 };
 
 export const addCartItem = async (apiToken, id, amount, comment, items) => {
+    for (let i = 0; i < amount; i++)
+        store.dispatch(actions.addCartItem(id));
     console.log(JSON.stringify(items));
     try {
         return await postData(
@@ -175,6 +177,7 @@ export const addCartItem = async (apiToken, id, amount, comment, items) => {
 };
 
 export const removeCartItem = async (apiToken, id) => {
+    store.dispatch(actions.removeCartItem(id));
     try {
         return await postData(
             `https://lopeseat.com/REST/cart/removeItem.php?id=${id}`,
