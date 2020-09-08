@@ -16,7 +16,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import hardSet from "redux-persist/lib/stateReconciler/hardSet";
-import handleStateChange from "./updateHandler";
 import { fetchBalances } from "./Thunks";
 
 const initialState = {
@@ -321,14 +320,6 @@ const reducer = (state: any, action: any) => stateSlice.reducer(state, action);
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
-const updateHandler = (store: any) => (next: any) => (action: any) => {
-    const previousState = store.getState();
-    const result = next(action);
-    const newState = store.getState();
-    handleStateChange(previousState, newState, action.type);
-    return result;
-};
-
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: [
@@ -343,8 +334,7 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        }),
-        updateHandler,
+        })
     ] /* devTools: false*/,
 });
 export const persistor = persistStore(store);

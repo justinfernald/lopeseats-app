@@ -16,7 +16,6 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
 import history from "../history";
-import RerunScript from "../assets/scripts/RerunScript";
 
 class ScreenHandler extends React.Component {
     constructor(props) {

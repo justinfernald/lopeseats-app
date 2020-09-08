@@ -7,7 +7,6 @@ import {
     showErrors,
 } from "../../../assets/scripts/Util";
 import { connect } from "react-redux";
-import { store, actions } from "../../../Redux";
 import Screen from "../../../components/Screen";
 
 class ItemOptions extends React.Component {
@@ -27,7 +26,7 @@ class ItemOptions extends React.Component {
             let fixedItem = ({ ...item, options: item.options ? (Array.isArray(item.options) ? item.options : [item.options]) : undefined })
             if (fixedItem.options)
                 fixedItem.options = fixedItem.options.map((option) => {
-                    if (!option.choices) return;
+                    if (!option.choices) return null;
                     console.log(option);
                     option.choices = Array.isArray(option.choices) ? arrayToObject(option.choices) : option.choices;
                     return option;
@@ -136,7 +135,7 @@ class ItemOptions extends React.Component {
                         <div key={i}>
                             {x.options ?
                                 x.options.map((option, j) => {
-                                    if (!option) return;
+                                    if (!option) return null;
                                     console.log("options: ", option);
                                     if (this.props.itemDetails.editingItem) {
                                         option.default =

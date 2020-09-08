@@ -4,11 +4,6 @@ import { css, StyleSheet } from "aphrodite/no-important";
 
 class ContactUs extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
-
     render() {
         return (
             <Screen
