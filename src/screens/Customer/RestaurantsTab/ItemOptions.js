@@ -42,14 +42,15 @@ class ItemOptions extends React.Component {
 
         var defaultOptions = props.itemDetails.editingItem ? props.itemDetails.optionsChosen : [];
 
-        if (!props.itemDetails.editingItem) {
+        if (!props.itemDetails.editingItem && Array.isArray(fixedItems)) {
             for (var i = 0; i < fixedItems.length; i++) {
                 var selectedObj = {};
                 var optionsArr = fixedItems[i].options;
-                for (var j = 0; j < optionsArr.length; j++) {
-                    var optionObj = optionsArr[j];
-                    selectedObj[optionObj.name] = optionObj.default;
-                }
+                if (Array.isArray(optionsArr))
+                    for (var j = 0; j < optionsArr.length; j++) {
+                        var optionObj = optionsArr[j];
+                        selectedObj[optionObj.name] = optionObj.default;
+                    }
                 defaultOptions.push(selectedObj);
             }
         }

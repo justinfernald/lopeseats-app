@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import SendTip from "./SendTip";
 import Button from "../../../components/Button";
-import { css, StyleSheet } from "aphrodite/no-important";
+import { StyleSheet } from "aphrodite/no-important";
 
 class OrderTracker extends React.Component {
     listenerId;

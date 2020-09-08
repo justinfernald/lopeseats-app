@@ -1,4 +1,4 @@
-import { postData, updateFBToken } from "./Util";
+import { postData, updateFBToken, isDeliveryMode } from "./Util";
 import { store, actions } from "../../Redux";
 
 const StartUp = ({ apiToken, fbToken, fbPlatform }) => {
@@ -41,6 +41,18 @@ const checkToken = async (apiToken, fbToken, fbPlatform) => {
             } else {
                 store.dispatch(actions.setActiveOrderCount(0));
             }
+
+            const inDeliveryModeResponse = await isDeliveryMode(apiToken);
+            if (inDeliveryModeResponse && inDeliveryModeResponse.success) {
+                store.dispatch(actions.setDeliveryMode(inDeliveryModeResponse.msg));
+                if (inDeliveryModeResponse.msg && !store.getState().deliveryStartingTime) {
+                    store.dispatch(actions.setDeliveryStartingTime(Date.now()));
+                }
+                if (!inDeliveryModeResponse.msg) {
+                    store.dispatch(actions.setDeliveryStartingTime(null));
+                }
+            }
+
         }
     } else {
         store.dispatch(actions.unsetApiToken());
