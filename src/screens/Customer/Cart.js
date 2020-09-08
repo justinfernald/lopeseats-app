@@ -16,6 +16,7 @@ class Cart extends React.Component {
     tax = 0;
     total = 0;
     fee = 0;
+    canOrder = false;
 
     constructor(props) {
         super(props);
@@ -38,6 +39,7 @@ class Cart extends React.Component {
         this.total = prices.total;
         this.tax = prices.tax;
         this.fee = prices.delivery_fee;
+        this.canOrder = prices.can_order;
 
         this.forceUpdate();
     }
@@ -70,7 +72,7 @@ class Cart extends React.Component {
     };
 
     onNextStep = () => {
-        if (this.state.items.length !== 0) {
+        if (this.state.items.length !== 0 && this.canOrder) {
             this.props.history.push("/app/restaurants/address");
         }
     };
@@ -166,9 +168,17 @@ class Cart extends React.Component {
                         Delivery Fee
                         <span className="price">${formatPrice(this.fee)}</span>
                     </div>
+                    <div className={css(styles.discl)}>
+                        <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
+                            info
+                        </span>
+                        <span style={{ textAlign: "left" }}>
+                            This restaurant is no longer accepting orders today.
+                        </span>
+                    </div>
                     <button
                         className="checkoutButton"
-                        style={this.state.items.length == 0 ? { opacity: "0.5" } : null}
+                        style={(this.state.items.length == 0 || !this.canOrder) ? { opacity: "0.5" } : null}
                         onClick={() => this.onNextStep()}>
                         Checkout
                     </button>
