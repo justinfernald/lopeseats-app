@@ -37,13 +37,28 @@ class ItemOptions extends React.Component {
         });
         selectedItem.items = JSON.stringify(fixedItems);
 
-        console.log(selectedItem)
+        console.log(selectedItem);
+        console.log(fixedItems);
+
+        var defaultOptions = props.itemDetails.editingItem ? props.itemDetails.optionsChosen : [];
+
+        if (!props.itemDetails.editingItem) {
+            for (var i = 0; i < fixedItems.length; i++) {
+                var selectedObj = {};
+                var optionsArr = fixedItems[i].options;
+                for (var j = 0; j < optionsArr.length; j++) {
+                    var optionObj = optionsArr[j];
+                    selectedObj[optionObj.name] = optionObj.default;
+                }
+                defaultOptions.push(selectedObj);
+            }
+        }
+
+        console.log(defaultOptions);
 
         this.state = {
             selectedItem,
-            optionsChosen: props.itemDetails.editingItem
-                ? props.itemDetails.optionsChosen
-                : [],
+            optionsChosen: defaultOptions,
             instructions: props.itemDetails.editingItem
                 ? props.itemDetails.instructions
                 : null,
