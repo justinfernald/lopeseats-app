@@ -17,6 +17,7 @@ import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
 import history from "../history";
 
+import RerunScript from "../assets/scripts/RerunScript";
 class ScreenHandler extends React.Component {
     constructor(props) {
         super(props);
@@ -132,6 +133,7 @@ class ScreenHandler extends React.Component {
     };
 
     render() {
+        RerunScript();
         if (!this.state.actionBtnUpdated) this.loadActionBtnData();
 
         return (
