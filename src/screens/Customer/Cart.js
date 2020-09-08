@@ -16,7 +16,7 @@ class Cart extends React.Component {
     tax = 0;
     total = 0;
     fee = 0;
-    canOrder = false;
+    canOrder = true;
 
     constructor(props) {
         super(props);
@@ -168,6 +168,8 @@ class Cart extends React.Component {
                         Delivery Fee
                         <span className="price">${formatPrice(this.fee)}</span>
                     </div>
+                    {
+                    !this.canOrder ?
                     <div className={css(styles.discl)}>
                         <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
                             info
@@ -176,6 +178,9 @@ class Cart extends React.Component {
                             This restaurant is no longer accepting orders today.
                         </span>
                     </div>
+                    :
+                    ""
+                    }
                     <button
                         className="checkoutButton"
                         style={(this.state.items.length == 0 || !this.canOrder) ? { opacity: "0.5" } : null}
