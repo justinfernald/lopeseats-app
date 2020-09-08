@@ -160,10 +160,9 @@ export const getMenu = async (restaurantID) => {
 
 export const addCartItem = async (apiToken, id, amount, comment, items) => {
     for (let i = 0; i < amount; i++)
-        store.dispatch(actions.addCartItem(id));
     console.log(JSON.stringify(items));
     try {
-        return await postData(
+        var result = await postData(
             `https://lopeseat.com/REST/cart/addItem.php?id=${id}&amount=${amount}&comment=${comment}&options=${JSON.stringify(
                 items
             )}`,
@@ -171,20 +170,30 @@ export const addCartItem = async (apiToken, id, amount, comment, items) => {
                 apiToken: apiToken,
             }
         );
+        if (result.success) {
+            store.dispatch(actions.addCartItem({
+                id: result.msg.id,
+                item_id: id,
+                amount
+            }));
+        }
+        return result;
     } catch (e) {
         console.error(e);
     }
 };
 
 export const removeCartItem = async (apiToken, id) => {
-    store.dispatch(actions.removeCartItem(id));
     try {
-        return await postData(
+        var result = await postData(
             `https://lopeseat.com/REST/cart/removeItem.php?id=${id}`,
             {
                 apiToken: apiToken,
             }
         );
+        if (result.success)
+            store.dispatch(actions.removeCartItem(id));
+        return result;
     } catch (e) {
         console.error(e);
     }

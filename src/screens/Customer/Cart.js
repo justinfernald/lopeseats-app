@@ -183,7 +183,7 @@ class Cart extends React.Component {
                     }
                     <button
                         className="checkoutButton"
-                        style={(this.state.items.length == 0 || !this.canOrder) ? { opacity: "0.5" } : null}
+                        style={(this.state.items.length === 0 || !this.canOrder) ? { opacity: "0.5" } : null}
                         onClick={() => this.onNextStep()}>
                         Checkout
                     </button>
