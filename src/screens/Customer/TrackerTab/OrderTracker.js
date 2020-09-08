@@ -86,7 +86,7 @@ class OrderTracker extends React.Component {
             var claimed = this.parseDate(this.order.claimed);
             var enroute = this.parseDate(this.order.en_route);
             var arrived = this.parseDate(this.order.arrived);
-            var wait = this.order.wait.toString();
+            var wait = this.order.wait ? this.order.wait.toString() : 30 + "";
             wait = wait.substring(0, wait.indexOf("."));
 
             this.setState({

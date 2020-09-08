@@ -29,14 +29,14 @@ const OrderItem = ({ item }) => (
             </div>
         </div>
         <div className={css(styles.subItems)}>
-            {item.items.map((subItem, subIndex) => (
+            {item.items.map((subItem, subIndex) => item.options[subIndex] ? (
                 <SubItem
                     options={Object.entries(item.options[subIndex])}
                     subItem={subItem}
                     key={subIndex}
                     meal={item.items.length > 1}
                 />
-            ))}
+            ) : null)}
         </div>
     </div>
 );

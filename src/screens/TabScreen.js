@@ -20,6 +20,9 @@ import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 import { restaurant, search, person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
 import ProfileRouter from "./Customer/ProfileTab/ProfileRouter";
+import RerunScript from "../assets/scripts/RerunScript";
+
+RerunScript();
 
 const MainScreen = (props) =>
     !props.apiToken ? (
