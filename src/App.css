@@ -1603,7 +1603,7 @@ input:-webkit-autofill:active {
 
 .messageBox {
     height: 2.5em;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0.8em;
     right: 0.8em;

@@ -129,7 +129,7 @@ const MainScreen = (props) =>
                                         height: "50%",
                                         fontSize: "1.9em",
                                     }}>
-                                    local_shipping
+                                    directions_run
                             </i>
                             </IonTabButton>
                         ) : null}
