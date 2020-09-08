@@ -6,10 +6,8 @@ import OrderTracker from './OrderTracker';
 import MessageScreen from './MessageScreen';
 import TipCheckout from './TipCheckout';
 
-import RerunScript from "../../../assets/scripts/RerunScript";
 
 export default function TrackerRouter() {
-    RerunScript();
     return (<IonPage id="tracker">
         <IonRouterOutlet>
             <Switch>

@@ -8,10 +8,8 @@ import ItemOptions from "./ItemOptions";
 import Cart from "../Cart";
 import DeliveryDetails from "./DeliveryDetails";
 import CheckoutScreen from "./CheckoutScreen";
-import RerunScript from "../../../assets/scripts/RerunScript";
 
 export default function RestaurantsRouter() {
-    RerunScript();
     return (
         <IonPage id="restaurants">
             <IonRouterOutlet>
