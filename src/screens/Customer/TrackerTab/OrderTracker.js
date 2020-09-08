@@ -8,6 +8,8 @@ import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import SendTip from "./SendTip";
+import Button from "../../../components/Button";
+import { css, StyleSheet } from "aphrodite/no-important";
 
 class OrderTracker extends React.Component {
     listenerId;
@@ -214,18 +216,19 @@ class OrderTracker extends React.Component {
             );
 
             footer = (
-                <div className="orderTrackerFooter">
-                    {this.state.wait > 1 ? `Arriving in ${this.state.wait} minutes` : "Arriving soon"}
-                    {
-                        this.state.orderState === "unclaimed"
-                            ?
-                            "" :
-                            <div
-                                className="messageButton"
-                                onClick={() => this.onMessageClick(this.state.order)}
-                            ></div>
-                    }
-                </div>
+                // <div className="orderTrackerFooter">
+                //     {this.state.wait > 1 ? `Arriving in ${this.state.wait} minutes` : "Arriving soon"}
+
+                this.state.orderState === "unclaimed"
+                    ?
+                    "" :
+                    <div>
+                        <Button margin={10} style={styles.button} onClick={() => this.onMessageClick(this.state.order)}>Messages<div
+                            className="messageButton"
+                        ></div></Button>
+
+                    </div>
+                // </div>
             );
         } else if (this.state.tippableOrder !== null) {
             content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({ tippableOrder: null })} />
@@ -245,5 +248,11 @@ class OrderTracker extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    button: {
+        background: "#d40505"
+    }
+})
 
 export default connect(({ apiToken, tipped }) => ({ apiToken, tipped }))(OrderTracker);
