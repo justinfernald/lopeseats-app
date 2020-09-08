@@ -16,6 +16,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
 import history from "../history";
+import RerunScript from "../assets/scripts/RerunScript";
 
 class ScreenHandler extends React.Component {
     constructor(props) {
@@ -64,7 +65,7 @@ class ScreenHandler extends React.Component {
         return this.props.messageListener;
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
     async loadActionBtnData() {
         var actionBtn = await this.getActionBtn();
