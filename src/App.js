@@ -247,7 +247,6 @@ class App extends React.Component {
                 "BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784"
             );
 
-
             Notification.requestPermission()
                 .then(() => {
                     console.log("Permission " + Notification.permission);
@@ -264,22 +263,24 @@ class App extends React.Component {
                     app.setState({ bypassToken: true });
                 });
 
+            console.log(messaging);
+
             messaging.onMessage((payload) => {
                 console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
-                const notification = new Notification(payload.notification.title, {
-                    body: payload.notification.body,
-                    requireInteraction: true,
-                });
+                // const notification = new Notification(payload.notification.title, {
+                //     body: payload.notification.body,
+                //     requireInteraction: true,
+                // });
 
-                notification.onclick = () => {
-                    console.log("pwa notification click: ", payload)
+                // notification.onclick = () => {
+                //     console.log("pwa notification click: ", payload)
 
-                    const [state, id] = payload.data.state.split("/");
-                    const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
-                    console.log(url);
-                    this.props.history.push("/" + url);
-                }
+                //     const [state, id] = payload.data.state.split("/");
+                //     const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+                //     console.log(url);
+                //     this.props.history.push("/" + url);
+                // }
             });
 
             // PWA END

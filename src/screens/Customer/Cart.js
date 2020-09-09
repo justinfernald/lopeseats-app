@@ -12,17 +12,18 @@ import { store, actions } from "../../Redux";
 import { StyleSheet, css } from "aphrodite/no-important";
 
 class Cart extends React.Component {
-    subtotal = 0;
-    tax = 0;
-    total = 0;
-    fee = 0;
-    canOrder = true;
 
     constructor(props) {
         super(props);
 
         this.state = {
             items: [],
+            subtotal: 0,
+            tax: 0,
+            total: 0,
+            fee: 0,
+            canOrder: true,
+            msg: ""
         };
 
         this.fetchData();
@@ -31,17 +32,19 @@ class Cart extends React.Component {
     async fetchData() {
         var items = await getCart(this.props.apiToken);
         if (items == null) items = [];
-        this.setState({ items });
-        console.log(this.items);
 
         var prices = await getCartPrices(this.props.apiToken);
-        this.subtotal = prices.subtotal;
-        this.total = prices.total;
-        this.tax = prices.tax;
-        this.fee = prices.delivery_fee;
-        this.canOrder = prices.can_order;
 
-        this.forceUpdate();
+        console.log(this.items);
+        this.setState({
+            items,
+            subtotal: prices.subtotal,
+            total: prices.total,
+            tax: prices.tax,
+            fee: prices.delivery_fee,
+            canOrder: prices.can_order,
+            msg: prices.msg
+        });
     }
 
     editItem = (item) => {
@@ -72,7 +75,7 @@ class Cart extends React.Component {
     };
 
     onNextStep = () => {
-        if (this.state.items.length !== 0 && this.canOrder) {
+        if (this.state.items.length !== 0 && this.state.canOrder) {
             this.props.history.push("/app/restaurants/address");
         }
     };
@@ -149,33 +152,33 @@ class Cart extends React.Component {
                     <div className="subtotal">
                         Subtotal
                         <span className="price">
-                            ${formatPrice(this.subtotal)}
+                            ${formatPrice(this.state.subtotal)}
                         </span>
                     </div>
                     {/* Tax: 8.6% */}
                     <div className="subtotal">
                         Tax & fees
-                        <span className="price">${formatPrice(this.tax)}</span>
+                        <span className="price">${formatPrice(this.state.tax)}</span>
                     </div>
                     <div className="total">
                         Total (Dining Dollars)
                         <span className="price">
-                            ${formatPrice(this.total)}
+                            ${formatPrice(this.state.total)}
                         </span>
                     </div>
 
                     <div className="total">
                         Delivery Fee
-                        <span className="price">${formatPrice(this.fee)}</span>
+                        <span className="price">${formatPrice(this.state.fee)}</span>
                     </div>
                     {
-                    !this.canOrder ?
+                    !this.state.canOrder ?
                     <div className={css(styles.discl)}>
                         <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
                             info
                         </span>
                         <span style={{ textAlign: "left" }}>
-                            This restaurant is no longer accepting orders today.
+                            {this.state.msg}
                         </span>
                     </div>
                     :
@@ -183,7 +186,7 @@ class Cart extends React.Component {
                     }
                     <button
                         className="checkoutButton"
-                        style={(this.state.items.length === 0 || !this.canOrder) ? { opacity: "0.5" } : null}
+                        style={(this.state.items.length === 0 || !this.state.canOrder) ? { opacity: "0.5" } : null}
                         onClick={() => this.onNextStep()}>
                         Checkout
                     </button>
