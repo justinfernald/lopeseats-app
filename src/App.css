@@ -135,14 +135,25 @@ input:-webkit-autofill:active {
     color: white;
 }
 
+@keyframes errorAnimation {
+    0% {
+        transform: scale(0) translateY(-100%);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 .errorList {
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.25);
     padding: 10px;
+    border: 2px solid var(--placeholder);
+    animation: 0.3s ease-out 0s 1 errorAnimation;
 }
 
 .errorItem {
-    height: 30px;
+    min-height: 30px;
     padding-top: 3px;
 }
 

@@ -8,6 +8,7 @@ import {
     getDelivererStats,
     getPublicStats,
     formatPrice,
+    hasDelivered
 } from "../../assets/scripts/Util";
 import Loading from "../Other/Loading";
 import { Line } from "react-chartjs-2";
@@ -121,7 +122,10 @@ class StartDelivery extends React.Component {
             delivererStats: null,
             publicStats: null,
             timeActive: null,
+            hasDelivered: null
         };
+
+        this.viewedGuide = false;
 
         this.timeUpdateInterval = null;
 
@@ -129,17 +133,18 @@ class StartDelivery extends React.Component {
     }
 
     async fetchData() {
-        const [delivererStats, publicStats] = (
+        const [delivererStats, publicStats, hasDeliveredValue] = (
             await Promise.all([
                 getDelivererStats(this.props.apiToken),
                 getPublicStats(),
+                hasDelivered(this.props.apiToken)
             ])
         ).map((data) => data.msg);
 
         if (!Array.isArray(publicStats.histogramData))
             publicStats.histogramData = [];
 
-        this.setState({ delivererStats, publicStats });
+        this.setState({ delivererStats, publicStats, hasDelivered: hasDeliveredValue });
     }
 
     setupHistogramData(data) {
@@ -194,6 +199,11 @@ class StartDelivery extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+
+        if (!this.state.hasDelivered && !this.viewedGuide) {
+            window.open("https://www.getlopeseat.com/runners", "_blank");
+            this.viewedGuide = true;
+        }
         if (!this._isMounted) {
             clearInterval(this.timeUpdateInterval);
             return;
@@ -343,8 +353,8 @@ class StartDelivery extends React.Component {
                             style={styles.button}
                             secondary={!this.props.deliveryModeActive}>
                             {this.props.deliveryModeActive
-                                ? "Stop Delivering"
-                                : "Start Delivering"}
+                                ? "Stop Running"
+                                : "Start Running"}
                         </Button>
                         {this.props.deliveryModeActive ? null : (
                             <div
