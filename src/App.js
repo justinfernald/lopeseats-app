@@ -28,8 +28,6 @@ import {
 } from "@capacitor/core";
 import RerunScript from "./assets/scripts/RerunScript";
 const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
-import history from "./history";
-
 class App extends React.Component {
     messageListener = new MessageListener();
 
