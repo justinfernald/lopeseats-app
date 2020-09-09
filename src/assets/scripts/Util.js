@@ -364,6 +364,15 @@ export const isDeliveryMode = async (apiToken) => {
     )
 }
 
+export const hasDelivered = async (apiToken) => {
+    return await postData(
+        "https://lopeseat.com/REST/delivery/hasDelivered.php",
+        {
+            apiToken
+        }
+    )
+}
+
 export const getAcceptableOrder = async (apiToken, orderId) => {
     return await postData(
         "https://lopeseat.com/REST/order/getAcceptableOrder.php?id=" + orderId,
