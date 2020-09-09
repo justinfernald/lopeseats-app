@@ -30,6 +30,22 @@ import RerunScript from "./assets/scripts/RerunScript";
 
 const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
 
+const firebaseConfig = {
+    apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
+    authDomain: "test-96cdc.firebaseapp.com",
+    databaseURL: "https://test-96cdc.firebaseio.com",
+    projectId: "test-96cdc",
+    storageBucket: "test-96cdc.appspot.com",
+    messagingSenderId: "890647037957",
+    appId: "1:890647037957:web:9bf7066436852592d3346c",
+};
+const fbApp = firebase.initializeApp(firebaseConfig);
+
+const messaging = fbApp.messaging();
+messaging.usePublicVapidKey(
+    "BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784"
+);
+
 class App extends React.Component {
     messageListener = new MessageListener();
 
@@ -247,23 +263,7 @@ class App extends React.Component {
 
         // PWA START
         if (firebase.messaging.isSupported()) {
-            var firebaseConfig = {
-                apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
-                authDomain: "test-96cdc.firebaseapp.com",
-                databaseURL: "https://test-96cdc.firebaseio.com",
-                projectId: "test-96cdc",
-                storageBucket: "test-96cdc.appspot.com",
-                messagingSenderId: "890647037957",
-                appId: "1:890647037957:web:9bf7066436852592d3346c",
-            };
-            firebase.initializeApp(firebaseConfig);
-
             var app = this;
-
-            const messaging = firebase.messaging();
-            messaging.usePublicVapidKey(
-                "BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784"
-            );
 
             Notification.requestPermission()
                 .then(() => {
@@ -281,25 +281,23 @@ class App extends React.Component {
                     app.setState({ bypassToken: true });
                 });
 
-            console.log(messaging);
+            messaging.onMessage((payload) => {
+                console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
-            // firebase.notifications().onNotification((notification) => {
-            //     console.log('[firebase-messaging-sw.js] Received foreground message ', notification);
+                // const notification = new Notification(payload.notification.title, {
+                //     body: payload.notification.body,
+                //     requireInteraction: true,
+                // });
 
-            //     const notification = new Notification(payload.notification.title, {
-            //         body: payload.notification.body,
-            //         requireInteraction: true,
-            //     });
+                // notification.onclick = () => {
+                //     console.log("pwa notification click: ", payload)
 
-            //     notification.onclick = () => {
-            //         console.log("pwa notification click: ", payload)
-
-            //         const [state, id] = payload.data.state.split("/");
-            //         const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
-            //         console.log(url);
-            //         this.props.history.push("/" + url);
-            //     }
-            // });
+                //     const [state, id] = payload.data.state.split("/");
+                //     const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+                //     console.log(url);
+                //     this.props.history.push("/" + url);
+                // }
+            });
 
             // PWA END
         }
