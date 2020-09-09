@@ -26,8 +26,9 @@ import {
     // PushNotificationToken,
     // PushNotificationActionPerformed,
 } from "@capacitor/core";
-const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
 import RerunScript from "./assets/scripts/RerunScript";
+
+const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
 
 class App extends React.Component {
     messageListener = new MessageListener();
@@ -282,23 +283,23 @@ class App extends React.Component {
 
             console.log(messaging);
 
-            firebase.notifications().onNotification((notification) => {
-                console.log('[firebase-messaging-sw.js] Received foreground message ', notification);
+            // firebase.notifications().onNotification((notification) => {
+            //     console.log('[firebase-messaging-sw.js] Received foreground message ', notification);
 
-                // const notification = new Notification(payload.notification.title, {
-                //     body: payload.notification.body,
-                //     requireInteraction: true,
-                // });
+            //     const notification = new Notification(payload.notification.title, {
+            //         body: payload.notification.body,
+            //         requireInteraction: true,
+            //     });
 
-                // notification.onclick = () => {
-                //     console.log("pwa notification click: ", payload)
+            //     notification.onclick = () => {
+            //         console.log("pwa notification click: ", payload)
 
-                //     const [state, id] = payload.data.state.split("/");
-                //     const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
-                //     console.log(url);
-                //     this.props.history.push("/" + url);
-                // }
-            });
+            //         const [state, id] = payload.data.state.split("/");
+            //         const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+            //         console.log(url);
+            //         this.props.history.push("/" + url);
+            //     }
+            // });
 
             // PWA END
         }
