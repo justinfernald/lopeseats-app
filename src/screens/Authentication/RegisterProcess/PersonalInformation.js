@@ -8,12 +8,15 @@ import {
 
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
+import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import { css, StyleSheet } from "aphrodite/no-important"
 
 class PersonalInformation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             profileImage: props.registerDetails.profileImage,
+            showStudentNumberInput: false
         };
         this.firstNameRef = React.createRef();
         this.lastNameRef = React.createRef();
@@ -111,23 +114,57 @@ class PersonalInformation extends React.Component {
                         <Input
                             passedRef={this.emailRef}
                             defaultValue={email}
-                            placeholder="JThornburg1@my.gcu.edu"
+                            placeholder="JThornburg@my.gcu.edu"
                         />
                     </div>
                     <div className="labeledInput">
-                        <div className="label">Student Number</div>
+                        <div className="label" style={{ float: "left" }}>Student Number</div><div className={css(styles.barcodeDisable)} onClick={() => this.setState((state) => ({ showStudentNumberInput: !state.showStudentNumberInput }))}>{this.state.showStudentNumberInput ? "Scanner" : "Self Input"}</div>
                         <Input
                             passedRef={this.studentNumberRef}
-                            placeholder="123456789"
+                            placeholder="2055****"
                             type="number"
                             passedProps={{ maxLength: 8 }}
                             defaultValue={studentNumber}
+                            hidden={!this.state.showStudentNumberInput}
                         />
+                        {!this.state.showStudentNumberInput ?
+                            <>
+                                <div style={{ float: "left" }}>Scan your Student ID Card</div>
+                                <div className="scannerWrapper">
+                                    <BarcodeScannerComponent
+                                        width={400}
+                                        height={400}
+                                        onUpdate={(err, result) => {
+                                            // if (err) {
+                                            //     console.error(err);
+                                            //     return;
+                                            // }
+                                            if (result) {
+                                                console.log(result.text)
+                                                this.studentNumberRef.current.value = result.text;
+                                                this.setState({ showStudentNumberInput: true });
+                                            }
+                                            // else console.log("nothing");
+                                        }}
+                                    />
+                                </div>
+                            </>
+                            : null}
                     </div>
+
                 </div>
-            </div>
+            </div >
         );
     }
 }
+
+const styles = StyleSheet.create({
+    barcodeDisable: {
+        float: "right",
+        color: `var(--secondary)`,
+        textDecoration: "underline",
+        fontWeight: 500
+    }
+});
 
 export default connect(({ registerDetails }) => ({ registerDetails }))(PersonalInformation);

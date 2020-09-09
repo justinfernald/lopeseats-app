@@ -1,44 +1,47 @@
-import React from "react";
-import history from "../history";
-import { connect } from "react-redux";
-import { css, StyleSheet } from "aphrodite/no-important";
+import FloatingCartButton from "./FloatingCartButton.tsx";
+export default FloatingCartButton;
 
-class FloatingCartButton extends React.Component {
-    render() {
-        var size = 0;
-        var {cartItems} = this.props;
+// import React from "react";
+// import history from "../history";
+// import { connect } from "react-redux";
+// import { css, StyleSheet } from "aphrodite/no-important";
 
-        for (var i = 0; i < cartItems.length; i++) {
-            size += cartItems[i].amount;
-        }
+// class FloatingCartButton extends React.Component {
+//     render() {
+//         var size = 0;
+//         var {cartItems} = this.props;
 
-        return (
-            <button
-                className="floatingCartButton"
-                onClick={() => {
-                    history.push("/app/restaurants/cart");
-                }}>
-                <span className={css(styles.row)}>
-                    <i className="material-icons-round">shopping_cart</i>
-                    <span className={css(styles.col)}>{size === 0 ? "" : size}</span>
-                </span>
-            </button>
-        );
-    }
-}
+//         for (var i = 0; i < cartItems.length; i++) {
+//             size += cartItems[i].amount;
+//         }
 
-const styles = StyleSheet.create({
-    col: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        paddingLeft: "3px"
-    },
-    row: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center"
-    }
-});
+//         return (
+//             <button
+//                 className="floatingCartButton"
+//                 onClick={() => {
+//                     history.push("/app/restaurants/cart");
+//                 }}>
+//                 <span className={css(styles.row)}>
+//                     <i className="material-icons-round">shopping_cart</i>
+//                     <span className={css(styles.col)}>{size === 0 ? "" : size}</span>
+//                 </span>
+//             </button>
+//         );
+//     }
+// }
 
-export default connect(({cartItems}) => ({cartItems}))(FloatingCartButton);
+// const styles = StyleSheet.create({
+//     col: {
+//         display: "flex",
+//         flexDirection: "column",
+//         justifyContent: "center",
+//         paddingLeft: "3px"
+//     },
+//     row: {
+//         display: "flex",
+//         flexDirection: "row",
+//         justifyContent: "center"
+//     }
+// });
+
+// export default connect(({cartItems}) => ({cartItems}))(FloatingCartButton);

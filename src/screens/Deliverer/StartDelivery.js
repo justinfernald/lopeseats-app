@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
 import Button from "../../components/Button";
-import { store } from "../../Redux";
+import { store, actions } from "../../Redux";
 import { css, StyleSheet } from "aphrodite/no-important";
 import {
     getDelivererStats,
@@ -200,9 +200,9 @@ class StartDelivery extends React.Component {
 
     componentDidUpdate(prevProps) {
 
-        if (!this.state.hasDelivered && !this.viewedGuide) {
+        if (!this.state.hasDelivered && !this.props.delivererGuideViewed) {
             window.open("https://www.getlopeseat.com/runners", "_blank");
-            this.viewedGuide = true;
+            store.dispatch(actions.setDelivererGuideViewed(true));
         }
         if (!this._isMounted) {
             clearInterval(this.timeUpdateInterval);
@@ -461,12 +461,14 @@ const mapStateToProps = ({
     userDetails: { isDeliverer },
     deliveryModeActive,
     deliveryStartingTime,
+    delivererGuideViewed,
     activeOrderCount,
 }) => ({
     apiToken,
     isDeliverer,
     deliveryModeActive,
     deliveryStartingTime,
+    delivererGuideViewed,
     activeOrderCount,
 });
 

@@ -370,7 +370,8 @@ input:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .uploaderContainer {
@@ -646,7 +647,8 @@ input:-webkit-autofill:active {
 
 .restaurantList {
     padding: 10px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .restaurantItem {
@@ -661,7 +663,8 @@ input:-webkit-autofill:active {
 
 .cartList {
     padding: 10px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
     height: 100%;
 }
 
@@ -989,11 +992,13 @@ input:-webkit-autofill:active {
 
 .restaurantDetails {
     padding: 10px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .itemOptionMenu {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 .itemDescription {
@@ -1166,7 +1171,8 @@ input:-webkit-autofill:active {
 .restaurantFood .featuredMenu .scrollArea {
     /* border: 1px solid black; */
     display: flex;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: auto;
     scroll-snap-type: x mandatory;
     width: 100%;
 }
@@ -1968,6 +1974,22 @@ span.moneyCents {
 
 .barcode > div {
     transform-origin: top left;
+}
+
+.scannerWrapper {
+    height: 0;
+    padding: 50px 0;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.scannerWrapper > video {
+    width: 100%;
 }
 
 .homeFuncBtn {

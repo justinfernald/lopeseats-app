@@ -61,6 +61,7 @@ const initialState = {
     deliveryStartingTime: null,
     deliveryModeActive: false,
     activeOrderCount: 0,
+    delivererGuideViewed: false,
     // Balances
     balances: [],
     // Overlay
@@ -230,6 +231,12 @@ const reducers = {
     ) => {
         state.deliveryStartingTime = deliveryStartingTime;
     },
+    setDelivererGuideViewed: (
+        state: any,
+        { payload: delivereredGuideViewed }: { payload: boolean }
+    ) => {
+        state.delivererGuideViewed = delivereredGuideViewed;
+    },
     openOverlay: (state: any) => {
         state.overlayEnabled = true;
     },
@@ -334,7 +341,7 @@ export const store = configureStore({
                     REGISTER,
                 ],
             },
-        })
+        }),
     ] /* devTools: false*/,
 });
 export const persistor = persistStore(store);
