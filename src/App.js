@@ -28,6 +28,7 @@ import {
 } from "@capacitor/core";
 import RerunScript from "./assets/scripts/RerunScript";
 const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
+import history from "./history";
 
 class App extends React.Component {
     messageListener = new MessageListener();
@@ -295,7 +296,8 @@ class App extends React.Component {
                     const [state, id] = payload.data.state.split("/");
                     const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
                     console.log(url);
-                    this.props.history.push("/" + url);
+                    history.push("/" + url);
+                    // this.props.history.push("/" + url);
                 }
             });
 
