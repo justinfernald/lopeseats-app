@@ -27,6 +27,7 @@ import {
     // PushNotificationActionPerformed,
 } from "@capacitor/core";
 const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
+import RerunScript from "./assets/scripts/RerunScript";
 
 class App extends React.Component {
     messageListener = new MessageListener();
@@ -43,6 +44,21 @@ class App extends React.Component {
 
     setTheme(darkTheme) {
         this.setState({ darkTheme });
+    }
+
+    onMount() {
+        if (!this.props.deliveryModeActive) return;
+        this.interval = setInterval(() => RerunScript(), 10 * 1000)
+    }
+
+    componentDidUpdate() {
+        clearInterval(this.interval);
+        if (!this.props.deliveryModeActive) return;
+        this.interval = setInterval(() => RerunScript(), 10 * 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 
     render() {
@@ -72,6 +88,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        this.onMount()
         history.listen((_location, action) => {
             if (action === "PUSH") {
                 store.dispatch(actions.addHistorySize(1));
@@ -265,8 +282,8 @@ class App extends React.Component {
 
             console.log(messaging);
 
-            messaging.onMessage((payload) => {
-                console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
+            firebase.notifications().onNotification((notification) => {
+                console.log('[firebase-messaging-sw.js] Received foreground message ', notification);
 
                 // const notification = new Notification(payload.notification.title, {
                 //     body: payload.notification.body,

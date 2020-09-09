@@ -160,7 +160,7 @@ export const getMenu = async (restaurantID) => {
 
 export const addCartItem = async (apiToken, id, amount, comment, items) => {
     for (let i = 0; i < amount; i++)
-    console.log(JSON.stringify(items));
+        console.log(JSON.stringify(items));
     try {
         var result = await postData(
             `https://lopeseat.com/REST/cart/addItem.php?id=${id}&amount=${amount}&comment=${comment}&options=${JSON.stringify(
@@ -355,6 +355,14 @@ export const getActiveOrderBarcode = async (apiToken, orderId) => {
     );
 };
 
+export const isDeliveryMode = async (apiToken) => {
+    return await postData(
+        "https://lopeseat.com/REST/delivery/isDeliveryMode.php",
+        {
+            apiToken
+        }
+    )
+}
 
 export const getAcceptableOrder = async (apiToken, orderId) => {
     return await postData(

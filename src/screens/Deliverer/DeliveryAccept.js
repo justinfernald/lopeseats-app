@@ -58,13 +58,13 @@ class IncomingOrders extends React.Component {
     onAcceptClick = async () => {
         if (this.state.timeLeft <= 0) return;
         acceptDelivery(this.props.apiToken, this.state.order.orderId);
-        this.props.history.replace("/app/deliverer/activeOrders");
+        this.props.history.goBack();
     }
 
     onDeclineClick = async () => {
         if (this.state.timeLeft <= 0) return;
         declineDelivery(this.props.apiToken, this.state.order.orderId);
-        this.props.history.replace("/app/deliverer");
+        this.props.history.goBack();
     }
 
     render() {
