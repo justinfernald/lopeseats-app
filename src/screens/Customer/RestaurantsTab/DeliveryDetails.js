@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "../../../components/Input";
 import {
-    getBuildings,
+    getBuildings, showErrors,
 } from "../../../assets/scripts/Util";
 import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
@@ -38,8 +38,7 @@ class DeliveryDetails extends React.Component {
 
         for (var i = 0; i < buildings.length; i++) {
             if (!buildings[i].name) continue;
-            if (!search) continue;
-            if (buildings[i].name.toLowerCase().includes(search.toLowerCase())) {
+            if (!search || buildings[i].name.toLowerCase().includes(search.toLowerCase())) {
                 searchResults.push(buildings[i]);
             }
         }
@@ -53,8 +52,12 @@ class DeliveryDetails extends React.Component {
     }
 
     onNextStep = (address) => {
-        store.dispatch(actions.setAddress(address));
-        this.props.history.push("/app/restaurants/checkout");
+        if (this.state.searchResults.length > 0 && this.state.searchResults[0].name === address) {
+            store.dispatch(actions.setAddress(address));
+            this.props.history.push("/app/restaurants/checkout");
+        } else {
+            showErrors(["Please select a building."]);
+        }
     };
 
     render() {
