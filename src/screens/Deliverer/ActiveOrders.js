@@ -11,7 +11,7 @@ import { store, actions } from "../../Redux";
 const OrderListItem = ({ order, onClick, acceptable }) => {
     if (acceptable) {
         return <div className={"ion-activatable " + css(styles.order)} onClick={onClick}>
-            <div className={css(styles.customerName)}>{order.customerName}</div>
+            <div className={css(styles.customerName)}>{"Available Order"}</div>
             <div className={css(styles.orderInformation)}>
                 <div>
                     <div className={css(styles.keyValuePair)}>
@@ -77,17 +77,20 @@ class ActiveOrders extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
+        this.interval = setInterval(() => this.fetchData(), 1000);
     }
 
     componentWillUnmount() {
         this._isMounted = false;
+        clearInterval(this.interval);
     }
 
     async fetchData() {
         var orders = await getActiveOrderList(this.props.apiToken);
         var acceptableOrders = await getAcceptableOrderWaiting(this.props.apiToken);
-        if (!acceptableOrders) return;
+        if (!acceptableOrders || !acceptableOrders.success) return;
         if (!orders.length) orders.length = 0;
+        acceptableOrders = acceptableOrders.msg;
         if (!acceptableOrders.length) acceptableOrders.length = 0;
         let totalCount = orders.length + acceptableOrders.length;
         store.dispatch(actions.setActiveOrderCount(totalCount));
@@ -98,6 +101,10 @@ class ActiveOrders extends React.Component {
 
     openOrder(orderId, history) {
         history.push("/app/deliverer/orders/" + orderId);
+    }
+
+    openOrderAvaliable(orderId, history) {
+        history.push("/app/deliverer/accept/" + orderId);
     }
 
     render() {
@@ -117,8 +124,8 @@ class ActiveOrders extends React.Component {
                             order={order}
                             acceptable
                             onClick={() => {
-                                this.openOrder(
-                                    order.orderId,
+                                this.openOrderAvaliable(
+                                    order.id,
                                     this.props.history
                                 );
                             }}
