@@ -91,8 +91,9 @@ class DelivererPayment extends React.Component {
             this.barcodeContainerRef.current.style.background =
                 "linear-gradient(" +
                 offset * 10 +
-                "deg, rgba(255,0,0,1) 0%, rgba(193,184,4,1) 25%, rgba(121,9,92,1) 50%, rgba(255,149,0,1) 75%, rgba(0,212,255,1) 100%)";
+                "deg, rgba(255, 0, 0, 1) 0%, rgb(220 211 49) 25%, rgb(255 255 255) 50%, rgb(255 184 83) 75%, rgba(0, 212, 255, 1) 100%)";
         };
+
         animation();
         this.interval = setInterval(animation, 120);
     }
