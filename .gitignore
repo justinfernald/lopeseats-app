@@ -9,14 +9,14 @@ node_modules/
 plugin/
 plugins/android.json
 plugins/ios.json
-#android/
-#ios/
 
 # testing
 coverage/
 
 # production
 build/
+android/
+ios/
 
 # misc
 .DS_Store
