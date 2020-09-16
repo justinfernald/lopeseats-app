@@ -15,13 +15,18 @@ const HomeScreen = () => {
     });
 
     useEffect(() => {
+        let isSubscribed = true;
         Promise.all([getCarouselCards(), getScrollCards()]).then(
-            ([responseCarouselCards, responseScrollCards]) =>
-                setCardState({
-                    scroll: responseScrollCards.msg,
-                    carousel: responseCarouselCards.msg,
-                })
+            ([responseCarouselCards, responseScrollCards]) => {
+                if (isSubscribed) {
+                    setCardState({
+                        scroll: responseScrollCards.msg,
+                        carousel: responseCarouselCards.msg,
+                    })
+                }
+            }
         );
+        return () => isSubscribed = false;
     }, []);
 
     return (

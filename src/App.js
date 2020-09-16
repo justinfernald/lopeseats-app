@@ -5,8 +5,8 @@ import ScreenHandler from "./screens/ScreenHandler";
 import "./App.css";
 import "./Theme.css";
 
-import firebase from "firebase/app";
-import "firebase/messaging";
+// import firebase from "firebase/app";
+// import "firebase/messaging";
 import MessageListener from "./assets/scripts/MessageListener";
 import startScript from "./assets/scripts/StartupScript";
 // import LopesEatLogo from "./assets/images/icon-384x384.png";
@@ -30,21 +30,21 @@ import RerunScript from "./assets/scripts/RerunScript";
 
 const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
-    authDomain: "test-96cdc.firebaseapp.com",
-    databaseURL: "https://test-96cdc.firebaseio.com",
-    projectId: "test-96cdc",
-    storageBucket: "test-96cdc.appspot.com",
-    messagingSenderId: "890647037957",
-    appId: "1:890647037957:web:9bf7066436852592d3346c",
-};
-const fbApp = firebase.initializeApp(firebaseConfig);
+// const firebaseConfig = {
+//     apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
+//     authDomain: "test-96cdc.firebaseapp.com",
+//     databaseURL: "https://test-96cdc.firebaseio.com",
+//     projectId: "test-96cdc",
+//     storageBucket: "test-96cdc.appspot.com",
+//     messagingSenderId: "890647037957",
+//     appId: "1:890647037957:web:9bf7066436852592d3346c",
+// };
+// const fbApp = firebase.initializeApp(firebaseConfig);
 
-const messaging = fbApp.messaging();
-messaging.usePublicVapidKey(
-    "BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784"
-);
+// const messaging = fbApp.messaging();
+// messaging.usePublicVapidKey(
+//     "BMJ-dBS0EPnykDWroTRbq8rcNq6Yh2NHHLxAAerrZQk67sdvDlbOTY_WR-4cyoxjeMN6JlHsDP6sohMKu8ap784"
+// );
 
 class App extends React.Component {
     messageListener = new MessageListener();
@@ -262,45 +262,45 @@ class App extends React.Component {
         // Native END
 
         // PWA START
-        if (firebase.messaging.isSupported()) {
-            var app = this;
+        // if (firebase && firebase.messaging && firebase.messaging.isSupported()) {
+        //     var app = this;
 
-            Notification.requestPermission()
-                .then(() => {
-                    console.log("Permission " + Notification.permission);
-                    var token = messaging.getToken();
+        //     Notification.requestPermission()
+        //         .then(() => {
+        //             console.log("Permission " + Notification.permission);
+        //             var token = messaging.getToken();
 
-                    return token;
-                })
-                .then((token) => {
-                    console.log(token);
-                    app.setToken(token, "web");
-                })
-                .catch((err) => {
-                    console.log(err);
-                    app.setState({ bypassToken: true });
-                });
+        //             return token;
+        //         })
+        //         .then((token) => {
+        //             console.log(token);
+        //             app.setToken(token, "web");
+        //         })
+        //         .catch((err) => {
+        //             console.log(err);
+        //             app.setState({ bypassToken: true });
+        //         });
 
-            messaging.onMessage((payload) => {
-                console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
+        //     messaging.onMessage((payload) => {
+        //         console.log('[firebase-messaging-sw.js] Received foreground message ', payload);
 
-                // const notification = new Notification(payload.notification.title, {
-                //     body: payload.notification.body,
-                //     requireInteraction: true,
-                // });
+        //         // const notification = new Notification(payload.notification.title, {
+        //         //     body: payload.notification.body,
+        //         //     requireInteraction: true,
+        //         // });
 
-                // notification.onclick = () => {
-                //     console.log("pwa notification click: ", payload)
+        //         // notification.onclick = () => {
+        //         //     console.log("pwa notification click: ", payload)
 
-                //     const [state, id] = payload.data.state.split("/");
-                //     const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
-                //     console.log(url);
-                //     this.props.history.push("/" + url);
-                // }
-            });
+        //         //     const [state, id] = payload.data.state.split("/");
+        //         //     const url = stateToURL[state] ? stateToURL[state] + id : "app/home";
+        //         //     console.log(url);
+        //         //     this.props.history.push("/" + url);
+        //         // }
+        //     });
 
-            // PWA END
-        }
+        //     // PWA END
+        // }
     }
 }
 

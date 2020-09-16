@@ -56,7 +56,6 @@ class VerifyPhone extends React.Component {
             );
             if (result.success) {
                 this.props.history.push("/register/confirm");
-                store.dispatch(actions.unsetRegisterDetails());
             } else {
                 this.props.history.go(-2);
                 showErrors([result.msg]);
