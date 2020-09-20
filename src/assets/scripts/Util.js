@@ -529,6 +529,10 @@ export const getPreviousPayouts = async (apiToken) => {
     });
 }
 
+export const getHomeMessage = async () => {
+    return await postData("https://lopeseat.com/REST/getHomeMessage.php", {}, true);
+}  
+
 export const makePHXTime = (date) => {
     return new Date(
         date.toLocaleString("en-US", { timeZone: "America/Phoenix" })
