@@ -36,7 +36,11 @@ class CheckoutScreen extends React.Component {
             clientToken: null,
             fee: 0,
             useBalance: false,
-            useEarnings: false
+            useEarnings: false,
+            needFoodPayment: false,
+            total: 0,
+            tax: 0,
+            subtotal: 0,
         };
 
         this.balanceRef = React.createRef();
@@ -55,14 +59,20 @@ class CheckoutScreen extends React.Component {
         var prices = await getCartPrices(this.props.apiToken);
         this.setState({
             clientToken,
-            fee: prices.delivery_fee
+            fee: prices.delivery_fee,
+            needFoodPayment: prices.need_payment,
+            total: prices.total,
+            tax: prices.tax,
+            subtotal: prices.subtotal,
         });
     }
 
     async pay() {
         var { balances } = this.props;
-        var { useEarnings, useBalance, fee } = this.state;
-        var needPayment = useBalance ? (balances[0] < fee) : (useEarnings ? (balances[1] < fee) : true);
+        var { useEarnings, useBalance, needFoodPayment, fee, total } = this.state;
+
+        var compareTo = needFoodPayment ? total : fee;
+        var needPayment = useBalance ? (balances[0] < compareTo) : (useEarnings ? (balances[1] < compareTo) : true);
 
         var result = null;
 
@@ -94,13 +104,15 @@ class CheckoutScreen extends React.Component {
 
     render() {
         var { balances } = this.props;
-        var { useEarnings, useBalance, fee } = this.state;
+        var { useEarnings, useBalance, fee, needFoodPayment, total, tax, subtotal } = this.state;
 
         var balance = balances[0] === undefined ? 0 : balances[0];
         var earnings = balances[1] === undefined ? 0 : balances[1];
 
+        var compareTo = needFoodPayment ? total : fee;
+
         // If balance being used covers the payment, needPayment = false
-        var needPayment = useBalance ? (balances[0] < fee) : (useEarnings ? (balances[1] < fee) : true);
+        var needPayment = useBalance ? (balances[0] < compareTo) : (useEarnings ? (balances[1] < compareTo) : true);
 
         var dropin = (
             needPayment ?
@@ -154,31 +166,54 @@ class CheckoutScreen extends React.Component {
             );
 
         var prices = (
-            (useEarnings || useBalance) ?
-                needPayment ?
-                    <Fragment>
-                        <div className="total">
-                            From {useEarnings ? "earnings" : "balance"}
-                            <span className="price">${formatPrice(balances[useBalance ? 0 : 1])}</span>
-                        </div>
-                        <div className="total">
-                            Through payment method
-                    <span className="price">${formatPrice(fee - balances[useBalance ? 0 : 1])}</span>
-                        </div>
-                    </Fragment>
-                    :
-                    <Fragment>
-                        <div className="total">
-                            From {useEarnings ? "earnings" : "balance"}
-                            <span className="price">${formatPrice(fee)}</span>
-                        </div>
-                    </Fragment>
-                :
                 <Fragment>
+                    {needFoodPayment ? 
+                    <Fragment>
+                        <div className="subtotal">
+                            Subtotal
+                            <span className="price">
+                                ${formatPrice(subtotal)}
+                            </span>
+                        </div>
+                        {/* Tax: 8.6% */}
+                        <div className="subtotal">
+                            Tax & fees
+                            <span className="price">${formatPrice(tax)}</span>
+                        </div>
+                    </Fragment>
+                    :""}
                     <div className="total">
                         Delivery Fee
-                    <span className="price">${formatPrice(fee)}</span>
+                        <span className="price">${formatPrice(fee)}</span>
                     </div>
+                    {(useEarnings || useBalance) ?
+                    <Fragment>
+                        <div className="subtotal">
+                            {useEarnings ? "Earnings" : "Balance"}
+                            <span className="price">-${formatPrice(needPayment ? balances[useBalance ? 0 : 1] : fee)}</span>
+                        </div>
+                        {needFoodPayment ? 
+                        "":
+                        <div className="total">
+                            Total
+                            <span className="price">
+                                ${formatPrice(needPayment ? fee - balances[useBalance ? 0 : 1] : 0)}
+                            </span>
+                        </div>
+                        }
+                    </Fragment>
+                    :""
+                    }
+                    {needFoodPayment ? 
+                    <Fragment>
+                        <div className="total">
+                            Total
+                            <span className="price">
+                                ${formatPrice((useEarnings || useBalance) ? (needPayment ? total-balances[useBalance ? 0 : 1] : 0) : total)}
+                            </span>
+                        </div>
+                    </Fragment>
+                    :""}
                 </Fragment>
         );
 
