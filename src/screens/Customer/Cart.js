@@ -164,48 +164,48 @@ class Cart extends React.Component {
                         <span className="price">${formatPrice(this.state.tax)}</span>
                     </div>
 
-                    {this.state.needPayment ? 
-                    <Fragment>
-                        <div className="total">
-                            Delivery Fee
+                    {this.state.needPayment ?
+                        <Fragment>
+                            <div className="total">
+                                Delivery Fee
                             <span className="price">${formatPrice(this.state.fee)}</span>
-                        </div>
+                            </div>
 
-                        <div className="total">
-                            Total
+                            <div className="total">
+                                Total
                             <span className="price">
-                                ${formatPrice(this.state.total)}
-                            </span>
-                        </div>
-                    </Fragment>
-                    :
-                    <Fragment>
-                        <div className="total">
-                            Total (Dining Dollars)
+                                    ${formatPrice(this.state.total)}
+                                </span>
+                            </div>
+                        </Fragment>
+                        :
+                        <Fragment>
+                            <div className="total">
+                                Total (Dining Dollars)
                             <span className="price">
-                                ${formatPrice(this.state.total)}
-                            </span>
-                        </div>
+                                    ${formatPrice(this.state.total)}
+                                </span>
+                            </div>
 
-                        <div className="total">
-                            Delivery Fee
+                            <div className="total">
+                                Delivery Fee
                             <span className="price">${formatPrice(this.state.fee)}</span>
-                        </div>
-                    </Fragment>
+                            </div>
+                        </Fragment>
                     }
 
                     {
-                    !this.state.canOrder ?
-                    <div className={css(styles.discl)}>
-                        <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
-                            info
+                        !this.state.canOrder ?
+                            <div className={css(styles.discl)}>
+                                <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
+                                    info
                         </span>
-                        <span style={{ textAlign: "left" }}>
-                            {this.state.msg}
-                        </span>
-                    </div>
-                    :
-                    ""
+                                <span style={{ textAlign: "left" }}>
+                                    {this.state.msg}
+                                </span>
+                            </div>
+                            :
+                            ""
                     }
                     <button
                         className="checkoutButton"
@@ -223,7 +223,7 @@ export default connect(({ apiToken }) => ({ apiToken }))(Cart);
 
 const styles = StyleSheet.create({
     discl: {
-        color: "white",
+        color: "black",
         margin: "5px 0 10px 0",
         textAlign: "center",
         width: "100%",

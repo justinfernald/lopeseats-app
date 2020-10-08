@@ -166,8 +166,8 @@ class CheckoutScreen extends React.Component {
             );
 
         var prices = (
-                <Fragment>
-                    {needFoodPayment ? 
+            <Fragment>
+                {needFoodPayment ?
                     <Fragment>
                         <div className="subtotal">
                             Subtotal
@@ -181,40 +181,40 @@ class CheckoutScreen extends React.Component {
                             <span className="price">${formatPrice(tax)}</span>
                         </div>
                     </Fragment>
-                    :""}
-                    <div className="total">
-                        Delivery Fee
+                    : ""}
+                <div className="total">
+                    Delivery Fee
                         <span className="price">${formatPrice(fee)}</span>
-                    </div>
-                    {(useEarnings || useBalance) ?
+                </div>
+                {(useEarnings || useBalance) ?
                     <Fragment>
                         <div className="subtotal">
                             {useEarnings ? "Earnings" : "Balance"}
                             <span className="price">-${formatPrice(needPayment ? balances[useBalance ? 0 : 1] : fee)}</span>
                         </div>
-                        {needFoodPayment ? 
-                        "":
-                        <div className="total">
-                            Total
+                        {needFoodPayment ?
+                            "" :
+                            <div className="total">
+                                Total
                             <span className="price">
-                                ${formatPrice(needPayment ? fee - balances[useBalance ? 0 : 1] : 0)}
-                            </span>
-                        </div>
+                                    ${formatPrice(needPayment ? fee - balances[useBalance ? 0 : 1] : 0)}
+                                </span>
+                            </div>
                         }
                     </Fragment>
-                    :""
-                    }
-                    {needFoodPayment ? 
+                    : ""
+                }
+                {needFoodPayment ?
                     <Fragment>
                         <div className="total">
                             Total
                             <span className="price">
-                                ${formatPrice((useEarnings || useBalance) ? (needPayment ? total-balances[useBalance ? 0 : 1] : 0) : total)}
+                                ${formatPrice((useEarnings || useBalance) ? (needPayment ? total - balances[useBalance ? 0 : 1] : 0) : total)}
                             </span>
                         </div>
                     </Fragment>
-                    :""}
-                </Fragment>
+                    : ""}
+            </Fragment>
         );
 
         return (
@@ -278,10 +278,12 @@ const styles = StyleSheet.create({
         opacity: 0.38
     },
     footer: {
-        backgroundColor: "var(--primary)",
+        backgroundColor: "#fff",
         width: "100%",
         padding: "15px 20px",
         borderRadius: "20px 20px 0 0",
-        flex: "0 1 auto"
+        flex: "0 1 auto",
+        boxShadow: "0px -2px 13px 0px #bdbdbd9e"
+
     }
 });
