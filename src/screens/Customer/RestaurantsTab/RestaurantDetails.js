@@ -107,7 +107,7 @@ class RestaurantDetails extends React.Component {
                             <div className="scrollArea">
                                 <div className="scrollCapFill"></div>
                                 {this.state.restaurantData.food
-                                    .filter((x) => x.featured)
+                                    .filter((x) => x.featured === "1")
                                     .map((x, index) => (
                                         <div
                                             key={index}
@@ -133,7 +133,7 @@ class RestaurantDetails extends React.Component {
                         </div>
 
                         <div className="fullMenu">
-                            <div className="title">Meal Options</div>
+                            <div className="title">All Items</div>
 
                             {this.props.selectedMenu.map((item, index) => (
                                 <div
