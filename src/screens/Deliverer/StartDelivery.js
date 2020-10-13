@@ -200,7 +200,7 @@ class StartDelivery extends React.Component {
 
     componentDidUpdate(prevProps) {
 
-        if (!this.state.hasDelivered && !this.props.delivererGuideViewed) {
+        if (this.state !== null && !this.state.hasDelivered && !this.props.delivererGuideViewed) {
             window.open("https://www.getlopeseat.com/runners", "_blank");
             store.dispatch(actions.setDelivererGuideViewed(true));
         }

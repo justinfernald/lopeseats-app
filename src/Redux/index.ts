@@ -19,6 +19,7 @@ import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 import { fetchBalances } from "./Thunks";
 
 const initialState = {
+    updateRequired: false,
     apiToken: null,
     cartItems: [],
     userDetails: {
@@ -301,6 +302,9 @@ const reducers = {
     setTipped: (state: any, { payload: tipped }: { payload: boolean }) => {
         state.tipped = tipped;
     },
+    setUpdateRequired: (state: any, {payload: updateRequired}: {payload: boolean}) => {
+        state.updateRequired = updateRequired;
+    }
 };
 
 const stateSlice = createSlice({

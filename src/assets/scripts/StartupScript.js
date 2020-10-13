@@ -1,9 +1,19 @@
-import { postData, updateFBToken, isDeliveryMode } from "./Util";
+import { postData, updateFBToken, isDeliveryMode, getLatestVersionInfo } from "./Util";
 import { store, actions } from "../../Redux";
+import packageJson from "../../../package.json";
 
 const StartUp = ({ apiToken, fbToken, fbPlatform }) => {
     checkToken(apiToken, fbToken, fbPlatform);
+
+    checkUpdate();
 };
+
+const checkUpdate = async () => {
+    var versionInfo = await getLatestVersionInfo();
+
+    console.log("\"" + packageJson.version + "\" \"" + versionInfo.version + "\"");
+    store.dispatch(actions.setUpdateRequired(versionInfo.version !== packageJson.version && versionInfo.requireUpdate));
+}
 
 const checkToken = async (apiToken, fbToken, fbPlatform) => {
     if (

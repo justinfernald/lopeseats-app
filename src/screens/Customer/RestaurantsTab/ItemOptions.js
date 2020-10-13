@@ -136,6 +136,16 @@ class ItemOptions extends React.Component {
                     splash: this.props.selectedRestaurant.banner,
                 }}>
                 <div className="itemOptionMenu" onScroll={this.onContentScroll}>
+
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        marginTop: "15px"
+                    }}>
+                        <img style={{height: "auto", maxHeight: "200px", maxWidth: "100%"}} src={this.state.selectedItem.image} alt="Item"/>
+                    </div>
+
                     <div className="itemDescription">
                         <div className="itemHeader">
                             {this.state.selectedItem.name}

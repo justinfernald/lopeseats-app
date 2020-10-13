@@ -44,8 +44,8 @@ class Cart extends React.Component {
             tax: prices.tax,
             fee: prices.delivery_fee,
             needPayment: prices.need_payment,
-            canOrder: true,
-            // canOrder: prices.can_order,
+            // canOrder: true,
+            canOrder: prices.can_order,
             msg: prices.msg
         });
     }

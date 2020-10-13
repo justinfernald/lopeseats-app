@@ -531,7 +531,11 @@ export const getPreviousPayouts = async (apiToken) => {
 
 export const getHomeMessage = async () => {
     return await postData("https://lopeseat.com/REST/getHomeMessage.php", {}, true);
-}  
+}
+
+export const getLatestVersionInfo = async () => {
+    return await postData("https://lopeseat.com/REST/latestAppVersion.php");
+}
 
 export const makePHXTime = (date) => {
     return new Date(
