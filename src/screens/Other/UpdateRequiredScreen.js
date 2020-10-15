@@ -17,21 +17,21 @@ class UpdateRequiredScreen extends React.Component {
 
     render() {
         return (
-        <IonPage style={{height: "100%"}}>
-            <div>
-                <img className={css(styles.logo)} src={logo} alt="Logo"/>
-            </div>
-            <div className={css(styles.wrapper)}>
-                <div className={css(styles.info)}>An update is available. Please download it from the link below.</div>
+            <IonPage style={{ height: "100%" }}>
                 <div>
-                    {isPlatform("ios") ? 
-                    <a href="https://apps.apple.com/us/app/id1530493472"><img className={css(styles.imgApple)} src={appStore} alt="App Store"/></a>
-                    :
-                    <a href="https://play.google.com/store/apps/details?id=com.lopeseat.app"><img className={css(styles.img)} src={googlePlay} alt="Google Play"/></a>
-                    }
+                    <img className={css(styles.logo)} src={logo} alt="Logo" />
                 </div>
-            </div>
-        </IonPage>
+                <div className={css(styles.wrapper)}>
+                    <div className={css(styles.info)}>An update is available. Please download it from the link below.</div>
+                    <div>
+                        {isPlatform("ios") ?
+                            <a href="https://apps.apple.com/us/app/id1530493472"><img className={css(styles.imgApple)} src={appStore} alt="App Store" /></a>
+                            :
+                            <a href="https://play.google.com/store/apps/details?id=com.lopeseat.app"><img className={css(styles.img)} src={googlePlay} alt="Google Play" /></a>
+                        }
+                    </div>
+                </div>
+            </IonPage>
         );
     }
 
@@ -39,7 +39,7 @@ class UpdateRequiredScreen extends React.Component {
 
 var styles = StyleSheet.create({
     wrapper: {
-        width: "100%", 
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center"
@@ -65,4 +65,4 @@ var styles = StyleSheet.create({
     }
 });
 
-export default connect(({updateRequired}) => ({updateRequired}))(UpdateRequiredScreen);
+export default connect(({ updateRequired }) => ({ updateRequired }))(UpdateRequiredScreen);
