@@ -67,6 +67,7 @@ const MainScreen = (props) =>
                             exact
                         />
                         <Redirect from="/app" to="/app/restaurants" exact />
+                        <Redirect from="/app/home" to="/app/restaurants" exact />
                     </IonRouterOutlet>
 
                     <IonTabBar slot="bottom" mode="md">
