@@ -537,6 +537,27 @@ export const getLatestVersionInfo = async () => {
     return await postData("https://lopeseat.com/REST/latestAppVersion.php");
 }
 
+export const requestRecoveryCode = async phone => {
+    return await postData("https://lopeseat.com/REST/user/sendRecoveryCode.php", {
+        phone
+    });
+}
+
+export const changeRecoveryPassword = async (phone, token, password) => {
+    return await postData("https://lopeseat.com/REST/user/changePasswordRecovery.php", {
+        phone,
+        token,
+        password
+    });
+}
+
+export const checkRecoveryCode = async (phone, token) => {
+    return await postData("https://lopeseat.com/REST/user/checkRecoveryCode.php", {
+        phone,
+        token
+    });
+}
+
 export const makePHXTime = (date) => {
     return new Date(
         date.toLocaleString("en-US", { timeZone: "America/Phoenix" })

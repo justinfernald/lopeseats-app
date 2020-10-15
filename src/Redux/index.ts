@@ -81,6 +81,9 @@ const initialState = {
 
     tip: 0,
     tipped: false,
+    //Recovery Info
+    recovPhone: "",
+    recovCode: ""
 };
 
 const reducers = {
@@ -304,6 +307,12 @@ const reducers = {
     },
     setUpdateRequired: (state: any, {payload: updateRequired}: {payload: boolean}) => {
         state.updateRequired = updateRequired;
+    },
+    setRecovPhone: (state: any, {payload: recovPhone}: {payload: string}) => {
+        state.recovPhone = recovPhone;
+    },
+    setRecovCode: (state: any, {payload: recovCode}: {payload: string}) => {
+        state.recovCode = recovCode;
     }
 };
 

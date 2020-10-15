@@ -35,11 +35,11 @@ const MainScreen = (props) =>
             <IonPage id="app">
                 <IonTabs>
                     <IonRouterOutlet>
-                        <Route
+                        {/* <Route
                             path="/app/:tab(home)"
                             component={HomeScreen}
                             exact
-                        />
+                        /> */}
                         <Route
                             path="/app/:tab(restaurants)"
                             component={RestaurantsRouter}
@@ -66,16 +66,16 @@ const MainScreen = (props) =>
                             component={DelivererPayment}
                             exact
                         />
-                        <Redirect from="/app" to="/app/home" exact />
+                        <Redirect from="/app" to="/app/restaurants" exact />
                     </IonRouterOutlet>
 
                     <IonTabBar slot="bottom" mode="md">
-                        <IonTabButton tab="home" href="/app/home">
+                        {/* <IonTabButton tab="home" href="/app/home">
                             <IonIcon
                                 icon={restaurant}
                                 style={{ width: "100%", height: "50%" }}
                             />
-                        </IonTabButton>
+                        </IonTabButton> */}
                         <IonTabButton tab="restaurants" href="/app/restaurants">
                             <IonIcon
                                 icon={search}

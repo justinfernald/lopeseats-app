@@ -143,9 +143,7 @@ class LoginScreen extends React.Component {
     };
 
     onForgotPassword = () => {
-        // this.setState({
-        //     screen: "ForgotPassword"
-        // });
+        this.props.history.push("/forgotPwd");
     };
 
     render() {

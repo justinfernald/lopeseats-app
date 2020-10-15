@@ -19,6 +19,9 @@ import { connect } from "react-redux";
 import history from "../history";
 
 import RerunScript from "../assets/scripts/RerunScript";
+import ForgotPassword from "./Authentication/RecoveryProcess/ForgotPassword";
+import RecoveryCode from "./Authentication/RecoveryProcess/RecoveryCode";
+import NewPassword from "./Authentication/RecoveryProcess/NewPassword";
 class ScreenHandler extends React.Component {
     constructor(props) {
         super(props);
@@ -144,6 +147,9 @@ class ScreenHandler extends React.Component {
                         <Route exact path="/update" component={UpdateRequiredScreen} />
                         {this.props.updateRequired ? <Redirect from="/" to="/update" /> : ""}
                         <Route exact path="/login" component={LoginScreen} />
+                        <Route exact path="/forgotPwd" component={ForgotPassword} />
+                        <Route exact path="/recovCode" component={RecoveryCode} />
+                        <Route exact path="/recovPwd" component={NewPassword} />
                         <Route path="/register" component={RegisterRouter} />
                         <Route path="/app" component={TabScreen} />
                         <Redirect exact from="/" to="/login" />
