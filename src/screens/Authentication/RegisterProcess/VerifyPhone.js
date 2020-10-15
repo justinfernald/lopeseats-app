@@ -15,8 +15,10 @@ class VerifyPhone extends React.Component {
         super(props);
         this.state = {
             phone: this.props.registerDetails.phone,
+            email: this.props.registerDetails.email,
         };
         this.phoneNumberRef = React.createRef();
+        this.emailRef = React.createRef();
     }
 
     componentDidMount() { }
@@ -26,9 +28,15 @@ class VerifyPhone extends React.Component {
     onNextStep = async () => {
         let errors = [];
         let phoneNumber = this.phoneNumberRef.current.value;
+        let email = this.emailRef.current.value;
 
         console.log(this.phoneNumberRef.current);
         console.log(this.phoneNumberRef.current.value);
+
+        let checkEmail = (mail) => {
+            // eslint-disable-next-line
+            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+        };
 
         let isPhoneNumber = (input) => {
             let phoneRegex = /^\d{10}$/;
@@ -43,13 +51,17 @@ class VerifyPhone extends React.Component {
             errors.push("Phone number is taken. Try logging in.");
         }
 
+        if (!checkEmail(email)) {
+            errors.push("Email invalid");
+        }
+
         if (errors.length === 0) {
-            store.dispatch(actions.setRegisterDetails({ phoneNumber }));
+            store.dispatch(actions.setRegisterDetails({ phoneNumber, email }));
             let result = await registerAccount(
                 phoneNumber,
                 this.props.registerDetails.firstName,
                 this.props.registerDetails.lastName,
-                this.props.registerDetails.email,
+                email,
                 this.props.registerDetails.studentNumber,
                 this.props.registerDetails.password,
                 this.props.registerDetails.profileImage
@@ -73,7 +85,7 @@ class VerifyPhone extends React.Component {
                     onNextStep={this.onNextStep}
                     onBackStep={this.props.history.goBack}
                 />
-                <div className="registerStepBanner">Verify Phone</div>
+                <div className="registerStepBanner">Confirm Information</div>
                 <div className="registerFormContainer flex alignCenter">
                     <div className="labeledInput">
                         <div className="label">Confirm Phone Number</div>
@@ -86,6 +98,8 @@ class VerifyPhone extends React.Component {
                             type="tel"
                         />
                     </div>
+
+                    We will send you a verification message so please make sure everything is entered correctly.
                 </div>
             </div>
         );
