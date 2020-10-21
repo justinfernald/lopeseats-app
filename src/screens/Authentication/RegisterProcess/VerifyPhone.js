@@ -28,7 +28,6 @@ class VerifyPhone extends React.Component {
     onNextStep = async () => {
         let errors = [];
         let phoneNumber = this.phoneNumberRef.current.value;
-        let email = this.emailRef.current.value;
 
         console.log(this.phoneNumberRef.current);
         console.log(this.phoneNumberRef.current.value);
@@ -51,17 +50,17 @@ class VerifyPhone extends React.Component {
             errors.push("Phone number is taken. Try logging in.");
         }
 
-        if (!checkEmail(email)) {
+        if (!checkEmail(this.props.registerDetails.email)) {
             errors.push("Email invalid");
         }
 
         if (errors.length === 0) {
-            store.dispatch(actions.setRegisterDetails({ phoneNumber, email }));
+            store.dispatch(actions.setRegisterDetails({ phoneNumber }));
             let result = await registerAccount(
                 phoneNumber,
                 this.props.registerDetails.firstName,
                 this.props.registerDetails.lastName,
-                email,
+                this.props.registerDetails.email,
                 this.props.registerDetails.studentNumber,
                 this.props.registerDetails.password,
                 this.props.registerDetails.profileImage

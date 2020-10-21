@@ -30,7 +30,7 @@
         "chart.js": "^2.9.3",
         "clsx": "^1.1.1",
         "compressorjs": "^1.0.6",
-        "firebase": "^7.20.0",
+        "firebase": "^7.24.0",
         "framer": "^1.2.5",
         "framer-motion": "^2.6.5",
         "ionic": "^5.4.16",

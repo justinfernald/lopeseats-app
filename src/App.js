@@ -28,7 +28,10 @@ import {
 } from "@capacitor/core";
 import RerunScript from "./assets/scripts/RerunScript";
 
+import { FCM } from '@capacitor-community/fcm';
+
 const { PushNotifications, App: PApp, LocalNotifications } = Plugins;
+const fcm = new FCM();
 
 // const firebaseConfig = {
 //     apiKey: "AIzaSyBIOzolcjUlgx5x5ca3zCg3DBPwYftV-kY",
@@ -147,9 +150,14 @@ class App extends React.Component {
 
         if (Capacitor.isPluginAvailable("PushNotifications")) {
             PushNotifications.register();
-            PushNotifications.addListener("registration", async (token) => {
-                console.log("Push registration success, token: " + token.value);
-                this.setToken(token.value, isPlatform("ios") ? "ios" : "and");
+            PushNotifications.addListener("registration", async () => {
+                fcm.getToken().then(
+                    r => {
+                        var { token } = r;
+                        console.log("Push registration success, token: " + token.value);
+                        this.setToken(token.value, isPlatform("ios") ? "ios" : "and");
+                    }
+                ).catch((err) => console.log(err));
             });
 
             PushNotifications.addListener("registrationError", (error) => {
