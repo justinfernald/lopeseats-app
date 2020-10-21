@@ -10,6 +10,8 @@ import {
     updateFBToken,
     postData,
     cacheProfileImage,
+    getMenu,
+    getRestaurant,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
 import { store, actions } from "../../Redux";
@@ -116,7 +118,14 @@ class LoginScreen extends React.Component {
 
     formSwitch = () => this.props.history.replace("/register");
 
-    onLogin = (apiToken, profileData) => {
+    loadStore = async () => {
+        var restaurant = await getRestaurant(62);
+        var menu = await getMenu(62);
+        store.dispatch(actions.setSelectedRestaurant(restaurant));
+        store.dispatch(actions.setSelectedMenu(menu));
+    }
+
+    onLogin = async (apiToken, profileData) => {
         console.log("apitoken: " + apiToken);
         store.dispatch(actions.setApiToken(apiToken));
         cacheProfileImage(apiToken);
@@ -127,6 +136,7 @@ class LoginScreen extends React.Component {
         updateFBToken(this.props.fbToken, this.props.fbPlatform, apiToken);
         console.log(this.props);
         const fromURL = this.getFromURL(this.props.location);
+        await this.loadStore();
         this.props.history.replace(
             fromURL === "/login" ? "/app/home" : fromURL
         );

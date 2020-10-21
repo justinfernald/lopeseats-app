@@ -1,4 +1,4 @@
-import { postData, updateFBToken, isDeliveryMode, getLatestVersionInfo } from "./Util";
+import { postData, updateFBToken, isDeliveryMode, getLatestVersionInfo, getRestaurant, getMenu } from "./Util";
 import { store, actions } from "../../Redux";
 import packageJson from "../../../package.json";
 
@@ -6,7 +6,16 @@ const StartUp = ({ apiToken, fbToken, fbPlatform }) => {
     checkToken(apiToken, fbToken, fbPlatform);
 
     checkUpdate();
+
+    loadStore();
 };
+
+const loadStore = async () => {
+    var restaurant = await getRestaurant(62);
+    var menu = await getMenu(62);
+    store.dispatch(actions.setSelectedRestaurant(restaurant));
+    store.dispatch(actions.setSelectedMenu(menu));
+}
 
 const checkUpdate = async () => {
     var versionInfo = await getLatestVersionInfo();
