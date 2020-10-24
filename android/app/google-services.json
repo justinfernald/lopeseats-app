@@ -1,0 +1,40 @@
+{
+    "project_info": {
+        "project_number": "890647037957",
+        "firebase_url": "https://test-96cdc.firebaseio.com",
+        "project_id": "test-96cdc",
+        "storage_bucket": "test-96cdc.appspot.com"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:890647037957:android:7a802fa79226a7b5d3346c",
+                "android_client_info": {
+                    "package_name": "com.lopeseat.app"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "890647037957-ssnk65r9gj6i5qnni7424sljvj1kj4mu.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyAXvSCA5D9jaBtwG4ECnMBpHWITQLl-2oA"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "890647037957-ssnk65r9gj6i5qnni7424sljvj1kj4mu.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}
