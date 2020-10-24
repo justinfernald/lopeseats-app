@@ -154,8 +154,8 @@ class App extends React.Component {
                 fcm.getToken().then(
                     r => {
                         var { token } = r;
-                        console.log("Push registration success, token: " + token.value);
-                        this.setToken(token.value, isPlatform("ios") ? "ios" : "and");
+                        console.log("Push registration success, token: " + token);
+                        this.setToken(token, isPlatform("ios") ? "ios" : "and");
                     }
                 ).catch((err) => console.log(err));
             });
