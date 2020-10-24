@@ -15,8 +15,10 @@ class VerifyPhone extends React.Component {
         super(props);
         this.state = {
             phone: this.props.registerDetails.phone,
+            email: this.props.registerDetails.email,
         };
         this.phoneNumberRef = React.createRef();
+        this.emailRef = React.createRef();
     }
 
     componentDidMount() { }
@@ -30,6 +32,11 @@ class VerifyPhone extends React.Component {
         console.log(this.phoneNumberRef.current);
         console.log(this.phoneNumberRef.current.value);
 
+        let checkEmail = (mail) => {
+            // eslint-disable-next-line
+            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+        };
+
         let isPhoneNumber = (input) => {
             let phoneRegex = /^\d{10}$/;
             return input.match(phoneRegex);
@@ -41,6 +48,10 @@ class VerifyPhone extends React.Component {
 
         if (errors.length === 0 && (await phoneNumberTaken(phoneNumber))) {
             errors.push("Phone number is taken. Try logging in.");
+        }
+
+        if (!checkEmail(this.props.registerDetails.email)) {
+            errors.push("Email invalid");
         }
 
         if (errors.length === 0) {
@@ -56,7 +67,6 @@ class VerifyPhone extends React.Component {
             );
             if (result.success) {
                 this.props.history.push("/register/confirm");
-                store.dispatch(actions.unsetRegisterDetails());
             } else {
                 this.props.history.go(-2);
                 showErrors([result.msg]);
@@ -74,7 +84,7 @@ class VerifyPhone extends React.Component {
                     onNextStep={this.onNextStep}
                     onBackStep={this.props.history.goBack}
                 />
-                <div className="registerStepBanner">Verify Phone</div>
+                <div className="registerStepBanner">Confirm Information</div>
                 <div className="registerFormContainer flex alignCenter">
                     <div className="labeledInput">
                         <div className="label">Confirm Phone Number</div>
@@ -87,6 +97,8 @@ class VerifyPhone extends React.Component {
                             type="tel"
                         />
                     </div>
+
+                    We will send you a verification message so please make sure everything is entered correctly.
                 </div>
             </div>
         );

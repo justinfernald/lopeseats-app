@@ -9,8 +9,7 @@
     "allowNavigation": [
       "lopeseat.com",
       "*.lopeseat.com"
-    ],
-    "url": "http://localhost:8100"
+    ]
   },
   "plugins": {
     "SplashScreen": {

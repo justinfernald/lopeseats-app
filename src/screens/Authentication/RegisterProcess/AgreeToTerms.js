@@ -45,7 +45,7 @@ export default class AgreeToTerms extends React.Component {
                     <div className="registerStepBanner">Agree to Terms</div>
                     <div className="registerFormContainer flex alignCenter">
                         <span style={{ textAlign: "center", marginBottom: "40px" }}>
-                            Please read and agree to our terms and conditions: <a style={{ color: "blue" }} href="http://lopeseat.com/files/terms.pdf">Terms and Conditions</a>
+                            Please read and agree to our terms and conditions: <a style={{ color: "blue" }} href="https://www.getlopeseat.com/terms-and-condition" target="_blank">Terms and Conditions</a>
                         </span>
                         <span>
                             <Checkbox color="secondary" inputRef={this.checkRef} />

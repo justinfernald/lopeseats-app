@@ -13,14 +13,16 @@ class DeliveryDetails extends React.Component {
 
     constructor(props) {
         super(props);
-        this.addressRef = React.createRef(props.address);
+        var address = props.address;
+        if (props.address === null) address = "";
+        this.addressRef = React.createRef(address);
         this.state = {
-            search: this.props.address,
+            search: address,
             searchResults: [],
             buildings: null
         };
 
-        this.updateValue(this.props.address);
+        this.updateValue(address);
     }
 
     componentDidMount() {

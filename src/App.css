@@ -17,7 +17,7 @@
 }
 
 :root {
-    --primary: #d50202;
+    --primary: #D40505;
     --secondary: #fc3232;
     --light-grey: #ddd;
     --placeholder: #f97c7c;
@@ -184,12 +184,13 @@ input:-webkit-autofill:active {
     right: 0;
     bottom: 0;
     position: absolute;
-    background: var(--light-grey);
+    background: #fff;
     border-top-right-radius: 30px;
     border-top-left-radius: 30px;
     padding: 20px 7px;
     max-height: calc(100% - 250px);
     overflow: auto;
+    box-shadow: 0px 0px 20px 6px #e0e0e0;
 }
 
 .loginForm::-webkit-scrollbar {
@@ -322,7 +323,7 @@ input:-webkit-autofill:active {
 
 .registerStepBanner {
     margin-top: 20px;
-    background: var(--light-grey);
+    background: #fff;
     width: 100%;
     height: 50px;
     padding-left: 40px;
@@ -331,6 +332,7 @@ input:-webkit-autofill:active {
     color: var(--primary);
     font-weight: 700;
     text-transform: uppercase;
+    box-shadow: -1px 2px 20px 0px #c4c4c4;
 }
 
 .flexDisplay {
@@ -673,7 +675,7 @@ input:-webkit-autofill:active {
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 30px 5px #d9d9d9;
     display: flex;
     min-height: 100px;
     padding: 10px;
@@ -719,44 +721,45 @@ input:-webkit-autofill:active {
 
 .cartFooter {
     margin-bottom: var(--sab);
-    background-color: var(--primary);
+    background-color: #fff;
     width: 100%;
     padding: 15px 20px;
     border-radius: 20px 20px 0 0;
+    box-shadow: rgba(189, 189, 189, 0.62) 0px -2px 13px 0px;
 }
 
 .subtotal {
-    color: #ccc;
+    color: #000000;
     margin-bottom: 8px;
 }
 
 .subtotal .price {
     float: right;
     font-weight: 500;
-    color: white;
+    color: #000000;
 }
 
 .total {
-    color: #ccc;
+    color: #000000;
     margin-bottom: 20px;
 }
 
 .total .price {
     float: right;
     font-weight: 800;
-    color: white;
+    color: #000000;
 }
 
 .checkoutButton {
-    background-color: white;
-    color: #f66;
+    background-color: var(--primary);
+    color: #fff;
     text-align: center;
     border-radius: 50px;
     font-size: 1.2em;
     padding: 0.735em 0;
     margin: 0.521em 0;
     width: 100%;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.11em;
 }
 
@@ -1422,6 +1425,7 @@ input:-webkit-autofill:active {
     -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
         0 6px 6px rgba(0, 0, 0, 0.23);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    z-index: 10000;
 }
 
 .braintree-heading {
@@ -1456,7 +1460,10 @@ input:-webkit-autofill:active {
 
 .deliveryFormContainer .appInput {
     border-bottom: none;
-    background-color: #dfdfdf;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 6px #e0e0e0;
+
 }
 
 .deliveryFormContainer .appInput > input {
@@ -1904,6 +1911,7 @@ span.moneyCents {
     font-size: 0.75em;
     margin: 0;
     padding-top: 0.25em;
+    color: #0000008f;
 }
 
 .priceFormat {
@@ -1957,7 +1965,7 @@ span.moneyCents {
     justify-content: space-between;
     font-size: 1.3em;
     margin-bottom: 15px;
-    font-weight: 600;
+    font-weight: 500;
     color: #898989;
 }
 

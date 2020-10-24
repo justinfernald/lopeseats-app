@@ -15,13 +15,11 @@ class PersonalInformation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            profileImage: props.registerDetails.profileImage,
-            showStudentNumberInput: false
+            profileImage: props.registerDetails.profileImage
         };
         this.firstNameRef = React.createRef();
         this.lastNameRef = React.createRef();
         this.emailRef = React.createRef();
-        this.studentNumberRef = React.createRef();
     }
 
     componentDidMount() { }
@@ -34,15 +32,11 @@ class PersonalInformation extends React.Component {
         let firstName = this.firstNameRef.current.value;
         let lastName = this.lastNameRef.current.value;
         let email = this.emailRef.current.value;
-        let studentNumber = this.studentNumberRef.current.value;
         let checkEmail = (mail) => {
             // eslint-disable-next-line
             return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
         };
 
-        if (!profileImage) {
-            errors.push("No profile picture added");
-        }
         if (firstName.length === 0) {
             errors.push("No first name added");
         }
@@ -52,16 +46,12 @@ class PersonalInformation extends React.Component {
         if (!checkEmail(email)) {
             errors.push("Email invalid");
         }
-        if (studentNumber.length !== 8) {
-            errors.push("Student number invalid");
-        }
 
         if (errors.length === 0) {
             store.dispatch(actions.setRegisterDetails({
                 firstName,
                 lastName,
                 email,
-                studentNumber,
                 profileImage,
                 phone: this.props.registerDetails.phone,
                 password: this.props.registerDetails.password,
@@ -77,7 +67,7 @@ class PersonalInformation extends React.Component {
     };
 
     render() {
-        var { firstName, lastName, studentNumber, email } = this.props.registerDetails;
+        var { firstName, lastName, email } = this.props.registerDetails;
         return (
             <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
@@ -87,11 +77,14 @@ class PersonalInformation extends React.Component {
                 />
                 <div className="registerStepBanner">Personal Information</div>
                 <div className="registerFormContainer flex alignCenter" style={{ justifyContent: "space-evenly" }}>
-                    <div className="uploaderContainer">
-                        <ImageUploader
-                            image={this.state.profileImage}
-                            onUpload={this.onUpload}
-                        />
+                    <div className="labeledInput">
+                        <div className="label">Profile Picture (Optional)</div>
+                        <div className="uploaderContainer" style={{marginLeft: "calc(50% - 70px)"}}>
+                            <ImageUploader
+                                image={this.state.profileImage}
+                                onUpload={this.onUpload}
+                            />
+                        </div>
                     </div>
                     <div className="labeledInput">
                         <div className="label">First Name</div>
@@ -117,7 +110,7 @@ class PersonalInformation extends React.Component {
                             placeholder="JThornburg@my.gcu.edu"
                         />
                     </div>
-                    <div className="labeledInput">
+                    {/* <div className="labeledInput">
                         <div className="label" style={{ float: "left" }}>Student Number</div><div className={css(styles.barcodeDisable)} onClick={() => this.setState((state) => ({ showStudentNumberInput: !state.showStudentNumberInput }))}>{this.state.showStudentNumberInput ? "Scanner" : "Self Input"}</div>
                         <Input
                             passedRef={this.studentNumberRef}
@@ -150,7 +143,7 @@ class PersonalInformation extends React.Component {
                                 </div>
                             </>
                             : null}
-                    </div>
+                    </div> */}
 
                 </div>
             </div >
@@ -158,13 +151,13 @@ class PersonalInformation extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    barcodeDisable: {
-        float: "right",
-        color: `var(--secondary)`,
-        textDecoration: "underline",
-        fontWeight: 500
-    }
-});
+// const styles = StyleSheet.create({
+//     barcodeDisable: {
+//         float: "right",
+//         color: `var(--secondary)`,
+//         textDecoration: "underline",
+//         fontWeight: 500
+//     }
+// });
 
 export default connect(({ registerDetails }) => ({ registerDetails }))(PersonalInformation);

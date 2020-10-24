@@ -4,6 +4,7 @@ import { setupBackEvent, loadState } from "../assets/scripts/Util";
 
 import LoginScreen from "./Authentication/LoginScreen";
 import RegisterRouter from "./Authentication/RegisterProcess/RegisterRouter";
+import UpdateRequiredScreen from "./Other/UpdateRequiredScreen";
 
 import {
     // updateFBToken,
@@ -17,6 +18,10 @@ import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
 import history from "../history";
 
+import RerunScript from "../assets/scripts/RerunScript";
+import ForgotPassword from "./Authentication/RecoveryProcess/ForgotPassword";
+import RecoveryCode from "./Authentication/RecoveryProcess/RecoveryCode";
+import NewPassword from "./Authentication/RecoveryProcess/NewPassword";
 class ScreenHandler extends React.Component {
     constructor(props) {
         super(props);
@@ -138,7 +143,12 @@ class ScreenHandler extends React.Component {
             <IonReactRouter history={history}>
                 <IonRouterOutlet>
                     <Switch>
+                        <Route exact path="/update" component={UpdateRequiredScreen} />
+                        {this.props.updateRequired ? <Redirect from="/" to="/update" /> : ""}
                         <Route exact path="/login" component={LoginScreen} />
+                        <Route exact path="/forgotPwd" component={ForgotPassword} />
+                        <Route exact path="/recovCode" component={RecoveryCode} />
+                        <Route exact path="/recovPwd" component={NewPassword} />
                         <Route path="/register" component={RegisterRouter} />
                         <Route path="/app" component={TabScreen} />
                         <Redirect exact from="/" to="/login" />
@@ -149,8 +159,9 @@ class ScreenHandler extends React.Component {
     }
 }
 
-const mapStateToProps = ({ apiToken }) => ({
+const mapStateToProps = ({ apiToken, updateRequired }) => ({
     apiToken,
+    updateRequired
 });
 
 export default connect(mapStateToProps)(ScreenHandler);

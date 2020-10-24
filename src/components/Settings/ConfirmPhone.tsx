@@ -6,7 +6,8 @@ import {
 
 type propType = {
     phoneNumber: string,
-    onNextStep: any
+    onNextStep: any,
+    verify: Function
 };
 
 type stateType = {
@@ -17,6 +18,7 @@ type stateType = {
 export default class ConfirmPhone extends React.Component<propType, stateType> {
 
     codeRef:any;
+    verify:Function;
 
     constructor(props: propType) {
         super(props);
@@ -26,6 +28,8 @@ export default class ConfirmPhone extends React.Component<propType, stateType> {
         };
 
         this.codeRef = React.createRef();
+
+        this.verify = this.props.verify || verifyCode;
     }
 
     onChange = async (e:any) => {
@@ -35,7 +39,7 @@ export default class ConfirmPhone extends React.Component<propType, stateType> {
             const code = e.target.value;
             this.setState({ code });
             if (code.length === 6) {        
-                if (await verifyCode(this.state.phone, code)) {
+                if (await this.verify(this.state.phone, code)) {
                     this.props.onNextStep(code);
                 } else {
                     showErrors(["Invalid Code"]);

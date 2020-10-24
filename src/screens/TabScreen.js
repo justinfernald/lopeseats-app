@@ -17,7 +17,7 @@ import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 
-import { restaurant, search, person } from "ionicons/icons";
+import { restaurant, home, person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
 import ProfileRouter from "./Customer/ProfileTab/ProfileRouter";
 
@@ -35,11 +35,11 @@ const MainScreen = (props) =>
             <IonPage id="app">
                 <IonTabs>
                     <IonRouterOutlet>
-                        <Route
+                        {/* <Route
                             path="/app/:tab(home)"
                             component={HomeScreen}
                             exact
-                        />
+                        /> */}
                         <Route
                             path="/app/:tab(restaurants)"
                             component={RestaurantsRouter}
@@ -66,19 +66,20 @@ const MainScreen = (props) =>
                             component={DelivererPayment}
                             exact
                         />
-                        <Redirect from="/app" to="/app/home" exact />
+                        <Redirect from="/app" to="/app/restaurants/details" exact />
+                        <Redirect from="/app/home" to="/app/restaurants/details" exact />
                     </IonRouterOutlet>
 
                     <IonTabBar slot="bottom" mode="md">
-                        <IonTabButton tab="home" href="/app/home">
+                        {/* <IonTabButton tab="home" href="/app/home">
                             <IonIcon
                                 icon={restaurant}
                                 style={{ width: "100%", height: "50%" }}
                             />
-                        </IonTabButton>
-                        <IonTabButton tab="restaurants" href="/app/restaurants">
+                        </IonTabButton> */}
+                        <IonTabButton tab="restaurants" href="/app/restaurants/details">
                             <IonIcon
-                                icon={search}
+                                icon={home}
                                 style={{ width: "100%", height: "53%" }}
                             />
                         </IonTabButton>

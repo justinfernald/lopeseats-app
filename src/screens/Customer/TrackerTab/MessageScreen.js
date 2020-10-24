@@ -41,10 +41,12 @@ class MessageScreen extends React.Component {
         this.listenerId = getMessageListener().addListener(() => {
             this.fetchData();
         });
+        this.intId = setInterval(() => this.fetchData(), 5000);
     }
 
     componentWillUnmount() {
         getMessageListener().removeListener(this.listenerId);
+        clearInterval(this.intId);
     }
 
     async fetchData() {
@@ -68,7 +70,6 @@ class MessageScreen extends React.Component {
                 messages,
             });
 
-            this.forceUpdate();
             this.messageEnd.scrollIntoView();
         }
     }

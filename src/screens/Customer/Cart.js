@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "../../App.css";
 import {
     getCart,
@@ -22,6 +22,7 @@ class Cart extends React.Component {
             tax: 0,
             total: 0,
             fee: 0,
+            needPayment: false,
             canOrder: true,
             msg: ""
         };
@@ -42,7 +43,9 @@ class Cart extends React.Component {
             total: prices.total,
             tax: prices.tax,
             fee: prices.delivery_fee,
-            canOrder: true,
+            needPayment: prices.need_payment,
+            // canOrder: true,
+            canOrder: prices.can_order,
             msg: prices.msg
         });
     }
@@ -160,29 +163,49 @@ class Cart extends React.Component {
                         Tax & fees
                         <span className="price">${formatPrice(this.state.tax)}</span>
                     </div>
-                    <div className="total">
-                        Total (Dining Dollars)
-                        <span className="price">
-                            ${formatPrice(this.state.total)}
-                        </span>
-                    </div>
 
-                    <div className="total">
-                        Delivery Fee
-                        <span className="price">${formatPrice(this.state.fee)}</span>
-                    </div>
+                    {this.state.needPayment ?
+                        <Fragment>
+                            <div className="total">
+                                Delivery Fee
+                            <span className="price">${formatPrice(this.state.fee)}</span>
+                            </div>
+
+                            <div className="total">
+                                Total
+                            <span className="price">
+                                    ${formatPrice(this.state.total)}
+                                </span>
+                            </div>
+                        </Fragment>
+                        :
+                        <Fragment>
+                            <div className="total">
+                                Total (Dining Dollars)
+                            <span className="price">
+                                    ${formatPrice(this.state.total)}
+                                </span>
+                            </div>
+
+                            <div className="total">
+                                Delivery Fee
+                            <span className="price">${formatPrice(this.state.fee)}</span>
+                            </div>
+                        </Fragment>
+                    }
+
                     {
-                    !this.state.canOrder ?
-                    <div className={css(styles.discl)}>
-                        <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
-                            info
+                        !this.state.canOrder ?
+                            <div className={css(styles.discl)}>
+                                <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
+                                    info
                         </span>
-                        <span style={{ textAlign: "left" }}>
-                            {this.state.msg}
-                        </span>
-                    </div>
-                    :
-                    ""
+                                <span style={{ textAlign: "left" }}>
+                                    {this.state.msg}
+                                </span>
+                            </div>
+                            :
+                            ""
                     }
                     <button
                         className="checkoutButton"
@@ -200,7 +223,7 @@ export default connect(({ apiToken }) => ({ apiToken }))(Cart);
 
 const styles = StyleSheet.create({
     discl: {
-        color: "white",
+        color: "black",
         margin: "5px 0 10px 0",
         textAlign: "center",
         width: "100%",
