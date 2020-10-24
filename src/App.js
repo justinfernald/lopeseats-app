@@ -63,7 +63,7 @@ class App extends React.Component {
         this.setState({ darkTheme });
     }
 
-    onMount() {
+    onMount = () => {
         if (!this.props.deliveryModeActive) return;
         this.interval = setInterval(() => RerunScript(), 10 * 1000)
     }
@@ -75,6 +75,7 @@ class App extends React.Component {
     }
 
     componentWillUnmount() {
+        console.log("unmounted")
         clearInterval(this.interval);
     }
 
@@ -304,8 +305,9 @@ class App extends React.Component {
     }
 }
 
-export default connect(({ apiToken, overlay, overlayEnabled }) => ({
+export default connect(({ apiToken, overlay, overlayEnabled, deliveryModeActive }) => ({
     apiToken,
     overlay,
-    overlayEnabled
+    overlayEnabled,
+    deliveryModeActive
 }))(App);

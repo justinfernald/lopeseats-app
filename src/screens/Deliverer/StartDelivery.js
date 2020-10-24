@@ -196,18 +196,19 @@ class StartDelivery extends React.Component {
                 1000
             );
         }
-    }
-
-    componentDidUpdate(prevProps) {
 
         if (!this.state.hasDelivered && !this.props.delivererGuideViewed) {
             window.open("https://www.getlopeseat.com/runners", "_blank");
             store.dispatch(actions.setDelivererGuideViewed(true));
         }
+    }
+
+    componentDidUpdate(prevProps) {
         if (!this._isMounted) {
             clearInterval(this.timeUpdateInterval);
             return;
         }
+
         if (this.props.activeOrderCount > 0) {
             this.props.history.push("/app/deliverer/activeOrders");
             return;

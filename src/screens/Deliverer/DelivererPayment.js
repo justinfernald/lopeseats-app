@@ -78,15 +78,15 @@ class DelivererPayment extends React.Component {
             let parent = this.barcodeContainerRef.current.firstElementChild;
             let child = parent.firstElementChild;
             if (!child) return;
-            let rects = child.children;
-            for (let i = 0; i < rects.length; i++) {
-                let rect = rects[i];
-                let color = "" + Math.round(Math.sin((offset + i) * 0.5) * 40);
-                for (let j = 0; j < 2 - color.length; j++) {
-                    color = "0" + color;
-                }
-                rect.style.background = "#" + color + color + color;
-            }
+            // let rects = child.children;
+            // for (let i = 0; i < rects.length; i++) {
+            //     let rect = rects[i];
+            //     let color = "" + Math.round(Math.sin((offset + i) * 0.5) * 40);
+            //     for (let j = 0; j < 2 - color.length; j++) {
+            //         color = "0" + color;
+            //     }
+            //     rect.style.background = "#" + color + color + color;
+            // }
             offset++;
             this.barcodeContainerRef.current.style.background =
                 "linear-gradient(" +
