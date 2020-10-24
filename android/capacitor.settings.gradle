@@ -4,3 +4,6 @@ project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/
 
 include ':capacitor-community-fcm'
 project(':capacitor-community-fcm').projectDir = new File('../node_modules/@capacitor-community/fcm/android')
+
+include ':capacitor-community-firebase-analytics'
+project(':capacitor-community-firebase-analytics').projectDir = new File('../node_modules/@capacitor-community/firebase-analytics/android')
