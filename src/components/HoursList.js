@@ -28,7 +28,7 @@ export const isOpen = (restaurantData) => {
 
         if (!open && restaurantData.hours[pastDay]) {
             let pastHours = restaurantData.hours[pastDay].hours;
-            
+
             if (pastHours.length === 0)
                 return false;
 
@@ -65,10 +65,12 @@ export default class HoursList extends React.Component {
 
     formatTime(time) {
         let splitTime = time.split(":");
-        let hourTime = parseInt(splitTime[0]);
+        let hourTime = parseInt(splitTime[0]) % 24;
+        if (hourTime === 12) return "12:" + splitTime[1] + " PM"
         if (hourTime > 12) {
             return hourTime - 12 + ":" + splitTime[1] + " PM"
         }
+        if (hourTime === 0) hourTime += 12;
         return hourTime + ":" + splitTime[1] + " AM"
     }
 

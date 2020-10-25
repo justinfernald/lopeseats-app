@@ -158,6 +158,26 @@ export const getMenu = async (restaurantID) => {
     }
 };
 
+export const getCategories = async (restaurantID) => {
+    try {
+        return await postData(
+            "https://lopeseat.com/REST/menu/getCategories.php?rid=" + restaurantID
+        );
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export const getCategoryItems = async (categoryID) => {
+    try {
+        return await postData(
+            "https://lopeseat.com/REST/menu/getCategoryItems.php?rid=" + categoryID
+        );
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export const addCartItem = async (apiToken, id, amount, comment, items) => {
     for (let i = 0; i < amount; i++)
         console.log(JSON.stringify(items));

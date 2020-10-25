@@ -5,7 +5,7 @@ import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { getRestaurant, getMenu, formatPrice } from "../../../assets/scripts/Util";
+import { getRestaurant, getMenu, formatPrice, getCategories } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
 
 class RestaurantDetails extends React.Component {
@@ -31,6 +31,7 @@ class RestaurantDetails extends React.Component {
         } else {
             this.state.restaurantData.hours = props.selectedRestaurant.hours;
             this.state.restaurantData.food = props.selectedMenu;
+            this.state.restaurantData.categories = props.selectedRestaurantCategories;
         }
     }
 
@@ -41,14 +42,17 @@ class RestaurantDetails extends React.Component {
             return;
         }
         const menu = await getMenu(id);
+        var restaurantCategories = await getCategories(62);
         this.setState({
             restaurantData: {
                 hours: restaurant.hours,
                 food: menu,
+                categories: restaurantCategories,
             },
         });
         store.dispatch(actions.setSelectedRestaurant(restaurant));
         store.dispatch(actions.setSelectedMenu(menu));
+        store.dispatch(actions.setSelectedRestaurantCategories(restaurantCategories));
     }
 
     componentDidMount() { }
@@ -110,6 +114,7 @@ class RestaurantDetails extends React.Component {
                                     .filter((x) => x.featured === "1")
                                     .map((x, index) => (
                                         <div
+
                                             key={index}
                                             className="featuredFoodItem"
                                             onClick={() => this.openItem(x)}
@@ -131,7 +136,16 @@ class RestaurantDetails extends React.Component {
                                 <div className="scrollCapFill"></div>
                             </div>
                         </div>
-
+                        <div className={css(styles.categoriesWrapper)}>
+                            <div>
+                                Categories
+                            </div>
+                            <div className={css(styles.categories)}>
+                                {this.props.selectedRestaurantCategories.map((category, index) => (
+                                    <Category {...category} key={index} />
+                                ))}
+                            </div>
+                        </div>
                         <div className="fullMenu">
                             <div className="title">All Items</div>
 
@@ -165,13 +179,61 @@ class RestaurantDetails extends React.Component {
     }
 }
 
+const Category = ({ name, image, id }) => {
+    return <div className={css(styles.category)}>
+        <div className={css(styles.categoryImageWrapper)}><img className={css(styles.categoryImage)} src={image}></img></div>
+        <div className={css(styles.categoryName)}>{name}</div>
+    </div>
+}
+
 const styles = StyleSheet.create({
     contentWrapper: {
         padding: 10,
     },
+    categoriesWrapper: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "50px",
+        boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
+        width: "100%",
+        padding: "10px",
+        borderRadius: "5px",
+        position: "relative",
+        marginTop: "10px"
+    },
+    categories: {
+        borderTop: "2px solid #ddd",
+        display: "flex",
+        flexDirection: "horizontal",
+        alignItems: "center",
+        width: "100%"
+    },
+    category: {
+        width: "50%",
+        paddingTop: "50%",
+        overflow: "hidden",
+        position: "relative"
+    },
+    categoryImageWrapper: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+    },
+    categoryImage: {
+        objectFit: "cover",
+        height: "100%",
+        width: "100%"
+    },
+    categoryName: {
+        position: "absolute"
+    }
 });
 
-export default connect(({ selectedRestaurant, selectedMenu }) => ({
+export default connect(({ selectedRestaurant, selectedMenu, selectedRestaurantCategories }) => ({
     selectedRestaurant,
     selectedMenu,
+    selectedRestaurantCategories
 }))(RestaurantDetails);

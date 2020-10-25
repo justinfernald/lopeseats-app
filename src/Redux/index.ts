@@ -50,6 +50,7 @@ const initialState = {
     // Restaurant Details
     selectedRestaurant: null,
     selectedMenu: null,
+    selectedRestaurantCategories: null,
     currentOrder: -1,
     // Messaging
     messageOrderId: -1,
@@ -169,6 +170,12 @@ const reducers = {
     },
     unsetSelectedMenu: (state: any) => {
         state.selectedMenu = null;
+    },
+    setSelectedRestaurantCategories: (state: any, { payload: newSelectedRestaurantCategories}: {payload: [any]}) => {
+        state.selectedRestaurantCategories = newSelectedRestaurantCategories;
+    },
+    unsetSelectedRestaurantCategories: (state: any) => {
+        state.selectedRestaurantCategories = null;
     },
     //currentOrder
     setCurrentOrder: (
