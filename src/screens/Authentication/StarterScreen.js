@@ -1,64 +1,114 @@
-import React from 'react';
+import React from "react";
 import { IonPage } from "@ionic/react";
 import { css, StyleSheet } from "aphrodite/no-important";
 import SlideShow from "../../components/SlideShow";
-import Slide from '../../components/Slide';
+import Slide from "../../components/Slide";
+import Icontwo from "../../assets/images/icon-two.png";
+import Iconone from "../../assets/images/icon-one.png";
+import Iconthree from "../../assets/images/icon-three.png";
 
 export default class StartScreen extends React.Component {
-
-    render() {
-        return (
-            <IonPage style={{height: "100%"}}>
-                <div className={css(styles.container)}>
-                    <SlideShow delay={5}>
-                        <Slide>
-                            <div className={css(styles.slideContainer)}>
-                                This is a test. Page 1
-                            </div>
-                        </Slide>
-                        <Slide>
-                            <div className={css(styles.slideContainer)}>
-                                Hello world. Page 2
-                            </div>
-                        </Slide>
-                        <Slide>
-                            <div className={css(styles.slideContainer)}>
-                                This is page 3......
-                            </div>
-                        </Slide>
-                    </SlideShow>
-
-                    <div className={css(styles.firstTimeButton)} onClick={() => this.props.history.push("/register")}>New to The Heard</div>
-                    <dir className={css(styles.returningButton)} onClick={() => this.props.history.push("/login")}>I Have an Account</dir>
+  render() {
+    return (
+      <IonPage style={{ height: "80%" }}>
+        <div className={css(styles.container)}>
+          <SlideShow delay={3}>
+            <Slide>
+              <div className={css(styles.slideContainer)}>
+                <div className="starterCard">
+                  <div className="loginImageStart">
+                    <img
+                      alt="LopesEat Logo"
+                      src={Icontwo}
+                      className="imageFill"
+                    />
+                  </div>
+                  <div className="starterTitle">Fast Delivery</div>
+                  <div className="starterText">
+                    Snacks delivered under 10 minutes or less, right to the
+                    comfort of your dorm.
+                  </div>
                 </div>
-            </IonPage>
-        );
-    }
-
+              </div>
+            </Slide>
+            <Slide>
+              <div className={css(styles.slideContainer)}>
+                <div className="starterCard">
+                  <div className="loginImageStart">
+                    <img
+                      alt="LopesEat Logo"
+                      src={Iconone}
+                      className="imageFill"
+                    />
+                  </div>
+                  <div className="starterTitle">Affordable</div>
+                  <div className="starterText">
+                    Most convenient and affordable prices for your everyday
+                    needs!
+                  </div>
+                </div>
+              </div>
+            </Slide>
+            <Slide>
+              <div className={css(styles.slideContainer)}>
+                <div className="starterCard">
+                  <div className="loginImageStart">
+                    <img
+                      alt="LopesEat Logo"
+                      src={Iconthree}
+                      className="imageFill"
+                    />
+                  </div>
+                  <div className="starterTitle">Late Delivering</div>
+                  <div className="starterText">
+                    Delivering 1PM all the way till 2AM at night!
+                  </div>
+                </div>
+              </div>
+            </Slide>
+          </SlideShow>
+          <div style={{ height: "5%" }}></div>
+          <div
+            className="signUpButton"
+            onClick={() => this.props.history.push("/register")}
+          >
+            New to The Herd
+          </div>
+          <dir
+            className="signInButton"
+            onClick={() => this.props.history.push("/login")}
+          >
+            I Have an Account
+          </dir>
+        </div>
+      </IonPage>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        textAlign: "center"
-    },
-    slideContainer: {
-        padding: "30px 0"
-    },
-    firstTimeButton: {
-        margin: "10px 20px",
-        padding: "10px",
-        borderRadius: "5px",
-        border: "2px solid black"
-    },
-    returningButton: {
-        margin: "10px 20px",
-        padding: "10px",
-        borderRadius: "5px",
-        border: "2px solid black"
-    }
+  container: {
+    marginTop: "15%",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  slideContainer: {
+    padding: "10px 0",
+  },
+  firstTimeButton: {
+    margin: "10px 20px",
+    padding: "10px",
+    borderRadius: "5px",
+    border: "2px solid black",
+  },
+  returningButton: {
+    margin: "10px 20px",
+    padding: "10px",
+    borderRadius: "5px",
+    border: "2px solid black",
+  },
 });
