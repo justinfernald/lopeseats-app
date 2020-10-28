@@ -5,6 +5,7 @@ import { setupBackEvent, loadState } from "../assets/scripts/Util";
 import LoginScreen from "./Authentication/LoginScreen";
 import RegisterRouter from "./Authentication/RegisterProcess/RegisterRouter";
 import UpdateRequiredScreen from "./Other/UpdateRequiredScreen";
+import StarterScreen from "./Authentication/StarterScreen";
 
 import {
     // updateFBToken,
@@ -146,12 +147,13 @@ class ScreenHandler extends React.Component {
                         <Route exact path="/update" component={UpdateRequiredScreen} />
                         {this.props.updateRequired ? <Redirect from="/" to="/update" /> : ""}
                         <Route exact path="/login" component={LoginScreen} />
+                        <Route exact path="/start" component={StarterScreen} />
                         <Route exact path="/forgotPwd" component={ForgotPassword} />
                         <Route exact path="/recovCode" component={RecoveryCode} />
                         <Route exact path="/recovPwd" component={NewPassword} />
                         <Route path="/register" component={RegisterRouter} />
                         <Route path="/app" component={TabScreen} />
-                        <Redirect exact from="/" to="/login" />
+                        <Redirect exact from="/" to="/start" />
                     </Switch>
                 </IonRouterOutlet>
             </IonReactRouter>

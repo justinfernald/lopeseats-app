@@ -8,8 +8,9 @@ import {
 
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import BarcodeScannerComponent from "react-webcam-barcode-scanner";
-import { css, StyleSheet } from "aphrodite/no-important"
+import Phone from "../../../assets/images/phone-icon.png";
+// import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+// import { css, StyleSheet } from "aphrodite/no-important"
 
 class PersonalInformation extends React.Component {
     constructor(props) {
@@ -20,6 +21,7 @@ class PersonalInformation extends React.Component {
         this.firstNameRef = React.createRef();
         this.lastNameRef = React.createRef();
         this.emailRef = React.createRef();
+        this.phoneNumberRef = React.createRef();
     }
 
     componentDidMount() { }
@@ -67,7 +69,7 @@ class PersonalInformation extends React.Component {
     };
 
     render() {
-        var { firstName, lastName, email } = this.props.registerDetails;
+        var { firstName, lastName, email, phone } = this.props.registerDetails;
         return (
             <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
@@ -108,6 +110,17 @@ class PersonalInformation extends React.Component {
                             passedRef={this.emailRef}
                             defaultValue={email}
                             placeholder="JThornburg@my.gcu.edu"
+                        />
+                    </div>
+                    <div className="labeledInput">
+                        <div className="label">Verify Phone Number</div>
+                        <Input
+                            passedRef={this.phoneNumberRef}
+                            defaultValue={phone}
+                            icon={Phone}
+                            autoComplete="current-phone"
+                            placeholder="Phone Number"
+                            type="tel"
                         />
                     </div>
                     {/* <div className="labeledInput">

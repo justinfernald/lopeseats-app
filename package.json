@@ -48,6 +48,7 @@
         "react-webcam-barcode-scanner": "0.0.2-rc2",
         "redux-logger": "^3.0.6",
         "redux-persist": "^6.0.0",
+        "scroll-snap": "^3.1.0",
         "typescript": "^3.9.7"
     },
     "scripts": {

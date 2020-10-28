@@ -1184,6 +1184,10 @@ input:-webkit-autofill:active {
     display: none;
 }
 
+.noScrollBar::-webkit-scrollbar {
+    display: none;
+}
+
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem {
     width: 38%;
     margin: 10px;
