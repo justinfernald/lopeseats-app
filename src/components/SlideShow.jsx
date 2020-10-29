@@ -59,7 +59,7 @@ export default class SlideShow extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={this.props.style}>
                 <div className={css(styles.container) + " noScrollBar"} ref={this.containerRef}>
                     <div className={css(styles.scroller)} ref={this.scrollerRef} style={{width: this.props.children.length + "00%"}}>
                         {this.props.children}
@@ -76,12 +76,13 @@ export default class SlideShow extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: "fit-content",
+        height: "100%",
         width: "100%",
         overflowX: "scroll",
         scrollBehavior: "smooth"
     },
     scroller: {
+        height: "100%",
         display: "flex",
         flexDirection: "row"
     },
@@ -89,7 +90,9 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        margin: "30px 30%"
+        margin: "0 30%",
+        height: "5%",
+        minHeight: "12px"
     },
     dot: {
         width: "12px",

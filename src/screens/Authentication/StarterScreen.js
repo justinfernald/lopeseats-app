@@ -8,11 +8,12 @@ import Iconone from "../../assets/images/icon-one.png";
 import Iconthree from "../../assets/images/icon-three.png";
 
 export default class StartScreen extends React.Component {
+
   render() {
     return (
-      <IonPage style={{ height: "80%" }}>
+      <IonPage style={{ height: "100%" }}>
         <div className={css(styles.container)}>
-          <SlideShow delay={3}>
+          <SlideShow delay={5} style={{maxHeight: "70%"}}>
             <Slide>
               <div className={css(styles.slideContainer)}>
                 <div className="starterCard">
@@ -20,7 +21,7 @@ export default class StartScreen extends React.Component {
                     <img
                       alt="LopesEat Logo"
                       src={Icontwo}
-                      className="imageFill"
+                      className={css(styles.image) + " imageFill"}
                     />
                   </div>
                   <div className="starterTitle">Fast Delivery</div>
@@ -38,7 +39,7 @@ export default class StartScreen extends React.Component {
                     <img
                       alt="LopesEat Logo"
                       src={Iconone}
-                      className="imageFill"
+                      className={css(styles.image) + " imageFill"}
                     />
                   </div>
                   <div className="starterTitle">Affordable</div>
@@ -56,7 +57,7 @@ export default class StartScreen extends React.Component {
                     <img
                       alt="LopesEat Logo"
                       src={Iconthree}
-                      className="imageFill"
+                      className={css(styles.image) + " imageFill"}
                     />
                   </div>
                   <div className="starterTitle">Late Delivering</div>
@@ -88,7 +89,6 @@ export default class StartScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "15%",
     width: "100%",
     height: "100%",
     display: "flex",
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   },
   slideContainer: {
     padding: "10px 0",
+    height: "100%",
   },
   firstTimeButton: {
     margin: "10px 20px",
@@ -111,4 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: "5px",
     border: "2px solid black",
   },
+  image: {
+    width: "auto !important"
+  }
 });

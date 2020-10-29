@@ -174,9 +174,13 @@ input:-webkit-autofill:active {
   max-width: 200px;
 }
 .loginImageStart {
-  margin: 10%;
-  padding: 40px;
+  height: calc(100% - 125px);
 }
+
+.starterCard {
+  height: 100%;
+}
+
 .starterText {
   font-size: 1em;
   color: black;
@@ -184,12 +188,14 @@ input:-webkit-autofill:active {
   text-align: center;
   padding-right: 5%;
   padding-left: 5%;
+  height: 75px;
 }
 .starterTitle {
   font-size: 2em;
   color: #940000;
   font-weight: 1000;
   text-align: center;
+  height: 50px;
 }
 .imageFill {
   width: 100%;
@@ -212,6 +218,15 @@ input:-webkit-autofill:active {
 
 .loginForm::-webkit-scrollbar {
   display: none;
+}
+
+.scrollForm {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 0;
 }
 
 .signInText {
@@ -410,7 +425,7 @@ input:-webkit-autofill:active {
 }
 
 .registerFormContainer {
-  padding: 30px 30px 0 30px;
+  padding: 0px 30px;
   display: flex;
   flex-direction: column;
   height: 100%;

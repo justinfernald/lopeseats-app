@@ -32,7 +32,7 @@ class PhoneConfirm extends React.Component {
         return (
             <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
-                    step={{ part: 3, total: 3 }}
+                    step={{ part: 2, total: 2 }}
                     noBack
                     onNextStep={null}
                 />

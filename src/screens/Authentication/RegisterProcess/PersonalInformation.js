@@ -4,7 +4,10 @@ import ImageUploader from "./ImageUploader";
 import Input from "../../../components/Input";
 import {
     showErrors,
+    phoneNumberTaken,
+    registerAccount,
 } from "../../../assets/scripts/Util";
+import { Checkbox } from '@material-ui/core';
 
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
@@ -22,22 +25,37 @@ class PersonalInformation extends React.Component {
         this.lastNameRef = React.createRef();
         this.emailRef = React.createRef();
         this.phoneNumberRef = React.createRef();
+        this.checkRef = React.createRef();
     }
 
     componentDidMount() { }
 
     componentWillUnmount() { }
 
-    onNextStep = () => {
+    onNextStep = async () => {
         let errors = [];
         let profileImage = this.state.profileImage;
         let firstName = this.firstNameRef.current.value;
         let lastName = this.lastNameRef.current.value;
         let email = this.emailRef.current.value;
+        let phone = this.phoneNumberRef.current.value;
         let checkEmail = (mail) => {
             // eslint-disable-next-line
             return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
         };
+
+        let isPhoneNumber = (input) => {
+            let phoneRegex = /^\d{10}$/;
+            return input.match(phoneRegex);
+        };
+
+        if (!isPhoneNumber(phone)) {
+            errors.push("Invalid Phone Number");
+        }
+
+        if (errors.length === 0 && (await phoneNumberTaken(phone))) {
+            errors.push("Phone number is taken. Try logging in.");
+        }
 
         if (firstName.length === 0) {
             errors.push("No first name added");
@@ -48,6 +66,10 @@ class PersonalInformation extends React.Component {
         if (!checkEmail(email)) {
             errors.push("Email invalid");
         }
+        
+        if (!this.checkRef.current.checked) {
+            showErrors(["Please agree to the terms"]);
+        }
 
         if (errors.length === 0) {
             store.dispatch(actions.setRegisterDetails({
@@ -55,10 +77,24 @@ class PersonalInformation extends React.Component {
                 lastName,
                 email,
                 profileImage,
-                phone: this.props.registerDetails.phone,
+                phone,
                 password: this.props.registerDetails.password,
             }));
-            this.props.history.push("/register/agree");
+            let result = await registerAccount(
+                phone,
+                firstName,
+                lastName,
+                email,
+                0,
+                this.props.registerDetails.password,
+                profileImage
+            );
+            if (result.success) {
+                this.props.history.push("/register/confirm");
+            } else {
+                this.props.history.go(-2);
+                showErrors([result.msg]);
+            }
         } else {
             showErrors(errors);
         }
@@ -73,55 +109,64 @@ class PersonalInformation extends React.Component {
         return (
             <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
-                    step={{ part: 1, total: 4 }}
+                    step={{ part: 1, total: 2 }}
                     onNextStep={this.onNextStep}
                     onBackStep={this.props.history.goBack}
                 />
                 <div className="registerStepBanner">Personal Information</div>
                 <div className="registerFormContainer flex alignCenter" style={{ justifyContent: "space-evenly" }}>
-                    <div className="labeledInput">
-                        <div className="label">Profile Picture (Optional)</div>
-                        <div className="uploaderContainer" style={{marginLeft: "calc(50% - 70px)"}}>
-                            <ImageUploader
-                                image={this.state.profileImage}
-                                onUpload={this.onUpload}
+                    <div className="scrollForm flex alignCenter">
+                        <div className="labeledInput">
+                            <div className="label">Profile Picture (Optional)</div>
+                            <div className="uploaderContainer" style={{marginLeft: "calc(50% - 70px)"}}>
+                                <ImageUploader
+                                    image={this.state.profileImage}
+                                    onUpload={this.onUpload}
+                                />
+                            </div>
+                        </div>
+                        <div className="labeledInput">
+                            <div className="label">First Name</div>
+                            <Input
+                                passedRef={this.firstNameRef}
+                                defaultValue={firstName}
+                                placeholder="Joshua"
                             />
                         </div>
-                    </div>
-                    <div className="labeledInput">
-                        <div className="label">First Name</div>
-                        <Input
-                            passedRef={this.firstNameRef}
-                            defaultValue={firstName}
-                            placeholder="Joshua"
-                        />
-                    </div>
-                    <div className="labeledInput">
-                        <div className="label">Last Name</div>
-                        <Input
-                            passedRef={this.lastNameRef}
-                            defaultValue={lastName}
-                            placeholder="Thornburg"
-                        />
-                    </div>
-                    <div className="labeledInput">
-                        <div className="label">Email</div>
-                        <Input
-                            passedRef={this.emailRef}
-                            defaultValue={email}
-                            placeholder="JThornburg@my.gcu.edu"
-                        />
-                    </div>
-                    <div className="labeledInput">
-                        <div className="label">Verify Phone Number</div>
-                        <Input
-                            passedRef={this.phoneNumberRef}
-                            defaultValue={phone}
-                            icon={Phone}
-                            autoComplete="current-phone"
-                            placeholder="Phone Number"
-                            type="tel"
-                        />
+                        <div className="labeledInput">
+                            <div className="label">Last Name</div>
+                            <Input
+                                passedRef={this.lastNameRef}
+                                defaultValue={lastName}
+                                placeholder="Thornburg"
+                            />
+                        </div>
+                        <div className="labeledInput">
+                            <div className="label">Email</div>
+                            <Input
+                                passedRef={this.emailRef}
+                                defaultValue={email}
+                                placeholder="JThornburg@my.gcu.edu"
+                            />
+                        </div>
+                        <div className="labeledInput">
+                            <div className="label">Verify Phone Number</div>
+                            <Input
+                                passedRef={this.phoneNumberRef}
+                                defaultValue={phone}
+                                icon={Phone}
+                                autoComplete="current-phone"
+                                placeholder="Phone Number"
+                                type="tel"
+                            />
+                        </div>
+                        <span style={{ textAlign: "center", marginBottom: "40px" }}>
+                            Please read and agree to our terms and conditions: <a style={{ color: "blue" }} href="https://www.getlopeseat.com/terms-and-condition" target="_blank">Terms and Conditions</a>
+                        </span>
+                        <span>
+                            <Checkbox color="secondary" inputRef={this.checkRef} />
+                            I agree to the terms listed above.
+                        </span>
                     </div>
                     {/* <div className="labeledInput">
                         <div className="label" style={{ float: "left" }}>Student Number</div><div className={css(styles.barcodeDisable)} onClick={() => this.setState((state) => ({ showStudentNumberInput: !state.showStudentNumberInput }))}>{this.state.showStudentNumberInput ? "Scanner" : "Self Input"}</div>
