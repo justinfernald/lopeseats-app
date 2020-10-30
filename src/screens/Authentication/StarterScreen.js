@@ -13,7 +13,7 @@ export default class StartScreen extends React.Component {
     return (
       <IonPage style={{ height: "100%" }}>
         <div className={css(styles.container)}>
-          <SlideShow delay={5} style={{maxHeight: "70%"}}>
+          <SlideShow delay={30} style={{maxHeight: "70%"}}>
             <Slide>
               <div className={css(styles.slideContainer)}>
                 <div className="starterCard">

@@ -164,19 +164,19 @@ class LoginScreen extends React.Component {
     return (
       <IonPage>
         <div className="loginWrapper">
-          <div className="formSwitchButton" onClick={this.formSwitch}>
-            REGISTER
-          </div>
-          <div className="loginImage">
+          {/* <div className="loginImage">
             <img alt="LopesEat Logo" src={LopesEatLogo} className="imageFill" />
+          </div> */}
+          <div className = "loginHeader">
           </div>
-          <div className="loginForm">
-            <div className="SignUpText">
-              <span>SIGN IN</span>
+            <div className="signUpText">
+              <span>Sign In</span>
+            </div>
+            <div className="formSwitchButton" onClick={this.formSwitch}>
+              REGISTER
             </div>
             <div className="inputWrap">
               <Input
-                icon={Phone}
                 passedRef={this.phoneNumberRef}
                 autoComplete="current-phone"
                 placeholder="Phone Number"
@@ -185,7 +185,6 @@ class LoginScreen extends React.Component {
               <Input
                 className="forgot"
                 passedRef={this.passwordRef}
-                icon={Lock}
                 showHidden={!this.state.showPassword ? "off" : "on"}
                 onShow={this.toggleShowPassword}
                 autoComplete="current-password"
@@ -201,7 +200,6 @@ class LoginScreen extends React.Component {
                 Sign In
               </button>
             </div>
-          </div>
         </div>
       </IonPage>
     );

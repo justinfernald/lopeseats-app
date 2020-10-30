@@ -398,6 +398,8 @@ const styles = StyleSheet.create({
     buttonContainer: {
         display: "flex",
         alignItems: "center",
+        fontSize: ".7em",
+
     },
     statusChangeButton: {
         flex: 1,
