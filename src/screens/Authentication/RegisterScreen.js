@@ -82,9 +82,9 @@ export default class RegisterScreen extends React.Component {
         }
     };
 
-    proceedRegistration = (phone, password) => {
+    proceedRegistration = (phoneNumber, password) => {
         store.dispatch(actions.setRegisterDetails({
-            phone,
+            phoneNumber,
             password,
         }));
         this.props.history.push("/register/info");

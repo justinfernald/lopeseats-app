@@ -38,7 +38,7 @@ class PersonalInformation extends React.Component {
         let firstName = this.firstNameRef.current.value;
         let lastName = this.lastNameRef.current.value;
         let email = this.emailRef.current.value;
-        let phone = this.phoneNumberRef.current.value;
+        let phoneNumber = this.phoneNumberRef.current.value;
         let checkEmail = (mail) => {
             // eslint-disable-next-line
             return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
@@ -49,11 +49,11 @@ class PersonalInformation extends React.Component {
             return input.match(phoneRegex);
         };
 
-        if (!isPhoneNumber(phone)) {
+        if (!isPhoneNumber(phoneNumber)) {
             errors.push("Invalid Phone Number");
         }
 
-        if (errors.length === 0 && (await phoneNumberTaken(phone))) {
+        if (errors.length === 0 && (await phoneNumberTaken(phoneNumber))) {
             errors.push("Phone number is taken. Try logging in.");
         }
 
@@ -77,11 +77,11 @@ class PersonalInformation extends React.Component {
                 lastName,
                 email,
                 profileImage,
-                phone,
+                phoneNumber,
                 password: this.props.registerDetails.password,
             }));
             let result = await registerAccount(
-                phone,
+                phoneNumber,
                 firstName,
                 lastName,
                 email,
@@ -105,7 +105,7 @@ class PersonalInformation extends React.Component {
     };
 
     render() {
-        var { firstName, lastName, email, phone } = this.props.registerDetails;
+        var { firstName, lastName, email, phoneNumber } = this.props.registerDetails;
         return (
             <div className="flexDisplay fillHeight margin-fix-top padding-fix-bottom">
                 <RegisterStep
@@ -153,7 +153,7 @@ class PersonalInformation extends React.Component {
                             <div className="label">Verify Phone Number</div>
                             <Input
                                 passedRef={this.phoneNumberRef}
-                                defaultValue={phone}
+                                defaultValue={phoneNumber}
                                 icon={Phone}
                                 autoComplete="current-phone"
                                 placeholder="Phone Number"
