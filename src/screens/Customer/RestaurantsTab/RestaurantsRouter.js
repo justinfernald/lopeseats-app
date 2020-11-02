@@ -8,6 +8,7 @@ import ItemOptions from "./ItemOptions";
 import Cart from "../Cart";
 import DeliveryDetails from "./DeliveryDetails";
 import CheckoutScreen from "./CheckoutScreen";
+import Category from "./Category";
 
 export default function RestaurantsRouter() {
     return (
@@ -28,6 +29,11 @@ export default function RestaurantsRouter() {
                         exact
                         path="/app/restaurants/details/:id"
                         component={RestaurantDetails}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/category/:id"
+                        component={Category}
                     />
                     <Route
                         exact

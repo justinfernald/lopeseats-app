@@ -85,6 +85,10 @@ class RestaurantDetails extends React.Component {
         this.props.history.push("/app/restaurants/item");
     };
 
+    openCategory = (categoryId) => {
+        this.props.history.push("/app/restaurants/category/" + categoryId);
+    }
+
     render() {
         if (!this.state.restaurantData.food) return null;
         return (
@@ -137,12 +141,12 @@ class RestaurantDetails extends React.Component {
                             </div>
                         </div>
                         <div className={css(styles.categoriesWrapper)}>
-                            <div>
+                            <div className={css(styles.sectionName)}>
                                 Categories
                             </div>
                             <div className={css(styles.categories)}>
-                                {this.props.selectedRestaurantCategories.map((category, index) => (
-                                    <Category {...category} key={index} />
+                                {this.props.selectedRestaurantCategories && this.props.selectedRestaurantCategories.map((category, index) => (
+                                    <Category {...category} key={index} onClick={() => this.openCategory(category.id)} />
                                 ))}
                             </div>
                         </div>
@@ -179,16 +183,22 @@ class RestaurantDetails extends React.Component {
     }
 }
 
-const Category = ({ name, image, id }) => {
-    return <div className={css(styles.category)}>
+const Category = ({ name, image, onClick }) => {
+    return <div className={css(styles.category)} onClick={onClick}>
         <div className={css(styles.categoryImageWrapper)}><img className={css(styles.categoryImage)} src={image}></img></div>
-        <div className={css(styles.categoryName)}>{name}</div>
+        <div className={css(styles.categoryInformation)}>
+            <div className={css(styles.categoryName)}>{name}</div>
+        </div>
     </div>
 }
 
 const styles = StyleSheet.create({
     contentWrapper: {
         padding: 10,
+    },
+    sectionName: {
+        fontWeight: 500,
+        borderBottom: "1px solid var(--light-grey)"
     },
     categoriesWrapper: {
         display: "flex",
@@ -200,20 +210,24 @@ const styles = StyleSheet.create({
         padding: "10px",
         borderRadius: "5px",
         position: "relative",
-        marginTop: "10px"
+        marginTop: "10px",
     },
     categories: {
-        borderTop: "2px solid #ddd",
         display: "flex",
         flexDirection: "horizontal",
+        flexFlow: "wrap",
         alignItems: "center",
+        justifyContent: "center",
         width: "100%"
     },
     category: {
-        width: "50%",
-        paddingTop: "50%",
+        width: "40%",
+        paddingTop: "40%",
         overflow: "hidden",
-        position: "relative"
+        position: "relative",
+        margin: 10,
+        borderRadius: 5,
+        boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
     },
     categoryImageWrapper: {
         position: "absolute",
@@ -227,8 +241,20 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%"
     },
+    categoryInformation: {
+        position: "absolute",
+        bottom: 0,
+        height: 40,
+        width: "100%",
+        background: "rgba(255,255,255,0.5)"
+
+    },
     categoryName: {
-        position: "absolute"
+        position: "absolute",
+        textAlign: "center",
+        width: "100%",
+        top: "50%",
+        transform: "translateY(-50%)"
     }
 });
 
