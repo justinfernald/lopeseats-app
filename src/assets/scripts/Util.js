@@ -168,6 +168,16 @@ export const getCategories = async (restaurantID) => {
     }
 }
 
+export const getCategory = async (categoryID) => {
+    try {
+        return await postData(
+            "https://lopeseat.com/REST/menu/getCategory.php?id=" + categoryID
+        );
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 export const getCategoryItems = async (categoryID) => {
     try {
         return await postData(

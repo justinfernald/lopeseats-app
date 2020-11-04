@@ -1,23 +1,16 @@
 import React from "react";
-import HoursList from "../../../components/HoursList";
 
 import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { getCategoryItems, formatPrice } from "../../../assets/scripts/Util";
+import { getCategory, getCategoryItems, formatPrice } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
+import Loading from "../../../screens/Other/Loading";
 
 class Category extends React.Component {
     constructor(props) {
         super(props);
-
-        // let options = [
-        //     {
-        //         id: 4,
-        //         choices: [[]],
-        //     },
-        // ];
 
         this.state = {
             category: {
@@ -33,10 +26,14 @@ class Category extends React.Component {
     }
 
     async fetchData(id) {
-        const items = await getCategoryItems(id);
+        const [categoryData, items] = await Promise.all([getCategory(id), getCategoryItems(id)]);
+
+        if (!categoryData || !items) return;
+
         this.setState({
             category: {
                 items: items,
+                ...categoryData
             },
         });
     }
@@ -59,36 +56,20 @@ class Category extends React.Component {
                 appBar={{
                     title: this.props.selectedRestaurant.name,
                     // splash: this.props.selectedRestaurant.banner,
-                    backBtn: false
+                    backBtn: true
                 }}
                 ionPage>
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantFood">
-                        <div className="fullMenu">
-                            <div className="title">{this.props.categoryName || "Category"} Items</div>
+                        {this.state?.category?.name ?
+                            <div className="fullMenu">
+                                <div className="title">{this.state.category.name || "Category Items"}</div>
 
-                            {this.state.category.items.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="menuItem"
-                                    onClick={() => this.openItem(item)}>
-                                    <div className="itemImage img-fill">
-                                        <img
-                                            className="foodImage"
-                                            alt=""
-                                            src={item.image}></img>
-                                    </div>
-                                    <div className="itemContent">
-                                        <div className="name">{item.name}</div>
-                                        <div className="price">
-                                            ${formatPrice(item.price)}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-
+                                {this.state.category.items.map((item, index) => (
+                                    <ListItem key={index} item={item} onClick={() => this.openItem(item)} />
+                                ))}
+                            </div>
+                            : <Loading />}
                     </div>
                 </div>
                 <FloatingCartButton />
@@ -96,6 +77,23 @@ class Category extends React.Component {
         );
     }
 }
+
+const ListItem = ({ item, onClick }) => <div
+    className="menuItem"
+    onClick={onClick}>
+    <div className="itemImage img-fill">
+        <img
+            className="foodImage"
+            alt=""
+            src={item.image}></img>
+    </div>
+    <div className="itemContent">
+        <div className="name">{item.name}</div>
+        <div className="price">
+            ${formatPrice(item.price)}
+        </div>
+    </div>
+</div>
 
 const styles = StyleSheet.create({
     contentWrapper: {

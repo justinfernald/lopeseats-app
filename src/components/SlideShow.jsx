@@ -1,9 +1,9 @@
 import React from "react";
-import history from "../history";
-import { connect } from "react-redux";
-import { getCart } from "../assets/scripts/Util";
+// import history from "../history";
+// import { connect } from "react-redux";
+// import { getCart } from "../assets/scripts/Util";
 import { css, StyleSheet } from "aphrodite/no-important";
-import Slide from "./Slide";
+// import Slide from "./Slide";
 import ScrollSnap from "scroll-snap";
 
 export default class SlideShow extends React.Component {
@@ -20,14 +20,14 @@ export default class SlideShow extends React.Component {
     }
 
     callback = () => {
-        this.setState({page: Math.round(this.containerRef.current.scrollLeft / this.containerRef.current.clientWidth)});
+        this.setState({ page: Math.round(this.containerRef.current.scrollLeft / this.containerRef.current.clientWidth) });
     }
 
     componentDidMount() {
         this.intId = setInterval(() => {
             var nextPage = this.state.page + 1;
             var { length } = this.props.children;
-            if (nextPage == length)
+            if (nextPage === length)
                 nextPage = 0;
             this.setPage(nextPage);
         }, this.props.delay * 1000);
@@ -46,13 +46,13 @@ export default class SlideShow extends React.Component {
 
     setPage(page) {
         this.containerRef.current.scrollLeft = page * this.containerRef.current.clientWidth;
-        this.setState({page});
+        this.setState({ page });
     }
 
     generateDots() {
         var dots = [];
         for (var i = 0; i < this.props.children.length; i++) {
-            dots.push(<div key={i} className={css(styles.dot, i == this.state.page ? styles.selected : null)}></div>);
+            dots.push(<div key={i} className={css(styles.dot, i === this.state.page ? styles.selected : null)}></div>);
         }
         return dots;
     }
@@ -61,7 +61,7 @@ export default class SlideShow extends React.Component {
         return (
             <div style={this.props.style}>
                 <div className={css(styles.container) + " noScrollBar"} ref={this.containerRef}>
-                    <div className={css(styles.scroller)} ref={this.scrollerRef} style={{width: this.props.children.length + "00%"}}>
+                    <div className={css(styles.scroller)} ref={this.scrollerRef} style={{ width: this.props.children.length + "00%" }}>
                         {this.props.children}
                     </div>
                 </div>

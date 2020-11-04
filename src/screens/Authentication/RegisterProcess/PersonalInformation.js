@@ -66,7 +66,7 @@ class PersonalInformation extends React.Component {
         if (!checkEmail(email)) {
             errors.push("Email invalid");
         }
-        
+
         if (!this.checkRef.current.checked) {
             showErrors(["Please agree to the terms"]);
         }
@@ -118,7 +118,7 @@ class PersonalInformation extends React.Component {
                     <div className="scrollForm flex alignCenter">
                         <div className="labeledInput">
                             <div className="label">Profile Picture (Optional)</div>
-                            <div className="uploaderContainer" style={{marginLeft: "calc(50% - 70px)"}}>
+                            <div className="uploaderContainer" style={{ marginLeft: "calc(50% - 70px)" }}>
                                 <ImageUploader
                                     image={this.state.profileImage}
                                     onUpload={this.onUpload}
@@ -161,6 +161,7 @@ class PersonalInformation extends React.Component {
                             />
                         </div>
                         <span style={{ textAlign: "center", marginBottom: "40px" }}>
+                            {/* eslint-disable-next-line */}
                             Please read and agree to our terms and conditions: <a style={{ color: "blue" }} href="https://www.getlopeseat.com/terms-and-condition" target="_blank">Terms and Conditions</a>
                         </span>
                         <span>

@@ -7,23 +7,18 @@ import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { getRestaurant, getMenu, formatPrice, getCategories } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
+import SearchIcon from "../../../assets/images/search-grey.svg";
 
 class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
-
-        // let options = [
-        //     {
-        //         id: 4,
-        //         choices: [[]],
-        //     },
-        // ];
 
         this.state = {
             selectedItem: null,
             optionsChosen: [],
             instructions: null,
             restaurantData: {},
+            searchFilter: ""
         };
 
         if (props.match.params.id) {
@@ -55,6 +50,44 @@ class RestaurantDetails extends React.Component {
         store.dispatch(actions.setSelectedRestaurantCategories(restaurantCategories));
     }
 
+    filterData(list) {
+        let output = [...list].sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+
+
+        let removeSpecial = (input) => {
+            let spaceChars = "-~.";
+            let output = "";
+            for (let c of input) {
+                if (spaceChars.includes(c)) {
+                    output += " ";
+                } else {
+                    output += c;
+                }
+            }
+            return output
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/\s+/g, "")
+                .trim();
+        };
+
+        let startingFilter = output.filter((x) =>
+            removeSpecial(x.name.toLowerCase()).startsWith(
+                removeSpecial(this.state.searchFilter.toLowerCase())
+            )
+        );
+
+        let containingFilter = output.filter((x) =>
+            x.name.toLowerCase().includes(this.state.searchFilter.toLowerCase())
+        );
+
+        output = [...new Set([...startingFilter, ...containingFilter])];
+
+        return output;
+    }
+
     componentDidMount() { }
 
     componentWillUnmount() { }
@@ -76,9 +109,6 @@ class RestaurantDetails extends React.Component {
 
     openItem = (item) => {
         console.log(item);
-        // this.setState({
-        //     selectedItem: item
-        // });
         store.dispatch(
             actions.setItemDetails({ openItem: item, editingItem: false })
         );
@@ -152,29 +182,23 @@ class RestaurantDetails extends React.Component {
                         </div>
                         <div className="fullMenu">
                             <div className="title">All Items</div>
-
-                            {this.props.selectedMenu.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="menuItem"
-                                    onClick={() => this.openItem(item)}>
-                                    <div className="itemImage img-fill">
-                                        <img
-                                            className="foodImage"
-                                            alt=""
-                                            src={item.image}></img>
-                                    </div>
-                                    <div className="itemContent">
-                                        <div className="name">{item.name}</div>
-                                        <div className="price">
-                                            ${formatPrice(item.price)}
-                                        </div>
-                                    </div>
+                            <div className="searchBox">
+                                <div className="searchIcon iconHolder">
+                                    <img alt="Search" src={SearchIcon} />
                                 </div>
+                                <input
+                                    type="text"
+                                    placeholder="Search"
+                                    onInput={(e) => {
+                                        this.setState({
+                                            searchFilter: e.target.value,
+                                        });
+                                    }}></input>
+                            </div>
+                            {this.filterData(this.props.selectedMenu).map((item, index) => (
+                                <ListItem key={index} item={item} onClick={() => this.openItem(item)} />
                             ))}
                         </div>
-
-
                     </div>
                 </div>
                 <FloatingCartButton />
@@ -183,14 +207,29 @@ class RestaurantDetails extends React.Component {
     }
 }
 
-const Category = ({ name, image, onClick }) => {
-    return <div className={css(styles.category)} onClick={onClick}>
-        <div className={css(styles.categoryImageWrapper)}><img className={css(styles.categoryImage)} src={image}></img></div>
-        <div className={css(styles.categoryInformation)}>
-            <div className={css(styles.categoryName)}>{name}</div>
+const Category = ({ name, image, onClick }) => <div className={css(styles.category)} onClick={onClick}>
+    <div className={css(styles.categoryImageWrapper)}><img className={css(styles.categoryImage)} src={image} alt=""></img></div>
+    <div className={css(styles.categoryInformation)}>
+        <div className={css(styles.categoryName)}>{name}</div>
+    </div>
+</div>
+
+const ListItem = ({ item, onClick }) => <div
+    className="menuItem"
+    onClick={onClick}>
+    <div className="itemImage img-fill">
+        <img
+            className="foodImage"
+            alt=""
+            src={item.image}></img>
+    </div>
+    <div className="itemContent">
+        <div className="name">{item.name}</div>
+        <div className="price">
+            ${formatPrice(item.price)}
         </div>
     </div>
-}
+</div>
 
 const styles = StyleSheet.create({
     contentWrapper: {

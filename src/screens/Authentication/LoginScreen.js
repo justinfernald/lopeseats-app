@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "../../components/Input";
-import Phone from "../../assets/images/phone-icon.png";
-import Lock from "../../assets/images/lock.svg";
+// import Phone from "../../assets/images/phone-icon.png";
+// import Lock from "../../assets/images/lock.svg";
 import LopesEatLogo from "../../assets/images/icon-384x384.png";
 import {
   loginAccount,
@@ -54,7 +54,7 @@ class LoginScreen extends React.Component {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   onSignIn = async () => {
     let phoneNumber = this.phoneNumberRef.current.value;
@@ -167,39 +167,39 @@ class LoginScreen extends React.Component {
           {/* <div className="loginImage">
             <img alt="LopesEat Logo" src={LopesEatLogo} className="imageFill" />
           </div> */}
-          <div className = "loginHeader">
+          <div className="loginHeader">
           </div>
-            <div className="signUpText">
-              <span>Sign In</span>
+          <div className="signUpText">
+            <span>Sign In</span>
+          </div>
+          <div className="formSwitchButton" onClick={this.formSwitch}>
+            REGISTER
             </div>
-            <div className="formSwitchButton" onClick={this.formSwitch}>
-              REGISTER
-            </div>
-            <div className="inputWrap">
-              <Input
-                passedRef={this.phoneNumberRef}
-                autoComplete="current-phone"
-                placeholder="Phone Number"
-                type="tel"
-              />
-              <Input
-                className="forgot"
-                passedRef={this.passwordRef}
-                showHidden={!this.state.showPassword ? "off" : "on"}
-                onShow={this.toggleShowPassword}
-                autoComplete="current-password"
-                type={!this.state.showPassword ? "password" : "text"}
-                placeholder="Password"
-              />
+          <div className="inputWrap">
+            <Input
+              passedRef={this.phoneNumberRef}
+              autoComplete="current-phone"
+              placeholder="Phone Number"
+              type="tel"
+            />
+            <Input
+              className="forgot"
+              passedRef={this.passwordRef}
+              showHidden={!this.state.showPassword ? "off" : "on"}
+              onShow={this.toggleShowPassword}
+              autoComplete="current-password"
+              type={!this.state.showPassword ? "password" : "text"}
+              placeholder="Password"
+            />
 
-              <div onClick={this.onForgotPassword} className="forgotPassword">
-                Forgot password?
+            <div onClick={this.onForgotPassword} className="forgotPassword">
+              Forgot password?
               </div>
-              <div style={{ height: "70px" }}></div>
-              <button className="signInButton" onClick={this.onSignIn}>
-                Sign In
+            <div style={{ height: "70px" }}></div>
+            <button className="signInButton" onClick={this.onSignIn}>
+              Sign In
               </button>
-            </div>
+          </div>
         </div>
       </IonPage>
     );
