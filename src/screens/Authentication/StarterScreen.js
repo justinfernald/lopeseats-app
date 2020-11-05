@@ -6,6 +6,7 @@ import Slide from "../../components/Slide";
 import Icontwo from "../../assets/images/icon-two.png";
 import Iconone from "../../assets/images/icon-one.png";
 import Iconthree from "../../assets/images/icon-three.png";
+import Iconfour from "../../assets/images/icon-four.png";
 
 export default class StartScreen extends React.Component {
 
@@ -63,6 +64,23 @@ export default class StartScreen extends React.Component {
                   <div className="starterTitle">Late Delivering</div>
                   <div className="starterText">
                     Delivering 1PM all the way till 2AM at night!
+                  </div>
+                </div>
+              </div>
+            </Slide>
+            <Slide>
+              <div className={css(styles.slideContainer)}>
+                <div className="starterCard">
+                  <div className="loginImageStart">
+                    <img
+                      alt="LopesEat Logo"
+                      src={Iconfour}
+                      className={css(styles.image) + " imageFill"}
+                    />
+                  </div>
+                  <div className="starterTitle">Convenient</div>
+                  <div className="starterText">
+                    A wide range of your everyday items such as coffee, groceries, soft drinks and snacks.
                   </div>
                 </div>
               </div>

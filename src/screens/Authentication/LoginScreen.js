@@ -168,10 +168,15 @@ class LoginScreen extends React.Component {
             <img alt="LopesEat Logo" src={LopesEatLogo} className="imageFill" />
           </div> */}
           <div className = "loginHeader">
+            
           </div>
+          <div style={{ height: "12px" }}></div>
             <div className="signUpText">
               <span>Sign In</span>
             </div>
+            {/* <div className="lopesEatHeader">
+              <span>LOPESEAT</span>
+            </div> */}
             <div className="formSwitchButton" onClick={this.formSwitch}>
               REGISTER
             </div>

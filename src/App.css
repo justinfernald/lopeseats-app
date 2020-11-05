@@ -206,14 +206,13 @@ input:-webkit-autofill:active {
   left: 0;
   right: 0;
   bottom: 0;
-  position: absolute;
   background: #fff;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   padding: 20px 7px;
   max-height: calc(100% - 250px);
   overflow: auto;
-  box-shadow: 0px 0px 20px 6px #e0e0e0;
+  /* box-shadow: 0px 0px 20px 6px #e0e0e0; */
 }
 
 .loginForm::-webkit-scrollbar {
@@ -234,6 +233,7 @@ input:-webkit-autofill:active {
   max-height: 75px;
   height: 75px;
   background-color: var(--primary);
+  margin-bottom: 10px;
 }
 
 .signInText {
@@ -249,6 +249,14 @@ input:-webkit-autofill:active {
   color: var(--primary);
   font-weight: 1000;
   text-align: center;
+}
+.lopesEatHeader {
+  position: absolute;
+  top: calc(35px + var(--sat));
+  right: calc(140px + var(--sat));
+  color: white;
+  font-size: 1.2em;
+  font-weight: 500;
 }
 .signInDesc {
   position: relative;
@@ -369,7 +377,7 @@ input:-webkit-autofill:active {
 
 .nextStepButton {
   float: right;
-  font-size: 0.5em;
+  font-size: 1.1em;
   font-weight: 500;
 }
 
@@ -1226,7 +1234,6 @@ input:-webkit-autofill:active {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 0px 0px rgba(0, 0, 0, 0.13);
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -1235,9 +1242,10 @@ input:-webkit-autofill:active {
 }
 
 .restaurantFood .featuredMenu .title {
-  border-bottom: 1px solid var(--light-grey);
+  /* border-bottom: 1px solid var(--light-grey); */
   width: fit-content;
-  font-weight: 500;
+  color: rgb(97, 97, 97);
+  font-weight: 600;
   display: flex;
   justify-content: center;
 }
@@ -1261,7 +1269,7 @@ input:-webkit-autofill:active {
 
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem {
   width: 38%;
-  margin: 10px;
+  margin: 5px;
   border-radius: 7px;
   flex: 0 0 auto;
   scroll-snap-align: center;
@@ -1284,9 +1292,10 @@ input:-webkit-autofill:active {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px;
-  padding-bottom: 13px;
-  background: #ffffffbd;
+  /* padding: 10px; */
+  padding-bottom: 1px;
+  border-radius: 6px;
+  background: #ffffffa4;
   font-weight: 500;
 }
 
@@ -1295,7 +1304,8 @@ input:-webkit-autofill:active {
 }
 
 .featuredFoodItem .contentContainer .informationBox .itemPrice {
-  float: right;
+  text-align: center;
+  font-size: 1.2em;
 }
 
 .restaurantFood .featuredMenu .scrollArea .scrollCapFill {

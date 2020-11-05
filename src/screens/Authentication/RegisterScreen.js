@@ -100,28 +100,28 @@ export default class RegisterScreen extends React.Component {
                 <div className="formSwitchButton" onClick={this.formSwitch}>
                     SIGN IN
                 </div>
-                <div className="loginImage">
+                {/* <div className="loginImage">
                     <img
                         alt="LopesEat Logo"
                         src={require("../../assets/images/lopeseaticon.png")}
                         className="imageFill"
                     />
-                </div>
+                </div> */}
                 <div className="loginForm">
                     <div className="signInText">
-                        <span>REGISTER</span>
+                        <span>Sign Up</span>
                     </div>
                     <div className="inputWrap">
                         <Input
                             passedRef={this.phoneNumberRef}
-                            icon={Phone}
+                            // icon={Phone}
                             autoComplete="current-phone"
                             placeholder="Phone Number"
                             type="tel"
                         />
                         <Input
                             passedRef={this.passwordRef}
-                            icon={Lock}
+                            // icon={Lock}
                             showHidden={!this.state.showPassword ? "off" : "on"}
                             onShow={this.toggleShowPassword}
                             autoComplete="current-password"
@@ -132,7 +132,7 @@ export default class RegisterScreen extends React.Component {
                         />
                         <Input
                             passedRef={this.passwordConfirmRef}
-                            icon={Lock}
+                            // icon={Lock}
                             showHidden={!this.state.showPassword ? "off" : "on"}
                             onShow={this.toggleShowPassword}
                             autoComplete="current-password"

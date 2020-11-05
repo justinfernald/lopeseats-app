@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { getRestaurant, getMenu, formatPrice, getCategories } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
+import { grey } from "@material-ui/core/colors";
 
 class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -101,15 +102,15 @@ class RestaurantDetails extends React.Component {
                 ionPage>
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantInfo">
-                        <div className="restaurantDescription">
+                        {/* <div className="restaurantDescription">
                             {this.props.selectedRestaurant.description}
-                        </div>
+                        </div> */}
 
                         {/* <HoursList restaurantData={this.state.restaurantData} /> */}
                     </div>
                     <div className="restaurantFood">
 
-                        <HoursList restaurantData={this.state.restaurantData} />
+                        {/* <HoursList restaurantData={this.state.restaurantData} /> */}
                         <div className="featuredMenu">
                             <div className="title">Popular Options</div>
                             <div className="scrollArea">
@@ -127,9 +128,9 @@ class RestaurantDetails extends React.Component {
                                             }}>
                                             <div className="contentContainer">
                                                 <div className="informationBox">
-                                                    <div className="itemName">
+                                                    {/* <div className="itemName">
                                                         {x.name}
-                                                    </div>
+                                                    </div> */}
                                                     <div className="itemPrice">
                                                         ${formatPrice(x.price)}
                                                     </div>
@@ -141,7 +142,7 @@ class RestaurantDetails extends React.Component {
                             </div>
                         </div>
                         <div className={css(styles.categoriesWrapper)}>
-                            <div className={css(styles.sectionName)}>
+                            <div className="title">
                                 Categories
                             </div>
                             <div className={css(styles.categories)}>
@@ -151,7 +152,7 @@ class RestaurantDetails extends React.Component {
                             </div>
                         </div>
                         <div className="fullMenu">
-                            <div className="title">All Items</div>
+                            <div className={css(styles.titleCategories)}>All Items</div>
 
                             {this.props.selectedMenu.map((item, index) => (
                                 <div
@@ -193,6 +194,7 @@ const Category = ({ name, image, onClick }) => {
 }
 
 const styles = StyleSheet.create({
+
     contentWrapper: {
         padding: 10,
     },
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         marginBottom: "50px",
-        boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
+        // boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
         width: "100%",
         padding: "10px",
         borderRadius: "5px",
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
         position: "relative",
         margin: 10,
         borderRadius: 5,
-        boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
+        // boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
     },
     categoryImageWrapper: {
         position: "absolute",
