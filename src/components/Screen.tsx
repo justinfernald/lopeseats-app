@@ -31,7 +31,7 @@ let BackButton = connect(mapStateToProps)(BackButtonUnconnected);
 
 interface PropType {
     appBar?: {
-        splash: string;
+        splash?: string;
         title: string | JSX.Element;
         backBtn?: boolean;
         icon?: JSX.Element;

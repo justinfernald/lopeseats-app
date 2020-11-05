@@ -32,6 +32,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
     implementation project(':capacitor-cordova-android-plugins')
+    implementation 'com.braintreepayments.api:drop-in:4.6.0'
 }
 
 apply from: 'capacitor.build.gradle'
@@ -45,3 +46,15 @@ apply from: 'capacitor.build.gradle'
 //    logger.warn("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 //}
 apply plugin: 'com.google.gms.google-services'
+
+rootProject.allprojects {
+    repositories {
+        maven {
+            url  "https://cardinalcommerce.bintray.com/android"
+            credentials {
+                username 'braintree-team-sdk@cardinalcommerce'
+                password '220cc9476025679c4e5c843666c27d97cfb0f951'
+            }
+        }
+    }
+}

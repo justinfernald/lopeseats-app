@@ -1,5 +1,4 @@
 import React from "react";
-import HoursList from "../../../components/HoursList";
 
 import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";

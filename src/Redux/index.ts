@@ -238,7 +238,7 @@ const reducers = {
     },
     setDeliveryStartingTime: (
         state: any,
-        { payload: deliveryStartingTime }: { payload: number }
+        { payload: deliveryStartingTime }: { payload: number|null }
     ) => {
         state.deliveryStartingTime = deliveryStartingTime;
     },

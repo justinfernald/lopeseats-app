@@ -5,7 +5,7 @@ import {
     getActiveOrderBarcode,
     getActiveOrder,
     formatPrice,
-    postData,
+    postToAPI,
 } from "../../assets/scripts/Util";
 import { connect } from "react-redux";
 import Screen from "../../components/Screen";
@@ -119,7 +119,7 @@ class DelivererPayment extends React.Component {
         if (this.exiting) return;
         this.exiting = true;
 
-        postData("https://lopeseat.com/REST/barcodeAccess.php", {
+        postToAPI("/barcodeAccess.php", {
             apiToken: this.props.apiToken,
             orderId: this.state.order.orderId,
             timeShown: Date.now() - this.state.timeStarted,

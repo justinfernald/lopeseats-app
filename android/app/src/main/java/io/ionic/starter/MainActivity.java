@@ -20,6 +20,7 @@ public class MainActivity extends BridgeActivity {
       // Ex: add(TotallyAwesomePlugin.class);
       add(FCMPlugin.class);
       add(FirebaseAnalytics.class);
+      add(com.cubytes.braintree.BraintreePlugin.class);
     }});
   }
 }

@@ -6,7 +6,7 @@ import {
     formatPrice,
     timeSince,
     updateOrderState,
-    postData,
+    postToAPI,
 } from "../../assets/scripts/Util";
 import Screen from "../../components/Screen";
 import { IonIcon, IonSpinner, IonRippleEffect } from "@ionic/react";
@@ -107,8 +107,7 @@ class SelectedOrder extends React.Component {
             });
             this.fetchData();
 
-            const activeOrderCountResponse = await postData(
-                "https://lopeseat.com/REST/order/getActiveOrderCount.php",
+            const activeOrderCountResponse = await postToAPI("/order/getActiveOrderCount.php",
                 {
                     apiToken: this.props.apiToken,
                 }

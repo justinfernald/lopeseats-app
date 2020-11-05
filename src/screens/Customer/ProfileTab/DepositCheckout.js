@@ -1,5 +1,4 @@
 import React from "react";
-import DropIn from "braintree-web-drop-in-react";
 import {
     sendDepositPayment,
 } from "../../../assets/scripts/Util";
@@ -8,6 +7,14 @@ import Screen from "../../../components/Screen";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { fetchBalances } from "../../../Redux/Thunks";
+import {Braintree} from 'capacitor-braintree-dropin';
+import Checkout from '../../../components/Checkout';
+// import {
+//     Capacitor,
+//     Plugins,
+// } from "@capacitor/core";
+
+// const { App: PApp, BraintreePlugin } = Plugins;
 
 class DepositCheckout extends React.Component {
     instance;
@@ -31,21 +38,44 @@ class DepositCheckout extends React.Component {
         this.setState({
             clientToken
         });
+
+        this.braintree = new Braintree();
+        this.braintree.setToken({
+            token: clientToken
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
-    async pay() {
+    getPayment = () => {
+        var { amount } = this.props.depositData;
+        
+        this.braintree.showDropIn({
+            amount
+        }).then(
+            (payment) => {
+                console.log("Payment: ");
+                console.log(JSON.stringify(payment));
+            }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    pay = async (payment) => {
         var { amount, toFriend, friendsPhone } = this.props.depositData;
-        if (!this.instance) return;
-        if (this.instance.isPaymentMethodRequestable()) {
-            const { nonce } = await this.instance.requestPaymentMethod();
-            await sendDepositPayment(nonce, amount, toFriend ? friendsPhone : null, this.props.apiToken);
-            store.dispatch(fetchBalances(this.props.apiToken));
-            this.props.history.push("/app/profile");
-            store.dispatch(actions.setHistorySize(0));
-        }
+        var { nonce } = payment;
+
+        // await sendDepositPayment(nonce, amount, toFriend ? friendsPhone : null, this.props.apiToken);
+
+        store.dispatch(fetchBalances(this.props.apiToken));
+
+        this.props.history.push("/app/profile");
+        store.dispatch(actions.setHistorySize(0));
     }
 
     render() {
+        return <Checkout total={this.props.depositData.amount} submitPayment={this.pay}/>;
+
         var dropin = !this.state.clientToken ? (
             <div className="loadingWrapper">
                 <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
@@ -54,14 +84,15 @@ class DepositCheckout extends React.Component {
                 </div>
             </div>
         ) : (
-            <DropIn
-                options={{
-                    authorization: this.state.clientToken,
-                    paypal: true,
-                    venmo: true,
-                }}
-                onInstance={(instance) => (this.instance = instance)}
-            />
+            <div onClick={() => this.getPayment()}>Test</div>
+            // TODO web braintree implementation
+            // <DropIn
+            //     options={{
+            //         authorization: this.state.clientToken,
+            //         paypal: true,
+            //     }}
+            //     onInstance={(instance) => {this.instance = instance;}}
+            // />
         );
         return (
             <Screen

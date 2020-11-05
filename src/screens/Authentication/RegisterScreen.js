@@ -1,7 +1,5 @@
 import React from "react";
 import Input from "../../components/Input";
-import Phone from "../../assets/images/phone-icon.png";
-import Lock from "../../assets/images/lock.svg";
 import {
     phoneNumberTaken,
     showErrors,

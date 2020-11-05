@@ -7,10 +7,37 @@ import Icontwo from "../../assets/images/icon-two.png";
 import Iconone from "../../assets/images/icon-one.png";
 import Iconthree from "../../assets/images/icon-three.png";
 import Iconfour from "../../assets/images/icon-four.png";
+import AccountManager from "../../lopeseatapi/account";
+import LopesEatLogo from "../../assets/images/icon-384x384.png";
 
 export default class StartScreen extends React.Component {
 
+  constructor (props) {
+    super(props);
+
+    console.log("storedToken: " + AccountManager.hasStoredAPIToken());
+
+    this.state = {
+      loading: AccountManager.hasStoredAPIToken()
+    }
+
+    if (this.state.loading) {
+      AccountManager.checkAPIToken().then(valid => {
+        if (!valid) this.setState({loading: false});
+      });
+    }
+  }
+
   render() {
+    if (this.state.loading) {
+      return (
+        <div className="loadingWrapper">
+          <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
+          <div className="loadingText">Signing you in. One moment please.</div>
+        </div>
+      );
+    }
+
     return (
       <IonPage style={{ height: "100%" }}>
         <div className={css(styles.container)}>

@@ -1,15 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { postData, showErrors } from "../assets/scripts/Util";
+import { postToAPI, showErrors } from "../assets/scripts/Util";
 import { actions } from "../Redux";
 import { startDeliveryMode, stopDeliveryMode } from "../assets/scripts/Util";
 
 export const fetchBalances = createAsyncThunk(
     'users/fetchBalanceStatus',
-    async (apiToken, thunkAPI) => {
+    async (_p, thunkAPI) => {
         thunkAPI.dispatch(actions.setBalances([]));
         try {
-            const response = await postData("https://lopeseat.com/REST/user/getBalances.php", {
-                apiToken: apiToken,
+            const response = await postToAPI("/user/getBalances.php", {
+                apiToken: (thunkAPI.getState() as any).apiToken,
             });
             return response;
         } catch (e) {
@@ -23,7 +23,7 @@ export const setProfileImage = createAsyncThunk(
     'users/setProfileImageStatus',
     async (data:{apiToken: string, image: string}, thunkAPI) => {
         try {
-            const response = await postData("https://lopeseat.com/REST/user/setProfileImage.php",
+            const response = await postToAPI("/user/setProfileImage.php",
             {
                 apiToken: data.apiToken,
                 profileImage: data.image
@@ -42,7 +42,7 @@ export const changePhoneNumber = createAsyncThunk(
     async (phoneNumber: string, thunkAPI) => {
         try {
             var state:any = thunkAPI.getState();
-            const response = await postData("https://lopeseat.com/REST/user/changePhone.php",
+            const response = await postToAPI("/user/changePhone.php",
             {
                 apiToken: state.apiToken,
                 phone: phoneNumber
@@ -63,7 +63,7 @@ export const changePassword = createAsyncThunk(
     async (payload: { currPassword: string, newPassword: string }, thunkAPI) => {
         try {
             var state:any = thunkAPI.getState();
-            const response = await postData("https://lopeseat.com/REST/user/changePassword.php",
+            const response = await postToAPI("/user/changePassword.php",
             {
                 apiToken: state.apiToken,
                 ...payload
