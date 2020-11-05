@@ -19,7 +19,7 @@ import TabScreen from "./TabScreen";
 import { connect } from "react-redux";
 import history from "../history";
 
-import RerunScript from "../assets/scripts/RerunScript";
+// import RerunScript from "../assets/scripts/RerunScript"; // ! Might need to add this back
 import ForgotPassword from "./Authentication/RecoveryProcess/ForgotPassword";
 import RecoveryCode from "./Authentication/RecoveryProcess/RecoveryCode";
 import NewPassword from "./Authentication/RecoveryProcess/NewPassword";
