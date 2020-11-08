@@ -218,7 +218,15 @@ input:-webkit-autofill:active {
 .loginForm::-webkit-scrollbar {
   display: none;
 }
-
+.categories {
+  display: flex;
+  flex-direction: horizontal;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 450px;
+}
 .scrollForm {
   display: flex;
   flex-direction: column;
@@ -1268,12 +1276,12 @@ input:-webkit-autofill:active {
 }
 
 .restaurantFood .featuredMenu .scrollArea .featuredFoodItem {
-  width: 38%;
-  margin: 5px;
+  width: 45%;
+  margin: 9px;
   border-radius: 7px;
   flex: 0 0 auto;
   scroll-snap-align: center;
-  padding-top: 38%;
+  padding-top: 45%;
   position: relative;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13);
   background-size: cover;

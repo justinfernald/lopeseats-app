@@ -173,7 +173,7 @@ class RestaurantDetails extends React.Component {
                             <div className="title">
                                 Categories
                             </div>
-                            <div className={css(styles.categories)}>
+                            <div className="categories">
                                 {this.props.selectedRestaurantCategories && this.props.selectedRestaurantCategories.map((category, index) => (
                                     <Category {...category} key={index} onClick={() => this.openCategory(category.id)} />
                                 ))}
@@ -251,22 +251,14 @@ const styles = StyleSheet.create({
         position: "relative",
         marginTop: "10px",
     },
-    categories: {
-        display: "flex",
-        flexDirection: "horizontal",
-        flexFlow: "wrap",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%"
-    },
     category: {
         width: "40%",
-        paddingTop: "40%",
+        paddingTop: "20%",
         overflow: "hidden",
         position: "relative",
-        margin: 10,
+        margin: 4,
         borderRadius: 5,
-        // boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
+        //boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
     },
     categoryImageWrapper: {
         position: "absolute",
@@ -282,18 +274,20 @@ const styles = StyleSheet.create({
     },
     categoryInformation: {
         position: "absolute",
-        bottom: 0,
+        top: 0,
+        padding: 4,
         height: 40,
         width: "100%",
-        background: "rgba(255,255,255,0.5)"
+        // background: "rgba(255,255,255,0.5)"
 
     },
     categoryName: {
+        fontWeight: 595,
+        color: "white",
         position: "absolute",
-        textAlign: "center",
-        width: "100%",
-        top: "50%",
-        transform: "translateY(-50%)"
+        textAlign: "left",
+        // top: "50%",
+        // transform: "translateY(-50%)"
     }
 });
 

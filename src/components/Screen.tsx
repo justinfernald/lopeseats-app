@@ -4,6 +4,7 @@ import { StyleSheet, css } from "aphrodite/no-important";
 import "../App.css";
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { colors } from "@material-ui/core";
 
 function BackButtonUnconnected(props: { icon?: boolean, historySize: number }) {
 
@@ -111,6 +112,7 @@ export default class Screen extends React.Component<PropType> {
                             {this.props.appBar.backBtn ? (
                                 <span className={css(styles.backButton)}>
                                     <BackButton icon />
+                                    
                                 </span>
                             ) : null}
                             <span className={css(styles.screenTitle)}>
@@ -200,6 +202,7 @@ const styles = StyleSheet.create({
         flex: "0 0 auto",
         position: "relative",
         height: "calc(54px + var(--sat)) !important"
+    
     },
     splashImg: {
         objectPosition: "50% 30%",
