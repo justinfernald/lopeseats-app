@@ -851,10 +851,10 @@ input:-webkit-autofill:active {
 }
 
 .addToCartButton {
-  background-color: #eb1c34;
+  background-color: var(--primary);
   color: #fff;
   text-align: center;
-  border-radius: 50px;
+  border-radius: 15px;
   font-size: 1.2em;
   padding: 0.735em 0;
   margin: 0.521em 0;
@@ -1089,6 +1089,7 @@ input:-webkit-autofill:active {
 .itemOptionMenu {
   overflow-y: auto;
   overflow-x: auto;
+  margin-top: 20%;
 }
 
 .itemDescription {
@@ -1100,9 +1101,11 @@ input:-webkit-autofill:active {
   font-weight: 700;
   color: black;
   margin: 15px;
+  text-align: center;
 }
 
 .itemDetails {
+  text-align: center;
   color: #777;
   margin: 20px;
   margin-top: 0px;
@@ -1964,7 +1967,7 @@ input:-webkit-autofill:active {
 .itemCost {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   margin: 30px 5px 25px 5px;
   font-size: 1.15em;
   font-weight: 500;
@@ -1975,6 +1978,9 @@ input:-webkit-autofill:active {
 }
 
 .itemOptionFooter {
+  box-shadow: 2px 2px 10px #555f;
+  display: flex;
+  flex-direction: column;
   padding: 0px 20px 10px 20px;
 }
 

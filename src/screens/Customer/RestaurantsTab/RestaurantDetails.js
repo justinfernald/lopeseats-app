@@ -170,7 +170,7 @@ class RestaurantDetails extends React.Component {
                             </div>
                         </div>
                         <div className={css(styles.categoriesWrapper)}>
-                            <div className="title">
+                            <div className={css(styles.categoriesHeader)}>
                                 Categories
                             </div>
                             <div className="categories">
@@ -231,6 +231,10 @@ const ListItem = ({ item, onClick }) => <div
 </div>
 
 const styles = StyleSheet.create({
+    categoriesHeader:{
+        fontWeight: 600,
+        color: "#616161"
+    },
 
     contentWrapper: {
         padding: 10,

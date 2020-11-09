@@ -136,23 +136,33 @@ class ItemOptions extends React.Component {
                     splash: this.props.selectedRestaurant.banner,
                 }}>
                 <div className="itemOptionMenu" onScroll={this.onContentScroll}>
-
                     <div style={{
                         display: "flex",
-                        flexDirection: "row",
+                        // flexDirection: "row",
                         justifyContent: "center",
-                        marginTop: "15px"
+                        // marginTop: "15px"
+                        height:"100%",
+                        
                     }}>
                         <img style={{height: "auto", maxHeight: "200px", maxWidth: "100%"}} src={this.state.selectedItem.image} alt="Item"/>
                     </div>
 
                     <div className="itemDescription">
-                        <div className="itemHeader">
+                    <div className="itemCost">
+                            <span>
+                                $
+                                {formatPrice(
+                            this.state.selectedItem.price +
+                            this.calculatePrice()
+                        )}
+                            </span>
+                        </div>
+                        {/* <div className="itemHeader">
                             {this.state.selectedItem.name}
                         </div>
                         <div className="itemDetails">
                             {this.state.selectedItem.description}
-                        </div>
+                        </div> */}
                     </div>
 
                     {console.log(this.state.selectedItem.items)}
@@ -214,8 +224,13 @@ class ItemOptions extends React.Component {
                     )}
 
                     <div className="itemOptionFooter">
-                        <div className="itemCost">
-                            Total
+                        <div className="itemHeader">
+                            {this.state.selectedItem.name}
+                        </div>
+                        <div className="itemDetails">
+                            {this.state.selectedItem.description}
+                        </div>
+                        {/* <div className="itemCost">
                             <span>
                                 $
                                 {formatPrice(
@@ -223,7 +238,7 @@ class ItemOptions extends React.Component {
                             this.calculatePrice()
                         )}
                             </span>
-                        </div>
+                        </div> */}
                         <div
                             className="addToCartButton"
                             onClick={this.addToCart}>
