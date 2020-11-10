@@ -106,10 +106,11 @@ class RestaurantDetails extends React.Component {
                             <div className="title">Popular Options</div>
                             <div className="scrollArea">
                                 {/* <div className="scrollCapFill"></div> */}
-                                {this.state.restaurantData.food
+                                {[...this.state.restaurantData.food]
                                     .filter((item) => item.featured === "1")
+                                    .sort((a, b) => +b.featuredPriority - +a.featuredPriority)
                                     .map((item, index) => (
-                                        <FeaturedItem key={index} {...item} onClick={() => this.openItem(item)} />
+                                        <FeaturedItem key={index} {...item} onClick={() => this.openItem(item)} {...console.log(item)} />
                                     ))}
                                 {/* <div className="scrollCapFill"></div> */}
                             </div>
@@ -166,7 +167,7 @@ const FeaturedItem = ({ image, price, name, onClick }) => {
         wrapper: {
             width: "30%",
             margin: "9px",
-            borderRadius: "7px",
+            borderRadius: "15px",
             flex: "0 0 auto",
             scrollSnapAlign: "center",
             paddingTop: "30%",
