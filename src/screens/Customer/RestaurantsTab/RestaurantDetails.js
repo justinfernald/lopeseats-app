@@ -118,7 +118,7 @@ class RestaurantDetails extends React.Component {
                             <div className={css(styles.categoriesHeader)}>
                                 Categories
                             </div>
-                            <div className="categories">
+                            <div className={css(styles.categoriesContainer)}>
                                 {this.props.selectedRestaurantCategories && this.props.selectedRestaurantCategories.map((category, index) => (
                                     <Category {...category} key={index} onClick={() => this.openCategory(category.id)} />
                                 ))}
@@ -291,18 +291,29 @@ const styles = StyleSheet.create({
         // marginBottom: "50px",
         // boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
         width: "100%",
-        padding: "10px",
+        // padding: "10px",
         borderRadius: "5px",
         position: "relative",
         // marginTop: "10px",
     },
+    categoriesContainer: {
+        display: "flex",
+        flexDirection: "horizontal",
+        flexFlow: "wrap",
+        alignItems: "center",
+        justifyContent: "center",
+        // padding: "10px",
+        width: "100%"
+    },
     category: {
         width: "40%",
         paddingTop: "20%",
+        maxWidth: "200px",
+        minWidth: "115px",
         overflow: "hidden",
         position: "relative",
-        margin: 4,
-        borderRadius: 5,
+        margin: "4px",
+        borderRadius: "5px"
         //boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
     },
     categoryImageWrapper: {
