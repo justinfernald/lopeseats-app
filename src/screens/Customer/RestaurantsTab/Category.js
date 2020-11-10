@@ -38,10 +38,6 @@ class Category extends React.Component {
         });
     }
 
-    componentDidMount() { }
-
-    componentWillUnmount() { }
-
     openItem = (item) => {
         console.log(item);
         store.dispatch(

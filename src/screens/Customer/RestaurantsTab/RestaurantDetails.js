@@ -4,9 +4,10 @@ import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { getRestaurant, getMenu, formatPrice, getCategories } from "../../../assets/scripts/Util";
+import { getRestaurant, getMenu, formatPrice, getCategories, removeSpecialCharacters } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
 import SearchIcon from "../../../assets/images/search-grey.svg";
+import Loading from "../../../screens/Other/Loading";
 
 class RestaurantDetails extends React.Component {
     constructor(props) {
@@ -54,27 +55,9 @@ class RestaurantDetails extends React.Component {
             a.name.localeCompare(b.name)
         );
 
-
-        let removeSpecial = (input) => {
-            let spaceChars = "-~.";
-            let output = "";
-            for (let c of input) {
-                if (spaceChars.includes(c)) {
-                    output += " ";
-                } else {
-                    output += c;
-                }
-            }
-            return output
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/\s+/g, "")
-                .trim();
-        };
-
         let startingFilter = output.filter((x) =>
-            removeSpecial(x.name.toLowerCase()).startsWith(
-                removeSpecial(this.state.searchFilter.toLowerCase())
+            removeSpecialCharacters(x.name.toLowerCase()).startsWith(
+                removeSpecialCharacters(this.state.searchFilter.toLowerCase())
             )
         );
 
@@ -87,27 +70,7 @@ class RestaurantDetails extends React.Component {
         return output;
     }
 
-    componentDidMount() { }
-
-    componentWillUnmount() { }
-
-    formatTime(time) {
-        let splitTime = time.split(":");
-        let hourTime = parseInt(splitTime[0]);
-        if (hourTime > 12) {
-            return hourTime - 12 + ":" + splitTime[1] + " PM";
-        }
-        return hourTime + ":" + splitTime[1] + " AM";
-    }
-
-    makePHXTime(date) {
-        return new Date(
-            date.toLocaleString("en-US", { timeZone: "America/Phoenix" })
-        );
-    }
-
     openItem = (item) => {
-        console.log(item);
         store.dispatch(
             actions.setItemDetails({ openItem: item, editingItem: false })
         );
@@ -119,7 +82,7 @@ class RestaurantDetails extends React.Component {
     }
 
     render() {
-        if (!this.state.restaurantData.food) return null;
+        if (!this.state.restaurantData.food) return <Loading />;
         return (
             <Screen
                 appBar={{
@@ -142,31 +105,13 @@ class RestaurantDetails extends React.Component {
                         <div className="featuredMenu">
                             <div className="title">Popular Options</div>
                             <div className="scrollArea">
-                                <div className="scrollCapFill"></div>
+                                {/* <div className="scrollCapFill"></div> */}
                                 {this.state.restaurantData.food
-                                    .filter((x) => x.featured === "1")
-                                    .map((x, index) => (
-                                        <div
-
-                                            key={index}
-                                            className="featuredFoodItem"
-                                            onClick={() => this.openItem(x)}
-                                            style={{
-                                                backgroundImage: `url(${x.image})`,
-                                            }}>
-                                            <div className="contentContainer">
-                                                <div className="informationBox">
-                                                    {/* <div className="itemName">
-                                                        {x.name}
-                                                    </div> */}
-                                                    <div className="itemPrice">
-                                                        ${formatPrice(x.price)}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    .filter((item) => item.featured === "1")
+                                    .map((item, index) => (
+                                        <FeaturedItem key={index} {...item} onClick={() => this.openItem(item)} />
                                     ))}
-                                <div className="scrollCapFill"></div>
+                                {/* <div className="scrollCapFill"></div> */}
                             </div>
                         </div>
                         <div className={css(styles.categoriesWrapper)}>
@@ -179,20 +124,21 @@ class RestaurantDetails extends React.Component {
                                 ))}
                             </div>
                         </div>
-                        <div className="fullMenu">
-                            <div className="title">All Items</div>
-                            <div className="searchBox">
-                                <div className="searchIcon iconHolder">
-                                    <img alt="Search" src={SearchIcon} />
+                        <div className={css(styles.fullMenu)}>
+                            <div className={css(styles.title)}>All Items</div>
+                            <div className={css(styles.searchBox)}>
+                                <div>
+                                    <img className={css(styles.searchIcon)} alt="Search" src={SearchIcon} />
                                 </div>
                                 <input
+                                    className={css(styles.searchInput)}
                                     type="text"
                                     placeholder="Search"
                                     onInput={(e) => {
                                         this.setState({
                                             searchFilter: e.target.value,
                                         });
-                                    }}></input>
+                                    }} />
                             </div>
                             {this.filterData(this.props.selectedMenu).map((item, index) => (
                                 <ListItem key={index} item={item} onClick={() => this.openItem(item)} />
@@ -207,31 +153,126 @@ class RestaurantDetails extends React.Component {
 }
 
 const Category = ({ name, image, onClick }) => <div className={css(styles.category)} onClick={onClick}>
-    <div className={css(styles.categoryImageWrapper)}><img className={css(styles.categoryImage)} src={image} alt=""></img></div>
+    <div className={css(styles.categoryImageWrapper)}>
+        <img className={css(styles.categoryImage)} src={image} alt="" />
+    </div>
     <div className={css(styles.categoryInformation)}>
         <div className={css(styles.categoryName)}>{name}</div>
     </div>
 </div>
 
-const ListItem = ({ item, onClick }) => <div
-    className="menuItem"
-    onClick={onClick}>
-    <div className="itemImage img-fill">
-        <img
-            className="foodImage"
-            alt=""
-            src={item.image}></img>
-    </div>
-    <div className="itemContent">
-        <div className="name">{item.name}</div>
-        <div className="price">
-            ${formatPrice(item.price)}
+const FeaturedItem = ({ image, price, name, onClick }) => {
+    const compStyles = StyleSheet.create({
+        wrapper: {
+            width: "30%",
+            margin: "9px",
+            borderRadius: "7px",
+            flex: "0 0 auto",
+            scrollSnapAlign: "center",
+            paddingTop: "30%",
+            position: "relative",
+            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
+            backgroundSize: "cover",
+            overflow: "hidden"
+        },
+        contentContainer: {
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: "0"
+        },
+        informationBox: {
+            position: "absolute",
+            bottom: "0",
+            left: "0",
+            right: "0",
+            paddingBottom: "1px",
+            borderRadius: "6px",
+            background: "#ffffffa4",
+            fontWeight: 500
+        },
+        price: {
+            textAlign: "center",
+            fontSize: "1.2em"
+        }
+    });
+    return <div
+        className={css(compStyles.wrapper)}
+        onClick={onClick}
+        style={{
+            backgroundImage: `url(${image})`,
+        }}>
+        <div className={css(compStyles.contentContainer)}>
+            <div className={css(compStyles.informationBox)}>
+                <div className={css(compStyles.price)}>
+                    ${formatPrice(price)}
+                </div>
+            </div>
         </div>
     </div>
-</div>
+}
+
+const ListItem = ({ item, onClick }) => {
+    const compStyles = StyleSheet.create({
+        itemWrapper: {
+            width: "100%",
+            height: "70px",
+            padding: "10px",
+            // borderRadius: "5px",
+            position: "relative",
+            marginTop: "10px",
+            display: "flex",
+            alignItems: "center",
+            borderBottom: "solid #80808030 1px"
+        },
+        itemImageContainer: {
+            width: 50,
+            height: 50,
+            flexShrink: 0,
+            position: "relative"
+        },
+        itemImage: {
+            borderRadius: 6,
+            height: "100%",
+            width: "100%",
+            objectFit: "cover"
+        },
+        itemContent: {
+            padding: "0 10px",
+            width: "100%"
+        },
+        name: {
+            float: "left"
+        },
+        price: {
+            float: "right"
+        }
+    })
+    return <div
+        className={css(compStyles.itemWrapper)}
+        onClick={onClick}>
+        <div className={css(compStyles.itemImageContainer)}>
+            <img
+                className={css(compStyles.itemImage)}
+                alt=""
+                src={item.image} />
+        </div>
+        <div className={css(compStyles.itemContent)}>
+            <div className={css(compStyles.name)}>{item.name}</div>
+            <div className={css(compStyles.price)}>
+                ${formatPrice(item.price)}
+            </div>
+        </div>
+    </div>
+}
 
 const styles = StyleSheet.create({
-    categoriesHeader:{
+    categoriesHeader: {
+        fontWeight: 600,
+        color: "#616161"
+    },
+
+    title: {
         fontWeight: 600,
         color: "#616161"
     },
@@ -247,13 +288,13 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginBottom: "50px",
+        // marginBottom: "50px",
         // boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
         width: "100%",
         padding: "10px",
         borderRadius: "5px",
         position: "relative",
-        marginTop: "10px",
+        // marginTop: "10px",
     },
     category: {
         width: "40%",
@@ -283,15 +324,50 @@ const styles = StyleSheet.create({
         height: 40,
         width: "100%",
         // background: "rgba(255,255,255,0.5)"
-
     },
     categoryName: {
-        fontWeight: 595,
+        fontWeight: 500,
         color: "white",
         position: "absolute",
         textAlign: "left",
         // top: "50%",
         // transform: "translateY(-50%)"
+    },
+    searchBox: {
+        width: "100%",
+        display: "flex",
+        height: "50px",
+        padding: "10px 15px",
+        borderBottom: "2px var(--light-grey) solid",
+        position: "sticky",
+        top: "-1px",
+        background: "white",
+        zIndex: 100
+    },
+    searchInput: {
+        fontSize: "1.2em",
+        color: "rgb(102, 102, 102)",
+        flex: "1 1",
+        marginRight: "10px",
+        transform: "translateY(-2px)"
+    },
+    searchIcon: {
+        width: "20px",
+        height: "20px",
+        marginRight: "13px",
+        transform: "translateY(4px)"
+    },
+    fullMenu: {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginBottom: "50px",
+        // boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
+        width: "100%",
+        padding: "10px",
+        borderRadius: "5px",
+        position: "relative",
+        marginTop: "10px"
     }
 });
 

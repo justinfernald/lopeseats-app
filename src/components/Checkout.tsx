@@ -1,6 +1,6 @@
 import React from "react";
 import { Braintree, DropInResult } from 'capacitor-braintree-dropin';
-import { store, actions } from "../Redux";
+import { store, /*actions*/ } from "../Redux";
 import { fetchBalances } from "../Redux/Thunks";
 import { connect } from "react-redux";
 import Screen from "./Screen";
@@ -102,7 +102,7 @@ class Checkout extends React.Component<propType, stateType> {
 
     constructor(props: propType) {
         super(props);
-        var { balances, total } = props;
+        var { balances, /*total*/ } = props;
 
         this.state = {
             clientToken: null,

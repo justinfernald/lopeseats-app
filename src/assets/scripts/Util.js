@@ -636,3 +636,48 @@ export const timeSince = (date) => {
     if (interval > 1) return Math.floor(interval) + " minutes";
     return Math.floor(seconds) + " seconds";
 };
+
+export const clone = (input, deepClone = false) => {
+    if (deepClone)
+        return JSON.parse(JSON.stringify(input));
+    if (Array.isArray(input))
+        return [...input];
+    if (typeof input === 'object' && input !== null)
+        return { ...input };
+    return input;
+}
+
+export const removeSpecialCharacters = (input) => {
+    let spaceChars = "-~.";
+    let output = "";
+    for (let c of input) {
+        if (spaceChars.includes(c)) {
+            output += " ";
+        } else {
+            output += c;
+        }
+    }
+    return output
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, "")
+        .trim();
+};
+
+export const mapObject = (input, func, toObject = false) => {
+    if (toObject)
+        return Object.fromEntries(Object.entries(input).map(([key, value], index) => func(key, value, index)));
+    else return Object.entries(input).map(([key, value], index) => func(key, value, index));
+}
+
+export const filterObject = (input, func, toObject = false) => {
+    if (toObject)
+        return Object.fromEntries(Object.entries(input).filter(([key, value], index) => func(key, value, index)));
+    else return Object.entries(input).map(([key, value], index) => func(key, value, index))
+}
+
+export const reduceObject = (input, func, toObject = false) => {
+    if (toObject)
+        return Object.fromEntries(Object.entries(input).reduce(([key, value], index) => func(key, value, index)));
+    else return Object.entries(input).map(([key, value], index) => func(key, value, index))
+}

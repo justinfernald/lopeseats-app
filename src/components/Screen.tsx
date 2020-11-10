@@ -4,7 +4,7 @@ import { StyleSheet, css } from "aphrodite/no-important";
 import "../App.css";
 import { connect } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { colors } from "@material-ui/core";
+// import { colors } from "@material-ui/core";
 
 function BackButtonUnconnected(props: { icon?: boolean, historySize: number }) {
 
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
         boxShadow: "#ccc 0px 0px 6px 0px",
         position: "relative",
         height: 54.4,
+        zIndex: 200,
     },
     headerContent: {
         fontSize: "1.8em",
