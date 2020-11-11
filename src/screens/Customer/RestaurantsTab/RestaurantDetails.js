@@ -8,7 +8,7 @@ import { getRestaurant, getMenu, formatPrice, getCategories, removeSpecialCharac
 import FloatingCartButton from "../../../components/FloatingCartButton";
 import SearchIcon from "../../../assets/images/search-grey.svg";
 import Loading from "../../../screens/Other/Loading";
-
+import Theme from "../../../assets/styles/Theme";
 class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -86,7 +86,8 @@ class RestaurantDetails extends React.Component {
         return (
             <Screen
                 appBar={{
-                    title: this.props.selectedRestaurant.name,
+                    custom: <AppBar />,
+                    // title: this.props.selectedRestaurant.name,
                     // splash: this.props.selectedRestaurant.banner,
                     backBtn: false
                 }}
@@ -103,7 +104,7 @@ class RestaurantDetails extends React.Component {
 
                         {/* <HoursList restaurantData={this.state.restaurantData} /> */}
                         <div className="featuredMenu">
-                            <div className="title">Popular Options</div>
+                            <div className="title">Popular Items</div>
                             <div className="scrollArea">
                                 {/* <div className="scrollCapFill"></div> */}
                                 {[...this.state.restaurantData.food]
@@ -152,6 +153,80 @@ class RestaurantDetails extends React.Component {
         );
     }
 }
+
+const AppBar = () => {
+    const compStyles = StyleSheet.create({
+        wrapper: {
+            height: 200,
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            zIndex: 101,
+        },
+        mainContainer: {
+            background: Theme.color.primary,
+            width: "100%",
+            flex: 1
+        },
+        contentContainer: {
+            padding: "20px 40px 10px 40px",
+            ...Theme.addOn.fullSize,
+            ...Theme.addOn.centerContainer,
+            justifyContent: "space-between",
+        },
+        logoContainer: {
+            width: 75,
+            height: 75,
+            background: "white"
+        },
+        logo: {
+            ...Theme.addOn.fullSize,
+        },
+        searchBox: {
+            height: 40,
+            width: "100%",
+            background: Theme.color.secondary,
+            borderRadius: 20,
+            display: "flex",
+            paddingLeft: 20,
+            paddingRight: 20,
+            border: "3px solid " + Theme.color.primaryTint
+        },
+        searchInput: {
+            height: "100%",
+            flex: 1
+        },
+        searchIcon: {
+
+        },
+        secondaryContainer: {
+            height: 35,
+            ...Theme.addOn.boxShadow.medium,
+            ...Theme.addOn.centerContainer
+        },
+        infoText: {
+
+        }
+
+    });
+
+    return <div className={css(compStyles.wrapper)}>
+        <div className={css(compStyles.mainContainer)}>
+            <div className={css(compStyles.contentContainer)}>
+                <div className={css(compStyles.logoContainer)}>
+                    <div className={css(compStyles.logo)}></div>
+                </div>
+                <div className={css(compStyles.searchBox)}>
+                    <input className={css(compStyles.searchInput)} placeholder="Search"></input>
+                    <img className={css(compStyles.searchIcon)} alt="Search" src={SearchIcon} />
+                </div>
+            </div>
+        </div>
+        <div className={css(compStyles.secondaryContainer)}>
+            <div className={css(compStyles.infoText)}>Information text here</div>
+        </div>
+    </div>
+};
 
 const Category = ({ name, image, onClick }) => <div className={css(styles.category)} onClick={onClick}>
     <div className={css(styles.categoryImageWrapper)}>

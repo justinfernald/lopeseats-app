@@ -32,6 +32,7 @@ let BackButton = connect(mapStateToProps)(BackButtonUnconnected);
 
 interface PropType {
     appBar?: {
+        custom?: JSX.Element;
         splash?: string;
         title: string | JSX.Element;
         backBtn?: boolean;
@@ -72,7 +73,9 @@ export default class Screen extends React.Component<PropType> {
         var content: any = this.props.children;
 
         if (this.props.appBar) {
-            if (this.props.appBar.splash != null) {
+            if (this.props.appBar.custom) {
+                header = this.props.appBar.custom;
+            } else if (this.props.appBar.splash != null) {
                 header = (
                     <Fragment>
                         <div
