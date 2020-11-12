@@ -9,6 +9,7 @@ import FloatingCartButton from "../../../components/FloatingCartButton";
 import SearchIcon from "../../../assets/images/search-grey.svg";
 import Loading from "../../../screens/Other/Loading";
 import Theme from "../../../assets/styles/Theme";
+import LopesEatLogo from "../../../assets/images/lopeseat-white.svg";
 class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -105,7 +106,7 @@ class RestaurantDetails extends React.Component {
                         {/* <HoursList restaurantData={this.state.restaurantData} /> */}
                         <div className="featuredMenu">
                             <div className="title">Popular Items</div>
-                            <div className="scrollArea">
+                            <div className={css(styles.featuredItems) + " scrollArea"}>
                                 {/* <div className="scrollCapFill"></div> */}
                                 {[...this.state.restaurantData.food]
                                     .filter((item) => item.featured === "1")
@@ -177,7 +178,6 @@ const AppBar = () => {
         logoContainer: {
             width: 75,
             height: 75,
-            background: "white"
         },
         logo: {
             ...Theme.addOn.fullSize,
@@ -214,7 +214,7 @@ const AppBar = () => {
         <div className={css(compStyles.mainContainer)}>
             <div className={css(compStyles.contentContainer)}>
                 <div className={css(compStyles.logoContainer)}>
-                    <div className={css(compStyles.logo)}></div>
+                    <img className={css(compStyles.logo)} alt="" src={LopesEatLogo} />
                 </div>
                 <div className={css(compStyles.searchBox)}>
                     <input className={css(compStyles.searchInput)} placeholder="Search"></input>
@@ -249,7 +249,7 @@ const FeaturedItem = ({ image, price, name, onClick }) => {
             position: "relative",
             boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
             backgroundSize: "cover",
-            overflow: "hidden"
+            overflow: "hidden",
         },
         contentContainer: {
             position: "absolute",
@@ -343,6 +343,20 @@ const ListItem = ({ item, onClick }) => {
 }
 
 const styles = StyleSheet.create({
+    featuredItems: {
+        ":after": {
+            backgroundImage:
+                "linear-gradient(to right, white,transparent 10%, transparent 90%, white)",
+            zIndex: 100,
+            position: "absolute",
+            content: '""',
+            left: "0",
+            right: "0",
+            top: "0",
+            bottom: "0",
+            margin: "9px"
+        }
+    },
     categoriesHeader: {
         fontWeight: 600,
         color: "#616161"
@@ -420,6 +434,7 @@ const styles = StyleSheet.create({
         // top: "50%",
         // transform: "translateY(-50%)"
     },
+
     searchBox: {
         width: "100%",
         display: "flex",
