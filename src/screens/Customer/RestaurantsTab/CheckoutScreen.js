@@ -14,6 +14,7 @@ import { css, StyleSheet } from "aphrodite/no-important";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { fetchBalances } from "../../../Redux/Thunks";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
+import Checkout from "../../../components/Checkout";
 
 const theme = createMuiTheme({
     palette: {
@@ -67,7 +68,7 @@ class CheckoutScreen extends React.Component {
         });
     }
 
-    async pay() {
+    pay = async (payment, extraData) => {
         var { balances } = this.props;
         var { useEarnings, useBalance, needFoodPayment, fee, total } = this.state;
 
@@ -103,6 +104,11 @@ class CheckoutScreen extends React.Component {
     }
 
     render() {
+        var { total, needFoodPayment, fee, total } = this.state;
+        var cost = needFoodPayment ? total : fee;
+
+        return <Checkout canUseBalances total={cost} submitPayment={this.pay}/>;
+
         var { balances } = this.props;
         var { useEarnings, useBalance, fee, needFoodPayment, total, tax, subtotal } = this.state;
 

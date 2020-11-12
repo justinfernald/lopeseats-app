@@ -231,12 +231,13 @@ class OrderTracker extends React.Component {
                 // </div>
             );
         } else if (this.state.tippableOrder !== null) {
-            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({ tippableOrder: null })} />
+            content = <SendTip order={this.state.tippableOrder} onNextStep={() => this.setState({ tippableOrder: null })} />;
         } else if (this.props.tipped) {
             content = <div className="noCurrentOrder">Thank you for tipping your runner! Enjoy your food</div>;
         } else {
             content = <div className="noCurrentOrder">No active order</div>;
         }
+        
         return (
             <Screen
                 appBar={{

@@ -12,6 +12,7 @@ def capacitor_pods
   pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
   pod 'CapacitorCommunityFcm', :path => '..\..\node_modules\@capacitor-community\fcm'
   pod 'CapacitorCommunityFirebaseAnalytics', :path => '..\..\node_modules\@capacitor-community\firebase-analytics'
+  pod 'CapacitorBraintreeDropin', :path => '..\..\node_modules\capacitor-braintree-dropin'
   # Do not delete
 end
 

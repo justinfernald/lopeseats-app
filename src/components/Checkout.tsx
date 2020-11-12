@@ -69,10 +69,24 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
         });
     }
 
+    getPaymentText = () => {
+        if (this.state.payment == null)
+            return "Add method";
+        
+    }
+
     render() {
         return (
-            <div onClick={this.selectPayment}>
-                Select payment method.
+            <div className={css(styles.paymentSelection)} onClick={this.selectPayment}>
+                <div>
+                    Payment
+                </div>
+                <div className={css(styles.paymentInfo)}>
+                    {this.getPaymentText()}
+                    <span style={{fontSize: "1.7em"}} className="material-icons">
+                        keyboard_arrow_right
+                    </span>
+                </div>
             </div>
         );
     }
@@ -83,7 +97,7 @@ type propType = {
     total: number,
     canUseBalances?: boolean,
     balances?: any,
-    submitPayment: (payment: DropInResult|null, useBalance: boolean, useEarnings: boolean) => void
+    submitPayment: (payment: DropInResult|null, extra: {useBalance: boolean, useEarnings: boolean, neededPayment:boolean}) => void
 };
 
 type stateType = {
@@ -146,7 +160,8 @@ class Checkout extends React.Component<propType, stateType> {
 
         return (
             <div>
-                <div className={css(styles.useBalance)} style={{ display: balance === 0 ? "none" : "flex" }}>
+                <div className={css(styles.useBalance)} 
+                style={{ display: balance === 0 ? "none" : "flex" }}>
                     <FormControlLabel
                         control={<Checkbox inputRef={this.balanceRef} />}
                         label="Use LopesEat balance to pay:"
@@ -176,7 +191,7 @@ class Checkout extends React.Component<propType, stateType> {
 
     submitPayment = () => {
         var { payment, useBalance, useEarnings } = this.state;
-        this.props.submitPayment(payment, useBalance, useEarnings);
+        this.props.submitPayment(payment, {useBalance, useEarnings, neededPayment: this.getPaymentTotal() == 0});
     }
 
     render() {
@@ -258,6 +273,15 @@ const styles = StyleSheet.create({
         borderRadius: "20px 20px 0 0",
         flex: "0 1 auto",
         boxShadow: "0px -2px 13px 0px #bdbdbd9e"
-
+    },
+    paymentSelection: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: "20px"
+    },
+    paymentInfo: {
+        display: "flex",
+        flexDirection: "row"
     }
 });
