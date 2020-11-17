@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Braintree, DropInResult } from 'capacitor-braintree-dropin';
 import { store, /*actions*/ } from "../Redux";
 import { fetchBalances } from "../Redux/Thunks";
@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import Screen from "./Screen";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
 import { css, StyleSheet } from "aphrodite/no-important";
-import { formatPrice } from "../assets/scripts/Util";
+import { formatPrice, requestBraintreeToken } from "../assets/scripts/Util";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import Button from "../components/Button";
 
@@ -37,10 +37,7 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
 
     componentDidMount = async () => {
         // Get token for payment processing
-        const response = await fetch(
-            "https://lopeseat.com/REST/order/requestBraintreeToken.php"
-        );
-        const clientToken = await response.json();
+        const clientToken = await requestBraintreeToken((store.getState() as any).apiToken);
 
         this.setState({
             clientToken
@@ -238,36 +235,40 @@ class Checkout extends React.Component<propType, stateType> {
     renderBalanceSelection() {
         var { useEarnings, useBalance, balance, earnings } = this.state;
 
-        if (!this.props.canUseBalances) return "";
+        if (!this.props.canUseBalances || (balance == 0 && earnings == 0)) return "";
 
         return (
-            <div>
-                <div className={css(styles.title)}>
-                    Additional Payment Options
-                </div>
+            <Fragment>
+                
+                <div>
+                    <div className={css(styles.title)}>
+                        Additional Payment Options
+                    </div>
 
-                <div className={css(styles.useBalance)} 
-                style={{ display: balance === 0 ? "none" : "flex" }}>
-                    <FormControlLabel
-                        control={<Checkbox inputRef={this.balanceRef} />}
-                        label="Use LopesEat balance to pay:"
-                        labelPlacement="end"
-                        onChange={this.checkboxChange}
-                        disabled={useEarnings}
-                    />
-                    <span className={css(styles.vertAlign, useEarnings ? styles.disabled : null)}>{"$" + formatPrice(balance, false)}</span>
+                    <div className={css(styles.useBalance)} 
+                    style={{ display: balance === 0 ? "none" : "flex" }}>
+                        <FormControlLabel
+                            control={<Checkbox inputRef={this.balanceRef} />}
+                            label="Use LopesEat balance to pay:"
+                            labelPlacement="end"
+                            onChange={this.checkboxChange}
+                            disabled={useEarnings}
+                        />
+                        <span className={css(styles.vertAlign, useEarnings ? styles.disabled : null)}>{"$" + formatPrice(balance, false)}</span>
+                    </div>
+                    <div className={css(styles.useBalance)} style={{ display: earnings === 0 ? "none" : "flex" }}>
+                        <FormControlLabel
+                            control={<Checkbox inputRef={this.earningsRef} />}
+                            label="Use Delivery earnings to pay:"
+                            labelPlacement="end"
+                            onChange={this.checkboxChange}
+                            disabled={useBalance}
+                        />
+                        <span className={css(styles.vertAlign, useBalance ? styles.disabled : null)}>{"$" + formatPrice(earnings, false)}</span>
+                    </div>
                 </div>
-                <div className={css(styles.useBalance)} style={{ display: earnings === 0 ? "none" : "flex" }}>
-                    <FormControlLabel
-                        control={<Checkbox inputRef={this.earningsRef} />}
-                        label="Use Delivery earnings to pay:"
-                        labelPlacement="end"
-                        onChange={this.checkboxChange}
-                        disabled={useBalance}
-                    />
-                    <span className={css(styles.vertAlign, useBalance ? styles.disabled : null)}>{"$" + formatPrice(earnings, false)}</span>
-                </div>
-            </div>
+                <div className={css(styles.spacer)} />
+            </Fragment>
         );
     }
 
@@ -277,7 +278,7 @@ class Checkout extends React.Component<propType, stateType> {
 
     submitPayment = () => {
         var { payment, useBalance, useEarnings, tip } = this.state;
-        this.props.submitPayment(payment, {useBalance, useEarnings, neededPayment: this.getPaymentTotal() == 0, tip});
+        this.props.submitPayment(payment, {useBalance, useEarnings, neededPayment: this.getPaymentTotal() > 0, tip});
     }
 
     render() {
@@ -293,7 +294,6 @@ class Checkout extends React.Component<propType, stateType> {
                         <PaymentMethodSelection paymentUpdate={this.paymentUpdate} total={total}/>
                         <div className={css(styles.spacer)} />
                         {this.renderBalanceSelection()}
-                        <div className={css(styles.spacer)} />
                         <TipSelection onChange={(tip:number) => {this.setState({tip}); console.log(tip)}}/>
 
                         <Button

@@ -498,6 +498,12 @@ export const requestPayout = async (apiToken) => {
     });
 };
 
+export const requestBraintreeToken = async (apiToken) => {
+    return await postToAPI("/order/requestBraintreeToken.php", {
+        apiToken
+    }, true);
+}
+
 export const getBuildings = async () => {
     return await postToAPI("/order/getBuildings.php");
 };

@@ -5,6 +5,7 @@ import {
     getCartPrices,
     formatPrice,
     showErrors,
+    requestBraintreeToken
 } from "../../../assets/scripts/Util";
 import LopesEatLogo from "../../../assets/images/icon-384x384.png";
 import Screen from "../../../components/Screen";
@@ -34,7 +35,6 @@ class CheckoutScreen extends React.Component {
         super(props);
 
         this.state = {
-            clientToken: null,
             fee: 0,
             useBalance: false,
             useEarnings: false,
@@ -50,16 +50,9 @@ class CheckoutScreen extends React.Component {
 
     async componentDidMount() {
         store.dispatch(fetchBalances(this.props.apiToken));
-        const response = await fetch(
-            "https://lopeseat.com/REST/order/requestBraintreeToken.php"
-        );
-        const clientToken = await response.json();
-
-        console.log(clientToken);
 
         var prices = await getCartPrices(this.props.apiToken);
         this.setState({
-            clientToken,
             fee: prices.delivery_fee,
             needFoodPayment: prices.need_payment,
             total: prices.total,
@@ -68,25 +61,19 @@ class CheckoutScreen extends React.Component {
         });
     }
 
-    pay = async (payment, extraData) => {
-        var { balances } = this.props;
-        var { useEarnings, useBalance, needFoodPayment, fee, total } = this.state;
-
-        var compareTo = needFoodPayment ? total : fee;
-        var needPayment = useBalance ? (balances[0] < compareTo) : (useEarnings ? (balances[1] < compareTo) : true);
-
+    pay = async (payment, data) => {
         var result = null;
 
-        if (needPayment) {
-            if (!this.instance) return;
-            if (this.instance.isPaymentMethodRequestable()) {
-                const { nonce, type, details } = await this.instance.requestPaymentMethod();
-                console.log(type);
-                console.log(details.cardType);
-                result = await sendPayment(nonce, this.props.address, this.props.apiToken, useBalance ? 1 : (useEarnings ? 2 : null), type, (type === "CreditCard") ? details.cardType : null);
-            }
+        console.log("Attempting Order..")
+        console.log(JSON.stringify(payment));
+        console.log(JSON.stringify(data));
+
+        var type = payment.type;
+
+        if (data.neededPayment) {
+            result = await sendPayment(payment.nonce, this.props.address, this.props.apiToken, data.useBalance ? 1 : (data.useEarnings ? 2 : null), type, (type === "CreditCard") ? payment.card.network : null);
         } else {
-            result = await sendPayment(null, this.props.address, this.props.apiToken, useBalance ? 1 : 2);
+            result = await sendPayment(null, this.props.address, this.props.apiToken, data.useBalance ? 1 : 2);
         }
         if (result && result.success) {
             this.props.history.push("/app/tracker");

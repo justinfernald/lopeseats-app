@@ -4,6 +4,7 @@ import {
     sendTip,
     formatPrice,
     showErrors,
+    requestBraintreeToken,
 } from "../../../assets/scripts/Util";
 import LopesEatLogo from "../../../assets/images/icon-384x384.png";
 import Screen from "../../../components/Screen";
@@ -43,9 +44,7 @@ class TipCheckout extends React.Component {
 
     async componentDidMount() {
         store.dispatch(fetchBalances(this.props.apiToken));
-        const response = await fetch(
-            "https://lopeseat.com/REST/order/requestBraintreeToken.php"
-        );
+        const response = await requestBraintreeToken(this.props.apiToken);
         const clientToken = await response.json();
 
         console.log(clientToken);

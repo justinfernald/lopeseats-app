@@ -9,6 +9,7 @@ import { store, actions } from "../../../Redux";
 import { fetchBalances } from "../../../Redux/Thunks";
 import { Braintree } from 'capacitor-braintree-dropin';
 import Checkout from '../../../components/Checkout';
+import { requestBraintreeToken } from '../../../assets/scripts/Util';
 // import {
 //     Capacitor,
 //     Plugins,
@@ -28,9 +29,7 @@ class DepositCheckout extends React.Component {
     }
 
     async componentDidMount() {
-        const response = await fetch(
-            "https://lopeseat.com/REST/order/requestBraintreeToken.php"
-        );
+        const response = await requestBraintreeToken()
         const clientToken = await response.json();
 
         console.log(clientToken);
