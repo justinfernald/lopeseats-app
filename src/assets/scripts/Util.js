@@ -610,6 +610,26 @@ export const formatTime = (date) => {
     return hours + ":" + minuteString + suffix;
 };
 
+export const filterSearchData = (list, searchTerm) => {
+    let output = [...list].sort((a, b) =>
+        a.name.localeCompare(b.name)
+    );
+
+    let startingFilter = output.filter((x) =>
+        removeSpecialCharacters(x.name.toLowerCase()).startsWith(
+            removeSpecialCharacters(searchTerm.toLowerCase())
+        )
+    );
+
+    let containingFilter = output.filter((x) =>
+        x.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    output = [...new Set([...startingFilter, ...containingFilter])];
+
+    return output;
+};
+
 export const milliSecondsToTimeString = (milliseconds) => {
     let fullSeconds = milliseconds / 1000;
     const hours = Math.floor(fullSeconds / 3600);

@@ -1,15 +1,14 @@
 import React from "react";
-
 import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { getRestaurant, getMenu, formatPrice, getCategories, removeSpecialCharacters } from "../../../assets/scripts/Util";
+import { getRestaurant, getMenu, formatPrice, getCategories, filterSearchData } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
 import SearchIcon from "../../../assets/images/search-grey.svg";
 import Loading from "../../../screens/Other/Loading";
-import Theme from "../../../assets/styles/Theme";
-import LopesEatLogo from "../../../assets/images/lopeseat-white.svg";
+import ItemOptions from "./ItemOptions";
+import AppBar from "../../../components/AppBar";
 class RestaurantDetails extends React.Component {
     constructor(props) {
         super(props);
@@ -18,8 +17,7 @@ class RestaurantDetails extends React.Component {
             selectedItem: null,
             optionsChosen: [],
             instructions: null,
-            restaurantData: {},
-            searchFilter: ""
+            restaurantData: {}
         };
 
         if (props.match.params.id) {
@@ -51,31 +49,9 @@ class RestaurantDetails extends React.Component {
         store.dispatch(actions.setSelectedRestaurantCategories(restaurantCategories));
     }
 
-    filterData(list) {
-        let output = [...list].sort((a, b) =>
-            a.name.localeCompare(b.name)
-        );
-
-        let startingFilter = output.filter((x) =>
-            removeSpecialCharacters(x.name.toLowerCase()).startsWith(
-                removeSpecialCharacters(this.state.searchFilter.toLowerCase())
-            )
-        );
-
-        let containingFilter = output.filter((x) =>
-            x.name.toLowerCase().includes(this.state.searchFilter.toLowerCase())
-        );
-
-        output = [...new Set([...startingFilter, ...containingFilter])];
-
-        return output;
-    }
-
     openItem = (item) => {
-        store.dispatch(
-            actions.setItemDetails({ openItem: item, editingItem: false })
-        );
-        this.props.history.push("/app/restaurants/item");
+        store.dispatch(actions.setItemDetails({ openItem: item, editingItem: false }));
+        store.dispatch(actions.setItemModalOpen(true));
     };
 
     openCategory = (categoryId) => {
@@ -83,41 +59,22 @@ class RestaurantDetails extends React.Component {
     }
 
     render() {
+        var { searchTerm } = this.props;
+        if (!searchTerm) {
+            searchTerm = "";
+        }
         if (!this.state.restaurantData.food) return <Loading />;
         return (
             <Screen
                 appBar={{
                     custom: <AppBar />,
-                    // title: this.props.selectedRestaurant.name,
-                    // splash: this.props.selectedRestaurant.banner,
                     backBtn: false
                 }}
                 ionPage>
+                <ItemOptions/>
                 <div className={css(styles.contentWrapper)}>
-                    <div className="restaurantInfo">
-                        {/* <div className="restaurantDescription">
-                            {this.props.selectedRestaurant.description}
-                        </div> */}
-
-                        {/* <HoursList restaurantData={this.state.restaurantData} /> */}
-                    </div>
                     <div className="restaurantFood">
-
-                        {/* <HoursList restaurantData={this.state.restaurantData} /> */}
-                        <div className="featuredMenu">
-                            <div className="title">Popular Items</div>
-                            <div className={css(styles.featuredItems) + " scrollArea"}>
-                                {/* <div className="scrollCapFill"></div> */}
-                                {[...this.state.restaurantData.food]
-                                    .filter((item) => item.featured === "1")
-                                    .sort((a, b) => +b.featuredPriority - +a.featuredPriority)
-                                    .map((item, index) => (
-                                        <FeaturedItem key={index} {...item} onClick={() => this.openItem(item)} {...console.log(item)} />
-                                    ))}
-                                {/* <div className="scrollCapFill"></div> */}
-                            </div>
-                        </div>
-                        <div className={css(styles.categoriesWrapper)}>
+                        <div className={css(styles.categoriesWrapper)} style={searchTerm.length == 0 ? {} : {display: "none"}}>
                             <div className={css(styles.categoriesHeader)}>
                                 Categories
                             </div>
@@ -129,104 +86,16 @@ class RestaurantDetails extends React.Component {
                         </div>
                         <div className={css(styles.fullMenu)}>
                             <div className={css(styles.title)}>All Items</div>
-                            <div className={css(styles.searchBox)}>
-                                <div>
-                                    <img className={css(styles.searchIcon)} alt="Search" src={SearchIcon} />
-                                </div>
-                                <input
-                                    className={css(styles.searchInput)}
-                                    type="text"
-                                    placeholder="Search"
-                                    onInput={(e) => {
-                                        this.setState({
-                                            searchFilter: e.target.value,
-                                        });
-                                    }} />
-                            </div>
-                            {this.filterData(this.props.selectedMenu).map((item, index) => (
+                            {filterSearchData(this.props.selectedMenu, searchTerm).map((item, index) => (
                                 <ListItem key={index} item={item} onClick={() => this.openItem(item)} />
                             ))}
                         </div>
                     </div>
                 </div>
-                <FloatingCartButton />
             </Screen>
         );
     }
 }
-
-const AppBar = () => {
-    const compStyles = StyleSheet.create({
-        wrapper: {
-            height: 200,
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            zIndex: 101,
-        },
-        mainContainer: {
-            background: Theme.color.primary,
-            width: "100%",
-            flex: 1
-        },
-        contentContainer: {
-            padding: "20px 40px 10px 40px",
-            ...Theme.addOn.fullSize,
-            ...Theme.addOn.centerContainer,
-            justifyContent: "space-between",
-        },
-        logoContainer: {
-            width: 75,
-            height: 75,
-        },
-        logo: {
-            ...Theme.addOn.fullSize,
-        },
-        searchBox: {
-            height: 40,
-            width: "100%",
-            background: Theme.color.secondary,
-            borderRadius: 20,
-            display: "flex",
-            paddingLeft: 20,
-            paddingRight: 20,
-            border: "3px solid " + Theme.color.primaryTint
-        },
-        searchInput: {
-            height: "100%",
-            flex: 1
-        },
-        searchIcon: {
-
-        },
-        secondaryContainer: {
-            height: 35,
-            ...Theme.addOn.boxShadow.medium,
-            ...Theme.addOn.centerContainer
-        },
-        infoText: {
-
-        }
-
-    });
-
-    return <div className={css(compStyles.wrapper)}>
-        <div className={css(compStyles.mainContainer)}>
-            <div className={css(compStyles.contentContainer)}>
-                <div className={css(compStyles.logoContainer)}>
-                    <img className={css(compStyles.logo)} alt="" src={LopesEatLogo} />
-                </div>
-                <div className={css(compStyles.searchBox)}>
-                    <input className={css(compStyles.searchInput)} placeholder="Search"></input>
-                    <img className={css(compStyles.searchIcon)} alt="Search" src={SearchIcon} />
-                </div>
-            </div>
-        </div>
-        <div className={css(compStyles.secondaryContainer)}>
-            <div className={css(compStyles.infoText)}>Information text here</div>
-        </div>
-    </div>
-};
 
 const Category = ({ name, image, onClick }) => <div className={css(styles.category)} onClick={onClick}>
     <div className={css(styles.categoryImageWrapper)}>
@@ -274,10 +143,10 @@ const FeaturedItem = ({ image, price, name, onClick }) => {
     });
     return <div
         className={css(compStyles.wrapper)}
-        onClick={onClick}
         style={{
             backgroundImage: `url(${image})`,
-        }}>
+        }}
+        onClick={onClick}>
         <div className={css(compStyles.contentContainer)}>
             <div className={css(compStyles.informationBox)}>
                 <div className={css(compStyles.price)}>
@@ -285,7 +154,7 @@ const FeaturedItem = ({ image, price, name, onClick }) => {
                 </div>
             </div>
         </div>
-    </div>
+    </div>;
 }
 
 const ListItem = ({ item, onClick }) => {
@@ -302,10 +171,15 @@ const ListItem = ({ item, onClick }) => {
             borderBottom: "solid #80808030 1px"
         },
         itemImageContainer: {
+            borderRadius: 6,
+            backgroundColor: "#444",
             width: 50,
             height: 50,
             flexShrink: 0,
             position: "relative"
+        },
+        outOfStockImage:{
+            opacity: "50%"
         },
         itemImage: {
             borderRadius: 6,
@@ -317,6 +191,10 @@ const ListItem = ({ item, onClick }) => {
             padding: "0 10px",
             width: "100%"
         },
+        outOfStockName:{
+            textDecoration: "line-through",
+            textDecorationColor: "red"
+        },
         name: {
             float: "left"
         },
@@ -326,15 +204,18 @@ const ListItem = ({ item, onClick }) => {
     })
     return <div
         className={css(compStyles.itemWrapper)}
-        onClick={onClick}>
+        onClick={item.amount_available==0?null:onClick}>
         <div className={css(compStyles.itemImageContainer)}>
             <img
-                className={css(compStyles.itemImage)}
+                className={css(compStyles.itemImage, item.amount_available==0?compStyles.outOfStockImage:null)}
                 alt=""
                 src={item.image} />
         </div>
         <div className={css(compStyles.itemContent)}>
-            <div className={css(compStyles.name)}>{item.name}</div>
+            <div className={css(compStyles.name)}>
+                <span className={item.amount_available==0?css(compStyles.outOfStockName):null}>{item.name}</span>
+                <br/>{item.amount_available==0?<span style={{color: "var(--secondary)"}}>Out of stock</span>:""}
+            </div>
             <div className={css(compStyles.price)}>
                 ${formatPrice(item.price)}
             </div>
@@ -387,22 +268,19 @@ const styles = StyleSheet.create({
         // marginTop: "10px",
     },
     categoriesContainer: {
-        display: "flex",
-        flexDirection: "horizontal",
-        flexFlow: "wrap",
-        alignItems: "center",
-        justifyContent: "center",
-        // padding: "10px",
-        width: "100%"
+        width: "100%",
+        display: "grid",
+        gridTemplateColumns: "50% 50%",
+        gridTemplateRows: "33% 33% 33%",
+        height: "300px"
     },
     category: {
-        width: "40%",
+        width: "97%",
+        height: "93%",
         paddingTop: "20%",
-        maxWidth: "200px",
-        minWidth: "115px",
         overflow: "hidden",
         position: "relative",
-        margin: "4px",
+        margin: "4px", 
         borderRadius: "5px"
         //boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
     },
@@ -473,8 +351,9 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(({ selectedRestaurant, selectedMenu, selectedRestaurantCategories }) => ({
+export default connect(({ selectedRestaurant, selectedMenu, selectedRestaurantCategories, searchTerm }) => ({
     selectedRestaurant,
     selectedMenu,
-    selectedRestaurantCategories
+    selectedRestaurantCategories,
+    searchTerm
 }))(RestaurantDetails);

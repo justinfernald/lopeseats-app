@@ -17,9 +17,14 @@ import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 
-import { /*restaurant,*/ home, person } from "ionicons/icons";
+import { /*restaurant,*/ person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
 import ProfileRouter from "./Customer/ProfileTab/ProfileRouter";
+import home from "../assets/images/home-icon.svg";
+import cart from "../assets/images/cart-icon.svg";
+import profile from "../assets/images/profile-icon.svg";
+import tracker from "../assets/images/track-icon.svg";
+import Cart from "./Customer/Cart";
 
 const MainScreen = (props) =>
     !props.apiToken ? (
@@ -47,6 +52,10 @@ const MainScreen = (props) =>
                         <Route
                             path="/app/:tab(deliverer)"
                             component={DelivererRouter}
+                        />
+                        <Route 
+                            path="/app/:tab(cart)"
+                            component={Cart}
                         />
                         <Route
                             path="/app/:tab(tracker)"
@@ -80,6 +89,32 @@ const MainScreen = (props) =>
                         <IonTabButton tab="restaurants" href="/app/restaurants/details">
                             <IonIcon
                                 icon={home}
+                                style={{ width: "100%", height: "53%" }}
+                            />
+                        </IonTabButton>
+                        <IonTabButton tab="cart" href="/app/cart">
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    background: "var(--secondary)", 
+                                    width: "20px",
+                                    height: "20px",
+                                    textAlign: "center",
+                                    borderRadius: "30px",
+                                    color: "white",
+                                    fontSize: "0.9em",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    top: "6px",
+                                    right: "calc(50% - 22px)",
+                                    zIndex: 1
+                                }}>
+                                {props.cartItems.length}
+                            </div>
+                            <IonIcon
+                                icon={cart}
                                 style={{ width: "100%", height: "53%" }}
                             />
                         </IonTabButton>
@@ -135,20 +170,15 @@ const MainScreen = (props) =>
                             </IonTabButton>
                         ) : null}
                         <IonTabButton tab="tracker" href="/app/tracker">
-                            <i
-                                className="material-icons-round"
-                                style={{
-                                    width: "100%",
-                                    height: "50%",
-                                    fontSize: "1.9em",
-                                }}>
-                                track_changes
-                        </i>
+                            <IonIcon
+                                icon={tracker}
+                                style={{ width: "100%", height: "53%" }}
+                            />
                         </IonTabButton>
                         <IonTabButton tab="profile" href="/app/profile">
                             <IonIcon
-                                icon={person}
-                                style={{ width: "100%", height: "50%" }}
+                                icon={profile}
+                                style={{ width: "100%", height: "53%" }}
                             />
                         </IonTabButton>
                     </IonTabBar>
@@ -161,11 +191,13 @@ const mapStateToProps = ({
     userDetails: { isDeliverer },
     deliveryModeActive,
     activeOrderCount,
+    cartItems
 }) => ({
     apiToken,
     isDeliverer,
     deliveryModeActive,
     activeOrderCount,
+    cartItems
 });
 
 export default connect(mapStateToProps)(MainScreen);

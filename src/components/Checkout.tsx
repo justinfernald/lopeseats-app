@@ -71,7 +71,7 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
 
     getPaymentText = () => {
         if (this.state.payment == null)
-            return "Add method";
+            return "Select method";
         else if (this.state.payment.card) {
             var { card } = this.state.payment;
             return card.network + " ending .." + card.lastTwo;
@@ -79,6 +79,7 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
             return "Venmo " + this.state.payment.venmoAccount.username;
         else if (this.state.payment.type == "PayPal")
             return "PayPal " + this.state.payment.payPalAccount.email;
+        
     }
 
     render() {
@@ -108,7 +109,7 @@ class TipSelection extends React.Component<{onChange?: (value:number) => void},{
 
         this.state = {
             tipAmount: 1,
-            selectedIndex: -1,
+            selectedIndex: 0,
             options: [1,2,3]
         };
     }

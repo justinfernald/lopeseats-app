@@ -37,16 +37,6 @@ export default function RestaurantsRouter() {
                     />
                     <Route
                         exact
-                        path="/app/:tab(restaurants)/item"
-                        component={ItemOptions}
-                    />
-                    <Route
-                        exact
-                        path="/app/:tab(restaurants)/cart"
-                        component={Cart}
-                    />
-                    <Route
-                        exact
                         path="/app/:tab(restaurants)/address"
                         component={DeliveryDetails}
                     />

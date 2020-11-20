@@ -10,6 +10,7 @@ import Screen from "../../components/Screen";
 import { connect } from "react-redux";
 import { store, actions } from "../../Redux";
 import { StyleSheet, css } from "aphrodite/no-important";
+import ItemOptions from "./RestaurantsTab/ItemOptions";
 
 class Cart extends React.Component {
 
@@ -72,9 +73,9 @@ class Cart extends React.Component {
             editingItem,
             openItem,
             optionsChosen,
-            instructions,
+            instructions
         }));
-        this.props.history.push("/app/restaurants/item");
+        store.dispatch(actions.setItemModalOpen(true));
     };
 
     onNextStep = () => {
@@ -86,7 +87,8 @@ class Cart extends React.Component {
     render() {
         return (
             <Screen
-                appBar={{ title: "Cart", backBtn: true }}>
+                appBar={{ title: "Cart" }}>
+                <ItemOptions onClose={() => this.fetchData()}/>
                 <div className="cartList">
                     {this.state.items.map((value, index) => {
                         var options = JSON.parse(value.options);
@@ -114,10 +116,7 @@ class Cart extends React.Component {
                                             {value.name}
                                         </span>
                                         <span className="cartItemPrice">
-                                            $
-                                            {formatPrice(
-                                            value.price * value.amount
-                                        )}
+                                            ${formatPrice(value.price)}
                                         </span>
                                     </div>
                                     <div className="cartItemDescription">
@@ -144,14 +143,14 @@ class Cart extends React.Component {
                 </div>
 
                 <div className="cartFooter">
-                    <div className={css(styles.discl)}>
+                    {/* <div className={css(styles.discl)}>
                         <span className="material-icons-outlined" style={{ marginRight: "10px" }}>
                             info
                         </span>
                         <span style={{ textAlign: "left" }}>
                             Total is only an estimate. The restaurants prices may vary slightly.
                         </span>
-                    </div>
+                    </div> */}
                     <div className="subtotal">
                         Subtotal
                         <span className="price">
@@ -219,7 +218,7 @@ class Cart extends React.Component {
     }
 }
 
-export default connect(({ apiToken }) => ({ apiToken }))(Cart);
+export default connect(({ apiToken, cartItems }) => ({ apiToken, cartItems }))(Cart);
 
 const styles = StyleSheet.create({
     discl: {
