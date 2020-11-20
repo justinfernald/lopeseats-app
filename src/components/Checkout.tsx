@@ -295,7 +295,7 @@ class Checkout extends React.Component<propType, stateType> {
                         <PaymentMethodSelection paymentUpdate={this.paymentUpdate} total={total}/>
                         <div className={css(styles.spacer)} />
                         {this.renderBalanceSelection()}
-                        <TipSelection onChange={(tip:number) => {this.setState({tip}); console.log(tip)}}/>
+                        {this.props.canUseTip ? <TipSelection onChange={(tip:number) => {this.setState({tip}); console.log(tip)}}/> : ""}
 
                         <Button
                             onClick={this.submitPayment}

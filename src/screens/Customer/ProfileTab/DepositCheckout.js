@@ -9,7 +9,7 @@ import { store, actions } from "../../../Redux";
 import { fetchBalances } from "../../../Redux/Thunks";
 import { Braintree } from 'capacitor-braintree-dropin';
 import Checkout from '../../../components/Checkout';
-import { requestBraintreeToken } from '../../../assets/scripts/Util';
+import { requestBraintreeToken, sendDepositPayment } from '../../../assets/scripts/Util';
 // import {
 //     Capacitor,
 //     Plugins,
@@ -61,64 +61,22 @@ class DepositCheckout extends React.Component {
     }
 
     pay = async (payment) => {
-        // var { amount, toFriend, friendsPhone } = this.props.depositData;
-        // var { nonce } = payment;
+        if (!payment) return;
+        var { amount, toFriend, friendsPhone } = this.props.depositData;
+        var { nonce } = payment;
 
-        // await sendDepositPayment(nonce, amount, toFriend ? friendsPhone : null, this.props.apiToken);
+        var result = await sendDepositPayment(nonce, amount, toFriend ? friendsPhone : null, this.props.apiToken);
 
-        store.dispatch(fetchBalances(this.props.apiToken));
+        if (result.success) {
+            store.dispatch(fetchBalances(this.props.apiToken));
 
-        this.props.history.push("/app/profile");
-        store.dispatch(actions.setHistorySize(0));
+            this.props.history.push("/app/profile");
+            store.dispatch(actions.setHistorySize(0));
+        }
     }
 
     render() {
         return <Checkout total={this.props.depositData.amount} submitPayment={this.pay} />;
-
-        // var dropin = !this.state.clientToken ? (
-        //     <div className="loadingWrapper">
-        //         <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
-        //         <div className="loadingText">
-        //             Loading payment authorization. One moment please
-        //         </div>
-        //     </div>
-        // ) : (
-        //         <div onClick={() => this.getPayment()}>Test</div>
-        //         // TODO web braintree implementation
-        //         // <DropIn
-        //         //     options={{
-        //         //         authorization: this.state.clientToken,
-        //         //         paypal: true,
-        //         //     }}
-        //         //     onInstance={(instance) => {this.instance = instance;}}
-        //         // />
-        //     );
-        // return (
-        //     <Screen
-        //         appBar={{
-        //             title: "Checkout", backBtn: true
-        //         }}>
-        //         <div style={{ padding: "20px 10px 0 10px" }}>
-        //             {dropin}
-        //         </div>
-        //         <div
-        //             className="cartFooter"
-        //             style={{
-        //                 position: "fixed",
-        //                 bottom: 0,
-        //             }}>
-        //             <div className="total">
-        //                 Total
-        //                 <span className="price">${this.props.depositData.amount}</span>
-        //             </div>
-        //             <button
-        //                 className="checkoutButton"
-        //                 onClick={this.pay.bind(this)}>
-        //                 Pay Now
-        //             </button>
-        //         </div>
-        //     </Screen>
-        // );
     }
 }
 

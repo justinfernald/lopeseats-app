@@ -34,6 +34,14 @@ class CheckoutScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        var roomNumber = false;
+
+        for (var building in this.props.buildings) {
+            if (building.name.toLowerCase() == this.props.address.toLowerCase()) {
+                roomNumber = building.room_number==1;
+            }
+        }
+
         this.state = {
             fee: 0,
             useBalance: false,
@@ -42,6 +50,7 @@ class CheckoutScreen extends React.Component {
             total: 0,
             tax: 0,
             subtotal: 0,
+            roomNumber
         };
 
         this.balanceRef = React.createRef();
@@ -68,9 +77,8 @@ class CheckoutScreen extends React.Component {
         console.log(JSON.stringify(payment));
         console.log(JSON.stringify(data));
 
-        var type = payment.type;
-
         if (data.neededPayment) {
+            var type = payment.type;
             result = await sendPayment(payment.nonce, this.props.address, this.props.apiToken, data.useBalance ? 1 : (data.useEarnings ? 2 : null), type, (type === "CreditCard") ? payment.card.network : null);
         } else {
             result = await sendPayment(null, this.props.address, this.props.apiToken, data.useBalance ? 1 : 2);
@@ -91,149 +99,14 @@ class CheckoutScreen extends React.Component {
     }
 
     render() {
-        var { total, needFoodPayment, fee, total } = this.state;
+        var { total, needFoodPayment, fee } = this.state;
         var cost = needFoodPayment ? total : fee;
 
         return <Checkout canUseBalances total={cost} submitPayment={this.pay}/>;
-
-        var { balances } = this.props;
-        var { useEarnings, useBalance, fee, needFoodPayment, total, tax, subtotal } = this.state;
-
-        var balance = balances[0] === undefined ? 0 : balances[0];
-        var earnings = balances[1] === undefined ? 0 : balances[1];
-
-        var compareTo = needFoodPayment ? total : fee;
-
-        // If balance being used covers the payment, needPayment = false
-        var needPayment = useBalance ? (balances[0] < compareTo) : (useEarnings ? (balances[1] < compareTo) : true);
-
-        var dropin = (
-            needPayment ?
-                <DropIn
-                    options={{
-                        authorization: this.state.clientToken,
-                        paypal: true,
-                        venmo: true,
-                    }}
-                    onInstance={(instance) => (this.instance = instance)}
-                />
-                :
-                <div className={css(styles.rowFlex)} style={{ margin: "20px" }}>All covered!</div>
-        );
-
-        var content = !this.state.clientToken ? (
-            <div className="loadingWrapper">
-                <img className="lopeImage" src={LopesEatLogo} alt="Logo" />
-                <div className="loadingText">
-                    Loading payment authorization. One moment please
-                </div>
-            </div>
-        ) : (
-                <Fragment>
-                    <div className={css(styles.dropinContainer)}>
-                        {dropin}
-                    </div>
-                    <div>
-                        <div className={css(styles.useBalance)} style={{ display: balance === 0 ? "none" : "flex" }}>
-                            <FormControlLabel
-                                control={<Checkbox inputRef={this.balanceRef} />}
-                                label="Use LopesEat balance to pay:"
-                                labelPlacement="end"
-                                onChange={this.checkboxChange}
-                                disabled={useEarnings}
-                            />
-                            <span className={css(styles.vertAlign, useEarnings ? styles.disabled : null)}>{"$" + formatPrice(balance, false)}</span>
-                        </div>
-                        <div className={css(styles.useBalance)} style={{ display: earnings === 0 ? "none" : "flex" }}>
-                            <FormControlLabel
-                                control={<Checkbox inputRef={this.earningsRef} />}
-                                label="Use Delivery earnings to pay:"
-                                labelPlacement="end"
-                                onChange={this.checkboxChange}
-                                disabled={useBalance}
-                            />
-                            <span className={css(styles.vertAlign, useBalance ? styles.disabled : null)}>{"$" + formatPrice(earnings, false)}</span>
-                        </div>
-                    </div>
-                </Fragment>
-            );
-
-        var prices = (
-            <Fragment>
-                {needFoodPayment ?
-                    <Fragment>
-                        <div className="subtotal">
-                            Subtotal
-                            <span className="price">
-                                ${formatPrice(subtotal)}
-                            </span>
-                        </div>
-                        {/* Tax: 8.6% */}
-                        <div className="subtotal">
-                            Tax & fees
-                            <span className="price">${formatPrice(tax)}</span>
-                        </div>
-                    </Fragment>
-                    : ""}
-                <div className="total">
-                    Delivery Fee
-                        <span className="price">${formatPrice(fee)}</span>
-                </div>
-                {(useEarnings || useBalance) ?
-                    <Fragment>
-                        <div className="subtotal">
-                            {useEarnings ? "Earnings" : "Balance"}
-                            <span className="price">-${formatPrice(needPayment ? balances[useBalance ? 0 : 1] : fee)}</span>
-                        </div>
-                        {needFoodPayment ?
-                            "" :
-                            <div className="total">
-                                Total
-                            <span className="price">
-                                    ${formatPrice(needPayment ? fee - balances[useBalance ? 0 : 1] : 0)}
-                                </span>
-                            </div>
-                        }
-                    </Fragment>
-                    : ""
-                }
-                {needFoodPayment ?
-                    <Fragment>
-                        <div className="total">
-                            Total
-                            <span className="price">
-                                ${formatPrice((useEarnings || useBalance) ? (needPayment ? total - balances[useBalance ? 0 : 1] : 0) : total)}
-                            </span>
-                        </div>
-                    </Fragment>
-                    : ""}
-            </Fragment>
-        );
-
-        return (
-            <Screen
-                appBar={{
-                    title: "Checkout", backBtn: true
-                }}>
-                <ThemeProvider theme={theme}>
-                    <div className={css(styles.container)}>
-                        {content}
-                    </div>
-                    <div className={css(styles.footer)}>
-                        {prices}
-                        <button
-                            className="checkoutButton"
-                            onClick={this.pay.bind(this)}>
-                            Pay Now
-                        </button>
-                    </div>
-                </ThemeProvider>
-            </Screen>
-        );
     }
 }
 
-export default connect(({ apiToken, address, balances }) => ({ apiToken, address, balances }))(
+export default connect(({ apiToken, building, balances, buildings }) => ({ apiToken, building, balances, buildings }))(
     CheckoutScreen
 );
 

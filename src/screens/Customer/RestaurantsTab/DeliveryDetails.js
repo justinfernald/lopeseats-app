@@ -18,8 +18,7 @@ class DeliveryDetails extends React.Component {
         this.addressRef = React.createRef(address);
         this.state = {
             search: address,
-            searchResults: [],
-            buildings: null
+            searchResults: []
         };
 
         this.updateValue(address);
@@ -32,7 +31,7 @@ class DeliveryDetails extends React.Component {
         var search = value;
         var searchResults = [];
 
-        var { buildings } = this.state;
+        var { buildings } = this.props;
 
         if (buildings == null) {
             buildings = await getBuildings();
@@ -45,7 +44,7 @@ class DeliveryDetails extends React.Component {
             }
         }
 
-        this.setState({ search, searchResults, buildings });
+        this.setState({ search, searchResults });
     }
 
     setValue(value) {
@@ -115,7 +114,7 @@ class DeliveryDetails extends React.Component {
     }
 }
 
-export default connect(({ address }) => ({ address }))(DeliveryDetails)
+export default connect(({ address, buildings }) => ({ address, buildings }))(DeliveryDetails)
 
 const styles = StyleSheet.create({
     container: {

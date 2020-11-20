@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { store, actions } from "../../Redux";
 import { StyleSheet, css } from "aphrodite/no-important";
 import ItemOptions from "./RestaurantsTab/ItemOptions";
+import Button from "../../components/Button";
 
 class Cart extends React.Component {
 
@@ -206,12 +207,11 @@ class Cart extends React.Component {
                             :
                             ""
                     }
-                    <button
-                        className="checkoutButton"
-                        style={(this.state.items.length === 0 || !this.state.canOrder) ? { opacity: "0.5" } : null}
+                    <Button
+                        disabled={(this.state.items.length === 0 || !this.state.canOrder)}
                         onClick={() => this.onNextStep()}>
                         Checkout
-                    </button>
+                    </Button>
                 </div>
             </Screen>
         );

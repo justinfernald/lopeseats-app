@@ -85,7 +85,8 @@ const initialState = {
     recovPhone: "",
     recovCode: "",
     itemModalOpen: false,
-    searchTerm: ""
+    searchTerm: "",
+    buildings: null
 };
 
 const reducers = {
@@ -327,6 +328,9 @@ const reducers = {
     },
     setSearchTerm: (state: any, {payload: searchTerm}: {payload: string}) => {
         state.searchTerm = searchTerm;
+    },
+    setBuildings: (state: any, {payload: buildings}: {payload: Array<any>}) => {
+        state.buildings = buildings;
     }
 };
 
