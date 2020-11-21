@@ -190,7 +190,7 @@ const AppBar = () => {
             display: "flex",
             paddingLeft: 20,
             paddingRight: 20,
-            border: "3px solid " + Theme.color.primaryTint
+            border: `3px solid ${Theme.color.primaryTint}`
         },
         searchInput: {
             height: "100%",
