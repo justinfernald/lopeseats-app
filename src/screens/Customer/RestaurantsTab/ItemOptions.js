@@ -148,128 +148,130 @@ class ItemOptions extends React.Component {
         var { selectedItem, optionsChosen } = this.getItemInfo();
 
         return (
-            <IonModal isOpen={this.props.itemModalOpen} animated>
-                <div style={{width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end"}}>
-                    <span onClick={this.closeItem} className="material-icons" style={{margin: "20px", fontSize: "2em"}}>
-                        clear
-                    </span>
-                </div>
-                <div className="itemOptionMenu" onScroll={this.onContentScroll}>
-                    <div style={{
-                        display: "flex",
-                        // flexDirection: "row",
-                        justifyContent: "center",
-                        // marginTop: "15px"
-                        height:"100%",
-                        
-                    }}>
-                        <img style={{height: "auto", maxHeight: "200px", maxWidth: "100%"}} src={selectedItem.image} alt="Item"/>
+            <IonModal cssClass="itemModal" isOpen={this.props.itemModalOpen} animated>
+                <div style={{ height: "100%", width: "100%", overflowY: "scroll" }}>
+                    <div style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
+                        <span onClick={this.closeItem} className="material-icons" style={{ margin: "20px", fontSize: "2em" }}>
+                            clear
+                        </span>
                     </div>
+                    <div className="itemOptionMenu" onScroll={this.onContentScroll}>
+                        <div style={{
+                            display: "flex",
+                            // flexDirection: "row",
+                            justifyContent: "center",
+                            // marginTop: "15px"
+                            height: "100%",
 
-                    <div className="itemDescription">
-                    <div className="itemCost">
-                            <span>
-                                $
-                                {formatPrice(
-                            selectedItem.price +
-                            this.calculatePrice()
-                        )}
-                            </span>
+                        }}>
+                            <img style={{ height: "auto", maxHeight: "200px", maxWidth: "100%" }} src={selectedItem.image} alt="Item" />
                         </div>
-                        {/* <div className="itemHeader">
-                            {this.state.selectedItem.name}
-                        </div>
-                        <div className="itemDetails">
-                            {this.state.selectedItem.description}
-                        </div> */}
-                    </div>
 
-                    {console.log(selectedItem.items)}
-
-                    {JSON.parse(selectedItem.items).map((x, i) => (
-                        <div key={i}>
-                            {x.options ?
-                                x.options.map((option, j) => {
-                                    if (!option) return null;
-                                    console.log("options: ", option);
-                                    if (this.props.itemDetails.editingItem) {
-                                        option.default =
-                                            this.props.itemDetails.optionsChosen[i][
-                                            option.name
-                                            ];
-                                    }
-
-                                    let populate = (choiceIndex) => {
-                                        let choices = Array.from(optionsChosen);
-                                        if (!choices[i]) choices[i] = {};
-                                        var choice = Object.assign({}, choices[i]);
-                                        choice[
-                                            option.name
-                                        ] = choiceIndex;
-                                        choices[i] = choice;
-                                        this.setState({
-                                            optionsChosen: choices,
-                                        });
-                                    };
-
-                                    return (
-                                        <Selector
-                                            populate={populate}
-                                            onSelection={populate}
-                                            key={j}
-                                            option={option}
-                                        />
-                                    );
-                                }) : null}
-                        </div>
-                    ))}
-
-                    {selectedItem.specialInstructions === 1 && (
-                        <div className="specialInstructionsWrapper">
-                            <div className="itemOptionTitle">
-                                Special Instructions
+                        <div className="itemDescription">
+                            <div className="itemCost">
+                                <span>
+                                    $
+                                    {formatPrice(
+                                    selectedItem.price +
+                                    this.calculatePrice()
+                                )}
+                                </span>
                             </div>
-                            <div className="SIInput">
-                                <textarea
-                                    onChange={(e) => {
-                                        this.setState({
-                                            instructions: e.currentTarget.value,
-                                        });
-                                    }}>
-                                    {this.state.instructions}
-                                </textarea>
+                            {/* <div className="itemHeader">
+                                {this.state.selectedItem.name}
                             </div>
-                        </div>
-                    )}
-
-                    <div className="itemOptionFooter">
-                        <div className="itemHeader">
-                            {selectedItem.name}
-                        </div>
-                        <div className="itemDetails">
-                            {selectedItem.description}
+                            <div className="itemDetails">
+                                {this.state.selectedItem.description}
+                            </div> */}
                         </div>
 
-                        <div className="itemAmountContainer">
-                            <div className="itemChange flexDisplayRow" onClick={() => this.incrementAmount(-1)}>-</div>
-                            <div className="flexDisplay justifyCenter">{this.state.amount}</div>
-                            <div className="itemChange flexDisplayRow" onClick={() => this.incrementAmount(1)}>+</div>
-                        </div>
+                        {console.log(selectedItem.items)}
 
-                        {/* <div className="itemCost">
-                            <span>
-                                $
-                                {formatPrice(
-                            this.state.selectedItem.price +
-                            this.calculatePrice()
+                        {JSON.parse(selectedItem.items).map((x, i) => (
+                            <div key={i}>
+                                {x.options ?
+                                    x.options.map((option, j) => {
+                                        if (!option) return null;
+                                        console.log("options: ", option);
+                                        if (this.props.itemDetails.editingItem) {
+                                            option.default =
+                                                this.props.itemDetails.optionsChosen[i][
+                                                option.name
+                                                ];
+                                        }
+
+                                        let populate = (choiceIndex) => {
+                                            let choices = Array.from(optionsChosen);
+                                            if (!choices[i]) choices[i] = {};
+                                            var choice = Object.assign({}, choices[i]);
+                                            choice[
+                                                option.name
+                                            ] = choiceIndex;
+                                            choices[i] = choice;
+                                            this.setState({
+                                                optionsChosen: choices,
+                                            });
+                                        };
+
+                                        return (
+                                            <Selector
+                                                populate={populate}
+                                                onSelection={populate}
+                                                key={j}
+                                                option={option}
+                                            />
+                                        );
+                                    }) : null}
+                            </div>
+                        ))}
+
+                        {selectedItem.specialInstructions === 1 && (
+                            <div className="specialInstructionsWrapper">
+                                <div className="itemOptionTitle">
+                                    Special Instructions
+                                </div>
+                                <div className="SIInput">
+                                    <textarea
+                                        onChange={(e) => {
+                                            this.setState({
+                                                instructions: e.currentTarget.value,
+                                            });
+                                        }}>
+                                        {this.state.instructions}
+                                    </textarea>
+                                </div>
+                            </div>
                         )}
-                            </span>
-                        </div> */}
-                        <div
-                            className="addToCartButton"
-                            onClick={this.addToCart}>
-                            {this.props.itemDetails.editingItem ? "Update " : "Add to "}{" "}
-                            Cart
+
+                        <div className="itemOptionFooter">
+                            <div className="itemHeader">
+                                {selectedItem.name}
+                            </div>
+                            <div className="itemDetails">
+                                {selectedItem.description}
+                            </div>
+
+                            <div className="itemAmountContainer">
+                                <div className="itemChange flexDisplayRow" onClick={() => this.incrementAmount(-1)}>-</div>
+                                <div className="flexDisplay justifyCenter">{this.state.amount}</div>
+                                <div className="itemChange flexDisplayRow" onClick={() => this.incrementAmount(1)}>+</div>
+                            </div>
+
+                            {/* <div className="itemCost">
+                                <span>
+                                    $
+                                    {formatPrice(
+                                this.state.selectedItem.price +
+                                this.calculatePrice()
+                            )}
+                                </span>
+                            </div> */}
+                            <div
+                                className="addToCartButton"
+                                onClick={this.addToCart}>
+                                {this.props.itemDetails.editingItem ? "Update " : "Add to "}{" "}
+                                Cart
+                            </div>
                         </div>
                     </div>
                 </div>

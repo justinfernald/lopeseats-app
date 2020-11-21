@@ -71,10 +71,10 @@ class RestaurantDetails extends React.Component {
                     backBtn: false
                 }}
                 ionPage>
-                <ItemOptions/>
+                <ItemOptions />
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantFood">
-                        <div className={css(styles.categoriesWrapper)} style={searchTerm.length == 0 ? {} : {display: "none"}}>
+                        <div className={css(styles.categoriesWrapper)} style={searchTerm.length == 0 ? {} : { display: "none" }}>
                             <div className={css(styles.categoriesHeader)}>
                                 Categories
                             </div>
@@ -161,7 +161,8 @@ const ListItem = ({ item, onClick }) => {
     const compStyles = StyleSheet.create({
         itemWrapper: {
             width: "100%",
-            height: "70px",
+            height: "fit-content",
+            minHeight: "70px",
             padding: "10px",
             // borderRadius: "5px",
             position: "relative",
@@ -178,7 +179,7 @@ const ListItem = ({ item, onClick }) => {
             flexShrink: 0,
             position: "relative"
         },
-        outOfStockImage:{
+        outOfStockImage: {
             opacity: "50%"
         },
         itemImage: {
@@ -191,12 +192,13 @@ const ListItem = ({ item, onClick }) => {
             padding: "0 10px",
             width: "100%"
         },
-        outOfStockName:{
+        outOfStockName: {
             textDecoration: "line-through",
             textDecorationColor: "red"
         },
         name: {
-            float: "left"
+            float: "left",
+            maxWidth: "75%"
         },
         price: {
             float: "right"
@@ -204,17 +206,17 @@ const ListItem = ({ item, onClick }) => {
     })
     return <div
         className={css(compStyles.itemWrapper)}
-        onClick={item.amount_available==0?null:onClick}>
+        onClick={item.amount_available == 0 ? null : onClick}>
         <div className={css(compStyles.itemImageContainer)}>
             <img
-                className={css(compStyles.itemImage, item.amount_available==0?compStyles.outOfStockImage:null)}
+                className={css(compStyles.itemImage, item.amount_available == 0 ? compStyles.outOfStockImage : null)}
                 alt=""
                 src={item.image} />
         </div>
         <div className={css(compStyles.itemContent)}>
             <div className={css(compStyles.name)}>
-                <span className={item.amount_available==0?css(compStyles.outOfStockName):null}>{item.name}</span>
-                <br/>{item.amount_available==0?<span style={{color: "var(--secondary)"}}>Out of stock</span>:""}
+                <span className={item.amount_available == 0 ? css(compStyles.outOfStockName) : null}>{item.name}</span>
+                <br />{item.amount_available == 0 ? <span style={{ color: "var(--secondary)" }}>Out of stock</span> : ""}
             </div>
             <div className={css(compStyles.price)}>
                 ${formatPrice(item.price)}
@@ -280,7 +282,7 @@ const styles = StyleSheet.create({
         paddingTop: "20%",
         overflow: "hidden",
         position: "relative",
-        margin: "4px", 
+        margin: "4px",
         borderRadius: "5px"
         //boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)"
     },

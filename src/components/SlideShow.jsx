@@ -20,6 +20,7 @@ export default class SlideShow extends React.Component {
     }
 
     callback = () => {
+        if (!this.containerRef.current) return;
         this.setState({ page: Math.round(this.containerRef.current.scrollLeft / this.containerRef.current.clientWidth) });
     }
 
@@ -76,8 +77,11 @@ export default class SlideShow extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
-        width: "100%",
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         overflowX: "scroll",
         scrollBehavior: "smooth"
     },
@@ -92,7 +96,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         margin: "0 30%",
         height: "5%",
-        minHeight: "12px"
+        minHeight: "12px",
+        position: "absolute",
+        bottom: "-20px",
+        left: 0,
+        right: 0
     },
     dot: {
         width: "12px",

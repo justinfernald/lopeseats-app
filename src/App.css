@@ -2177,3 +2177,8 @@ ion-tab-button.tab-selected {
   color: white;
   font-weight: 500;
 }
+
+.itemModal .ion-page {
+  height: 100%;
+  width: 100%;
+}
