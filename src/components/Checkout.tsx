@@ -21,8 +21,8 @@ const theme = createMuiTheme({
     },
 });
 
-class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:DropInResult) => void, total:number},{payment: DropInResult|null, clientToken: string|null}> {    
-    braintree:Braintree;
+class PaymentMethodSelection extends React.Component<{ paymentUpdate: (payment: DropInResult) => void, total: number }, { payment: DropInResult | null, clientToken: string | null }> {
+    braintree: Braintree;
 
     constructor(props: any) {
         super(props);
@@ -53,7 +53,7 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
 
     selectPayment = () => {
         var { total, paymentUpdate } = this.props;
-        
+
         this.braintree.showDropIn({
             amount: total.toString()
         }).then(
@@ -61,12 +61,12 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
                 console.log("Payment: ");
                 console.log(JSON.stringify(payment));
                 if (!payment.cancelled) {
-                    this.setState({payment});
+                    this.setState({ payment });
                     paymentUpdate(payment);
                 }
             }).catch((error) => {
-            console.log(error);
-        });
+                console.log(error);
+            });
     }
 
     getPaymentText = () => {
@@ -74,12 +74,10 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
             return "Select method";
         else if (this.state.payment.card) {
             var { card } = this.state.payment;
-            return card.network + " ending .." + card.lastTwo;
-        } else if (this.state.payment.type == "Venmo")
-            return "Venmo " + this.state.payment.venmoAccount.username;
-        else if (this.state.payment.type == "PayPal")
-            return "PayPal " + this.state.payment.payPalAccount.email;
-        
+            return this.state.payment.type + " ending .." + card.lastTwo;
+        } else
+            return this.state.payment.type;
+
     }
 
     render() {
@@ -92,7 +90,7 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
                     <span className={css(styles.centerContainer)}>
                         {this.getPaymentText()}
                     </span>
-                    <span style={{fontSize: "1.7em"}} className={css(styles.centerContainer) + " material-icons"}>
+                    <span style={{ fontSize: "1.7em" }} className={css(styles.centerContainer) + " material-icons"}>
                         keyboard_arrow_right
                     </span>
                 </span>
@@ -102,7 +100,7 @@ class PaymentMethodSelection extends React.Component<{paymentUpdate: (payment:Dr
 
 }
 
-class TipSelection extends React.Component<{onChange?: (value:number) => void},{tipAmount: number, selectedIndex: number, options: Array<number>}> {
+class TipSelection extends React.Component<{ onChange?: (value: number) => void }, { tipAmount: number, selectedIndex: number, options: Array<number> }> {
 
     constructor(props: any) {
         super(props);
@@ -110,34 +108,34 @@ class TipSelection extends React.Component<{onChange?: (value:number) => void},{
         this.state = {
             tipAmount: 1,
             selectedIndex: 0,
-            options: [1,2,3]
+            options: [1, 2, 3]
         };
     }
 
-    onChange = (value:number) => {
+    onChange = (value: number) => {
         if (this.props.onChange) {
             this.props.onChange(value == -1 ? this.state.tipAmount : value);
         }
     }
 
-    onInputChange = (e:any) => {
+    onInputChange = (e: any) => {
         var newValue = e.target.value;
         if (!/^\+?(0?|[1-9]\d{0,2})$/.test(e.target.value)) {
             newValue = this.state.tipAmount;
         }
 
         e.target.value = newValue;
-        
+
         if (newValue.length == 0)
             newValue = 0;
 
         newValue = parseInt(newValue);
-        this.setState({tipAmount: newValue});
+        this.setState({ tipAmount: newValue });
         this.onChange(newValue);
     }
 
-    selectIndex = (value:number, index: number) => {
-        this.setState({selectedIndex: index});
+    selectIndex = (value: number, index: number) => {
+        this.setState({ selectedIndex: index });
         this.onChange(value);
     }
 
@@ -162,7 +160,7 @@ class TipSelection extends React.Component<{onChange?: (value:number) => void},{
             <div className={css(styles.customTip, this.state.selectedIndex == this.state.options.length ? null : styles.customTipClosed)}>
                 <span className={css(styles.centerContainer)}>Enter Amount:</span>
                 <span>
-                    $<input onChange={this.onInputChange} className={css(styles.input)} type="number" defaultValue={1}/>
+                    $<input onChange={this.onInputChange} className={css(styles.input)} type="number" defaultValue={1} />
                 </span>
             </div>
         </div>);
@@ -175,12 +173,12 @@ type propType = {
     canUseTip?: boolean,
     canUseBalances?: boolean,
     balances?: any,
-    submitPayment: (payment: DropInResult|null, extra: {useBalance: boolean, useEarnings: boolean, neededPayment:boolean, tip: number}) => void
+    submitPayment: (payment: DropInResult | null, extra: { useBalance: boolean, useEarnings: boolean, neededPayment: boolean, tip: number }) => void
 };
 
 type stateType = {
-    clientToken: string|null,
-    payment: DropInResult|null,
+    clientToken: string | null,
+    payment: DropInResult | null,
     useBalance: boolean,
     useEarnings: boolean,
     balance: number,
@@ -190,8 +188,8 @@ type stateType = {
 
 class Checkout extends React.Component<propType, stateType> {
 
-    balanceRef:React.RefObject<HTMLInputElement>;
-    earningsRef:React.RefObject<HTMLInputElement>;
+    balanceRef: React.RefObject<HTMLInputElement>;
+    earningsRef: React.RefObject<HTMLInputElement>;
 
     constructor(props: propType) {
         super(props);
@@ -214,7 +212,7 @@ class Checkout extends React.Component<propType, stateType> {
         store.dispatch(fetchBalances());
     }
 
-    getBalanceAmount():number {
+    getBalanceAmount(): number {
         var { useEarnings, useBalance, balance, earnings } = this.state;
         return useBalance ? balance : useEarnings ? earnings : 0;
     }
@@ -240,14 +238,14 @@ class Checkout extends React.Component<propType, stateType> {
 
         return (
             <Fragment>
-                
+
                 <div>
                     <div className={css(styles.title)}>
                         Additional Payment Options
                     </div>
 
-                    <div className={css(styles.useBalance)} 
-                    style={{ display: balance === 0 ? "none" : "flex" }}>
+                    <div className={css(styles.useBalance)}
+                        style={{ display: balance === 0 ? "none" : "flex" }}>
                         <FormControlLabel
                             control={<Checkbox inputRef={this.balanceRef} />}
                             label="Use LopesEat balance to pay:"
@@ -274,12 +272,12 @@ class Checkout extends React.Component<propType, stateType> {
     }
 
     paymentUpdate = (payment: DropInResult) => {
-        this.setState({payment});
+        this.setState({ payment });
     }
 
     submitPayment = () => {
         var { payment, useBalance, useEarnings, tip } = this.state;
-        this.props.submitPayment(payment, {useBalance, useEarnings, neededPayment: this.getPaymentTotal() > 0, tip});
+        this.props.submitPayment(payment, { useBalance, useEarnings, neededPayment: this.getPaymentTotal() > 0, tip });
     }
 
     render() {
@@ -292,15 +290,15 @@ class Checkout extends React.Component<propType, stateType> {
                 }}>
                 <ThemeProvider theme={theme}>
                     <div className={css(styles.container)}>
-                        <PaymentMethodSelection paymentUpdate={this.paymentUpdate} total={total}/>
+                        <PaymentMethodSelection paymentUpdate={this.paymentUpdate} total={total} />
                         <div className={css(styles.spacer)} />
                         {this.renderBalanceSelection()}
-                        {this.props.canUseTip ? <TipSelection onChange={(tip:number) => {this.setState({tip}); console.log(tip)}}/> : ""}
+                        {this.props.canUseTip ? <TipSelection onChange={(tip: number) => { this.setState({ tip }); console.log(tip) }} /> : ""}
 
                         <Button
                             onClick={this.submitPayment}
                             rightText={"$" + formatPrice(total, false)}
-                            >
+                        >
                             Pay Now
                         </Button>
                     </div>
@@ -313,7 +311,7 @@ class Checkout extends React.Component<propType, stateType> {
 
 }
 
-export default connect(({balances}:any) => ({balances: balances}))(Checkout);
+export default connect(({ balances }: any) => ({ balances: balances }))(Checkout);
 
 const styles = StyleSheet.create({
     title: {

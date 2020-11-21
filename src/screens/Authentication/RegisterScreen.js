@@ -93,10 +93,10 @@ export default class RegisterScreen extends React.Component {
     render() {
         return (
             <div className="loginWrapper">
-                <div className = "loginHeader">
-                     </div>
-                <div className="formSwitchButton" onClick={this.formSwitch}>
-                    SIGN IN
+                <div className="loginHeader">
+                    <div className="formSwitchButton" onClick={this.formSwitch}>
+                        SIGN IN
+                    </div>
                 </div>
                 {/* <div className="loginImage">
                     <img

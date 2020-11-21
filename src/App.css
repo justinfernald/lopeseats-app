@@ -238,8 +238,7 @@ input:-webkit-autofill:active {
 .loginHeader {
   width: 100%;
   top: calc(10px + var(--sat));
-  max-height: 75px;
-  height: 75px;
+  height: 100px;
   background-color: var(--primary);
   margin-bottom: 10px;
 }
