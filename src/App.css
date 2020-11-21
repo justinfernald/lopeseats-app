@@ -238,8 +238,7 @@ input:-webkit-autofill:active {
 .loginHeader {
   width: 100%;
   top: calc(10px + var(--sat));
-  max-height: 75px;
-  height: 75px;
+  height: 100px;
   background-color: var(--primary);
   margin-bottom: 10px;
 }
@@ -2134,22 +2133,51 @@ ion-tab-button {
   --ripple-color: #444;
 }
 
-ion-tab-button ion-icon {
+ion-tab-button.tab-selected {
+  -webkit-box-shadow: inset 0px 0px 7px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow:    inset 0px 0px 7px 0px rgba(50, 50, 50, 0.75);
+  box-shadow:         inset 0px 0px 7px 0px rgba(50, 50, 50, 0.75);
+}
+
+/* ion-tab-button .material-icons-round {
   color: #707070;
-}
+} */
 
-ion-tab-button.tab-selected ion-icon {
+/* ion-tab-button.tab-selected .material-icons-round {
   color: black;
-}
+} */
 
-ion-tab-button .material-icons-round {
-  color: #707070;
-}
-
-ion-tab-button.tab-selected .material-icons-round {
-  color: black;
-}
+/* ion-tab-button {
+  stroke: #707070;
+} */
 
 .ion-page-hidden {
   display: none;
+}
+
+.itemAmountContainer {
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+  width: 100%;
+  font-size: 1.4em;
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  height: 50px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.itemChange {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+}
+
+.itemModal .ion-page {
+  height: 100%;
+  width: 100%;
 }

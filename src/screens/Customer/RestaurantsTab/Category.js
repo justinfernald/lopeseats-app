@@ -4,9 +4,11 @@ import Screen from "../../../components/Screen";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { getCategory, getCategoryItems, formatPrice } from "../../../assets/scripts/Util";
+import { getCategory, getCategoryItems, formatPrice, filterSearchData } from "../../../assets/scripts/Util";
 import FloatingCartButton from "../../../components/FloatingCartButton";
 import Loading from "../../../screens/Other/Loading";
+import ItemOptions from "./ItemOptions";
+import AppBar from "../../../components/AppBar";
 
 class Category extends React.Component {
     constructor(props) {
@@ -40,35 +42,34 @@ class Category extends React.Component {
 
     openItem = (item) => {
         console.log(item);
-        store.dispatch(
-            actions.setItemDetails({ openItem: item, editingItem: false })
-        );
-        this.props.history.push("/app/restaurants/item");
+        store.dispatch(actions.setItemDetails({ openItem: item, editingItem: false }));
+        store.dispatch(actions.setItemModalOpen(true));
     };
 
     render() {
         return (
             <Screen
                 appBar={{
-                    title: this.props.selectedRestaurant.name,
+                    custom: <AppBar backBtn />,
+                    // title: this.props.selectedRestaurant.name,
                     // splash: this.props.selectedRestaurant.banner,
-                    backBtn: true
+                    backBtn: false
                 }}
                 ionPage>
+                <ItemOptions/>
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantFood">
                         {this.state?.category?.name ?
                             <div className="fullMenu">
                                 <div className="title">{this.state.category.name || "Category Items"}</div>
 
-                                {this.state.category.items.map((item, index) => (
+                                {filterSearchData(this.state.category.items, this.props.searchTerm ? this.props.searchTerm : "").map((item, index) => (
                                     <ListItem key={index} item={item} onClick={() => this.openItem(item)} />
                                 ))}
                             </div>
                             : <Loading />}
                     </div>
                 </div>
-                <FloatingCartButton />
             </Screen>
         );
     }
@@ -101,8 +102,9 @@ const styles = StyleSheet.create({
     }
 });
 
-export default connect(({ selectedRestaurant, selectedMenu, selectedRestaurantCategories }) => ({
+export default connect(({ selectedRestaurant, selectedMenu, selectedRestaurantCategories, searchTerm }) => ({
     selectedRestaurant,
     selectedMenu,
-    selectedRestaurantCategories
+    selectedRestaurantCategories,
+    searchTerm
 }))(Category);

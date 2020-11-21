@@ -12,7 +12,7 @@ import LopesEatLogo from "../../assets/images/icon-384x384.png";
 
 export default class StartScreen extends React.Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     console.log("storedToken: " + AccountManager.hasStoredAPIToken());
@@ -23,7 +23,7 @@ export default class StartScreen extends React.Component {
 
     if (this.state.loading) {
       AccountManager.checkAPIToken().then(valid => {
-        if (!valid) this.setState({loading: false});
+        if (!valid) this.setState({ loading: false });
       });
     }
   }
@@ -41,7 +41,7 @@ export default class StartScreen extends React.Component {
     return (
       <IonPage style={{ height: "100%" }}>
         <div className={css(styles.container)}>
-          <SlideShow delay={30} style={{maxHeight: "70%"}}>
+          <SlideShow delay={4} style={{ maxHeight: "70%", height: "70%", position: "relative", maxWidth: "100%" }}>
             <Slide>
               <div className={css(styles.slideContainer)}>
                 <div className="starterCard">

@@ -79,12 +79,14 @@ const initialState = {
     },
     // History
     historySize: 0,
-
     tip: 0,
     tipped: false,
     //Recovery Info
     recovPhone: "",
-    recovCode: ""
+    recovCode: "",
+    itemModalOpen: false,
+    searchTerm: "",
+    buildings: null
 };
 
 const reducers = {
@@ -320,6 +322,15 @@ const reducers = {
     },
     setRecovCode: (state: any, {payload: recovCode}: {payload: string}) => {
         state.recovCode = recovCode;
+    },
+    setItemModalOpen: (state: any, {payload: isOpen}: {payload: boolean}) => {
+        state.itemModalOpen = isOpen;
+    },
+    setSearchTerm: (state: any, {payload: searchTerm}: {payload: string}) => {
+        state.searchTerm = searchTerm;
+    },
+    setBuildings: (state: any, {payload: buildings}: {payload: Array<any>}) => {
+        state.buildings = buildings;
     }
 };
 

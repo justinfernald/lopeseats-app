@@ -119,7 +119,12 @@ export const postToAPI = async (
     raw = false,
     promise = false
 ) => {
-    return await postData("https://lopeseat.com/REST" + url, data, raw, promise);
+    return await postData("https://dev.lopeseat.com/REST" + url, data, raw, promise);
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+        return await postData("https://dev.lopeseat.com/REST" + url, data, raw, promise);
+    } else {
+        return await postData("https://lopeseat.com/REST" + url, data, raw, promise);
+    }
 }
 
 export const phoneNumberTaken = async (phoneNumber) => {
@@ -493,6 +498,12 @@ export const requestPayout = async (apiToken) => {
     });
 };
 
+export const requestBraintreeToken = async (apiToken) => {
+    return await postToAPI("/order/requestBraintreeToken.php", {
+        apiToken
+    }, true);
+}
+
 export const getBuildings = async () => {
     return await postToAPI("/order/getBuildings.php");
 };
@@ -597,6 +608,26 @@ export const formatTime = (date) => {
                 ? "0" + minutes.toString()
                 : minutes;
     return hours + ":" + minuteString + suffix;
+};
+
+export const filterSearchData = (list, searchTerm) => {
+    let output = [...list].sort((a, b) =>
+        a.name.localeCompare(b.name)
+    );
+
+    let startingFilter = output.filter((x) =>
+        removeSpecialCharacters(x.name.toLowerCase()).startsWith(
+            removeSpecialCharacters(searchTerm.toLowerCase())
+        )
+    );
+
+    let containingFilter = output.filter((x) =>
+        x.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    output = [...new Set([...startingFilter, ...containingFilter])];
+
+    return output;
 };
 
 export const milliSecondsToTimeString = (milliseconds) => {

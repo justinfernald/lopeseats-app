@@ -117,15 +117,6 @@ class PersonalInformation extends React.Component {
                 <div className="registerFormContainer flex alignCenter" style={{ justifyContent: "space-evenly" }}>
                     <div className="scrollForm flex alignCenter">
                         <div className="labeledInput">
-                            <div className="label">Profile Picture (Optional)</div>
-                            <div className="uploaderContainer" style={{ marginLeft: "calc(50% - 70px)" }}>
-                                <ImageUploader
-                                    image={this.state.profileImage}
-                                    onUpload={this.onUpload}
-                                />
-                            </div>
-                        </div>
-                        <div className="labeledInput">
                             <div className="label">First Name</div>
                             <Input
                                 passedRef={this.firstNameRef}

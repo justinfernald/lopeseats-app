@@ -78,29 +78,27 @@ class Profile extends React.Component {
                     onIconClick: () => this.logout()
                 }}>
                 <ThemeProvider theme={theme}>
-                    <div className={css(styles.headerSection)}>
-                        <div className={css(styles.imageContainer)}>
-                            <ImageUploader editBar image={profileImage} onUpload={image => store.dispatch(setProfileImage({ apiToken, image }))} />
+                    <div className={css(styles.scrollContainer)}>
+                        <div className={css(styles.headerSection)}>
+                            <div className={css(styles.balanceSection)}>
+                                <BalanceDisplay title="Balance" balances={balances} loading={!balanceLoaded} index={0} />
+                                {earnings}
+                            </div>
                         </div>
-                        <div className={css(styles.vSpacer)} />
-                        <div className={css(styles.balanceSection)}>
-                            <BalanceDisplay title="Balance" balances={balances} loading={!balanceLoaded} index={0} />
-                            {earnings}
-                        </div>
-                    </div>
 
-                    <div className={css(styles.settingsSection)}>
-                        <div className={css(styles.sectionTitle)}>Account Settings</div>
-                        <ChangePhoneNumber />
-                        <div className={css(styles.spacer)} />
-                        <ChangePassword />
-                        <div className={css(styles.spacer)} />
-                        <ClickThrough onClick={this.goTo("/app/profile/deposit")}>Add money or send gift</ClickThrough>
-                        <div className={css(styles.sectionTitle)}>Delivery</div>
-                        {deliverySection}
-                        {/* <ClickThrough>Become a Runner</ClickThrough> */}
-                        <div className={css(styles.sectionTitle)}>Other</div>
-                        <ClickThrough onClick={this.goTo("/app/profile/contact")}>Contact Us</ClickThrough>
+                        <div className={css(styles.settingsSection)}>
+                            <div className={css(styles.sectionTitle)}>Account Settings</div>
+                            <ChangePhoneNumber />
+                            <div className={css(styles.spacer)} />
+                            <ChangePassword />
+                            <div className={css(styles.spacer)} />
+                            <ClickThrough onClick={this.goTo("/app/profile/deposit")}>Add money or send gift</ClickThrough>
+                            <div className={css(styles.sectionTitle)}>Delivery</div>
+                            {deliverySection}
+                            {/* <ClickThrough>Become a Runner</ClickThrough> */}
+                            <div className={css(styles.sectionTitle)}>Other</div>
+                            <ClickThrough onClick={this.goTo("/app/profile/contact")}>Contact Us</ClickThrough>
+                        </div>
                     </div>
                 </ThemeProvider>
             </Screen>
@@ -109,6 +107,10 @@ class Profile extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        height: "100%",
+        overflowY: "scroll"
+    },
     spacer: {
         width: "calc(100% - 20px)",
         height: "1px",
@@ -138,7 +140,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-evenly",
-        width: "calc(100% - 120px)",
+        width: "100%",
     },
     flexColumn: {
         display: "flex",

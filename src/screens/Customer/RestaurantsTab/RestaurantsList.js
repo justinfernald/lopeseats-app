@@ -246,7 +246,6 @@ export default class RestaurantsList extends React.Component {
                         );
                     })}
                 </div>
-                <FloatingCartButton/>
             </Screen>
         );
     }

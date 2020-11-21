@@ -7,8 +7,9 @@ export default class Slide extends React.Component<propsType, any> {
     render() {
         return (
             <div style={{
-                width: "100%",
-                height: "100%"
+                width: "100vw",
+                height: "100%",
+                minWidth: "100vw"
             }}>
                 {this.props.children}
             </div>

@@ -11,7 +11,7 @@ import { setupConfig } from "@ionic/react";
 
 setupConfig({
     hardwareBackButton: false,
-    animated: false,
+    animated: true,
     mode: 'md'
 });
 
