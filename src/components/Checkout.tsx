@@ -70,7 +70,7 @@ class PaymentMethodSelection extends React.Component<{ paymentUpdate: (payment: 
     }
 
     getPaymentText = () => {
-        if (this.state.payment == null)
+        if (!this.state.payment)
             return "Select method";
         else if (this.state.payment.card) {
             var { card } = this.state.payment;
@@ -114,7 +114,7 @@ class TipSelection extends React.Component<{ onChange?: (value: number) => void 
 
     onChange = (value: number) => {
         if (this.props.onChange) {
-            this.props.onChange(value == -1 ? this.state.tipAmount : value);
+            this.props.onChange(value === -1 ? this.state.tipAmount : value);
         }
     }
 
@@ -126,7 +126,7 @@ class TipSelection extends React.Component<{ onChange?: (value: number) => void 
 
         e.target.value = newValue;
 
-        if (newValue.length == 0)
+        if (newValue.length === 0)
             newValue = 0;
 
         newValue = parseInt(newValue);
@@ -141,9 +141,9 @@ class TipSelection extends React.Component<{ onChange?: (value: number) => void 
 
     drawButton = (value: number, index: number) => {
         return <span key={index}
-            className={css(styles.tipAmount, index == this.state.selectedIndex ? styles.tipSelected : null)}
+            className={css(styles.tipAmount, index === this.state.selectedIndex ? styles.tipSelected : null)}
             onClick={() => this.selectIndex(value, index)}>
-            {value == -1 ? "Custom" : index == -1 ? "No Tip" : "$" + value}
+            {value === -1 ? "Custom" : index === -1 ? "No Tip" : "$" + value}
         </span>;
     }
 
@@ -157,7 +157,7 @@ class TipSelection extends React.Component<{ onChange?: (value: number) => void 
                 {this.state.options.map(this.drawButton)}
                 {this.drawButton(-1, this.state.options.length)}
             </div>
-            <div className={css(styles.customTip, this.state.selectedIndex == this.state.options.length ? null : styles.customTipClosed)}>
+            <div className={css(styles.customTip, this.state.selectedIndex === this.state.options.length ? null : styles.customTipClosed)}>
                 <span className={css(styles.centerContainer)}>Enter Amount:</span>
                 <span>
                     $<input onChange={this.onInputChange} className={css(styles.input)} type="number" defaultValue={1} />
@@ -234,7 +234,7 @@ class Checkout extends React.Component<propType, stateType> {
     renderBalanceSelection() {
         var { useEarnings, useBalance, balance, earnings } = this.state;
 
-        if (!this.props.canUseBalances || (balance == 0 && earnings == 0)) return "";
+        if (!this.props.canUseBalances || (balance === 0 && earnings === 0)) return "";
 
         return (
             <Fragment>
