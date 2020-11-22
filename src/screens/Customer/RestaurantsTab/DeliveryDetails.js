@@ -10,7 +10,6 @@ import Button from "../../../components/Button";
 import { css, StyleSheet } from "aphrodite/no-important";
 
 class DeliveryDetails extends React.Component {
-
     constructor(props) {
         super(props);
         var address = props.address;
@@ -22,9 +21,6 @@ class DeliveryDetails extends React.Component {
         };
 
         this.updateValue(address);
-    }
-
-    componentDidMount() {
     }
 
     async updateValue(value) {
@@ -54,7 +50,12 @@ class DeliveryDetails extends React.Component {
 
     onNextStep = (address) => {
         if (this.state.searchResults.length > 0 && this.state.searchResults[0].name === address) {
+
             store.dispatch(actions.setAddress(address));
+            if (this.state.searchResults[0])
+                this.props.history.push("/app/restaurants/roomnumber");
+            else
+                store.dispatch(actions.setRoomNumber(-1));
             this.props.history.push("/app/restaurants/checkout");
         } else {
             showErrors(["Please select a building."]);
@@ -106,7 +107,7 @@ class DeliveryDetails extends React.Component {
                             this.onNextStep(this.addressRef.current.value)
                         }>
                             Done
-                            </Button>
+                        </Button>
                     </div>
                 </div>
             </Screen>

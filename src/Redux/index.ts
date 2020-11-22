@@ -59,6 +59,7 @@ const initialState = {
     fbPlatform: null,
     // Delivery Details
     address: null,
+    roomNumber: -1,
     // Delivery Mode
     deliveryStartingTime: null,
     deliveryModeActive: false,
@@ -86,7 +87,7 @@ const initialState = {
     recovCode: "",
     itemModalOpen: false,
     searchTerm: "",
-    buildings: null
+    buildings: null,
 };
 
 const reducers = {
@@ -173,7 +174,10 @@ const reducers = {
     unsetSelectedMenu: (state: any) => {
         state.selectedMenu = null;
     },
-    setSelectedRestaurantCategories: (state: any, { payload: newSelectedRestaurantCategories}: {payload: [any]}) => {
+    setSelectedRestaurantCategories: (
+        state: any,
+        { payload: newSelectedRestaurantCategories }: { payload: [any] }
+    ) => {
         state.selectedRestaurantCategories = newSelectedRestaurantCategories;
     },
     unsetSelectedRestaurantCategories: (state: any) => {
@@ -231,6 +235,15 @@ const reducers = {
     unsetAddress: (state: any) => {
         state.address = null;
     },
+    setRoomNumber: (
+        state: any,
+        { payload: roomNumber }: { payload: number }
+    ) => {
+        state.roomNumber = roomNumber;
+    },
+    unsetRoomNumber: (state: any) => {
+        state.roomNumber = -1;
+    },
     // Deliverer Mode
     setDeliveryMode: (
         state: any,
@@ -240,7 +253,7 @@ const reducers = {
     },
     setDeliveryStartingTime: (
         state: any,
-        { payload: deliveryStartingTime }: { payload: number|null }
+        { payload: deliveryStartingTime }: { payload: number | null }
     ) => {
         state.deliveryStartingTime = deliveryStartingTime;
     },
@@ -314,24 +327,39 @@ const reducers = {
     setTipped: (state: any, { payload: tipped }: { payload: boolean }) => {
         state.tipped = tipped;
     },
-    setUpdateRequired: (state: any, {payload: updateRequired}: {payload: boolean}) => {
+    setUpdateRequired: (
+        state: any,
+        { payload: updateRequired }: { payload: boolean }
+    ) => {
         state.updateRequired = updateRequired;
     },
-    setRecovPhone: (state: any, {payload: recovPhone}: {payload: string}) => {
+    setRecovPhone: (
+        state: any,
+        { payload: recovPhone }: { payload: string }
+    ) => {
         state.recovPhone = recovPhone;
     },
-    setRecovCode: (state: any, {payload: recovCode}: {payload: string}) => {
+    setRecovCode: (state: any, { payload: recovCode }: { payload: string }) => {
         state.recovCode = recovCode;
     },
-    setItemModalOpen: (state: any, {payload: isOpen}: {payload: boolean}) => {
+    setItemModalOpen: (
+        state: any,
+        { payload: isOpen }: { payload: boolean }
+    ) => {
         state.itemModalOpen = isOpen;
     },
-    setSearchTerm: (state: any, {payload: searchTerm}: {payload: string}) => {
+    setSearchTerm: (
+        state: any,
+        { payload: searchTerm }: { payload: string }
+    ) => {
         state.searchTerm = searchTerm;
     },
-    setBuildings: (state: any, {payload: buildings}: {payload: Array<any>}) => {
+    setBuildings: (
+        state: any,
+        { payload: buildings }: { payload: Array<any> }
+    ) => {
         state.buildings = buildings;
-    }
+    },
 };
 
 const stateSlice = createSlice({

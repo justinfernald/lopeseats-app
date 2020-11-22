@@ -7,6 +7,7 @@ import RestaurantDetails from "./RestaurantDetails";
 import DeliveryDetails from "./DeliveryDetails";
 import CheckoutScreen from "./CheckoutScreen";
 import Category from "./Category";
+import DeliveryRoomNumber from "./DeliveryRoomNumber";
 
 export default function RestaurantsRouter() {
     return (
@@ -37,6 +38,11 @@ export default function RestaurantsRouter() {
                         exact
                         path="/app/:tab(restaurants)/address"
                         component={DeliveryDetails}
+                    />
+                    <Route
+                        exact
+                        path="/app/:tab(restaurants)/roomnumber"
+                        component={DeliveryRoomNumber}
                     />
                     <Route
                         exact

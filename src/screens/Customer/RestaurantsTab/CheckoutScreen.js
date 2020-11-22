@@ -79,9 +79,9 @@ class CheckoutScreen extends React.Component {
 
         if (data.neededPayment) {
             var type = payment.type;
-            result = await sendPayment(payment.nonce, this.props.address, this.props.apiToken, data.useBalance ? 1 : (data.useEarnings ? 2 : null), type, (type === "CreditCard") ? payment.card.network : null);
+            result = await sendPayment(payment.nonce, this.props.address + (this.props.roomNumber !== -1 ? " : " + this.props.roomNumber : ""), this.props.apiToken, data.useBalance ? 1 : (data.useEarnings ? 2 : null), type, (type === "CreditCard") ? payment.card.network : null);
         } else {
-            result = await sendPayment(null, this.props.address, this.props.apiToken, data.useBalance ? 1 : 2);
+            result = await sendPayment(null, this.props.address + (this.props.roomNumber !== -1 ? " : " + this.props.roomNumber : ""), this.props.apiToken, data.useBalance ? 1 : 2);
         }
         if (result && result.success) {
             this.props.history.push("/app/tracker");
@@ -106,7 +106,7 @@ class CheckoutScreen extends React.Component {
     }
 }
 
-export default connect(({ apiToken, building, balances, buildings }) => ({ apiToken, building, balances, buildings }))(
+export default connect(({ apiToken, building, balances, buildings, roomNumber }) => ({ apiToken, building, balances, buildings, roomNumber }))(
     CheckoutScreen
 );
 
