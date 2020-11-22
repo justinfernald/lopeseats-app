@@ -4,8 +4,6 @@ import { IonRouterOutlet, IonPage } from "@ionic/react";
 import { Route, Switch } from "react-router-dom";
 import RestaurantsList from "./RestaurantsList";
 import RestaurantDetails from "./RestaurantDetails";
-import ItemOptions from "./ItemOptions";
-import Cart from "../Cart";
 import DeliveryDetails from "./DeliveryDetails";
 import CheckoutScreen from "./CheckoutScreen";
 import Category from "./Category";

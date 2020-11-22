@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import Screen from "../../../components/Screen";
-import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
+// import ImageUploader from "../../Authentication/RegisterProcess/ImageUploader";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
-import { setProfileImage } from "../../../Redux/Thunks";
+// import { setProfileImage } from "../../../Redux/Thunks";
 import { css, StyleSheet } from "aphrodite/no-important";
 import { IonIcon } from '@ionic/react';
 import ClickThrough from "../../../components/Settings/ClickThrough";
@@ -45,7 +45,7 @@ class Profile extends React.Component {
     render() {
         var balanceLoaded = this.props.balances && this.props.balances.length > 0;
 
-        var { userDetails, balances, profileImage, apiToken } = this.props;
+        var { userDetails, balances, /*profileImage, apiToken*/ } = this.props;
 
         var { isDeliverer } = userDetails;
 

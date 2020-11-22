@@ -17,7 +17,7 @@ import DelivererOrder from "./Deliverer/DelivererOrder";
 import DelivererPayment from "./Deliverer/DelivererPayment";
 import TrackerRouter from "./Customer/TrackerTab/TrackerRouter";
 
-import { /*restaurant,*/ person } from "ionicons/icons";
+// import { /*restaurant,*/ person } from "ionicons/icons";
 import DelivererRouter from "./Deliverer/DelivererRouter";
 import ProfileRouter from "./Customer/ProfileTab/ProfileRouter";
 import home from "../assets/images/home-icon.svg";
@@ -53,7 +53,7 @@ const MainScreen = (props) =>
                             path="/app/:tab(deliverer)"
                             component={DelivererRouter}
                         />
-                        <Route 
+                        <Route
                             path="/app/:tab(cart)"
                             component={Cart}
                         />
@@ -96,7 +96,7 @@ const MainScreen = (props) =>
                             <div
                                 style={{
                                     position: "absolute",
-                                    background: "var(--secondary)", 
+                                    background: "var(--secondary)",
                                     width: "20px",
                                     height: "20px",
                                     textAlign: "center",

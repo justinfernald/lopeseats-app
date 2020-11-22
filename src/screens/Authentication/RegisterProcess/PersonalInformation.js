@@ -1,6 +1,6 @@
 import React from "react";
 import RegisterStep from "./RegisterStep";
-import ImageUploader from "./ImageUploader";
+// import ImageUploader from "./ImageUploader";
 import Input from "../../../components/Input";
 import {
     showErrors,

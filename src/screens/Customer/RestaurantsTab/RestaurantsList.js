@@ -1,8 +1,6 @@
 import React from "react";
-// import LopesEatIcon from '../../assets/images/icon-72x72.png';
 import SearchIcon from "../../../assets/images/search-grey.svg";
 import { getRestaurants, getMenu } from "../../../assets/scripts/Util";
-import FloatingCartButton from "../../../components/FloatingCartButton";
 import { isOpen } from "../../../components/HoursList";
 
 import Screen from "../../../components/Screen";
@@ -95,9 +93,9 @@ export default class RestaurantsList extends React.Component {
         return output;
     }
 
-    componentDidMount() {}
+    componentDidMount() { }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     openRestaurantScreen = (restaurant, menu) => {
         store.dispatch(actions.setSelectedRestaurant(restaurant));
@@ -160,7 +158,7 @@ export default class RestaurantsList extends React.Component {
                                 className={
                                     "sortOption" +
                                     (this.state.sortBy ===
-                                    this.sortType.WAITTIME
+                                        this.sortType.WAITTIME
                                         ? " active"
                                         : "")
                                 }>
@@ -199,8 +197,8 @@ export default class RestaurantsList extends React.Component {
                                 {this.state.onlyOpen ? (
                                     <i className="sortIcon fas fa-door-open"></i>
                                 ) : (
-                                    <i className="sortIcon fas fa-door-closed"></i>
-                                )}
+                                        <i className="sortIcon fas fa-door-closed"></i>
+                                    )}
                             </div>
                             <div
                                 onClick={() => {
@@ -212,8 +210,8 @@ export default class RestaurantsList extends React.Component {
                                 {!this.state.flipOrder ? (
                                     <i className="sortIcon fas fa-sort-up"></i>
                                 ) : (
-                                    <i className="sortIcon fas fa-sort-down"></i>
-                                )}
+                                        <i className="sortIcon fas fa-sort-down"></i>
+                                    )}
                             </div>
                         </div>
                         <div

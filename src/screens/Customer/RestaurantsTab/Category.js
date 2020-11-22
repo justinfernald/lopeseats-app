@@ -5,7 +5,6 @@ import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { getCategory, getCategoryItems, formatPrice, filterSearchData } from "../../../assets/scripts/Util";
-import FloatingCartButton from "../../../components/FloatingCartButton";
 import Loading from "../../../screens/Other/Loading";
 import ItemOptions from "./ItemOptions";
 import AppBar from "../../../components/AppBar";
@@ -56,7 +55,7 @@ class Category extends React.Component {
                     backBtn: false
                 }}
                 ionPage>
-                <ItemOptions/>
+                <ItemOptions />
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantFood">
                         {this.state?.category?.name ?

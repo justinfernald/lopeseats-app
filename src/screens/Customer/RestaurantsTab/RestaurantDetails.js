@@ -4,8 +4,6 @@ import { css, StyleSheet } from "aphrodite/no-important";
 import { connect } from "react-redux";
 import { store, actions } from "../../../Redux";
 import { getRestaurant, getMenu, formatPrice, getCategories, filterSearchData } from "../../../assets/scripts/Util";
-import FloatingCartButton from "../../../components/FloatingCartButton";
-import SearchIcon from "../../../assets/images/search-grey.svg";
 import Loading from "../../../screens/Other/Loading";
 import ItemOptions from "./ItemOptions";
 import AppBar from "../../../components/AppBar";
@@ -74,7 +72,7 @@ class RestaurantDetails extends React.Component {
                 <ItemOptions />
                 <div className={css(styles.contentWrapper)}>
                     <div className="restaurantFood">
-                        <div className={css(styles.categoriesWrapper)} style={searchTerm.length == 0 ? {} : { display: "none" }}>
+                        <div className={css(styles.categoriesWrapper)} style={searchTerm.length === 0 ? {} : { display: "none" }}>
                             <div className={css(styles.categoriesHeader)}>
                                 Categories
                             </div>
@@ -97,78 +95,78 @@ class RestaurantDetails extends React.Component {
     }
 }
 
-const AppBar = () => {
-    const compStyles = StyleSheet.create({
-        wrapper: {
-            height: 200,
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            zIndex: 101,
-        },
-        mainContainer: {
-            background: Theme.color.primary,
-            width: "100%",
-            flex: 1
-        },
-        contentContainer: {
-            padding: "20px 40px 10px 40px",
-            ...Theme.addOn.fullSize,
-            ...Theme.addOn.centerContainer,
-            justifyContent: "space-between",
-        },
-        logoContainer: {
-            width: 75,
-            height: 75,
-        },
-        logo: {
-            ...Theme.addOn.fullSize,
-        },
-        searchBox: {
-            height: 40,
-            width: "100%",
-            background: Theme.color.secondary,
-            borderRadius: 20,
-            display: "flex",
-            paddingLeft: 20,
-            paddingRight: 20,
-            border: `3px solid ${Theme.color.primaryTint}`
-        },
-        searchInput: {
-            height: "100%",
-            flex: 1
-        },
-        searchIcon: {
+// const AppBar = () => {
+//     const compStyles = StyleSheet.create({
+//         wrapper: {
+//             height: 200,
+//             width: "100%",
+//             display: "flex",
+//             flexDirection: "column",
+//             zIndex: 101,
+//         },
+//         mainContainer: {
+//             background: Theme.color.primary,
+//             width: "100%",
+//             flex: 1
+//         },
+//         contentContainer: {
+//             padding: "20px 40px 10px 40px",
+//             ...Theme.addOn.fullSize,
+//             ...Theme.addOn.centerContainer,
+//             justifyContent: "space-between",
+//         },
+//         logoContainer: {
+//             width: 75,
+//             height: 75,
+//         },
+//         logo: {
+//             ...Theme.addOn.fullSize,
+//         },
+//         searchBox: {
+//             height: 40,
+//             width: "100%",
+//             background: Theme.color.secondary,
+//             borderRadius: 20,
+//             display: "flex",
+//             paddingLeft: 20,
+//             paddingRight: 20,
+//             border: `3px solid ${Theme.color.primaryTint}`
+//         },
+//         searchInput: {
+//             height: "100%",
+//             flex: 1
+//         },
+//         searchIcon: {
 
-        },
-        secondaryContainer: {
-            height: 35,
-            ...Theme.addOn.boxShadow.medium,
-            ...Theme.addOn.centerContainer
-        },
-        infoText: {
+//         },
+//         secondaryContainer: {
+//             height: 35,
+//             ...Theme.addOn.boxShadow.medium,
+//             ...Theme.addOn.centerContainer
+//         },
+//         infoText: {
 
-        }
+//         }
 
-    });
+//     });
 
-    return <div className={css(compStyles.wrapper)}>
-        <div className={css(compStyles.mainContainer)}>
-            <div className={css(compStyles.contentContainer)}>
-                <div className={css(compStyles.logoContainer)}>
-                    <img className={css(compStyles.logo)} alt="" src={LopesEatLogo} />
-                </div>
-                <div className={css(compStyles.searchBox)}>
-                    <input className={css(compStyles.searchInput)} placeholder="Search"></input>
-                    <img className={css(compStyles.searchIcon)} alt="Search" src={SearchIcon} />
-                </div>
-            </div>
-        </div>
-        <div className={css(compStyles.secondaryContainer)}>
-            <div className={css(compStyles.infoText)}>Information text here</div>
-        </div>
-    </div>
-};
+//     return <div className={css(compStyles.wrapper)}>
+//         <div className={css(compStyles.mainContainer)}>
+//             <div className={css(compStyles.contentContainer)}>
+//                 <div className={css(compStyles.logoContainer)}>
+//                     <img className={css(compStyles.logo)} alt="" src={LopesEatLogo} />
+//                 </div>
+//                 <div className={css(compStyles.searchBox)}>
+//                     <input className={css(compStyles.searchInput)} placeholder="Search"></input>
+//                     <img className={css(compStyles.searchIcon)} alt="Search" src={SearchIcon} />
+//                 </div>
+//             </div>
+//         </div>
+//         <div className={css(compStyles.secondaryContainer)}>
+//             <div className={css(compStyles.infoText)}>Information text here</div>
+//         </div>
+//     </div>
+// };
 
 const Category = ({ name, image, onClick }) => <div className={css(styles.category)} onClick={onClick}>
     <div className={css(styles.categoryImageWrapper)}>
@@ -179,56 +177,56 @@ const Category = ({ name, image, onClick }) => <div className={css(styles.catego
     </div>
 </div>
 
-const FeaturedItem = ({ image, price, name, onClick }) => {
-    const compStyles = StyleSheet.create({
-        wrapper: {
-            width: "30%",
-            margin: "9px",
-            borderRadius: "15px",
-            flex: "0 0 auto",
-            scrollSnapAlign: "center",
-            paddingTop: "30%",
-            position: "relative",
-            boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
-            backgroundSize: "cover",
-            overflow: "hidden",
-        },
-        contentContainer: {
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            top: "0"
-        },
-        informationBox: {
-            position: "absolute",
-            bottom: "0",
-            left: "0",
-            right: "0",
-            paddingBottom: "1px",
-            borderRadius: "6px",
-            background: "#ffffffa4",
-            fontWeight: 500
-        },
-        price: {
-            textAlign: "center",
-            fontSize: "1.2em"
-        }
-    });
-    return <div
-        className={css(compStyles.wrapper)}
-        style={{
-            backgroundImage: `url(${image})`,
-        }}
-        onClick={onClick}>
-        <div className={css(compStyles.contentContainer)}>
-            <div className={css(compStyles.informationBox)}>
-                <div className={css(compStyles.price)}>
-                    ${formatPrice(price)}
-                </div>
-            </div>
-        </div>
-    </div>;
-}
+// const FeaturedItem = ({ image, price, name, onClick }) => {
+//     const compStyles = StyleSheet.create({
+//         wrapper: {
+//             width: "30%",
+//             margin: "9px",
+//             borderRadius: "15px",
+//             flex: "0 0 auto",
+//             scrollSnapAlign: "center",
+//             paddingTop: "30%",
+//             position: "relative",
+//             boxShadow: "0 3px 6px rgba(0, 0, 0, 0.06), 0 3px 6px rgba(0, 0, 0, 0.13)",
+//             backgroundSize: "cover",
+//             overflow: "hidden",
+//         },
+//         contentContainer: {
+//             position: "absolute",
+//             width: "100%",
+//             height: "100%",
+//             top: "0"
+//         },
+//         informationBox: {
+//             position: "absolute",
+//             bottom: "0",
+//             left: "0",
+//             right: "0",
+//             paddingBottom: "1px",
+//             borderRadius: "6px",
+//             background: "#ffffffa4",
+//             fontWeight: 500
+//         },
+//         price: {
+//             textAlign: "center",
+//             fontSize: "1.2em"
+//         }
+//     });
+//     return <div
+//         className={css(compStyles.wrapper)}
+//         style={{
+//             backgroundImage: `url(${image})`,
+//         }}
+//         onClick={onClick}>
+//         <div className={css(compStyles.contentContainer)}>
+//             <div className={css(compStyles.informationBox)}>
+//                 <div className={css(compStyles.price)}>
+//                     ${formatPrice(price)}
+//                 </div>
+//             </div>
+//         </div>
+//     </div>;
+// }
 
 const ListItem = ({ item, onClick }) => {
     const compStyles = StyleSheet.create({
@@ -279,17 +277,17 @@ const ListItem = ({ item, onClick }) => {
     })
     return <div
         className={css(compStyles.itemWrapper)}
-        onClick={item.amount_available == 0 ? null : onClick}>
+        onClick={item.amount_available === 0 ? null : onClick}>
         <div className={css(compStyles.itemImageContainer)}>
             <img
-                className={css(compStyles.itemImage, item.amount_available == 0 ? compStyles.outOfStockImage : null)}
+                className={css(compStyles.itemImage, item.amount_available === 0 ? compStyles.outOfStockImage : null)}
                 alt=""
                 src={item.image} />
         </div>
         <div className={css(compStyles.itemContent)}>
             <div className={css(compStyles.name)}>
-                <span className={item.amount_available == 0 ? css(compStyles.outOfStockName) : null}>{item.name}</span>
-                <br />{item.amount_available == 0 ? <span style={{ color: "var(--secondary)" }}>Out of stock</span> : ""}
+                <span className={item.amount_available === 0 ? css(compStyles.outOfStockName) : null}>{item.name}</span>
+                <br />{item.amount_available === 0 ? <span style={{ color: "var(--secondary)" }}>Out of stock</span> : ""}
             </div>
             <div className={css(compStyles.price)}>
                 ${formatPrice(item.price)}

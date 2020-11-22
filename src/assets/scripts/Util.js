@@ -120,11 +120,11 @@ export const postToAPI = async (
     promise = false
 ) => {
     return await postData("https://dev.lopeseat.com/REST" + url, data, raw, promise);
-    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-        return await postData("https://dev.lopeseat.com/REST" + url, data, raw, promise);
-    } else {
-        return await postData("https://lopeseat.com/REST" + url, data, raw, promise);
-    }
+    // if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    //     return await postData("https://dev.lopeseat.com/REST" + url, data, raw, promise);
+    // } else {
+    //     return await postData("https://lopeseat.com/REST" + url, data, raw, promise);
+    // }
 }
 
 export const phoneNumberTaken = async (phoneNumber) => {
