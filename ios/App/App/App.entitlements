@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
-		<string>merchant.com.lopeseat.sandbox</string>
+		<string>merchant.com.lopeseat.app</string>
 	</array>
 </dict>
 </plist>

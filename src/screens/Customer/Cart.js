@@ -28,8 +28,6 @@ class Cart extends React.Component {
             canOrder: true,
             msg: ""
         };
-
-        this.fetchData();
     }
 
     async fetchData() {
@@ -50,6 +48,10 @@ class Cart extends React.Component {
             canOrder: prices.can_order,
             msg: prices.msg
         });
+    }
+
+    componentDidMount() {
+        this.fetchData();
     }
 
     editItem = (item) => {
@@ -86,10 +88,12 @@ class Cart extends React.Component {
     };
 
     render() {
+        if (!this.state.items.map)
+            return;
         return (
             <Screen
                 appBar={{ title: "Cart" }}>
-                <ItemOptions onClose={() => this.fetchData()}/>
+                <ItemOptions onClose={() => this.fetchData()} />
                 <div className="cartList">
                     {this.state.items.map((value, index) => {
                         var options = JSON.parse(value.options);

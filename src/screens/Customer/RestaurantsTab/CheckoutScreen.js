@@ -102,7 +102,7 @@ class CheckoutScreen extends React.Component {
         var { total, needFoodPayment, fee } = this.state;
         var cost = needFoodPayment ? total : fee;
 
-        return <Checkout canUseBalances total={cost} submitPayment={this.pay} />;
+        return <Checkout canUseBalances canUseTip total={cost} submitPayment={this.pay} />;
     }
 }
 

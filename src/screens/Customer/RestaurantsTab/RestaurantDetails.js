@@ -275,19 +275,20 @@ const ListItem = ({ item, onClick }) => {
             float: "right"
         }
     })
+    var outOfStock = item.amount_available === 0 || item.amount_available === "0";
     return <div
         className={css(compStyles.itemWrapper)}
-        onClick={item.amount_available === 0 ? null : onClick}>
+        onClick={outOfStock ? null : onClick}>
         <div className={css(compStyles.itemImageContainer)}>
             <img
-                className={css(compStyles.itemImage, item.amount_available === 0 ? compStyles.outOfStockImage : null)}
+                className={css(compStyles.itemImage, outOfStock ? compStyles.outOfStockImage : null)}
                 alt=""
                 src={item.image} />
         </div>
         <div className={css(compStyles.itemContent)}>
             <div className={css(compStyles.name)}>
-                <span className={item.amount_available === 0 ? css(compStyles.outOfStockName) : null}>{item.name}</span>
-                <br />{item.amount_available === 0 ? <span style={{ color: "var(--secondary)" }}>Out of stock</span> : ""}
+                <span className={outOfStock ? css(compStyles.outOfStockName) : null}>{item.name}</span>
+                <br />{outOfStock ? <span style={{ color: "var(--secondary)" }}>Out of stock</span> : ""}
             </div>
             <div className={css(compStyles.price)}>
                 ${formatPrice(item.price)}

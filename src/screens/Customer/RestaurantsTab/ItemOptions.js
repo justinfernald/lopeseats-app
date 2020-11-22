@@ -151,7 +151,7 @@ class ItemOptions extends React.Component {
             <IonModal cssClass="itemModal" isOpen={this.props.itemModalOpen} animated>
                 <div style={{ height: "100%", width: "100%", overflowY: "scroll" }}>
                     <div style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "flex-end" }}>
-                        <span onClick={this.closeItem} className="material-icons" style={{ margin: "20px", fontSize: "2em" }}>
+                        <span onClick={this.closeItem} className="material-icons" style={{ margin: "60px 20px", fontSize: "2em" }}>
                             clear
                         </span>
                     </div>
