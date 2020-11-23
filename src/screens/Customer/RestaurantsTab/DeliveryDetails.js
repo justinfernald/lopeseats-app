@@ -52,11 +52,12 @@ class DeliveryDetails extends React.Component {
         if (this.state.searchResults.length > 0 && this.state.searchResults[0].name === address) {
 
             store.dispatch(actions.setAddress(address));
-            if (this.state.searchResults[0])
+            if (this.state.searchResults[0].room_number)
                 this.props.history.push("/app/restaurants/roomnumber");
-            else
+            else {
                 store.dispatch(actions.setRoomNumber(-1));
-            this.props.history.push("/app/restaurants/checkout");
+                this.props.history.push("/app/restaurants/checkout");
+            }
         } else {
             showErrors(["Please select a building."]);
         }

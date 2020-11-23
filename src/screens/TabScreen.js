@@ -93,7 +93,7 @@ const MainScreen = (props) =>
                             />
                         </IonTabButton>
                         <IonTabButton tab="cart" href="/app/cart">
-                            <div
+                            {/* <div
                                 style={{
                                     position: "absolute",
                                     background: "var(--secondary)",
@@ -112,7 +112,7 @@ const MainScreen = (props) =>
                                     zIndex: 1
                                 }}>
                                 {props.cartItems.length}
-                            </div>
+                            </div> */}
                             <IonIcon
                                 icon={cart}
                                 style={{ width: "100%", height: "53%" }}

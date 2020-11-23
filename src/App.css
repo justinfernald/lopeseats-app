@@ -133,6 +133,7 @@ input:-webkit-autofill:active {
   left: 50%;
   transform: translate(-50%, 0);
   color: white;
+  z-index: 30000;
 }
 
 @keyframes errorAnimation {

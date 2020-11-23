@@ -31,7 +31,7 @@ class IncomingOrders extends React.Component {
     }
 
     async fetchData(id) {
-        const timeAllowed = 90; // in seconds
+        const timeAllowed = 600; // in seconds
 
         let returnedOrder = await getAcceptableOrder(this.props.apiToken, id);
         if (!returnedOrder.success) {

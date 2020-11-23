@@ -137,8 +137,7 @@ class Cart extends React.Component {
                                         removeCartItem(
                                             this.props.apiToken,
                                             value.id
-                                        );
-                                        this.fetchData();
+                                        ).then(() => this.fetchData());
                                     }}>
                                     <div className="minus"></div>
                                 </div>

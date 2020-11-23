@@ -106,7 +106,7 @@ class CheckoutScreen extends React.Component {
     }
 }
 
-export default connect(({ apiToken, building, balances, buildings, roomNumber }) => ({ apiToken, building, balances, buildings, roomNumber }))(
+export default connect(({ apiToken, building, balances, buildings, roomNumber, address }) => ({ apiToken, building, balances, buildings, roomNumber, address }))(
     CheckoutScreen
 );
 
