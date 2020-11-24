@@ -55,7 +55,8 @@ class PaymentMethodSelection extends React.Component<{ paymentUpdate: (payment: 
         var { total, paymentUpdate } = this.props;
 
         this.braintree.showDropIn({
-            amount: total.toString()
+            amount: total.toString(),
+            disabled: ["applePay", "paypal"]
         }).then(
             (payment) => {
                 console.log("Payment: ");

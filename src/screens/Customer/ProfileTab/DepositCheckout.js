@@ -18,47 +18,6 @@ import { requestBraintreeToken, sendDepositPayment } from '../../../assets/scrip
 // const { App: PApp, BraintreePlugin } = Plugins;
 
 class DepositCheckout extends React.Component {
-    instance;
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            clientToken: null
-        };
-    }
-
-    async componentDidMount() {
-        const response = await requestBraintreeToken()
-        const clientToken = await response.json();
-
-        console.log(clientToken);
-
-        this.setState({
-            clientToken
-        });
-
-        this.braintree = new Braintree();
-        this.braintree.setToken({
-            token: clientToken
-        }).catch((error) => {
-            console.log(error);
-        });
-    }
-
-    getPayment = () => {
-        var { amount } = this.props.depositData;
-
-        this.braintree.showDropIn({
-            amount
-        }).then(
-            (payment) => {
-                console.log("Payment: ");
-                console.log(JSON.stringify(payment));
-            }).catch((error) => {
-                console.log(error);
-            });
-    }
 
     pay = async (payment) => {
         if (!payment) return;

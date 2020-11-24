@@ -1,6 +1,6 @@
 {
     "name": "lopeseats-pwa",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "private": true,
     "dependencies": {
         "@angular/common": "^10.0.14",
